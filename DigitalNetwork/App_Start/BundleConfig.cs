@@ -1,0 +1,72 @@
+﻿using System.Web;
+using System.Web.Optimization;
+
+namespace DigitalNetwork
+{
+    public class BundleConfig
+    {
+        // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
+        public static void RegisterBundles(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
+                   
+                "~/js/bootstrap.js",
+                "~/js/app.js",
+                "~/js/app.plugin.js",
+                "~/js/slimscroll/jquery.slimscroll.min.js",
+                "~/js/charts/sparkline/jquery.sparkline.min.js",
+                "~/js/charts/flot/jquery.flot.min.js",
+                "~/js/charts/flot/jquery.flot.tooltip.min.js",
+                "~/js/charts/flot/jquery.flot.resize.js",
+                "~/js/charts/flot/jquery.flot.grow.js",
+                "~/js/charts/flot/demo.js",
+                "~/js/userdata.js",
+                "~/js/realtime.js",
+                "~/js/calendar/bootstrap_calendar.js",
+                "~/js/calendar/demo.js",
+                "~/js/sortable/jquery.sortable.js",
+                "~/Scripts/toastr.js",
+                "~/Scripts/jquery.raty.js",
+                "~/Scripts/respond.src.js",
+                "~/Scripts/ui-bootstrap-tpls-0.13.1.js",
+                "~/Scripts/underscore.js",
+                "~/Scripts/raphael.js",
+                "~/Scripts/morris.js",
+                "~/Scripts/jquery.fancybox.js",
+                "~/Scripts/jquery.fancybox-media.js",
+                "~/Scripts/loading-bar.js",
+                        "~/Scripts/jquery.js",
+                        "~/Scripts/jquery-{version}.js"  
+                        ));
+
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+                 "~/Content/bootstrap.css",
+                 "~/Content/animate.css",
+                 "~/Content/font-awesome.min.css",
+                 "~/Content/font.css",
+                 "~/Content/app.css",
+                 "~/Content/custom.css",
+                 "~/Content/realtime.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
+                "~/Scripts/modernizr-2.6.2.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/angular").Include(
+
+                "~/Scripts/angular.js",
+                "~/Scripts/angular-route.js",
+                "~/Scripts/angular-cookies.js",
+                "~/Scripts/angular-validator.js",
+                "~/Scripts/angular-base64.js",
+                "~/Scripts/angular-file-upload.js",
+                "~/Scripts/angucomplete-alt.min.js",
+                        "~/Scripts/script.js"                  
+                        ));
+
+            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
+                        "~/Scripts/jquery.validate*"));
+
+            BundleTable.EnableOptimizations = false;
+        }
+    }
+}
