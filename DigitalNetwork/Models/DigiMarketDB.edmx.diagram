@@ -4,13 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f601a8a71ce7480da96b39bdba4d8f8d" Name="Diagram1">
-        <EntityTypeShape EntityType="digimarketModel.Admin" Width="1.5" PointX="5.75" PointY="0.875" IsExpanded="true" />
+      <Diagram DiagramId="d5341d66f97e416bbde3bdbc56d0d45c" Name="Diagram1">
+        <EntityTypeShape EntityType="digimarketModel.Admin" Width="1.5" PointX="5.75" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="digimarketModel.Article" Width="1.5" PointX="10.25" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="digimarketModel.Payment" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="digimarketModel.Rate" Width="1.5" PointX="5.75" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="digimarketModel.Rates_History" Width="1.5" PointX="8" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="digimarketModel.Site" Width="1.5" PointX="8" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="digimarketModel.Rate" Width="1.5" PointX="5.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="digimarketModel.Rates_History" Width="1.5" PointX="8" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="digimarketModel.Site" Width="1.5" PointX="8" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="digimarketModel.sysdiagram" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="digimarketModel.User" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
         <EntityTypeShape EntityType="digimarketModel.User_Marketing_Source" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />

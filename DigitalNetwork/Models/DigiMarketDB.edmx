@@ -24,8 +24,9 @@
         </EntityType>
         <EntityType Name="Articles">
           <Key>
-            <PropertyRef Name="a_id" />
+            <PropertyRef Name="serial_no" />
           </Key>
+          <Property Name="serial_no" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="a_id" Type="int" Nullable="false" />
           <Property Name="url" Type="varchar(max)" Nullable="false" />
           <Property Name="status" Type="bit" Nullable="false" />
@@ -218,7 +219,7 @@
           <Parameter Name="uid" Type="varchar" Mode="In" />
         </Function>
         <Function Name="delete_article" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="aid" Type="int" Mode="In" />
+          <Parameter Name="serial" Type="int" Mode="In" />
         </Function>
         <Function Name="delete_site" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="site_url" Type="varchar" Mode="In" />
@@ -234,6 +235,8 @@
         </Function>
         <Function Name="get_admin_single_article" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="aid" Type="int" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="site" Type="varchar" Mode="In" />
         </Function>
         <Function Name="get_articles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="get_payment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -251,7 +254,10 @@
           <Parameter Name="uid" Type="varchar" Mode="In" />
         </Function>
         <Function Name="get_user_single_article" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="aid" Type="int" Mode="In" />
+          <Parameter Name="serial" Type="int" Mode="In" />
+        </Function>
+        <Function Name="getArticleBySerial" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="serial" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -285,7 +291,7 @@
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="update_articles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="status" Type="bit" Mode="In" />
-          <Parameter Name="aid" Type="int" Mode="In" />
+          <Parameter Name="serial" Type="int" Mode="In" />
         </Function>
         <Function Name="update_rates" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="category" Type="varchar" Mode="In" />
@@ -374,8 +380,9 @@
         </EntityType>
         <EntityType Name="Article">
           <Key>
-            <PropertyRef Name="a_id" />
+            <PropertyRef Name="serial_no" />
           </Key>
+          <Property Name="serial_no" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="a_id" Type="Int32" Nullable="false" />
           <Property Name="url" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="status" Type="Boolean" Nullable="false" />
@@ -587,7 +594,7 @@
             <Parameter Name="uid" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="delete_article">
-            <Parameter Name="aid" Mode="In" Type="Int32" />
+            <Parameter Name="serial" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="delete_site">
             <Parameter Name="site_url" Mode="In" Type="String" />
@@ -602,6 +609,8 @@
           </FunctionImport>
           <FunctionImport Name="get_admin_single_article" ReturnType="Collection(digimarketModel.get_admin_single_article_Result)">
             <Parameter Name="aid" Mode="In" Type="Int32" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="site" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_articles" ReturnType="Collection(digimarketModel.get_articles_Result)" />
           <FunctionImport Name="get_payment" ReturnType="Collection(digimarketModel.get_payment_Result)">
@@ -619,7 +628,10 @@
             <Parameter Name="uid" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_user_single_article" ReturnType="Collection(digimarketModel.get_user_single_article_Result)">
-            <Parameter Name="aid" Mode="In" Type="Int32" />
+            <Parameter Name="serial" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="getArticleBySerial" ReturnType="Collection(digimarketModel.getArticleBySerial_Result)">
+            <Parameter Name="serial" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_alterdiagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
@@ -653,7 +665,7 @@
           <FunctionImport Name="sp_upgraddiagrams" />
           <FunctionImport Name="update_articles">
             <Parameter Name="status" Mode="In" Type="Boolean" />
-            <Parameter Name="aid" Mode="In" Type="Int32" />
+            <Parameter Name="serial" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="update_rates">
             <Parameter Name="category" Mode="In" Type="String" />
@@ -697,18 +709,21 @@
           <Property Type="String" Name="photo_url" Nullable="true" />
         </ComplexType>
         <ComplexType Name="get_admin_articles_Result">
+          <Property Type="Int32" Name="serial_no" Nullable="false" />
           <Property Type="Int32" Name="a_id" Nullable="false" />
           <Property Type="String" Name="url" Nullable="false" />
           <Property Type="Boolean" Name="status" Nullable="false" />
           <Property Type="String" Name="site_url" Nullable="false" MaxLength="100" />
         </ComplexType>
         <ComplexType Name="get_admin_single_article_Result">
+          <Property Type="Int32" Name="serial_no" Nullable="false" />
           <Property Type="Int32" Name="a_id" Nullable="false" />
           <Property Type="String" Name="url" Nullable="false" />
           <Property Type="Boolean" Name="status" Nullable="false" />
           <Property Type="String" Name="site_url" Nullable="false" MaxLength="100" />
         </ComplexType>
         <ComplexType Name="get_articles_Result">
+          <Property Type="Int32" Name="serial_no" Nullable="false" />
           <Property Type="Int32" Name="a_id" Nullable="false" />
           <Property Type="String" Name="url" Nullable="false" />
           <Property Type="Boolean" Name="status" Nullable="false" />
@@ -733,6 +748,14 @@
           <Property Type="String" Name="description" Nullable="true" />
         </ComplexType>
         <ComplexType Name="get_user_single_article_Result">
+          <Property Type="Int32" Name="serial_no" Nullable="false" />
+          <Property Type="Int32" Name="a_id" Nullable="false" />
+          <Property Type="String" Name="url" Nullable="false" />
+          <Property Type="Boolean" Name="status" Nullable="false" />
+          <Property Type="String" Name="site_url" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="getArticleBySerial_Result">
+          <Property Type="Int32" Name="serial_no" Nullable="false" />
           <Property Type="Int32" Name="a_id" Nullable="false" />
           <Property Type="String" Name="url" Nullable="false" />
           <Property Type="Boolean" Name="status" Nullable="false" />
@@ -775,6 +798,7 @@
           <EntitySetMapping Name="Articles">
             <EntityTypeMapping TypeName="digimarketModel.Article">
               <MappingFragment StoreEntitySet="Articles">
+                <ScalarProperty Name="serial_no" ColumnName="serial_no" />
                 <ScalarProperty Name="a_id" ColumnName="a_id" />
                 <ScalarProperty Name="url" ColumnName="url" />
                 <ScalarProperty Name="status" ColumnName="status" />
@@ -887,6 +911,7 @@
           <FunctionImportMapping FunctionImportName="get_admin_articles" FunctionName="digimarketModel.Store.get_admin_articles">
             <ResultMapping>
               <ComplexTypeMapping TypeName="digimarketModel.get_admin_articles_Result">
+                <ScalarProperty Name="serial_no" ColumnName="serial_no" />
                 <ScalarProperty Name="a_id" ColumnName="a_id" />
                 <ScalarProperty Name="url" ColumnName="url" />
                 <ScalarProperty Name="status" ColumnName="status" />
@@ -897,6 +922,7 @@
           <FunctionImportMapping FunctionImportName="get_admin_single_article" FunctionName="digimarketModel.Store.get_admin_single_article">
             <ResultMapping>
               <ComplexTypeMapping TypeName="digimarketModel.get_admin_single_article_Result">
+                <ScalarProperty Name="serial_no" ColumnName="serial_no" />
                 <ScalarProperty Name="a_id" ColumnName="a_id" />
                 <ScalarProperty Name="url" ColumnName="url" />
                 <ScalarProperty Name="status" ColumnName="status" />
@@ -907,6 +933,7 @@
           <FunctionImportMapping FunctionImportName="get_articles" FunctionName="digimarketModel.Store.get_articles">
             <ResultMapping>
               <ComplexTypeMapping TypeName="digimarketModel.get_articles_Result">
+                <ScalarProperty Name="serial_no" ColumnName="serial_no" />
                 <ScalarProperty Name="a_id" ColumnName="a_id" />
                 <ScalarProperty Name="url" ColumnName="url" />
                 <ScalarProperty Name="status" ColumnName="status" />
@@ -947,6 +974,18 @@
           <FunctionImportMapping FunctionImportName="get_user_single_article" FunctionName="digimarketModel.Store.get_user_single_article">
             <ResultMapping>
               <ComplexTypeMapping TypeName="digimarketModel.get_user_single_article_Result">
+                <ScalarProperty Name="serial_no" ColumnName="serial_no" />
+                <ScalarProperty Name="a_id" ColumnName="a_id" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="site_url" ColumnName="site_url" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getArticleBySerial" FunctionName="digimarketModel.Store.getArticleBySerial">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="digimarketModel.getArticleBySerial_Result">
+                <ScalarProperty Name="serial_no" ColumnName="serial_no" />
                 <ScalarProperty Name="a_id" ColumnName="a_id" />
                 <ScalarProperty Name="url" ColumnName="url" />
                 <ScalarProperty Name="status" ColumnName="status" />

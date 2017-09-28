@@ -10,16 +10,13 @@
 namespace DigitalNetwork.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Article
+    public partial class getArticleBySerial_Result
     {
         public int serial_no { get; set; }
         public int a_id { get; set; }
         public string url { get; set; }
         public bool status { get; set; }
         public string site_url { get; set; }
-    
-        public virtual Site Site { get; set; }
     }
 }

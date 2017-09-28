@@ -7,6 +7,8 @@ namespace DigitalNetwork.Models
 {
     public class ArticleModel
     {
+        
+        public string site_url {get; set;}
         public int aId { get; set; }
         public string title { get; set; }
         public string aUrl { get; set; }

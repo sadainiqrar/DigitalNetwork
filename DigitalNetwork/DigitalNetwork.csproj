@@ -1130,6 +1130,7 @@
     <Compile Include="Models\Admin.cs">
       <DependentUpon>DigiMarketDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AdminSite.cs" />
     <Compile Include="Models\admin_sign_in_Result.cs">
       <DependentUpon>DigiMarketDB.tt</DependentUpon>
     </Compile>
@@ -1154,6 +1155,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DigiMarketDB.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\getArticleBySerial_Result.cs">
+      <DependentUpon>DigiMarketDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\get_admin_articles_Result.cs">
       <DependentUpon>DigiMarketDB.tt</DependentUpon>

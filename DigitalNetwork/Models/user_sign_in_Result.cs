@@ -19,15 +19,4 @@ namespace DigitalNetwork.Models
         public string username { get; set; }
         public string photourl { get; set; }
     }
-    public partial class user_sign_up_Result
-    {
-        public string uid { get; set; }
-        public string email { get; set; }
-        public string password { get; set; }
-        public string username { get; set; }
-        public string photourl { get; set; }
-
-        public string url { get; set; }
-        public string description { get; set; }
-    }
 }

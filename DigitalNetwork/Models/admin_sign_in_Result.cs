@@ -18,14 +18,4 @@ namespace DigitalNetwork.Models
         public string password { get; set; }
         public string photo_url { get; set; }
     }
-    public partial class admin_sign_up_Result
-    {
-        public string email { get; set; }
-        public string adminname { get; set; }
-        public string password { get; set; }
-        public string photo_url { get; set; }
-        public string site_name { get; set; }
-        public string site_url { get; set; }
-        public string ga_id { get; set; }
-    }
 }

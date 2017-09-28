@@ -201,13 +201,13 @@ namespace DigitalNetwork.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("count_ums", uidParameter);
         }
     
-        public virtual int delete_article(Nullable<int> aid)
+        public virtual int delete_article(Nullable<int> serial)
         {
-            var aidParameter = aid.HasValue ?
-                new ObjectParameter("aid", aid) :
-                new ObjectParameter("aid", typeof(int));
+            var serialParameter = serial.HasValue ?
+                new ObjectParameter("serial", serial) :
+                new ObjectParameter("serial", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("delete_article", aidParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("delete_article", serialParameter);
         }
     
         public virtual int delete_site(string site_url, string email)
@@ -245,13 +245,21 @@ namespace DigitalNetwork.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_admin_articles_Result>("get_admin_articles", emailParameter, siteParameter);
         }
     
-        public virtual ObjectResult<get_admin_single_article_Result> get_admin_single_article(Nullable<int> aid)
+        public virtual ObjectResult<get_admin_single_article_Result> get_admin_single_article(Nullable<int> aid, string email, string site)
         {
             var aidParameter = aid.HasValue ?
                 new ObjectParameter("aid", aid) :
                 new ObjectParameter("aid", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_admin_single_article_Result>("get_admin_single_article", aidParameter);
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var siteParameter = site != null ?
+                new ObjectParameter("site", site) :
+                new ObjectParameter("site", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_admin_single_article_Result>("get_admin_single_article", aidParameter, emailParameter, siteParameter);
         }
     
         public virtual ObjectResult<get_articles_Result> get_articles()
@@ -306,13 +314,22 @@ namespace DigitalNetwork.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_ums_Result>("get_ums", uidParameter);
         }
     
-        public virtual ObjectResult<get_user_single_article_Result> get_user_single_article(Nullable<int> aid)
+        public virtual ObjectResult<get_user_single_article_Result> get_user_single_article(Nullable<int> serial)
         {
-            var aidParameter = aid.HasValue ?
-                new ObjectParameter("aid", aid) :
-                new ObjectParameter("aid", typeof(int));
+            var serialParameter = serial.HasValue ?
+                new ObjectParameter("serial", serial) :
+                new ObjectParameter("serial", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_user_single_article_Result>("get_user_single_article", aidParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_user_single_article_Result>("get_user_single_article", serialParameter);
+        }
+    
+        public virtual ObjectResult<getArticleBySerial_Result> getArticleBySerial(Nullable<int> serial)
+        {
+            var serialParameter = serial.HasValue ?
+                new ObjectParameter("serial", serial) :
+                new ObjectParameter("serial", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getArticleBySerial_Result>("getArticleBySerial", serialParameter);
         }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
@@ -418,17 +435,17 @@ namespace DigitalNetwork.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
         }
     
-        public virtual int update_articles(Nullable<bool> status, Nullable<int> aid)
+        public virtual int update_articles(Nullable<bool> status, Nullable<int> serial)
         {
             var statusParameter = status.HasValue ?
                 new ObjectParameter("status", status) :
                 new ObjectParameter("status", typeof(bool));
     
-            var aidParameter = aid.HasValue ?
-                new ObjectParameter("aid", aid) :
-                new ObjectParameter("aid", typeof(int));
+            var serialParameter = serial.HasValue ?
+                new ObjectParameter("serial", serial) :
+                new ObjectParameter("serial", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("update_articles", statusParameter, aidParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("update_articles", statusParameter, serialParameter);
         }
     
         public virtual int update_rates(string category, Nullable<decimal> rate, Nullable<System.DateTime> date)

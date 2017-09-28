@@ -13,6 +13,7 @@ namespace DigitalNetwork.Models
     
     public partial class get_admin_articles_Result
     {
+        public int serial_no { get; set; }
         public int a_id { get; set; }
         public string url { get; set; }
         public bool status { get; set; }

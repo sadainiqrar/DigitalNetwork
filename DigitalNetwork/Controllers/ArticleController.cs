@@ -21,16 +21,19 @@ namespace DigitalNetwork.Controllers
         [Route("api/admin/articles")]
         public IEnumerable<get_admin_articles_Result> Geti()
         {
-            return dataCon.DB.db.get_admin_articles("zuraiz.com", "url4.com");
+            return dataCon.DB.db.get_admin_articles("zuraiz.com", "http://trumpgossiptoday.com");
 
 
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("api/admin/articles/{id}")]
-        public IEnumerable<get_admin_single_article_Result> GetSingleArticle(int id)
+        public IEnumerable<get_admin_single_article_Result> PostSingleArticle(int id,[FromBody] AdminSite adsite)
         {
-            return dataCon.DB.db.get_admin_single_article(id);
+
+            getArticleBySerial_Result article = dataCon.DB.db.getArticleBySerial(id).ElementAt<getArticleBySerial_Result>(0);
+
+            return dataCon.DB.db.get_admin_single_article(article.a_id, adsite.email, article.site_url);
 
         }
 
@@ -38,9 +41,9 @@ namespace DigitalNetwork.Controllers
 
         [HttpPost]
         [Route("api/admin/articles/{id}/update")]
-        public int updateSignleArticle(int id)
+        public int updateSingleArticle(int id)
         {
-            get_admin_single_article_Result article = dataCon.DB.db.get_admin_single_article(id).ElementAt< get_admin_single_article_Result>(0);
+            getArticleBySerial_Result article = dataCon.DB.db.getArticleBySerial(id).ElementAt< getArticleBySerial_Result>(0);
          
             return dataCon.DB.db.update_articles(!article.status, id);
 

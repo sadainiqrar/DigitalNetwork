@@ -34,7 +34,7 @@ namespace DigitalNetwork.Scheduler
             {
                 try
                 {
-                    dataCon.DB.db.add_article(post.aId, post.aUrl, false, "url4.com");
+                    dataCon.DB.db.add_article(post.aId, post.aUrl, false, "http://trumpgossiptoday.com");
                     count++;
                 }
                 catch (Exception e)
@@ -49,19 +49,19 @@ namespace DigitalNetwork.Scheduler
             dbList = dbArticles();
             siteList = makeArticleList();
 
-            foreach (get_admin_articles_Result listItem in dbList)
+            foreach (get_admin_articles_Result dblistItem in dbList)
             {
-                if(!siteList.Contains(checkElement(listItem.a_id,siteList)))
+                if (!siteList.Contains(checkElement(dblistItem.a_id, dblistItem.site_url,siteList)))
                 {
-                    dataCon.DB.db.delete_article(listItem.a_id);
+                    dataCon.DB.db.delete_article(dblistItem.serial_no);
                 }
             }
         }
-        private ArticleModel checkElement(int aid, List<ArticleModel> artList)
+        private ArticleModel checkElement(int aid,string site_url, List<ArticleModel> artList)
         {
             foreach(ArticleModel a in artList)
             {
-                if(a.aId == aid)
+                if((a.aId == aid) && (a.site_url.Equals(site_url)))
                 {
                     return a;
                 }
@@ -86,11 +86,13 @@ namespace DigitalNetwork.Scheduler
         private List<ArticleModel> makeArticleList()
         {
             List<ArticleModel> articles = new List<ArticleModel>();
-            JArray posts = callBack("http://trumpgossiptoday.com/wp-json/wp/v2/posts");
+            string url = "http://trumpgossiptoday.com";
+            JArray posts = callBack(url + "/wp-json/wp/v2/posts");
 
             foreach (JObject post in posts)
             {
                 ArticleModel article = new ArticleModel();
+                article.site_url = url;
                 article.aId = post.SelectToken("id").Value<int>();
                 article.title = "empty";
                 article.excerpt = "empty";
