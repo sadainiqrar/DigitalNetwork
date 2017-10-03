@@ -34,7 +34,7 @@ namespace DigitalNetwork.Scheduler
             {
                 try
                 {
-                    dataCon.DB.db.add_article(post.aId, post.aUrl, false, "http://trumpgossiptoday.com");
+                    dataCon.DB.db.add_article(post.aId, post.aUrl, false, post.title, post.excerpt, post.featuredImage,post.modifiedDate, "http://trumpgossiptoday.com");
                     count++;
                 }
                 catch (Exception e)
@@ -54,6 +54,11 @@ namespace DigitalNetwork.Scheduler
                 if (!siteList.Contains(checkElement(dblistItem.a_id, dblistItem.site_url,siteList)))
                 {
                     dataCon.DB.db.delete_article(dblistItem.serial_no);
+                }
+                if (siteList.Contains(checkElement(dblistItem.a_id, dblistItem.site_url, siteList)))
+                {
+                    ArticleModel post = checkElement(dblistItem.a_id, dblistItem.site_url, siteList);
+                    dataCon.DB.db.update_article_data(dblistItem.serial_no, post.aUrl, post.title, post.excerpt, post.featuredImage, post.modifiedDate );
                 }
             }
         }
@@ -94,15 +99,19 @@ namespace DigitalNetwork.Scheduler
                 ArticleModel article = new ArticleModel();
                 article.site_url = url;
                 article.aId = post.SelectToken("id").Value<int>();
-                article.title = "empty";
-                article.excerpt = "empty";
-                article.modifiedDate = DateTime.Now;
+                article.title = post.SelectToken("title.rendered").Value<string>();
+                article.excerpt = post.SelectToken("excerpt.rendered").Value<string>();
+                article.modifiedDate = post.SelectToken("modified").Value<DateTime>();
                 article.aUrl = post.SelectToken("link").Value<string>();
-                article.featuredImage = "empty";
-             
-            
-   
-
+                try { 
+                    string image_post_url = post.SelectToken("_links.wp:featuredmedia[0].href").Value<string>();
+                    JObject images = ObjectPaging(image_post_url);
+                    article.featuredImage = images.SelectToken("guid.rendered").Value<string>();
+                }
+                catch(Exception e)
+                {
+                    article.featuredImage = "";
+                }
                 articles.Add(article);
             }
             return articles;
@@ -154,6 +163,34 @@ namespace DigitalNetwork.Scheduler
                     }
                 }
                 var releases = JArray.Parse(content);
+                return releases;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
+
+        private JObject ObjectPaging(string url)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            request.Method = "GET";
+            request.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
+
+
+            try
+            {
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                string content = string.Empty;
+                using (Stream stream = response.GetResponseStream())
+                {
+                    using (StreamReader sr = new StreamReader(stream))
+                    {
+                        content = sr.ReadToEnd();
+                    }
+                }
+                var releases = JObject.Parse(content);
                 return releases;
             }
             catch (Exception e)

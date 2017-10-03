@@ -1,24 +1,17 @@
 
-    <div class="container">
-        <div class="col-md-8 col-sm-8"><h2>Traffic</h2></div>
-        <div class="col-md-6">
-          <div class="col-lg-4  padder-v b-r b-light">
-                <span class="fa-stack fa-2x pull-left m-r-sm">
-                      <i class="fa fa-circle fa-stack-2x text-info"></i>
-                      <i class="fa fa-male fa-stack-1x text-white"></i>
-                    </span>
-                   <a class="clear" href="#">
-                      <span class="h3 block m-t-xs"><strong>52,000</strong></span>
-                      <small class="text-muted text-uc">Total Users</small>
-                    </a>
-              </div> 
-        </div>
-        <div class="col-md-6" style="float:right">
-             <div   class ="col-sm-4" >
+   <section id="content">
+
+       <h2>{{message}}</h2>
+   <div class="m-b-md" style="float: left">
+                <h2  class="col-md-6 col-sm-4">Traffic</h2> 
+    </div>
+       
+       <div class="row" style="float: right">                 
+                  <div   class ="col-md-4" style="float: right">
                 <div class="col-sm-12">
                     <div class="form-group">
                         <div class="col-sm-3 control-label">
-                            <label for="startdate">StartDate</label>
+                            <label for="startdate">EndDate</label>
                         </div>
                         <div class="col-sm-12">
                         <input type="date" id="myDate" value="mm-dd-yyyy">
@@ -27,11 +20,11 @@
                 </div>
             </div>
                         
-            <div class ="col-sm-4">
+            <div  class =" col-md-4" style="float: right">
                 <div class="col-sm-12">
                     <div class="form-group">
                         <div class="col-sm-3 control-label">
-                            <label for="enddate">EndDate</label>
+                            <label for="enddate">StartDate</label>
                         </div>
                         <div class="col-sm-12">
                              <input type="date" id="myDate" value="mm-dd-yyyy">
@@ -39,18 +32,361 @@
                     </div>
                 </div>
             </div>
-            </div>
 
 
-    <div class="row">
-        <div class="col-md-12">
+       </div>
+          
+
+                  
+              <section class="panel panel-default">
+                   <div class="col-md-12">
+                <div class="row m-l-none m-r-none bg-light lter">
+                  <div class="col-sm-6 col-md-3 padder-v b-r b-light">
+                    <span class="fa-stack fa-2x pull-left m-r-sm">
+                      <i class="fa fa-circle fa-stack-2x text-info"></i>
+                      <i class="fa fa-male fa-stack-1x text-white"></i>
+                    </span>
+                    <a class="clear" href="#">
+                      <span class="h3 block m-t-xs"><strong>52,000</strong></span>
+                      <small class="text-muted text-uc">Sessions</small>
+                    </a>
+                  </div>
+                  <div class="col-sm-6 col-md-3 padder-v b-r b-light lt">
+                    <span class="fa-stack fa-2x pull-left m-r-sm">
+                      <i class="fa fa-circle fa-stack-2x text-warning"></i>
+                      <i class="fa fa-bug fa-stack-1x text-white"></i>
+                      <span class="easypiechart pos-abt" data-percent="100" data-line-width="4" data-track-Color="#fff" data-scale-Color="false" data-size="50" data-line-cap='butt' data-animate="2000" data-target="#bugs" data-update="3000"></span>
+                    </span>
+                    <a class="clear" href="#">
+                      <span class="h3 block m-t-xs"><strong id="bugs">468</strong></span>
+                      <small class="text-muted text-uc">New Sessions</small>
+                    </a>
+                  </div>
+                   <div class="col-sm-6 col-md-3 padder-v b-r b-light">                     
+                    <span class="fa-stack fa-2x pull-left m-r-sm">
+                      <i class="fa fa-circle fa-stack-2x text-danger"></i>
+                      <i class="fa fa-fire-extinguisher fa-stack-1x text-white"></i>
+                      <span class="easypiechart pos-abt" data-percent="100" data-line-width="4" data-track-Color="#f5f5f5" data-scale-Color="false" data-size="50" data-line-cap='butt' data-animate="3000" data-target="#firers" data-update="5000"></span>
+                    </span>
+                    <a class="clear" href="#">
+                      <span class="h3 block m-t-xs"><strong id="firers">359</strong></span>
+                      <small class="text-muted text-uc">Extinguishers ready</small>
+                    </a>
+                  </div>
+                  <div class="col-sm-6 col-md-3 padder-v b-r b-light lt">
+                    <span class="fa-stack fa-2x pull-left m-r-sm">
+                      <i class="fa fa-circle fa-stack-2x icon-muted"></i>
+                      <i class="fa fa-clock-o fa-stack-1x text-white"></i>
+                    </span>
+                    <a class="clear" href="#">
+                      <span class="h3 block m-t-xs"><strong>31:50</strong></span>
+                      <small class="text-muted text-uc">Left to exit</small>
+                    </a>
+                  </div>
+                </div>
+                  </div>
+       </section>
+              </section>
+    <div class="col-md-12">
+        
             <div class="panel panel-default">
                 <div class="panel-heading">
                    <center> <h3>Graph</h3></center>
                 </div>
                 <div id="chart1" class="big-chart"></div>
             </div>
-           </div> 
+          
        </div> 
-
-</div>
+<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="table-container">
+                            
+							<table class="table table-filter">
+                                <thead>
+                                    <th>CompainID</th>
+                                    <th></th>
+                                    <th>Username</th>
+                                    <th><center>Session</center></th>
+                                    <th><center>New Session</center></th>
+                                    <th><center>New User</center></th>
+                                    <th><center>Pages per Session</center></th>
+                                    <th><center>Avg. session duration</center></th>
+                                    <th><center>% of new users</center></th>
+                                    
+                                </thead>
+								<tbody>
+									<tr data-status="pagado">
+										<td>
+											<div class="pagado">
+												<p>001</p>
+											</div>
+										</td>
+										 
+										<td>
+											<div class="media">
+												<a href="#" class="pull-left">
+													<img src="https://scontent.cdninstagram.com/t51.2885-19/s150x150/19424755_297321304063298_1411761672955101184_a.jpg" class="media-photo">
+												</a>	
+											</div>
+										</td>
+                                        <td>
+                                            <div class="media">
+                                                <div class="media-body">
+													<h4 class="title">
+														Sana Arooj
+													</h4>
+													
+												</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="media">
+                                                <div class="media-body">
+													<h4 class="title">
+														<span class="pull-right pagado">230</span>
+													</h4>
+													
+												</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="media">
+                                                <div class="media-body">
+													
+													<h4 class="title">
+                                                        <span class="pull-right pagado">300</span>
+													</h4>
+													
+												</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="media">
+                                                <div class="media-body">
+													<span class="media-meta pull-right">500</span>
+													
+												</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="media">
+                                                <div class="media-body">
+													
+													<h4 class="title">
+                                                        <span class="pull-right pagado">100</span>
+													</h4>
+													
+												</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="media">
+                                                <div class="media-body">
+													
+													<h4 class="title">
+                                                        <span class="pull-right pagado">20</span>
+													</h4>
+													
+												</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="media">
+                                                <div class="media-body">
+													
+													<h4 class="title">
+                                                        <span class="pull-right pagado">30%</span>
+													</h4>
+													
+												</div>
+                                            </div>
+                                        </td>
+									</tr>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    <tr data-status="pagado">
+										<td>
+											<div class="pagado">
+												<p>002</p>
+											</div>
+										</td>
+										
+										<td>
+											<div class="media">
+												<a href="#" class="pull-left">
+													<img src="https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAqoAAAAJDk3YjI5NzQ5LTBjMDktNDQ0NS1hY2NkLTE2MmM5ZDFhMmUxMA.jpg" class="media-photo">
+												</a>	
+											</div>
+										</td>
+                                        <td>
+                                            <div class="media">
+                                                <div class="media-body">
+													<h4 class="title">
+														Sadain
+													</h4>
+													
+												</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="media">
+                                                <div class="media-body">
+													<h4 class="title">
+														<span class="pull-right pagado">200</span>
+													</h4>
+													
+												</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="media">
+                                                <div class="media-body">
+													
+													<h4 class="title">
+                                                        <span class="pull-right pagado">250</span>
+													</h4>
+													
+												</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="media">
+                                                <div class="media-body">
+													<span class="media-meta pull-right">450</span>
+													
+												</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="media">
+                                                <div class="media-body">
+													
+													<h4 class="title">
+                                                        <span class="pull-right pagado">200</span>
+													</h4>
+													
+												</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="media">
+                                                <div class="media-body">
+													
+													<h4 class="title">
+                                                        <span class="pull-right pagado">250</span>
+													</h4>
+													
+												</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="media">
+                                                <div class="media-body">
+													
+													<h4 class="title">
+                                                        <span class="pull-right pagado">20%</span>
+													</h4>
+													
+												</div>
+                                            </div>
+                                        </td>
+                                    <tr data-status="pagado">
+										<td>
+											<div class="pagado">
+												<p>003</p>
+											</div>
+										</td>
+										
+										<td>
+											<div class="media">
+												<a href="#" class="pull-left">
+													<img src="https://lh3.googleusercontent.com/-X3itCrJnCwo/AAAAAAAAAAI/AAAAAAAAABA/nwaRJl8QtTk/s640/photo.jpg" class="media-photo">
+												</a>	
+											</div>
+										</td>
+                                        <td>
+                                            <div class="media">
+                                                <div class="media-body">
+													<h4 class="title">
+														Muhammad Zuraiz
+													</h4>
+													
+												</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="media">
+                                                <div class="media-body">
+													<h4 class="title">
+														<span class="pull-right pagado">150</span>
+													</h4>
+													
+												</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="media">
+                                                <div class="media-body">
+													
+													<h4 class="title">
+                                                        <span class="pull-right pagado">200</span>
+													</h4>
+													
+												</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="media">
+                                                <div class="media-body">
+													<span class="media-meta pull-right">400</span>
+													
+												</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="media">
+                                                <div class="media-body">
+													
+													<h4 class="title">
+                                                        <span class="pull-right pagado">100</span>
+													</h4>
+													
+												</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="media">
+                                                <div class="media-body">
+													
+													<h4 class="title">
+                                                        <span class="pull-right pagado">20</span>
+													</h4>
+													
+												</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="media">
+                                                <div class="media-body">
+													
+													<h4 class="title">
+                                                        <span class="pull-right pagado">30%</span>
+													</h4>
+													
+												</div>
+                                            </div>
+                                        </td>
+									</tr>
+                                    
+                                </tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+  

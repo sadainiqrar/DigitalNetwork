@@ -21,6 +21,7 @@ namespace DigitalNetwork.Controllers
         [Route("api/admin/articles")]
         public IEnumerable<get_admin_articles_Result> Geti()
         {
+
             return dataCon.DB.db.get_admin_articles("zuraiz.com", "http://trumpgossiptoday.com");
 
 
@@ -41,15 +42,17 @@ namespace DigitalNetwork.Controllers
 
         [HttpPost]
         [Route("api/admin/articles/{id}/update")]
-        public int updateSingleArticle(int id)
+        public bool updateSingleArticle(int id)
         {
             getArticleBySerial_Result article = dataCon.DB.db.getArticleBySerial(id).ElementAt< getArticleBySerial_Result>(0);
-         
-            return dataCon.DB.db.update_articles(!article.status, id);
+            int result = dataCon.DB.db.update_articles(!article.status, id);
+            article = dataCon.DB.db.getArticleBySerial(id).ElementAt<getArticleBySerial_Result>(0);
+            return article.status;
 
         }
+        
 
-
+        
 
     }
 }

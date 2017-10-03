@@ -11,10 +11,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <title>@ViewBag.Title DigitalNetwork</title>
         @Styles.Render("~/Content/css")
-        @Scripts.Render("~/bundles/angular")
+
+            @Scripts.Render("~/bundles/angular")
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+                @Scripts.Render("~/bundles/controllers")
+                @Scripts.Render("~/bundles/factories")
     @Scripts.Render("~/bundles/modernizr")
+    
 </head>
-<body ng-controller="dashboardController">
+<body ng-controller="mainController">
 
     <!-- angular templating -->
     <!-- this is where content will be injected -->
@@ -25,17 +31,13 @@
                 <a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen,open" data-target="#nav,html">
                     <i class="fa fa-bars"></i>
                 </a>
-                <a href="#" class="navbar-brand" data-toggle="fullscreen"><img src="images/logo.png" class="m-r-sm">Notebook</a>
+                <a href="#" class="navbar-brand" data-toggle="fullscreen">Digital Marketing</a>
                 <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".nav-user">
                     <i class="fa fa-cog"></i>
                 </a>
             </div>
             <ul class="nav navbar-nav hidden-xs"></ul>
             <ul class="nav navbar-nav navbar-right m-n hidden-xs nav-user">
-
-
-
-
 
                 <li class="dropdown hidden-xs">
                     <a href="#" class="dropdown-toggle dker" data-toggle="dropdown"><i class="fa fa-fw fa-search"></i></a>
@@ -57,9 +59,9 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <span class="thumb-sm avatar pull-left">
-                            <img src="images/avatar.jpg">
+                            <img src="download.jpg">
                         </span>
-                        John.Smith <b class="caret"></b>
+                        Admin <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu animated fadeInRight">
                         <span class="arrow top"></span>
@@ -67,9 +69,11 @@
                             <a href="#">Settings</a>
                         </li>
                         <li>
-                            <a href="profile.html">Profile</a>
+                            <a href="#!/profile">Profile</a>
                         </li>
-
+                        <li>
+                            <a href="#!/invoices">Invoices</a>
+                        </li>
                         <li>
                             <a href="docs.html">Help</a>
                         </li>
@@ -104,7 +108,7 @@
                                         <li>
                                             <a href="#!/realtime" class="active">
                                                 <i class="fa fa-signal icon">
-                                                    <b class="bg-success"></b>
+                                                    <b class"!/bg-success"></b>
                                                 </i>
                                                 <span>RealTime</span>
                                             </a>
@@ -140,12 +144,14 @@
                                             </a>
                                         </li>
 
-
-                                       
-
-
-
-
+                                        <li>
+                                            <a href="#!/payment">
+                                                <i class="fa fa-user  icon">
+                                                    <b class="bg-success"></b>
+                                                </i>
+                                                <span>Payment</span>
+                                            </a>
+                                        </li>
 
                                     </ul>
                                 </nav>

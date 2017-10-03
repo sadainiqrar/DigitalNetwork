@@ -1,0 +1,175 @@
+<div class="container-fluid">
+    {{message}}
+       <div class="col-md-6" ng-repeat="a in article">
+           <section class="panel panel-default">
+            <div class="thumbnail">
+                <div>
+                </div>
+                <img src="{{a.photo_url}}" alt="" >
+                <a href="{{a.url}}"><center>{{a.url}}</center></a>
+                <div class="caption">
+                    <h4 class="text-left" ><b ng-bind-html="a.title"></b></h4>
+                    <div ng-bind-html="a.summary"></div>
+                   
+
+                    <md-switch class="md-primary" ng-model="status" aria-label="Switch"
+                               ng-change="updateStatus()">
+                        Status : {{ status }}
+                    </md-switch>  
+
+                    </div>
+                 
+            </div>
+         
+    </section>
+    </div>
+<div class="col-md-6">
+                  <section class="panel panel-default">
+                    <header class="panel-heading font-bold">Top Users</header>
+                      <div class="panel-body">
+                                    <div class="table-container">
+
+                            <table class="table table-filter">
+                                <thead>
+                                    <th>Username</th>
+                                    <th><center>Traffic</center></th>                                    
+                                </thead>
+                                <tbody>
+                                </tbody>
+                                <tr data-status="pagado">
+                                    <td>
+                                            <div class="media">
+                                                <div class="media-body">
+                                                    <h4 class="title">
+                                                        Sana Arooj
+                                                    </h4>
+
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                <td>
+                                            <div class="media">
+                                                <div class="media-body">
+                                                    <h4 class="title">
+                                                        <span class="pull-right pagado">(1.3 M)</span>
+                                                    </h4>
+
+                                                </div>
+                                            </div>
+                                        </td>
+                                </tr>
+                                  <tr data-status="pagado">
+                                    <td>
+                                            <div class="media">
+                                                <div class="media-body">
+                                                    <h4 class="title">
+                                                        M.Zuraiz
+                                                    </h4>
+
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                <td>
+                                            <div class="media">
+                                                <div class="media-body">
+                                                    <h4 class="title">
+                                                        <span class="pull-right pagado">(1.2 M)</span>
+                                                    </h4>
+
+                                                </div>
+                                            </div>
+                                        </td>
+                                </tr>
+                                 <tr data-status="pagado">
+                                    <td>
+                                            <div class="media">
+                                                <div class="media-body">
+                                                    <h4 class="title">
+                                                        Sadain 
+                                                    </h4>
+
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                <td>
+                                            <div class="media">
+                                                <div class="media-body">
+                                                    <h4 class="title">
+                                                        <span class="pull-right pagado">(1.1 M)</span>
+                                                    </h4>
+
+                                                </div>
+                                            </div>
+                                        </td>
+                                </tr>
+                                   <tr data-status="pagado">
+                                    <td>
+                                            <div class="media">
+                                                <div class="media-body">
+                                                    <h4 class="title">
+                                                        M.Usman
+                                                    </h4>
+
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                <td>
+                                            <div class="media">
+                                                <div class="media-body">
+                                                    <h4 class="title">
+                                                        <span class="pull-right pagado">(1.0 M)</span>
+                                                    </h4>
+
+                                                </div>
+                                            </div>
+                                        </td>
+                                </tr>
+                             </table>
+                          </div>
+                    </div>
+                  </section>
+                </div>
+    <div class="col-md-6">
+            <section class="panel panel-default">
+                    <header class="panel-heading font-bold"><center>Data Graph</center></header>
+
+            
+                <div class="caption">
+                    <div class="bg-light dk wrapper">
+                      <span class="pull-right">Friday</span>
+                      <span class="h4">$540<br>
+                        <small class="text-muted">+1.05(2.15%)</small>
+                      </span>
+                      <div class="text-center m-b-n m-t-sm">
+                          <div class="sparkline" data-type="line" data-height="65" data-width="100%" data-line-width="2" data-line-color="#dddddd" data-spot-color="#bbbbbb" data-fill-color="" data-highlight-line-color="#fff" data-spot-radius="3" data-resize="true" values="280,320,220,385,450,320,345,250,250,250,400,380"></div>
+                          <div class="sparkline inline" data-type="bar" data-height="45" data-bar-width="6" data-bar-spacing="6" data-bar-color="#65bd77">10,9,11,10,11,10,12,10,9,10,11,9,8</div>
+                      </div>
+                    </div>
+                    <div class="panel-body">
+                      <div>
+                        <span class="text-muted">Total:</span>
+                        <span class="h3 block">$2500.00</span>
+                      </div>
+                      <div class="line pull-in"></div>
+                      <div class="row m-t-sm">
+                        <div class="col-xs-4">
+                          <small class="text-muted block">Market</small>
+                          <span>$1500.00</span>
+                        </div>
+                        <div class="col-xs-4">
+                          <small class="text-muted block">Referal</small>
+                          <span>$600.00</span>
+                        </div>
+                        <div class="col-xs-4">
+                          <small class="text-muted block">Affiliate</small>
+                          <span>$400.00</span>
+                        </div>
+                      </div>
+                    </div>
+                      
+                </div></section></div>
+</div>

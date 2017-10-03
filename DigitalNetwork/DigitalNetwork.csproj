@@ -128,6 +128,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\angular-material.min.css" />
     <Content Include="Content\animate.css" />
     <Content Include="Content\app.css" />
     <Content Include="Content\bootstrap-grid.css" />
@@ -140,6 +141,7 @@
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\font.css" />
     <Content Include="Content\landing.css" />
+    <Content Include="Content\material.indigo-pink.min.css" />
     <Content Include="Content\realtime.css" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -176,6 +178,7 @@
     <Content Include="Scripts\angular-csp.css" />
     <Content Include="Scripts\angular-loader.js" />
     <Content Include="Scripts\angular-loader.min.js" />
+    <Content Include="Scripts\angular-material.min.js" />
     <Content Include="Scripts\angular-message-format.js" />
     <Content Include="Scripts\angular-message-format.min.js" />
     <Content Include="Scripts\angular-messages.js" />
@@ -212,6 +215,16 @@
     <Content Include="fonts\opensans\opensans-webfont.woff" />
     <Content Include="images\logo.psd" />
     <Content Include="Scripts\angular-route.min.js.map" />
+    <Content Include="Scripts\controllers\articlesController.js" />
+    <Content Include="Scripts\controllers\articlestatsController.js" />
+    <Content Include="Scripts\controllers\invoicesController.js" />
+    <Content Include="Scripts\controllers\mainController.js" />
+    <Content Include="Scripts\controllers\paymentController.js" />
+    <Content Include="Scripts\controllers\profileController.js" />
+    <Content Include="Scripts\controllers\realtimeController.js" />
+    <Content Include="Scripts\controllers\trafficController.js" />
+    <Content Include="Scripts\controllers\userdataController.js" />
+    <Content Include="Scripts\controllers\userstatsController.js" />
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\angular-touch.min.js.map" />
     <Content Include="Scripts\angular-sanitize.min.js.map" />
@@ -234,6 +247,9 @@
       <DependentUpon>DigiMarketDB.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\factories\updateArticleFactory.js" />
+    <Content Include="Scripts\factories\singleArticleFactory.js" />
+    <Content Include="Scripts\factories\articleFactory.js" />
     <Content Include="Scripts\i18n\angular-locale_af-na.js" />
     <Content Include="Scripts\i18n\angular-locale_af-za.js" />
     <Content Include="Scripts\i18n\angular-locale_af.js" />
@@ -1109,10 +1125,15 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\script.js" />
     <Content Include="Views\Dashboard\articles.html" />
+    <Content Include="Views\Dashboard\articlestats.html" />
     <Content Include="Views\Dashboard\home.html" />
+    <Content Include="Views\Dashboard\invoices.html" />
+    <Content Include="Views\Dashboard\payment.html" />
+    <Content Include="Views\Dashboard\profile.html" />
     <Content Include="Views\Dashboard\realtime.html" />
     <Content Include="Views\Dashboard\traffic.html" />
     <Content Include="Views\Dashboard\userdata.html" />
+    <Content Include="Views\Dashboard\userstats.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

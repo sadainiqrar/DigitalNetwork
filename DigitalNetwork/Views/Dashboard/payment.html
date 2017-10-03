@@ -1,13 +1,14 @@
-<div class="container-fluid">
+<div class="container">
 
     <h2>{{message}}</h2>
 	<div class="row">
 
 		<section class="content">
-			<center><h1>User Data</h1></center>
+			<center><h1>Payements</h1></center>
 			<div class="col-md-12">
 				<div class="panel panel-default">
 					<div class="panel-body">
+                        
 						<div class="table-container">
                             
 							<table class="table table-filter">
@@ -18,10 +19,10 @@
                                     <th><center>Traffic</center></th>
                                     <th><center>Stats</center></th>
                                     <th><center>Duration</center></th>
+                                    <th>Payment Due</th>
                                     
                                 </thead>
 								<tbody>
-                                    
 									<tr data-status="pagado">
 										<td>
 											<div class="pagado">
@@ -36,11 +37,8 @@
 												</a>	
 											</div>
 										</td>
-                                        
-                                        
                                         <td>
                                             <div class="media">
-                                        
                                                 <div class="media-body">
 													<h4 class="title">
 														Sana Arooj
@@ -49,7 +47,6 @@
 												</div>
                                             </div>
                                         </td>
-                                        
                                         <td>
                                             <div class="media">
                                                 <div class="media-body">
@@ -79,60 +76,25 @@
 												</div>
                                             </div>
                                         </td>
-                                         <td>
-											<div class="media">
-                                                <button type="button" class="btn btn-info btn-md" style="float: right" ng-init="clickedh=false" ng-click="clickedh=!clickedh">Details</button>
-											</div>
-                                        </td> </tr>
-                                         <tr ng-show="clickedh">
-                        
-                                        <td colspan="8" >
-                                   <div >
-                                                <section class="panel panel-default" style="align-content: center">
-
-                                                        <table class="table" style="width: 100%">
-
-                                                        <tbody>
-                                                            <tr>
-                                                                <td><left>Non-Premium Traffic</left></td>
-                                                                <td><right>000</right></td>
-
-                                                            </tr>
-
-                                                            <tr>
-                                                                <td>Non-Premium Earning</td>
-                                                                <td>001</td>
-
-                                                            </tr>
-
-                                                            <tr>
-                                                                <td>Premium Traffic</td>
-                                                                <td>002</td>
-
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Non-Premiuim Earning</td>
-                                                                <td>003</td>
-
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Payment Due</td>
-                                                                <td>$004</td>
-
-                                                            </tr>
-                                                            
-                                                        </tbody>
-                                                            
-                                                    </table>
-                                                    
-                                        </section>
-                                       
-                                        </div>
+                                        <td>
+                                            <div class="media">
+                                                <div class="media-body">
+													
+													<h4 class="title">
+                                                        <span >$234</span>
+                                                        <button type="button" class="btn btn-info btn-xs">Make Payment</button>
+                                                    </h4>	
+												</div>
+                                            </div>
                                             
-                                            </td>
+                                        </td>
+									</tr>
                                     
-                                    </tr>
-                        
+                                    
+                                    
+                                    
+                                    
+                                    
                                     <tr data-status="pagado">
 										<td>
 											<div class="pagado">
@@ -149,14 +111,12 @@
 										</td>
                                         <td>
                                             <div class="media">
-                                                <a href="#!/userstats">
                                                 <div class="media-body">
 													<h4 class="title">
 														Sadain
 													</h4>
 													
 												</div>
-                                                </a>
                                             </div>
                                         </td>
                                         <td>
@@ -187,7 +147,22 @@
 													
 												</div>
                                             </div>
-                                        </td> </tr>
+                                        </td>
+                                        
+                                        <td>
+                                            <div class="media">
+                                                <div class="media-body">
+													
+													<h4 class="title">
+                                                        <span >$500</span>
+                                                        <button type="button" class="btn btn-info btn-xs">Make Payment</button>
+                                                    </h4>	
+												</div>
+                                            </div>
+                                            
+                                        </td>
+                                        
+                                    </tr>
                                     <tr data-status="pagado">
 										<td>
 											<div class="pagado">
@@ -241,12 +216,24 @@
 												</div>
                                             </div>
                                         </td>
+                                        <td>
+                                            <div class="media">
+                                                <div class="media-body">
+													
+													<h4 class="title">
+                                                        <span >$985</span>
+                                                        <button type="button" class="btn btn-info btn-xs">Make Payment</button>
+                                                    </h4>	
+												</div>
+                                            </div>
+                                            
+                                        </td>
 									</tr>
-                                    
                                     
                                 </tbody>
 							</table>
 						</div>
+                        
 					</div>
 				</div>
 			</div>

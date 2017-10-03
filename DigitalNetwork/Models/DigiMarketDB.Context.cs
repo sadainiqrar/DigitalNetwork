@@ -37,7 +37,7 @@ namespace DigitalNetwork.Models
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<User_Marketing_Source> User_Marketing_Source { get; set; }
     
-        public virtual int add_article(Nullable<int> aid, string article_url, Nullable<bool> status, string site_url)
+        public virtual int add_article(Nullable<int> aid, string article_url, Nullable<bool> status, string title, string summary, string photo_url, Nullable<System.DateTime> modified_date, string site_url)
         {
             var aidParameter = aid.HasValue ?
                 new ObjectParameter("aid", aid) :
@@ -51,11 +51,27 @@ namespace DigitalNetwork.Models
                 new ObjectParameter("status", status) :
                 new ObjectParameter("status", typeof(bool));
     
+            var titleParameter = title != null ?
+                new ObjectParameter("title", title) :
+                new ObjectParameter("title", typeof(string));
+    
+            var summaryParameter = summary != null ?
+                new ObjectParameter("summary", summary) :
+                new ObjectParameter("summary", typeof(string));
+    
+            var photo_urlParameter = photo_url != null ?
+                new ObjectParameter("photo_url", photo_url) :
+                new ObjectParameter("photo_url", typeof(string));
+    
+            var modified_dateParameter = modified_date.HasValue ?
+                new ObjectParameter("modified_date", modified_date) :
+                new ObjectParameter("modified_date", typeof(System.DateTime));
+    
             var site_urlParameter = site_url != null ?
                 new ObjectParameter("site_url", site_url) :
                 new ObjectParameter("site_url", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("add_article", aidParameter, article_urlParameter, statusParameter, site_urlParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("add_article", aidParameter, article_urlParameter, statusParameter, titleParameter, summaryParameter, photo_urlParameter, modified_dateParameter, site_urlParameter);
         }
     
         public virtual int add_payment(string uid, Nullable<int> traffic, Nullable<decimal> amount, Nullable<System.DateTime> from_date, Nullable<System.DateTime> to_date, Nullable<System.DateTime> pay_date)
@@ -433,6 +449,35 @@ namespace DigitalNetwork.Models
         public virtual int sp_upgraddiagrams()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
+        }
+    
+        public virtual int update_article_data(Nullable<int> serial_no, string article_url, string title, string summary, string photo_url, Nullable<System.DateTime> modified_date)
+        {
+            var serial_noParameter = serial_no.HasValue ?
+                new ObjectParameter("serial_no", serial_no) :
+                new ObjectParameter("serial_no", typeof(int));
+    
+            var article_urlParameter = article_url != null ?
+                new ObjectParameter("article_url", article_url) :
+                new ObjectParameter("article_url", typeof(string));
+    
+            var titleParameter = title != null ?
+                new ObjectParameter("title", title) :
+                new ObjectParameter("title", typeof(string));
+    
+            var summaryParameter = summary != null ?
+                new ObjectParameter("summary", summary) :
+                new ObjectParameter("summary", typeof(string));
+    
+            var photo_urlParameter = photo_url != null ?
+                new ObjectParameter("photo_url", photo_url) :
+                new ObjectParameter("photo_url", typeof(string));
+    
+            var modified_dateParameter = modified_date.HasValue ?
+                new ObjectParameter("modified_date", modified_date) :
+                new ObjectParameter("modified_date", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("update_article_data", serial_noParameter, article_urlParameter, titleParameter, summaryParameter, photo_urlParameter, modified_dateParameter);
         }
     
         public virtual int update_articles(Nullable<bool> status, Nullable<int> serial)

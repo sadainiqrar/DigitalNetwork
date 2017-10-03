@@ -30,6 +30,10 @@
           <Property Name="a_id" Type="int" Nullable="false" />
           <Property Name="url" Type="varchar(max)" Nullable="false" />
           <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="summary" Type="varchar(max)" Nullable="false" />
+          <Property Name="photo_url" Type="varchar(max)" />
+          <Property Name="modified_date" Type="date" Nullable="false" />
           <Property Name="site_url" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="Payment">
@@ -175,6 +179,10 @@
           <Parameter Name="aid" Type="int" Mode="In" />
           <Parameter Name="article_url" Type="varchar(max)" Mode="In" />
           <Parameter Name="status" Type="bit" Mode="In" />
+          <Parameter Name="title" Type="varchar" Mode="In" />
+          <Parameter Name="summary" Type="varchar(max)" Mode="In" />
+          <Parameter Name="photo_url" Type="varchar(max)" Mode="In" />
+          <Parameter Name="modified_date" Type="date" Mode="In" />
           <Parameter Name="site_url" Type="varchar" Mode="In" />
         </Function>
         <Function Name="add_payment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -289,6 +297,14 @@
           <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="update_article_data" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="serial_no" Type="int" Mode="In" />
+          <Parameter Name="article_url" Type="varchar(max)" Mode="In" />
+          <Parameter Name="title" Type="varchar" Mode="In" />
+          <Parameter Name="summary" Type="varchar(max)" Mode="In" />
+          <Parameter Name="photo_url" Type="varchar(max)" Mode="In" />
+          <Parameter Name="modified_date" Type="date" Mode="In" />
+        </Function>
         <Function Name="update_articles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="status" Type="bit" Mode="In" />
           <Parameter Name="serial" Type="int" Mode="In" />
@@ -386,6 +402,10 @@
           <Property Name="a_id" Type="Int32" Nullable="false" />
           <Property Name="url" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="summary" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="photo_url" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="modified_date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="site_url" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Site" Relationship="Self.FK_Articles_Sites" FromRole="Articles" ToRole="Sites" />
         </EntityType>
@@ -550,6 +570,10 @@
             <Parameter Name="aid" Mode="In" Type="Int32" />
             <Parameter Name="article_url" Mode="In" Type="String" />
             <Parameter Name="status" Mode="In" Type="Boolean" />
+            <Parameter Name="title" Mode="In" Type="String" />
+            <Parameter Name="summary" Mode="In" Type="String" />
+            <Parameter Name="photo_url" Mode="In" Type="String" />
+            <Parameter Name="modified_date" Mode="In" Type="DateTime" />
             <Parameter Name="site_url" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="add_payment">
@@ -663,6 +687,14 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <FunctionImport Name="update_article_data">
+            <Parameter Name="serial_no" Mode="In" Type="Int32" />
+            <Parameter Name="article_url" Mode="In" Type="String" />
+            <Parameter Name="title" Mode="In" Type="String" />
+            <Parameter Name="summary" Mode="In" Type="String" />
+            <Parameter Name="photo_url" Mode="In" Type="String" />
+            <Parameter Name="modified_date" Mode="In" Type="DateTime" />
+          </FunctionImport>
           <FunctionImport Name="update_articles">
             <Parameter Name="status" Mode="In" Type="Boolean" />
             <Parameter Name="serial" Mode="In" Type="Int32" />
@@ -713,6 +745,10 @@
           <Property Type="Int32" Name="a_id" Nullable="false" />
           <Property Type="String" Name="url" Nullable="false" />
           <Property Type="Boolean" Name="status" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="summary" Nullable="false" />
+          <Property Type="String" Name="photo_url" Nullable="true" />
+          <Property Type="DateTime" Name="modified_date" Nullable="false" />
           <Property Type="String" Name="site_url" Nullable="false" MaxLength="100" />
         </ComplexType>
         <ComplexType Name="get_admin_single_article_Result">
@@ -720,6 +756,10 @@
           <Property Type="Int32" Name="a_id" Nullable="false" />
           <Property Type="String" Name="url" Nullable="false" />
           <Property Type="Boolean" Name="status" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="summary" Nullable="false" />
+          <Property Type="String" Name="photo_url" Nullable="true" />
+          <Property Type="DateTime" Name="modified_date" Nullable="false" />
           <Property Type="String" Name="site_url" Nullable="false" MaxLength="100" />
         </ComplexType>
         <ComplexType Name="get_articles_Result">
@@ -727,6 +767,10 @@
           <Property Type="Int32" Name="a_id" Nullable="false" />
           <Property Type="String" Name="url" Nullable="false" />
           <Property Type="Boolean" Name="status" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="summary" Nullable="false" />
+          <Property Type="String" Name="photo_url" Nullable="true" />
+          <Property Type="DateTime" Name="modified_date" Nullable="false" />
           <Property Type="String" Name="site_url" Nullable="false" MaxLength="100" />
         </ComplexType>
         <ComplexType Name="get_payment_Result">
@@ -752,6 +796,10 @@
           <Property Type="Int32" Name="a_id" Nullable="false" />
           <Property Type="String" Name="url" Nullable="false" />
           <Property Type="Boolean" Name="status" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="summary" Nullable="false" />
+          <Property Type="String" Name="photo_url" Nullable="true" />
+          <Property Type="DateTime" Name="modified_date" Nullable="false" />
           <Property Type="String" Name="site_url" Nullable="false" MaxLength="100" />
         </ComplexType>
         <ComplexType Name="getArticleBySerial_Result">
@@ -759,6 +807,10 @@
           <Property Type="Int32" Name="a_id" Nullable="false" />
           <Property Type="String" Name="url" Nullable="false" />
           <Property Type="Boolean" Name="status" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="summary" Nullable="false" />
+          <Property Type="String" Name="photo_url" Nullable="true" />
+          <Property Type="DateTime" Name="modified_date" Nullable="false" />
           <Property Type="String" Name="site_url" Nullable="false" MaxLength="100" />
         </ComplexType>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -802,6 +854,10 @@
                 <ScalarProperty Name="a_id" ColumnName="a_id" />
                 <ScalarProperty Name="url" ColumnName="url" />
                 <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="summary" ColumnName="summary" />
+                <ScalarProperty Name="photo_url" ColumnName="photo_url" />
+                <ScalarProperty Name="modified_date" ColumnName="modified_date" />
                 <ScalarProperty Name="site_url" ColumnName="site_url" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -915,6 +971,10 @@
                 <ScalarProperty Name="a_id" ColumnName="a_id" />
                 <ScalarProperty Name="url" ColumnName="url" />
                 <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="summary" ColumnName="summary" />
+                <ScalarProperty Name="photo_url" ColumnName="photo_url" />
+                <ScalarProperty Name="modified_date" ColumnName="modified_date" />
                 <ScalarProperty Name="site_url" ColumnName="site_url" />
               </ComplexTypeMapping>
             </ResultMapping>
@@ -926,6 +986,10 @@
                 <ScalarProperty Name="a_id" ColumnName="a_id" />
                 <ScalarProperty Name="url" ColumnName="url" />
                 <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="summary" ColumnName="summary" />
+                <ScalarProperty Name="photo_url" ColumnName="photo_url" />
+                <ScalarProperty Name="modified_date" ColumnName="modified_date" />
                 <ScalarProperty Name="site_url" ColumnName="site_url" />
               </ComplexTypeMapping>
             </ResultMapping>
@@ -937,6 +1001,10 @@
                 <ScalarProperty Name="a_id" ColumnName="a_id" />
                 <ScalarProperty Name="url" ColumnName="url" />
                 <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="summary" ColumnName="summary" />
+                <ScalarProperty Name="photo_url" ColumnName="photo_url" />
+                <ScalarProperty Name="modified_date" ColumnName="modified_date" />
                 <ScalarProperty Name="site_url" ColumnName="site_url" />
               </ComplexTypeMapping>
             </ResultMapping>
@@ -978,6 +1046,10 @@
                 <ScalarProperty Name="a_id" ColumnName="a_id" />
                 <ScalarProperty Name="url" ColumnName="url" />
                 <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="summary" ColumnName="summary" />
+                <ScalarProperty Name="photo_url" ColumnName="photo_url" />
+                <ScalarProperty Name="modified_date" ColumnName="modified_date" />
                 <ScalarProperty Name="site_url" ColumnName="site_url" />
               </ComplexTypeMapping>
             </ResultMapping>
@@ -989,6 +1061,10 @@
                 <ScalarProperty Name="a_id" ColumnName="a_id" />
                 <ScalarProperty Name="url" ColumnName="url" />
                 <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="summary" ColumnName="summary" />
+                <ScalarProperty Name="photo_url" ColumnName="photo_url" />
+                <ScalarProperty Name="modified_date" ColumnName="modified_date" />
                 <ScalarProperty Name="site_url" ColumnName="site_url" />
               </ComplexTypeMapping>
             </ResultMapping>
@@ -1017,6 +1093,7 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="digimarketModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="digimarketModel.Store.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="update_article_data" FunctionName="digimarketModel.Store.update_article_data" />
           <FunctionImportMapping FunctionImportName="update_articles" FunctionName="digimarketModel.Store.update_articles" />
           <FunctionImportMapping FunctionImportName="update_rates" FunctionName="digimarketModel.Store.update_rates" />
           <FunctionImportMapping FunctionImportName="update_site" FunctionName="digimarketModel.Store.update_site" />

@@ -8,6 +8,9 @@ namespace DigitalNetwork
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            bundles.UseCdn = true;   //enable CDN support
+                                     //add link to jquery on the CDN
+
             bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
                    
                 "~/js/bootstrap.js",
@@ -39,9 +42,11 @@ namespace DigitalNetwork
                         "~/Scripts/jquery-{version}.js"  
                         ));
 
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                  "~/Content/bootstrap.css",
                  "~/Content/animate.css",
+                 "~/Content/angular-material.min.css",
                  "~/Content/font-awesome.min.css",
                  "~/Content/font.css",
                  "~/Content/app.css",
@@ -58,9 +63,36 @@ namespace DigitalNetwork
                 "~/Scripts/angular-cookies.js",
                 "~/Scripts/angular-validator.js",
                 "~/Scripts/angular-base64.js",
+                 "~/Scripts/angular-sanitize.js",
                 "~/Scripts/angular-file-upload.js",
                 "~/Scripts/angucomplete-alt.min.js",
+                "~/Scripts/angular-animate.min.js",
+                "~/Scripts/angular-aria.min.js",
+                "~/Scripts/angular-messages.min.js",
+                "~/Scripts/angular-material.min.js",
+                "~/Scripts/material.indigo-pink.min.js",
                         "~/Scripts/script.js"                  
+                        ));
+
+            bundles.Add(new ScriptBundle("~/bundles/controllers").Include(
+
+                        "~/Scripts/controllers/mainController.js",
+                        "~/Scripts/controllers/articlesController.js",
+                        "~/Scripts/controllers/articlestatsController.js",
+                        "~/Scripts/controllers/invoicesController.js",
+                        "~/Scripts/controllers/paymentController.js",
+                        "~/Scripts/controllers/profileController.js",
+                        "~/Scripts/controllers/realtimeController.js",
+                        "~/Scripts/controllers/trafficController.js",
+                        "~/Scripts/controllers/userdataController.js",
+                        "~/Scripts/controllers/userstatsController.js"
+                        ));
+            bundles.Add(new ScriptBundle("~/bundles/factories").Include(
+
+                        "~/Scripts/factories/articleFactory.js",
+
+                        "~/Scripts/factories/singleArticleFactory.js",
+                        "~/Scripts/factories/updateArticleFactory.js"
                         ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
