@@ -34,4 +34,16 @@ namespace DigitalNetwork.Models
         public string site_url { get; set; }
         public string ga_id { get; set; }
     }
+
+
+    public partial class admin_site_list
+    {
+        public string email { get; set; }
+        public string adminname { get; set; }
+        public string password { get; set; }
+        public string photo_url { get; set; }
+        public List<get_site_Result> sites { get; set; }
+
+    
+    }
 }

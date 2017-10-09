@@ -217,7 +217,10 @@
     <Content Include="Scripts\angular-route.min.js.map" />
     <Content Include="Scripts\controllers\articlesController.js" />
     <Content Include="Scripts\controllers\articlestatsController.js" />
+    <Content Include="Scripts\controllers\home\login.controller.js" />
+    <Content Include="Scripts\controllers\home\register.controller.js" />
     <Content Include="Scripts\controllers\invoicesController.js" />
+    <Content Include="Scripts\controllers\dashboardController.js" />
     <Content Include="Scripts\controllers\mainController.js" />
     <Content Include="Scripts\controllers\paymentController.js" />
     <Content Include="Scripts\controllers\profileController.js" />
@@ -1124,9 +1127,14 @@
     <Content Include="js\wysiwyg\jquery.hotkeys.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\script.js" />
+    <Content Include="Scripts\services\homeservice\authentication.service.js" />
+    <Content Include="Scripts\services\homeservice\flash.service.js" />
+    <Content Include="Scripts\services\homeservice\user.service.js" />
+    <Content Include="Scripts\services\homeservice\user.service.local-storage.js" />
     <Content Include="Views\Dashboard\articles.html" />
     <Content Include="Views\Dashboard\articlestats.html" />
     <Content Include="Views\Dashboard\home.html" />
+    <Content Include="Views\Dashboard\dashboard.html" />
     <Content Include="Views\Dashboard\invoices.html" />
     <Content Include="Views\Dashboard\payment.html" />
     <Content Include="Views\Dashboard\profile.html" />
@@ -1134,6 +1142,9 @@
     <Content Include="Views\Dashboard\traffic.html" />
     <Content Include="Views\Dashboard\userdata.html" />
     <Content Include="Views\Dashboard\userstats.html" />
+    <Content Include="Views\Dashboard\Home\login.html" />
+    <Content Include="Views\Dashboard\Home\login.view.html" />
+    <Content Include="Views\Dashboard\Home\register.view.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -1145,6 +1156,7 @@
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\dataCon.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\RateController.cs" />
     <Compile Include="Controllers\UmsController.cs" />
@@ -1193,6 +1205,9 @@
       <DependentUpon>DigiMarketDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\get_rate_Result.cs">
+      <DependentUpon>DigiMarketDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\get_site_Result.cs">
       <DependentUpon>DigiMarketDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\get_ums_Result.cs">
@@ -1250,7 +1265,6 @@
     <Content Include="js\slider\slider.less" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Scripts\version.json" />
-    <Content Include="Views\Dashboard\home.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

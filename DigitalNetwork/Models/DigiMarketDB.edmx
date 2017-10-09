@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="digimarketModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="digimarketModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Admin">
           <Key>
             <PropertyRef Name="email" />
@@ -258,6 +258,9 @@
         <Function Name="get_rate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="category" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="get_site" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="email" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="get_ums" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="uid" Type="varchar" Mode="In" />
         </Function>
@@ -379,8 +382,7 @@
             <End Role="User_Marketing_Source" EntitySet="User_Marketing_Source" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="digimarketModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -615,17 +617,17 @@
             <Parameter Name="photo" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="count_ums" ReturnType="Collection(Int32)">
-            <Parameter Name="uid" Mode="In" Type="String" />
+          <Parameter Name="uid" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="delete_article">
-            <Parameter Name="serial" Mode="In" Type="Int32" />
+          <Parameter Name="serial" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="delete_site">
             <Parameter Name="site_url" Mode="In" Type="String" />
             <Parameter Name="email" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="delete_ums">
-            <Parameter Name="ums_id" Mode="In" Type="Int32" />
+          <Parameter Name="ums_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="get_admin_articles" ReturnType="Collection(digimarketModel.get_admin_articles_Result)">
             <Parameter Name="email" Mode="In" Type="String" />
@@ -646,16 +648,16 @@
             <Parameter Name="pay_date" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="get_rate" ReturnType="Collection(digimarketModel.get_rate_Result)">
-            <Parameter Name="category" Mode="In" Type="String" />
+          <Parameter Name="category" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_ums" ReturnType="Collection(digimarketModel.get_ums_Result)">
-            <Parameter Name="uid" Mode="In" Type="String" />
+          <Parameter Name="uid" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_user_single_article" ReturnType="Collection(digimarketModel.get_user_single_article_Result)">
-            <Parameter Name="serial" Mode="In" Type="Int32" />
+          <Parameter Name="serial" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="getArticleBySerial" ReturnType="Collection(digimarketModel.getArticleBySerial_Result)">
-            <Parameter Name="serial" Mode="In" Type="Int32" />
+          <Parameter Name="serial" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_alterdiagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
@@ -732,6 +734,9 @@
             <Parameter Name="pass" Mode="In" Type="String" />
             <Parameter Name="name" Mode="In" Type="String" />
             <Parameter Name="photo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="get_site" ReturnType="Collection(digimarketModel.get_site_Result)">
+            <Parameter Name="email" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="admin_sign_in_Result">
@@ -830,6 +835,11 @@
           <Property Type="String" Name="password" Nullable="false" MaxLength="20" />
           <Property Type="String" Name="username" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="photourl" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="get_site_Result">
+          <Property Type="String" Name="site_url" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="site_name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ga_id" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1111,6 +1121,15 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="user_sign_up" FunctionName="digimarketModel.Store.user_sign_up" />
           <FunctionImportMapping FunctionImportName="user_update" FunctionName="digimarketModel.Store.user_update" />
+          <FunctionImportMapping FunctionImportName="get_site" FunctionName="digimarketModel.Store.get_site">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="digimarketModel.get_site_Result">
+                <ScalarProperty Name="site_url" ColumnName="site_url" />
+                <ScalarProperty Name="site_name" ColumnName="site_name" />
+                <ScalarProperty Name="ga_id" ColumnName="ga_id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

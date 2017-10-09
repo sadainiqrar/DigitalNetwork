@@ -1,12 +1,12 @@
 ﻿var serviceId = 'singleArticleFactory';
 
 angular.module('DigitalMarket').factory(serviceId,
-    ['$http', singleArticleFactory]);
+    ['$http', '$rootScope', '$cookies', singleArticleFactory]);
 
 angular.module('DigitalMarket').factory('updateArticleFactory',
     ['$http', updateArticleFactory]);
 
-function singleArticleFactory($http) {
+function singleArticleFactory($http, $rootScope, $cookies) {
     //function getArticle(id) {
     //    return $http.post('/api/admin/articles/:id', data);
     //}
@@ -18,7 +18,11 @@ function singleArticleFactory($http) {
 
     return {
         getArticle: function getArticle(id) {
-            var data = { email: 'zuraiz.com' };
+            $rootScope.globals = $cookies.getObject('globals') || {};
+            // create a message to display in our view
+            var userdate = $rootScope.globals.currentUser;
+            var admin_email =userdate.email;
+            var data = { email: admin_email};
             return $http.post('/api/admin/articles/' + id, data);
         }
     }

@@ -610,5 +610,14 @@ namespace DigitalNetwork.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("user_update", uidParameter, emailParameter, passParameter, nameParameter, photoParameter);
         }
+    
+        public virtual ObjectResult<get_site_Result> get_site(string email)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_site_Result>("get_site", emailParameter);
+        }
     }
 }

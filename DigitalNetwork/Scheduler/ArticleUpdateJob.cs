@@ -29,7 +29,7 @@ namespace DigitalNetwork.Scheduler
 
         private void insertNew()
         {
-            int count = 0;
+           int count = 0;
             foreach (ArticleModel post in siteList)
             {
                 try

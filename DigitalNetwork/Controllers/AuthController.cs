@@ -14,9 +14,31 @@ namespace DigitalNetwork.Controllers
         //admin_login
         [HttpPost]
         [Route("api/admin/login")]
-        public IEnumerable<admin_sign_in_Result> PostAdmin([FromBody] admin_sign_in_Result admin)
+        public admin_site_list PostAdmin([FromBody] admin_sign_in_Result admin)
         {
-            return dataCon.DB.db.admin_sign_in(admin.email,admin.password);
+            try
+            {
+                admin_site_list administrator = new admin_site_list();
+
+                admin_sign_in_Result _admin = dataCon.DB.db.admin_sign_in(admin.email, admin.password).ElementAt<admin_sign_in_Result>(0);
+                List<get_site_Result> sites = new List<get_site_Result>();
+                foreach (get_site_Result site in dataCon.DB.db.get_site(_admin.email))
+                {
+                    sites.Add(site);
+                }
+
+                administrator.email = _admin.email;
+                administrator.adminname = _admin.adminname;
+                administrator.password = _admin.password;
+                administrator.photo_url = _admin.photo_url;
+                administrator.sites = sites;
+
+                return administrator;
+            }catch(Exception e)
+            {
+                return null;
+            }
+
         }
 
         //admin_signup

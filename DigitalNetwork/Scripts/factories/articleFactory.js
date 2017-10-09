@@ -1,7 +1,7 @@
 ﻿var serviceId = 'articleFactory';
 
 angular.module('DigitalMarket').factory(serviceId,
-    ['$http', articleFactory]);
+    ['$http',  articleFactory]);
 
 function articleFactory($http) {
 

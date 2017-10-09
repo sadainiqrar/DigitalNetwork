@@ -70,12 +70,11 @@ namespace DigitalNetwork
                 "~/Scripts/angular-aria.min.js",
                 "~/Scripts/angular-messages.min.js",
                 "~/Scripts/angular-material.min.js",
-                "~/Scripts/material.indigo-pink.min.js",
-                        "~/Scripts/script.js"                  
+                "~/Scripts/material.indigo-pink.min.js"
+                                        
                         ));
-
-            bundles.Add(new ScriptBundle("~/bundles/controllers").Include(
-
+            bundles.Add(new ScriptBundle("~/bundles/adminScript").Include(
+                 "~/Scripts/script.js",
                         "~/Scripts/controllers/mainController.js",
                         "~/Scripts/controllers/articlesController.js",
                         "~/Scripts/controllers/articlestatsController.js",
@@ -85,15 +84,24 @@ namespace DigitalNetwork
                         "~/Scripts/controllers/realtimeController.js",
                         "~/Scripts/controllers/trafficController.js",
                         "~/Scripts/controllers/userdataController.js",
-                        "~/Scripts/controllers/userstatsController.js"
-                        ));
-            bundles.Add(new ScriptBundle("~/bundles/factories").Include(
+                        "~/Scripts/controllers/userstatsController.js",
+                            "~/Scripts/controllers/dashboardController.js",
 
                         "~/Scripts/factories/articleFactory.js",
 
                         "~/Scripts/factories/singleArticleFactory.js",
                         "~/Scripts/factories/updateArticleFactory.js"
                         ));
+            bundles.Add(new ScriptBundle("~/bundles/homeScript").Include(
+                        
+                        "~/Scripts/services/homeservice/authentication.service.js",
+                        "~/Scripts/services/homeservice/flash.service.js",
+                        "~/Scripts/services/homeservice/user.service.js",
+
+                      
+                        "~/Scripts/controllers/home/login.controller.js",
+                        "~/Scripts/controllers/home/register.controller.js"
+                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));

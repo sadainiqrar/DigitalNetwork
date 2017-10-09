@@ -1,10 +1,10 @@
 var controllerId = 'articlestatsController';
 
 angular.module('DigitalMarket').controller(controllerId,
-    ['$scope','$routeParams', 'singleArticleFactory','updateArticleFactory', articlestatsController]);
+    ['$scope','$stateParams', 'singleArticleFactory','updateArticleFactory', articlestatsController]);
 
-function articlestatsController($scope, $routeParams, singleArticleFactory, updateArticleFactory) {
-    var id = $routeParams.id;
+function articlestatsController($scope, $stateParams, singleArticleFactory, updateArticleFactory) {
+    var id = $stateParams.id;
     $scope.message = 'Articles Stats Controller';
     singleArticleFactory.getArticle(id).then(
         // callback function for successful http request

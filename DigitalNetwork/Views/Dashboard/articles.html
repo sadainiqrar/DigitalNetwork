@@ -8,7 +8,7 @@
 
             
             <div class="thumbnail">
-                <div>
+               <div>
                     <md-switch class="md-primary" ng-model="article.status" aria-label="Switch"
                                ng-change="updateStatus()">
                         Status : {{ article.status }}
@@ -16,18 +16,22 @@
                 
                 </div>
                 <a href="#!/articlestats/{{article.serial_no}}">
-                    <img src="{{article.photo_url}}" alt="">
-                    <div class="caption">
+                    <div class="container"  style="width:100%">
+                        <img  src="{{article.photo_url}}" alt="">
+                    </div>
+                    
+                    <div class="caption"    overflow="auto" >
 
+                       
+                        <h5 class="text-justify"><b ng-bind-html="article.title"></b></h5>
 
-                        <h4 class="text-justify"><b ng-bind-html="article.title"></b></h4>
-
-                        <h4 class="text-left" style="color: chocolate">
-                            {{article.url}}
-                        </h4>
+                   
+                            <a class="text-left" style="color: chocolate" href=  {{article.url}}>Link of this post</a>
+                          
+                     
                     </div>
                 </a>
-</div>
+          </div>
             
         </div>
         

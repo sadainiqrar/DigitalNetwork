@@ -1,9 +1,9 @@
 var controllerId = 'articlesController';
 
 angular.module('DigitalMarket').controller(controllerId,
-    ['$scope', '$routeParams','articleFactory', 'updateArticleFactory', articlesController]);
+    ['$scope','articleFactory', 'updateArticleFactory', articlesController]);
 
-function articlesController($scope, $routeParams, articleFactory, updateArticleFactory) {
+function articlesController($scope, articleFactory, updateArticleFactory) {
     $scope.message = 'Articles Controller';
     $scope.articles = [];
     articleFactory.getArticles().then(

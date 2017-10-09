@@ -1,68 +1,103 @@
-	// create the module and name it scotchApp
-var scotchApp = angular.module('DigitalMarket', ['ngRoute','ngSanitize','ngMaterial']);
 
+   // 'use strict'// create the module and name it scotchApp
+   // var loginApp = angular.module('loginApp',['ui-router']);
+var scotchApp = angular.module('DigitalMarket', ['ui.router', 'ngCookies','ngSanitize','ngMaterial']);
 	// configure our routes
-	scotchApp.config(function($routeProvider) {
-		$routeProvider
+	scotchApp.config(['$stateProvider','$urlRouterProvider','$locationProvider',function($stateProvider, $urlRouterProvider,$locationProvider) {
+		$stateProvider
 
 			// route for the home page
-			.when('/', {
-				templateUrl : 'Views/Dashboard/home.html',
+			.state('dashboard', {                   
+                abstract    : true,
+                templateUrl: 'Views/Dashboard/dashboard.html' ,
+                controller  : 'dashboardController'
+			})
+            .state('dashboard.home', {
+                url         : '/dashboard',
+                templateUrl: 'Views/Dashboard/home.html',
 				controller  : 'mainController'
 			})
 
 			// route for the about page
-			.when('/realtime', {
+			.state('dashboard.realtime', {
+                url         : '/realtime',
                 templateUrl: 'Views/Dashboard/realtime.html',
 				controller  : 'realtimeController'
-			})
-			
-			.when('/userdata', {
-                templateUrl: 'Views/Dashboard/userdata.html',
-				controller  : 'userdataController'
-			})
-        
-            .when('/articlestats/:id', {
-                templateUrl: 'Views/Dashboard/articlestats.html',
-                controller  : 'articlestatsController'
-            
             })
-        
-            .when('/userstats', {
-                templateUrl: 'Views/Dashboard/userstats.html',
-				controller  : 'userstatsController'
-			})
-        
-            .when('/invoices', {
-                templateUrl: 'Views/Dashboard/invoices.html',
-                controller  : 'invoicesController'
-            
+
+            .state('dashboard.traffic', {
+                url: '/traffic',
+                templateUrl: 'Views/Dashboard/traffic.html',
+                controller: 'trafficController'
             })
-			
-			.when('/articles', {
+            .state('dashboard.articles', {
+                url: '/articles',
                 templateUrl: 'Views/Dashboard/articles.html',
                 controller: 'articlesController'
-			})
-          .when('/payment', {
-              templateUrl: 'Views/Dashboard/payment.html',
-                controller  : 'paymentController'
-            
             })
-           
-        
-          .when('/profile', {
-              templateUrl: 'Views/Dashboard/profile.html',
-				controller  : 'profileController'
-			})
-       
+            .state('dashboard.userdata', {
+                url: '/userdata',
+                templateUrl: 'Views/Dashboard/userdata.html',
+                controller: 'userdataController'
+            })
+            .state('dashboard.payment', {
+                url: '/payment',
+                templateUrl: 'Views/Dashboard/payment.html',
+                controller: 'paymentController'
+            })
 
-			// route for the contact page
-			.when('/traffic', {
-                templateUrl: 'Views/Dashboard/traffic.html',
-				controller  : 'trafficController'
+            .state('dashboard.articlestats', {
+                url: '/articlestats/:id',
+                templateUrl: 'Views/Dashboard/articlestats.html',
+                controller: 'articlestatsController'
+            })
+			
+			
+        .state('home', {
+                abstract    : true,
+                templateUrl: 'Views/Dashboard/Home/login.html'
+			})
+			// route for the home page
+			.state('home.login', {
+                url         : '/',
+                templateUrl: 'Views/Dashboard/Home/login.view.html',
+				controller  : 'LoginController',
+                controllerAs: 'vm'
+			})
+			.state('home.register', {
+                url         : '/register',
+                templateUrl: 'Views/Dashboard/Home/register.view.html',
+				controller  : 'RegisterController',
+                controllerAs: 'vm'
 			});
-			
-			
-	});
+
+	}]);
+
+    scotchApp.run(run);
+
+	run.$inject = ['$rootScope', '$location','$state', '$cookies', '$http'];
+    function run($rootScope, $location, $state, $cookies, $http) {
+        // keep user logged in after page refresh
+        $rootScope.globals = $cookies.getObject('globals') || {};
+        if ($rootScope.globals.currentUser) {
+            $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata;
+        }
+
+        $rootScope.$on('$locationChangeStart', function (event, next, current) {
+            // redirect to login page if not logged in and trying to access a restricted page
+            var restrictedPage = $.inArray($location.path(), ['/', '/register']) === -1;
+            var loggedIn = $rootScope.globals.currentUser;
+            if (restrictedPage && !loggedIn) {
+                $location.path('/');
+            }
+            else if (!restrictedPage && loggedIn) {
+              
+                $location.path("/dashboard");
+            }
+
+        });
+    }
+
+ 
 
 
