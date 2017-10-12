@@ -6,11 +6,14 @@ using System.Web.Http;
 using System.Web.Routing;
 using System.Web.Optimization;
 using DigitalNetwork.Scheduler;
+using DigitalNetwork.Controllers;
+using System.Threading.Tasks;
 
 namespace DigitalNetwork
 {
     public class WebApiApplication : System.Web.HttpApplication
     {
+ 
         protected void Application_Start()
         {
           
@@ -19,7 +22,12 @@ namespace DigitalNetwork
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             GlobalConfiguration.Configuration.EnsureInitialized();
 
+
             articleUpdate.Start();
+            
         }
+
+      
+
     }
 }
