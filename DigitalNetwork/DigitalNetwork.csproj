@@ -1189,13 +1189,17 @@
     <Compile Include="Controllers\Authorization.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\dataCon.cs" />
+    <Compile Include="Controllers\GraphController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\RateController.cs" />
-    <Compile Include="Controllers\AnalyticsController.cs" />
+    <Compile Include="Controllers\TrafficController.cs" />
     <Compile Include="Controllers\UmsController.cs" />
     <Compile Include="DataModel\Analytics_Input.cs" />
     <Compile Include="DataModel\Campaign_Session.cs" />
+    <Compile Include="DataModel\Page_Campaign_Session.cs" />
+    <Compile Include="DataModel\Page_Session.cs" />
+    <Compile Include="DataModel\Time_Session.cs" />
     <Compile Include="Models\Admin.cs">
       <DependentUpon>DigiMarketDB.tt</DependentUpon>
     </Compile>
