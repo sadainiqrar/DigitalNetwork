@@ -251,6 +251,7 @@
     <Content Include="Scripts\controllers\articlestatsController.js" />
     <Content Include="Scripts\controllers\home\login.controller.js" />
     <Content Include="Scripts\controllers\home\register.controller.js" />
+    <Content Include="Scripts\controllers\home\sessionController.js" />
     <Content Include="Scripts\controllers\invoicesController.js" />
     <Content Include="Scripts\controllers\dashboardController.js" />
     <Content Include="Scripts\controllers\mainController.js" />
@@ -282,6 +283,7 @@
       <DependentUpon>DigiMarketDB.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\factories\sessionFactory.js" />
     <Content Include="Scripts\factories\updateArticleFactory.js" />
     <Content Include="Scripts\factories\singleArticleFactory.js" />
     <Content Include="Scripts\factories\articleFactory.js" />

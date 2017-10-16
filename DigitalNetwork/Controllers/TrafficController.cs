@@ -75,7 +75,7 @@ namespace DigitalNetwork.Controllers
             return list;
 
         }
-
+       
 
         [HttpPost]
         [Route("api/pages/sessions")]

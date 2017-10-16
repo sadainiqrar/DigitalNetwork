@@ -90,7 +90,8 @@ namespace DigitalNetwork
                         "~/Scripts/factories/articleFactory.js",
 
                         "~/Scripts/factories/singleArticleFactory.js",
-                        "~/Scripts/factories/updateArticleFactory.js"
+                        "~/Scripts/factories/updateArticleFactory.js",
+                         "~/Scripts/factories/sessionFactory.js"
                         ));
             bundles.Add(new ScriptBundle("~/bundles/homeScript").Include(
                         
