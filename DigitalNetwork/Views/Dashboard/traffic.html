@@ -5,34 +5,39 @@
    <div class="m-b-md" style="float: left">
                 <h2  class="col-md-6 col-sm-4">Traffic</h2> 
     </div>
+
+
        
-       <div class="row" style="float: right">                 
+
+       <div class="row" style="float: right">    
+           
+           <div class=" col-md-4" style="float: right">
+               <div class="col-sm-12">
+                   <div class="form-group">
+                       <div class="col-sm-3 control-label">
+                           <label for="enddate">EndDate</label>
+                       </div>
+                       <div class="col-sm-12">
+                           <input name="from" type="date" id="to" ng-model='to' ng-change="check()">
+                       </div>
+                   </div>
+               </div>
+           </div>
+
                   <div   class ="col-md-4" style="float: right">
                 <div class="col-sm-12">
                     <div class="form-group">
                         <div class="col-sm-3 control-label">
-                            <label for="startdate">EndDate</label>
+                            <label for="startdate">StartDate</label>
                         </div>
                         <div class="col-sm-12">
-                        <input type="date" id="myDate" value="mm-dd-yyyy">
+                        <input name="from" type="date" id="from"  ng-model='from' ng-change="check()">
                         </div>
                     </div>
                 </div>
             </div>
                         
-            <div  class =" col-md-4" style="float: right">
-                <div class="col-sm-12">
-                    <div class="form-group">
-                        <div class="col-sm-3 control-label">
-                            <label for="enddate">StartDate</label>
-                        </div>
-                        <div class="col-sm-12">
-                             <input type="date" id="myDate" value="mm-dd-yyyy">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+         
 
        </div>
           
@@ -47,7 +52,7 @@
                       <i class="fa fa-male fa-stack-1x text-white"></i>
                     </span>
                     <a class="clear" href="#">
-                      <span class="h3 block m-t-xs"><strong>52,000</strong></span>
+                      <span class="h3 block m-t-xs"><strong>{{session}}</strong></span>
                       <small class="text-muted text-uc">Sessions</small>
                     </a>
                   </div>
@@ -116,7 +121,7 @@
                                     
                                 </thead>
 								<tbody>
-									<tr data-status="pagado">
+									<tr data-status="pagado" ng-repeat="cs in sessions|limitTo: '5'">
 										<td>
 											<div class="pagado">
 												<p>001</p>
@@ -134,7 +139,7 @@
                                             <div class="media">
                                                 <div class="media-body">
 													<h4 class="title">
-														Sana Arooj
+														{{cs.Campaign}}
 													</h4>
 													
 												</div>
@@ -144,7 +149,7 @@
                                             <div class="media">
                                                 <div class="media-body">
 													<h4 class="title">
-														<span class="pull-right pagado">230</span>
+														<span class="pull-right pagado">{{cs.Session}}</span>
 													</h4>
 													
 												</div>
@@ -207,181 +212,6 @@
                                     
                                     
                                     
-                                    
-                                    
-                                    <tr data-status="pagado">
-										<td>
-											<div class="pagado">
-												<p>002</p>
-											</div>
-										</td>
-										
-										<td>
-											<div class="media">
-												<a href="#" class="pull-left">
-													<img src="https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAqoAAAAJDk3YjI5NzQ5LTBjMDktNDQ0NS1hY2NkLTE2MmM5ZDFhMmUxMA.jpg" class="media-photo">
-												</a>	
-											</div>
-										</td>
-                                        <td>
-                                            <div class="media">
-                                                <div class="media-body">
-													<h4 class="title">
-														Sadain
-													</h4>
-													
-												</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="media">
-                                                <div class="media-body">
-													<h4 class="title">
-														<span class="pull-right pagado">200</span>
-													</h4>
-													
-												</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="media">
-                                                <div class="media-body">
-													
-													<h4 class="title">
-                                                        <span class="pull-right pagado">250</span>
-													</h4>
-													
-												</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="media">
-                                                <div class="media-body">
-													<span class="media-meta pull-right">450</span>
-													
-												</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="media">
-                                                <div class="media-body">
-													
-													<h4 class="title">
-                                                        <span class="pull-right pagado">200</span>
-													</h4>
-													
-												</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="media">
-                                                <div class="media-body">
-													
-													<h4 class="title">
-                                                        <span class="pull-right pagado">250</span>
-													</h4>
-													
-												</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="media">
-                                                <div class="media-body">
-													
-													<h4 class="title">
-                                                        <span class="pull-right pagado">20%</span>
-													</h4>
-													
-												</div>
-                                            </div>
-                                        </td>
-                                    <tr data-status="pagado">
-										<td>
-											<div class="pagado">
-												<p>003</p>
-											</div>
-										</td>
-										
-										<td>
-											<div class="media">
-												<a href="#" class="pull-left">
-													<img src="https://lh3.googleusercontent.com/-X3itCrJnCwo/AAAAAAAAAAI/AAAAAAAAABA/nwaRJl8QtTk/s640/photo.jpg" class="media-photo">
-												</a>	
-											</div>
-										</td>
-                                        <td>
-                                            <div class="media">
-                                                <div class="media-body">
-													<h4 class="title">
-														Muhammad Zuraiz
-													</h4>
-													
-												</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="media">
-                                                <div class="media-body">
-													<h4 class="title">
-														<span class="pull-right pagado">150</span>
-													</h4>
-													
-												</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="media">
-                                                <div class="media-body">
-													
-													<h4 class="title">
-                                                        <span class="pull-right pagado">200</span>
-													</h4>
-													
-												</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="media">
-                                                <div class="media-body">
-													<span class="media-meta pull-right">400</span>
-													
-												</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="media">
-                                                <div class="media-body">
-													
-													<h4 class="title">
-                                                        <span class="pull-right pagado">100</span>
-													</h4>
-													
-												</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="media">
-                                                <div class="media-body">
-													
-													<h4 class="title">
-                                                        <span class="pull-right pagado">20</span>
-													</h4>
-													
-												</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="media">
-                                                <div class="media-body">
-													
-													<h4 class="title">
-                                                        <span class="pull-right pagado">30%</span>
-													</h4>
-													
-												</div>
-                                            </div>
-                                        </td>
-									</tr>
                                     
                                 </tbody>
 							</table>

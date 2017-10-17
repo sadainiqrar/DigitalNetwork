@@ -1,5 +1,5 @@
 	// create the controller and inject Angular's $scope
-angular.module('DigitalMarket').controller('mainController', function ($scope, sessionFactory, $rootScope, $cookies) {
+angular.module('DigitalMarket').controller('mainController', function ($scope, sessionFactory, articleFactory, $rootScope, $cookies) {
     $rootScope.globals = $cookies.getObject('globals') || {};
 		// create a message to display in our view
     $scope.userdate = $rootScope.globals.currentUser;
@@ -37,4 +37,18 @@ angular.module('DigitalMarket').controller('mainController', function ($scope, s
             // log errors
         }
     );
+
+    
+        $scope.articles = [];
+        articleFactory.getArticles().then(
+            // callback function for successful http request
+            function success(response) {
+                $scope.articles = response.data;
+
+            },
+            // callback function for error in http request
+            function error(response) {
+                // log errors
+            }
+        );
 	});

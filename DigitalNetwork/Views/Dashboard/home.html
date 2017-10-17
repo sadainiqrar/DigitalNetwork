@@ -100,7 +100,7 @@
                                 </thead>
                                 <tbody>
                                 </tbody>
-                                <tr data-status="pagado" ng-repeat="s in csessions">
+                                <tr data-status="pagado" ng-repeat="s in csessions | limitTo:'7'">
                                     <td>
                                             <div class="media">
                                                 <div class="media-body">
@@ -149,93 +149,35 @@
                                     
                                 </thead>
 								<tbody>
-									<tr data-status="pagado">
+									<tr data-status="pagado" ng-repeat="article in articles|limitTo:'5' ">
 										 
 										<td>
 											<div class="media">
 												<a href="#" class="pull-left">
-													<img src="https://scontent.cdninstagram.com/t51.2885-19/s150x150/19424755_297321304063298_1411761672955101184_a.jpg" class="media-photo">
+													<img src="{{article.photo_url}}" class="media-photo">
 												</a>	
 											</div>
 										</td>
                                         <td>
                                             <div class="media">
                                                 <div class="media-body">
-													<h4 class="title">
-														The girl from Ipanima
-													</h4>
+													<p>
+                                                        <b ng-bind-html="article.title"></b>
+													</p>
 													
 												</div>
                                             </div>
                                         </td>
                                         <td>
-                                         <div class="my-toggle-btn" class="col-md-6">
-                            <input type="checkbox" id="checkbox1">
-                            <label for="checkbox1">
-                              <span class="on">ON</span>
-                              <span class="off">OFF</span>
-                            </label>
+                                         <div class="col-md-6">
+                                             <md-switch class="md-primary" ng-model="article.status" aria-label="Switch"
+                                                        ng-change="">
+                                                 Status : {{ article.status }}
+                                             </md-switch>  
                         </div>
                                         </td>
                                     </tr>
-                                    	<tr data-status="pagado">
-										 
-										<td>
-											<div class="media">
-												<a href="#" class="pull-left">
-													<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVcxVGC8Fa1wbspSjPOTz3IywOeu67h1pdALrLFkdHUNdp2qgrzw" class="media-photo">
-												</a>	
-											</div>
-										</td>
-                                        <td>
-                                            <div class="media">
-                                                <div class="media-body">
-													<h4 class="title">
-														Christain Bale plays Roman
-													</h4>
-													
-												</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                         <div class="my-toggle-btn" class="col-md-6">
-                            <input type="checkbox" id="checkbox2">
-                            <label for="checkbox2">
-                              <span class="on">ON</span>
-                              <span class="off">OFF</span>
-                            </label>
-                        </div>
-                                        </td>
-                                    </tr>
-                                       	<tr data-status="pagado">
-										 
-										<td>
-											<div class="media">
-												<a href="#" class="pull-left">
-													<img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Donald_Trump_Pentagon_2017.jpg" class="media-photo">
-												</a>	
-											</div>
-										</td>
-                                        <td>
-                                            <div class="media">
-                                                <div class="media-body">
-													<h4 class="title">
-														Donald Trump invades North
-													</h4>
-													
-												</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                         <div class="my-toggle-btn" class="col-md-6">
-                            <input type="checkbox" id="checkbox3">
-                            <label for="checkbox3">
-                              <span class="on">ON</span>
-                              <span class="off">OFF</span>
-                            </label>
-                        </div>
-                                        </td>
-                                    </tr>
+                                    
                                     
                                     
                                     
@@ -261,7 +203,7 @@
                                     
                                 </thead>
 								<tbody>
-									<tr data-status="pagado" ng-repeat="ps in psessions">
+									<tr data-status="pagado" ng-repeat="ps in psessions |limitTo:'5'">
 										<td>
 											<div class="pagado">
 												<p>1</p>

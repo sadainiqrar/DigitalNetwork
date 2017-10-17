@@ -12,6 +12,21 @@ function sessionFactory($http) {
       
         return $http.post('/api/sessions', data);
     }
+
+    function Session(_from_date,_to_date) {
+
+        var fromYear = _from_date.toISOString();
+
+        var from = fromYear.split('T');
+        var f = from[0];
+        var toDate = _to_date.toISOString();
+        var to = toDate.split('T');
+
+        var t = to[0];
+        var data = { ga_id: 'ga:162220485', from_date: f, to_date: t, extra: null };
+
+        return $http.post('/api/sessions', data);
+    }
     function getSession_campaign() {
 
 
@@ -19,6 +34,23 @@ function sessionFactory($http) {
 
         return $http.post('/api/campaign/sessions', data);
     }
+
+    function Session_campaign(_from_date, _to_date) {
+
+        var fromYear = _from_date.toISOString();
+
+        var from = fromYear.split('T');
+        var f = from[0];
+        var toDate = _to_date.toISOString();
+        var to = toDate.split('T');
+
+        var t = to[0];
+        var data = { ga_id: 'ga:162220485', from_date: f, to_date: t, extra: null };
+        
+
+        return $http.post('/api/campaign/sessions', data);
+    }
+
     function getSession_page() {
 
 
@@ -29,7 +61,9 @@ function sessionFactory($http) {
 
     var service = {
         getSession: getSession,
+        Session: Session,
         getSession_campaign: getSession_campaign,
+        Session_campaign: Session_campaign,
         getSession_page: getSession_page
     };
 

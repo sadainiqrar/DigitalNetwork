@@ -38,8 +38,13 @@ namespace DigitalNetwork.Controllers
                 }
             }
             var session_result= result.Execute();
-            IList<string> l = session_result.Rows[0];
-            return l[0];
+            int count = (int)session_result.TotalResults;
+            if (count != 0)
+            {
+                IList<string> l = session_result.Rows[0];
+                return l[0];
+            }
+            return "" + 0;
         
        }
 
