@@ -93,6 +93,11 @@ namespace DigitalNetwork
                         "~/Scripts/factories/updateArticleFactory.js",
                          "~/Scripts/factories/sessionFactory.js"
                         ));
+
+            bundles.Add(new ScriptBundle("~/bundles/userScript").Include(
+                       "~/Scripts/controllers/userdashboard/userMainController.js",
+                       "~/Scripts/controllers/userdashboard/userDashboardController.js"
+                       ));
             bundles.Add(new ScriptBundle("~/bundles/homeScript").Include(
                         
                         "~/Scripts/services/homeservice/authentication.service.js",
@@ -102,6 +107,16 @@ namespace DigitalNetwork
                       
                         "~/Scripts/controllers/home/login.controller.js",
                         "~/Scripts/controllers/home/register.controller.js"
+                 ));
+            bundles.Add(new ScriptBundle("~/bundles/userHomeScript").Include(
+
+                        "~/Scripts/services/userhomeservice/userauthentication.service.js",
+                        "~/Scripts/services/userhomeservice/userflash.service.js",
+                        "~/Scripts/services/userhomeservice/useruser.service.js",
+
+
+                        "~/Scripts/controllers/userhome/userlogin.controller.js",
+                        "~/Scripts/controllers/userhome/userregister.controller.js"
                  ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(

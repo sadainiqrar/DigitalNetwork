@@ -1,0 +1,40 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html ng-app="DigitalMarket">
+<head>
+    <meta charset="utf-8" />
+    <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>@ViewBag.Title DigitalNetwork</title>
+    @Styles.Render("~/Content/css")
+
+    @Scripts.Render("~/bundles/angular")
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.js" integrity="sha256-w3THDDhkzdjMczax74BBlkhjBxWIGisjArsP5wIQSHc=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    @Scripts.Render("~/bundles/adminScript")
+    @Scripts.Render("~/bundles/homeScript")
+
+
+
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+
+    <!-- angular templating -->
+    <!-- this is where content will be injected -->
+
+    <ui-view></ui-view>
+
+
+
+
+    <!-- Bootstrap -->
+
+    @Scripts.Render("~/bundles/scripts")
+</body>
+</html>
