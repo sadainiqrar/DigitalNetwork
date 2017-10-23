@@ -1,0 +1,114 @@
+
+<h2>{{message}}</h2>
+<section class="panel panel-default pan">
+    <h2>{{email}}</h2>
+    <div class="row">
+
+        <div class="col-md-4 b-r">
+            <a class="clear">
+                <span class="h3 block m-t-xs"><center><strong style="color: skyblue">{{today_earned}}$ </strong></center></span>
+
+                <small class="text-muted text-uc"><center>EARNED TODAY</center></small>
+
+            </a>
+        </div>
+        <div class="col-md-4 b-r">
+
+            <a class="clear">
+                <span class="h3 block m-t-xs"><center><strong style="color: plum">{{monthly_earned}}$ <i class="fa fa-signal" aria-hidden="true"></i> </strong></center></span>
+
+                <small class="text-muted text-uc"><center>EARNED THIS MONTH</center></small>
+            </a>
+        </div>
+        <div class="col-md-4">
+
+            <a class="clear">
+                <span class="h3 m-t-xs"><center><strong style="color: blue"> {{sessions}}</strong></center></span>
+
+                <small class="text-muted text-uc"><center>THIS MONTH'S TRAFFIC</center></small>
+            </a>
+        </div>
+    </div>
+</section>
+
+<div class="bar">
+    <div class="content">
+        <div class="row">
+            <ul class="nav nav-tabs" id="Tab">
+                <li class="active tab"><a data-toggle="tab">Premium</a></li>
+                <li><a data-toggle="tab">Non Premium</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+    <section class="panel panel-default">
+        <div><p>TOP ARTICLES</p></div>
+
+        <nav class="navbar navbar-default navbar-collapse navbar-main-collapse">
+
+            <ul class="nav navbar-nav" style="display: inline;">
+                <li class="top"><a href="page-top">All</a></li>
+                <li><a href="#">Entertainment</a></li>
+                <li><a href="#">Sports</a></li>
+                <li><a href="#">Health & Food</a></li>
+                <li><a href="#">Showbiz</a></li>
+                <li><a href="#">Motivation</a></li>
+                <li><a href="#">Featured</a></li>
+                <li class="slct">
+                    <select style="font-style:italic">
+                        <option value="" hidden>Sortby</option>
+                        <option value="All">All</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Sports">Sports</option>
+                        <option value="Health&Food">Health&Food</option>
+                        <option value="Showbiz">Showbiz</option>
+                        <option value="Motivation">Motivation</option>
+                        <option value="Featured">Featured</option>
+                    </select>
+                </li>
+            </ul>
+        </nav>
+
+
+        <div class="container-fluid">
+
+            <div class="flex-row row text-center">
+
+
+
+                <div class="col-md-4 d-flex pb-3" style="padding-bottom: 1em; padding-top: 1em"  ng-repeat="article in articles">
+
+                    <div style="padding: 0px 0px 0px 0px;">
+                        <div style="width:100%;">
+                            <img class="img-responsive" style=" height:12em;" src={{article.photo_url}}>
+                            <div class="overlay">
+                                <div class="textt"><i class="fa fa-eye" aria-hidden="true"></i><p style="font-size: 10px;">VIEWS</p> <p style="color: deepskyblue">956K</p> </div>
+                                <div class="txt"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><p style="font-size: 10px;">SHARES</p><p style="color: deepskyblue">12K</p></div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-12 bottom">
+
+                        <p style="font-size: 10px;float: left;padding-top:  5px">{{article.modified_date}}</p><br>
+                        <p style="text-justify:auto" ng-bind-html="article.title"> </p>
+                        <hr class="h-line">
+                        <p class="copy">Article by:{{article.site_url}}</p>
+
+                        <a href="#"> <i class="fa fa-share-alt" aria-hidden="true"></i> </a>
+                        <a href="#"><i class="fa fa-link" aria-hidden="true"></i></a>
+
+
+
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </section>
+    </div>

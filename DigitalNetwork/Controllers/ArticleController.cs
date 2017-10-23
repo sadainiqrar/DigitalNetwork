@@ -50,9 +50,17 @@ namespace DigitalNetwork.Controllers
             return article.status;
 
         }
-        
+        [HttpGet]
+        [Route("api/user/articles")]
+        public IEnumerable<get_articles_Result> GetArticles()
+        {
 
-        
+            return dataCon.DB.db.get_articles();
+
+
+        }
+
+
 
     }
 }
