@@ -18,17 +18,19 @@ namespace DigitalNetwork.Models
         public User()
         {
             this.Payments = new HashSet<Payment>();
+            this.User_Articles = new HashSet<User_Articles>();
             this.User_Marketing_Source = new HashSet<User_Marketing_Source>();
         }
     
         public string uid { get; set; }
-        public string email { get; set; }
-        public string password { get; set; }
         public string username { get; set; }
         public string photourl { get; set; }
+        public string user_token { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Payment> Payments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User_Articles> User_Articles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User_Marketing_Source> User_Marketing_Source { get; set; }
     }

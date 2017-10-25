@@ -50,17 +50,47 @@ namespace DigitalNetwork.Controllers
             return article.status;
 
         }
-        [HttpGet]
+
+        [HttpPost]
         [Route("api/user/articles")]
-        public IEnumerable<get_articles_Result> GetArticles()
+        public IEnumerable<get_articles_Result> PostArticles([FromBody] user_article_input article)
         {
 
-            return dataCon.DB.db.get_articles();
+            return dataCon.DB.db.get_articles(article.uid,article.category,article.sub_category);
+        }
 
+        [HttpPost]
+        [Route("api/user/shared_articles")]
+        public IEnumerable<get_shared_article_Result> Post_Shared_Articles([FromBody] user_article_input article)
+        {
 
+            return dataCon.DB.db.get_shared_article(article.uid, article.category, article.sub_category);
         }
 
 
+        [HttpPut]
+        [Route("api/user/insert/shared_article")]
+        public int Put_Shared_Articles([FromBody] User_Articles article)
+        {
 
+            return dataCon.DB.db.add_shared_article(article.uid, article.serial_no, article.copied,article.shared);
+        }
+
+        [HttpPost]
+        [Route("api/user/update/shared_article")]
+        public int Update_Shared_Articles([FromBody] User_Articles article)
+        {
+
+            return dataCon.DB.db.update_shared_articles(article.uid, article.serial_no, article.shared, article.copied);
+        }
+
+
+        [HttpPut]
+        [Route("api/admin/add/article")]
+        public int Put_Article([FromBody] Article article)
+        {
+
+            return dataCon.DB.db.add_article(article.a_id, article.url, article.status, article.title, article.summary, article.photo_url, article.modified_date, article.url, article.category, article.sub_category,article.custom);
+        }
     }
 }

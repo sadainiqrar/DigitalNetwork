@@ -34,7 +34,7 @@ namespace DigitalNetwork.Scheduler
             {
                 try
                 {
-                    dataCon.DB.db.add_article(post.aId, post.aUrl, false, post.title, post.excerpt, post.featuredImage,post.modifiedDate, "http://trumpgossiptoday.com");
+                    dataCon.DB.db.add_article(post.aId, post.aUrl, false, post.title, post.excerpt, post.featuredImage,post.modifiedDate, "http://trumpgossiptoday.com","Premium","Political",false);
                     count++;
                 }
                 catch (Exception e)
@@ -53,7 +53,10 @@ namespace DigitalNetwork.Scheduler
             {
                 if (!siteList.Contains(checkElement(dblistItem.a_id, dblistItem.site_url,siteList)))
                 {
-                    dataCon.DB.db.delete_article(dblistItem.serial_no);
+                    if (dblistItem.custom == false)
+                    {
+                        dataCon.DB.db.delete_article(dblistItem.serial_no);
+                    }
                 }
                 if (siteList.Contains(checkElement(dblistItem.a_id, dblistItem.site_url, siteList)))
                 {
@@ -86,7 +89,7 @@ namespace DigitalNetwork.Scheduler
         private IEnumerable<get_admin_articles_Result> getDBArticles()
         {
 
-            return dataCon.DB.db.get_admin_articles("zuraiz.com", "url4.com");
+            return dataCon.DB.db.get_admin_articles("zuraiz.com", "http://trumpgossiptoday.com");
         }
         private List<ArticleModel> makeArticleList()
         {

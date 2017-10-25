@@ -10,12 +10,16 @@
 namespace DigitalNetwork.Models
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class user_sign_in_Result
+    public partial class User_Articles
     {
         public string uid { get; set; }
-        public string username { get; set; }
-        public string photourl { get; set; }
-        public string user_token { get; set; }
+        public int serial_no { get; set; }
+        public bool copied { get; set; }
+        public bool shared { get; set; }
+    
+        public virtual Article Article { get; set; }
+        public virtual User User { get; set; }
     }
 }

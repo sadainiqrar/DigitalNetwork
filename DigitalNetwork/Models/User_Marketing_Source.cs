@@ -15,8 +15,7 @@ namespace DigitalNetwork.Models
     public partial class User_Marketing_Source
     {
         public int ums_id { get; set; }
-        public string page_url { get; set; }
-        public string description { get; set; }
+        public string access_token { get; set; }
         public string uid { get; set; }
     
         public virtual User User { get; set; }

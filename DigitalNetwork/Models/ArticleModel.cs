@@ -16,5 +16,14 @@ namespace DigitalNetwork.Models
         public string featuredImage { get; set; }
         public DateTime modifiedDate { get; set; }
     }
-   
+
+
+    public partial class user_article_input
+    {
+        public string uid { get; set; }
+        public string category { get; set; }
+        public string sub_category { get; set; }
+
+    }
+
 }

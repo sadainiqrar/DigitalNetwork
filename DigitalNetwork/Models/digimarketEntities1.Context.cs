@@ -35,9 +35,10 @@ namespace DigitalNetwork.Models
         public virtual DbSet<Site> Sites { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<User_Articles> User_Articles { get; set; }
         public virtual DbSet<User_Marketing_Source> User_Marketing_Source { get; set; }
     
-        public virtual int add_article(Nullable<int> aid, string article_url, Nullable<bool> status, string title, string summary, string photo_url, Nullable<System.DateTime> modified_date, string site_url)
+        public virtual int add_article(Nullable<int> aid, string article_url, Nullable<bool> status, string title, string summary, string photo_url, Nullable<System.DateTime> modified_date, string site_url, string category, string sub_category, Nullable<bool> custom)
         {
             var aidParameter = aid.HasValue ?
                 new ObjectParameter("aid", aid) :
@@ -71,7 +72,19 @@ namespace DigitalNetwork.Models
                 new ObjectParameter("site_url", site_url) :
                 new ObjectParameter("site_url", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("add_article", aidParameter, article_urlParameter, statusParameter, titleParameter, summaryParameter, photo_urlParameter, modified_dateParameter, site_urlParameter);
+            var categoryParameter = category != null ?
+                new ObjectParameter("category", category) :
+                new ObjectParameter("category", typeof(string));
+    
+            var sub_categoryParameter = sub_category != null ?
+                new ObjectParameter("sub_category", sub_category) :
+                new ObjectParameter("sub_category", typeof(string));
+    
+            var customParameter = custom.HasValue ?
+                new ObjectParameter("custom", custom) :
+                new ObjectParameter("custom", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("add_article", aidParameter, article_urlParameter, statusParameter, titleParameter, summaryParameter, photo_urlParameter, modified_dateParameter, site_urlParameter, categoryParameter, sub_categoryParameter, customParameter);
         }
     
         public virtual int add_payment(string uid, Nullable<int> traffic, Nullable<decimal> amount, Nullable<System.DateTime> from_date, Nullable<System.DateTime> to_date, Nullable<System.DateTime> pay_date)
@@ -103,6 +116,27 @@ namespace DigitalNetwork.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("add_payment", uidParameter, trafficParameter, amountParameter, from_dateParameter, to_dateParameter, pay_dateParameter);
         }
     
+        public virtual int add_shared_article(string uid, Nullable<int> serial_no, Nullable<bool> copied, Nullable<bool> shared)
+        {
+            var uidParameter = uid != null ?
+                new ObjectParameter("uid", uid) :
+                new ObjectParameter("uid", typeof(string));
+    
+            var serial_noParameter = serial_no.HasValue ?
+                new ObjectParameter("serial_no", serial_no) :
+                new ObjectParameter("serial_no", typeof(int));
+    
+            var copiedParameter = copied.HasValue ?
+                new ObjectParameter("copied", copied) :
+                new ObjectParameter("copied", typeof(bool));
+    
+            var sharedParameter = shared.HasValue ?
+                new ObjectParameter("shared", shared) :
+                new ObjectParameter("shared", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("add_shared_article", uidParameter, serial_noParameter, copiedParameter, sharedParameter);
+        }
+    
         public virtual int add_site(string site, string site_name, string gid, string email)
         {
             var siteParameter = site != null ?
@@ -124,21 +158,21 @@ namespace DigitalNetwork.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("add_site", siteParameter, site_nameParameter, gidParameter, emailParameter);
         }
     
-        public virtual int add_ums(string page_url, string des, string uid)
+        public virtual int add_ums(Nullable<int> ums_id, string token, string uid)
         {
-            var page_urlParameter = page_url != null ?
-                new ObjectParameter("page_url", page_url) :
-                new ObjectParameter("page_url", typeof(string));
+            var ums_idParameter = ums_id.HasValue ?
+                new ObjectParameter("ums_id", ums_id) :
+                new ObjectParameter("ums_id", typeof(int));
     
-            var desParameter = des != null ?
-                new ObjectParameter("des", des) :
-                new ObjectParameter("des", typeof(string));
+            var tokenParameter = token != null ?
+                new ObjectParameter("token", token) :
+                new ObjectParameter("token", typeof(string));
     
             var uidParameter = uid != null ?
                 new ObjectParameter("uid", uid) :
                 new ObjectParameter("uid", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("add_ums", page_urlParameter, desParameter, uidParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("add_ums", ums_idParameter, tokenParameter, uidParameter);
         }
     
         public virtual ObjectResult<admin_sign_in_Result> admin_sign_in(string email, string pass)
@@ -278,9 +312,21 @@ namespace DigitalNetwork.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_admin_single_article_Result>("get_admin_single_article", aidParameter, emailParameter, siteParameter);
         }
     
-        public virtual ObjectResult<get_articles_Result> get_articles()
+        public virtual ObjectResult<get_articles_Result> get_articles(string uid, string cat, string subcat)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_articles_Result>("get_articles");
+            var uidParameter = uid != null ?
+                new ObjectParameter("uid", uid) :
+                new ObjectParameter("uid", typeof(string));
+    
+            var catParameter = cat != null ?
+                new ObjectParameter("cat", cat) :
+                new ObjectParameter("cat", typeof(string));
+    
+            var subcatParameter = subcat != null ?
+                new ObjectParameter("subcat", subcat) :
+                new ObjectParameter("subcat", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_articles_Result>("get_articles", uidParameter, catParameter, subcatParameter);
         }
     
         public virtual ObjectResult<get_payment_Result> get_payment(string uid, Nullable<int> traffic, Nullable<decimal> amount, Nullable<System.DateTime> from_date, Nullable<System.DateTime> to_date, Nullable<System.DateTime> pay_date)
@@ -319,6 +365,32 @@ namespace DigitalNetwork.Models
                 new ObjectParameter("category", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_rate_Result>("get_rate", categoryParameter);
+        }
+    
+        public virtual ObjectResult<get_shared_article_Result> get_shared_article(string uid, string cat, string subcat)
+        {
+            var uidParameter = uid != null ?
+                new ObjectParameter("uid", uid) :
+                new ObjectParameter("uid", typeof(string));
+    
+            var catParameter = cat != null ?
+                new ObjectParameter("cat", cat) :
+                new ObjectParameter("cat", typeof(string));
+    
+            var subcatParameter = subcat != null ?
+                new ObjectParameter("subcat", subcat) :
+                new ObjectParameter("subcat", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_shared_article_Result>("get_shared_article", uidParameter, catParameter, subcatParameter);
+        }
+    
+        public virtual ObjectResult<get_site_Result> get_site(string email)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_site_Result>("get_site", emailParameter);
         }
     
         public virtual ObjectResult<get_ums_Result> get_ums(string uid)
@@ -510,6 +582,27 @@ namespace DigitalNetwork.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("update_rates", categoryParameter, rateParameter, dateParameter);
         }
     
+        public virtual int update_shared_articles(string uid, Nullable<int> serial, Nullable<bool> shared, Nullable<bool> copied)
+        {
+            var uidParameter = uid != null ?
+                new ObjectParameter("uid", uid) :
+                new ObjectParameter("uid", typeof(string));
+    
+            var serialParameter = serial.HasValue ?
+                new ObjectParameter("serial", serial) :
+                new ObjectParameter("serial", typeof(int));
+    
+            var sharedParameter = shared.HasValue ?
+                new ObjectParameter("shared", shared) :
+                new ObjectParameter("shared", typeof(bool));
+    
+            var copiedParameter = copied.HasValue ?
+                new ObjectParameter("copied", copied) :
+                new ObjectParameter("copied", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("update_shared_articles", uidParameter, serialParameter, sharedParameter, copiedParameter);
+        }
+    
         public virtual int update_site(string site_name, string site)
         {
             var site_nameParameter = site_name != null ?
@@ -523,82 +616,20 @@ namespace DigitalNetwork.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("update_site", site_nameParameter, siteParameter);
         }
     
-        public virtual int update_ums(string page_url, string des, string uid)
-        {
-            var page_urlParameter = page_url != null ?
-                new ObjectParameter("page_url", page_url) :
-                new ObjectParameter("page_url", typeof(string));
-    
-            var desParameter = des != null ?
-                new ObjectParameter("des", des) :
-                new ObjectParameter("des", typeof(string));
-    
-            var uidParameter = uid != null ?
-                new ObjectParameter("uid", uid) :
-                new ObjectParameter("uid", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("update_ums", page_urlParameter, desParameter, uidParameter);
-        }
-    
-        public virtual ObjectResult<user_sign_in_Result> user_sign_in(string email, string pass)
-        {
-            var emailParameter = email != null ?
-                new ObjectParameter("email", email) :
-                new ObjectParameter("email", typeof(string));
-    
-            var passParameter = pass != null ?
-                new ObjectParameter("pass", pass) :
-                new ObjectParameter("pass", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<user_sign_in_Result>("user_sign_in", emailParameter, passParameter);
-        }
-    
-        public virtual int user_sign_up(string email, string uid, string name, string pass, string photo, string url, string desc)
-        {
-            var emailParameter = email != null ?
-                new ObjectParameter("email", email) :
-                new ObjectParameter("email", typeof(string));
-    
-            var uidParameter = uid != null ?
-                new ObjectParameter("uid", uid) :
-                new ObjectParameter("uid", typeof(string));
-    
-            var nameParameter = name != null ?
-                new ObjectParameter("name", name) :
-                new ObjectParameter("name", typeof(string));
-    
-            var passParameter = pass != null ?
-                new ObjectParameter("pass", pass) :
-                new ObjectParameter("pass", typeof(string));
-    
-            var photoParameter = photo != null ?
-                new ObjectParameter("photo", photo) :
-                new ObjectParameter("photo", typeof(string));
-    
-            var urlParameter = url != null ?
-                new ObjectParameter("url", url) :
-                new ObjectParameter("url", typeof(string));
-    
-            var descParameter = desc != null ?
-                new ObjectParameter("desc", desc) :
-                new ObjectParameter("desc", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("user_sign_up", emailParameter, uidParameter, nameParameter, passParameter, photoParameter, urlParameter, descParameter);
-        }
-    
-        public virtual int user_update(string uid, string email, string pass, string name, string photo)
+        public virtual ObjectResult<user_sign_in_Result> user_sign_in(string uid)
         {
             var uidParameter = uid != null ?
                 new ObjectParameter("uid", uid) :
                 new ObjectParameter("uid", typeof(string));
     
-            var emailParameter = email != null ?
-                new ObjectParameter("email", email) :
-                new ObjectParameter("email", typeof(string));
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<user_sign_in_Result>("user_sign_in", uidParameter);
+        }
     
-            var passParameter = pass != null ?
-                new ObjectParameter("pass", pass) :
-                new ObjectParameter("pass", typeof(string));
+        public virtual int user_sign_up(string uid, string name, string photo, string token)
+        {
+            var uidParameter = uid != null ?
+                new ObjectParameter("uid", uid) :
+                new ObjectParameter("uid", typeof(string));
     
             var nameParameter = name != null ?
                 new ObjectParameter("name", name) :
@@ -608,16 +639,24 @@ namespace DigitalNetwork.Models
                 new ObjectParameter("photo", photo) :
                 new ObjectParameter("photo", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("user_update", uidParameter, emailParameter, passParameter, nameParameter, photoParameter);
+            var tokenParameter = token != null ?
+                new ObjectParameter("token", token) :
+                new ObjectParameter("token", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("user_sign_up", uidParameter, nameParameter, photoParameter, tokenParameter);
         }
     
-        public virtual ObjectResult<get_site_Result> get_site(string email)
+        public virtual int user_update(string uid, string photo)
         {
-            var emailParameter = email != null ?
-                new ObjectParameter("email", email) :
-                new ObjectParameter("email", typeof(string));
+            var uidParameter = uid != null ?
+                new ObjectParameter("uid", uid) :
+                new ObjectParameter("uid", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_site_Result>("get_site", emailParameter);
+            var photoParameter = photo != null ?
+                new ObjectParameter("photo", photo) :
+                new ObjectParameter("photo", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("user_update", uidParameter, photoParameter);
         }
     }
 }

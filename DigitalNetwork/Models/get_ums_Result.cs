@@ -13,7 +13,7 @@ namespace DigitalNetwork.Models
     
     public partial class get_ums_Result
     {
-        public string page_url { get; set; }
-        public string description { get; set; }
+        public int ums_id { get; set; }
+        public string access_token { get; set; }
     }
 }

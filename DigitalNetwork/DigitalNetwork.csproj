@@ -167,25 +167,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Models\DigiMarketDB.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DigiMarketDB.edmx</DependentUpon>
-      <LastGenOutput>DigiMarketDB.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\DigiMarketDB.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DigiMarketDB.edmx</DependentUpon>
-      <LastGenOutput>DigiMarketDB.cs</LastGenOutput>
-    </Content>
     <None Include="job_scheduling_data_2_0.xsd">
       <SubType>Designer</SubType>
     </None>
-    <EntityDeploy Include="Models\DigiMarketDB.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DigiMarketDB.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\DigiMarketDB.edmx.diagram">
-      <DependentUpon>DigiMarketDB.edmx</DependentUpon>
+    <Content Include="Models\digimarketEntities1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>digimarketEntities1.edmx</DependentUpon>
+      <LastGenOutput>digimarketEntities1.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\digimarketEntities1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>digimarketEntities1.edmx</DependentUpon>
+      <LastGenOutput>digimarketEntities1.cs</LastGenOutput>
     </Content>
     <Content Include="Web.config" />
   </ItemGroup>
@@ -207,96 +200,109 @@
     <Compile Include="DataModel\Page_Session.cs" />
     <Compile Include="DataModel\Time_Session.cs" />
     <Compile Include="Models\Admin.cs">
-      <DependentUpon>DigiMarketDB.tt</DependentUpon>
+      <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AdminSite.cs" />
     <Compile Include="Models\admin_sign_in_Result.cs">
-      <DependentUpon>DigiMarketDB.tt</DependentUpon>
+      <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Article.cs">
-      <DependentUpon>DigiMarketDB.tt</DependentUpon>
+      <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ArticleModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\DigiMarketDB.Context.cs">
+    <Compile Include="Models\digimarketEntities1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DigiMarketDB.Context.tt</DependentUpon>
+      <DependentUpon>digimarketEntities1.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DigiMarketDB.cs">
+    <Compile Include="Models\digimarketEntities1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DigiMarketDB.tt</DependentUpon>
+      <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DigiMarketDB.Designer.cs">
+    <Compile Include="Models\digimarketEntities1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DigiMarketDB.edmx</DependentUpon>
+      <DependentUpon>digimarketEntities1.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\getArticleBySerial_Result.cs">
-      <DependentUpon>DigiMarketDB.tt</DependentUpon>
+      <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\get_admin_articles_Result.cs">
-      <DependentUpon>DigiMarketDB.tt</DependentUpon>
+      <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\get_admin_single_article_Result.cs">
-      <DependentUpon>DigiMarketDB.tt</DependentUpon>
+      <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\get_articles_Result.cs">
-      <DependentUpon>DigiMarketDB.tt</DependentUpon>
+      <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\get_payment_Result.cs">
-      <DependentUpon>DigiMarketDB.tt</DependentUpon>
+      <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\get_rate_Result.cs">
-      <DependentUpon>DigiMarketDB.tt</DependentUpon>
+      <DependentUpon>digimarketEntities1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\get_shared_article_Result.cs">
+      <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\get_site_Result.cs">
-      <DependentUpon>DigiMarketDB.tt</DependentUpon>
+      <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\get_ums_Result.cs">
-      <DependentUpon>DigiMarketDB.tt</DependentUpon>
+      <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\get_user_single_article_Result.cs">
-      <DependentUpon>DigiMarketDB.tt</DependentUpon>
+      <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Payment.cs">
-      <DependentUpon>DigiMarketDB.tt</DependentUpon>
+      <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Rate.cs">
-      <DependentUpon>DigiMarketDB.tt</DependentUpon>
+      <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Rates_History.cs">
-      <DependentUpon>DigiMarketDB.tt</DependentUpon>
+      <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Site.cs">
-      <DependentUpon>DigiMarketDB.tt</DependentUpon>
+      <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>DigiMarketDB.tt</DependentUpon>
+      <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_helpdiagrams_Result.cs">
-      <DependentUpon>DigiMarketDB.tt</DependentUpon>
+      <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>DigiMarketDB.tt</DependentUpon>
+      <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
-      <DependentUpon>DigiMarketDB.tt</DependentUpon>
+      <DependentUpon>digimarketEntities1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User_Articles.cs">
+      <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User_Marketing_Source.cs">
-      <DependentUpon>DigiMarketDB.tt</DependentUpon>
+      <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\user_sign_in_Result.cs">
-      <DependentUpon>DigiMarketDB.tt</DependentUpon>
+      <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scheduler\articleUpdate.cs" />
     <Compile Include="Scheduler\ArticleUpdateJob.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EntityDeploy Include="Models\digimarketEntities1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>digimarketEntities1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\digimarketEntities1.edmx.diagram">
+      <DependentUpon>digimarketEntities1.edmx</DependentUpon>
+    </Content>
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

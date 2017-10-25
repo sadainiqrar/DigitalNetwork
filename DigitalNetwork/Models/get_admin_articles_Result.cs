@@ -22,5 +22,8 @@ namespace DigitalNetwork.Models
         public string photo_url { get; set; }
         public System.DateTime modified_date { get; set; }
         public string site_url { get; set; }
+        public string category { get; set; }
+        public string sub_category { get; set; }
+        public bool custom { get; set; }
     }
 }
