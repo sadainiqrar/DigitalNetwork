@@ -151,6 +151,7 @@
   <ItemGroup>
     <Content Include="Content\angular-material.min.css" />
     <Content Include="Content\animate.css" />
+    <Content Include="Content\animate.min.css" />
     <Content Include="Content\app.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
@@ -168,6 +169,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\themify.svg" />
     <Content Include="Global.asax" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -259,6 +261,7 @@
     <Content Include="js\intro\demo.js" />
     <Content Include="js\intro\intro.min.js" />
     <Content Include="js\intro\introjs.css" />
+    <Content Include="js\jquery-1.10.2.js" />
     <Content Include="js\jquery-3.2.1.min.js" />
     <Content Include="js\jquery-ui-1.10.3.custom.min.js" />
     <Content Include="js\jquery.flot.min.js" />
@@ -1097,6 +1100,27 @@
     <Content Include="Scripts\i18n\angular-locale_zh.js" />
     <Content Include="Scripts\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\i18n\angular-locale_zu.js" />
+    <Content Include="fonts\Lato-Black.ttf" />
+    <Content Include="fonts\Lato-BlackItalic.ttf" />
+    <Content Include="fonts\Lato-Bold.ttf" />
+    <Content Include="fonts\Lato-BoldItalic.ttf" />
+    <Content Include="fonts\Lato-Hairline.ttf" />
+    <Content Include="fonts\Lato-HairlineItalic.ttf" />
+    <Content Include="fonts\Lato-Heavy.ttf" />
+    <Content Include="fonts\Lato-HeavyItalic.ttf" />
+    <Content Include="fonts\Lato-Italic.ttf" />
+    <Content Include="fonts\Lato-Light.ttf" />
+    <Content Include="fonts\Lato-LightItalic.ttf" />
+    <Content Include="fonts\Lato-Medium.ttf" />
+    <Content Include="fonts\Lato-MediumItalic.ttf" />
+    <Content Include="fonts\Lato-Regular.ttf" />
+    <Content Include="fonts\Lato-Semibold.ttf" />
+    <Content Include="fonts\Lato-SemiboldItalic.ttf" />
+    <Content Include="fonts\Lato-Thin.ttf" />
+    <Content Include="fonts\Lato-ThinItalic.ttf" />
+    <Content Include="fonts\themify.eot" />
+    <Content Include="fonts\themify.ttf" />
+    <Content Include="fonts\themify.woff" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

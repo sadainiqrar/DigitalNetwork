@@ -2,8 +2,8 @@
 angular.module('DigitalMarket').controller('dashboardController', function ($scope, $rootScope, $cookies, $location) {
     $rootScope.globals = $cookies.getObject('globals') || {};
 
-    $scope.userdata = $rootScope.globals.currentUser;
-    $scope.username = $scope.userdata.username;
+   // $scope.userdata = $rootScope.globals.currentUser;
+   // $scope.username = $scope.userdata.username;
  
   
    

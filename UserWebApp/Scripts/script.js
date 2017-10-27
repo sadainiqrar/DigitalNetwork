@@ -98,7 +98,7 @@ scotchApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', f
             var restrictedPage = $.inArray($location.path(), ['/', '/register']) === -1;
             var loggedIn = $rootScope.globals.currentUser;
             if (restrictedPage && !loggedIn) {
-                $location.path('/');
+                $location.path('/dashboard');
             }
             else if (!restrictedPage && loggedIn) {
 

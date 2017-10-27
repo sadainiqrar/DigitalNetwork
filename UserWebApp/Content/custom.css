@@ -1,16 +1,140 @@
+/* Let's get this party started */
+.main-panel::-webkit-scrollbar {
+    width: 0px;
+}
+
+.main-panel::-webkit-scrollbar,
+.main-panel::-webkit-scrollbar-thumb {
+}
+
+ 
+/* Track */
+.main-panel::-webkit-scrollbar-track {
+    
+}
+ 
+/* Handle */
+.main-panel::-webkit-scrollbar-thumb {
+    opacity: 0.00;
+    background: rgba(234, 234, 234, 0.41);
+}
+.main-panel::-webkit-scrollbar-thumb:window-inactive {
+	background: transparent;
+}
+
+
+
+ 
 
 .chat {
     float: right;
     height:100%;
-    background-color: darkgrey;
+    background-color: #eeeeee;
 }
 .sidebar-wrapper{
-    background-color: #eaeaea;
+    background-color: #eeeeee;
 }
 .active-o{
-    background-color: skyblue;
-    opacity: 0.5;
+    background-color: rgba(52, 201, 255, 0.51);
+    border-left: 5px solid #34c9ff
     
+}
+.maincolor{
+    background-color: #34c9ff;
+}
+.userbtn{
+    visibility: hidden;
+    font-size: 0pt;
+}
+@media(min-width : 992px){.userbtn{
+    color: white;
+    font-size: 12pt;
+    visibility: visible;
+    }
+}
+.username{
+color: white;
+}
+.nav>li:not(.active)>a.maintab{
+    font-family: lato-regular;
+    color: #9a9a9d;
+    cursor: default;
+    border: 1px solid transparent; 
+    background-color: transparent;
+    border-bottom-color: transparent;
+    border-radius: 4px 4px 0px 0px;
+    padding: 10px 50px;
+}
+
+.nav>li.active>a.maintab{
+    font-family: lato-regular;
+    color: #fff;
+    cursor: default;
+    border: 0px solid #ddd; 
+    background-color: #34c9ff;
+    border-bottom-color: transparent;
+    border-radius: 4px 4px 0px 0px;
+    padding: 10px 50px;
+}
+
+.nav>li:not(.active)>a:hover.maintab{
+    cursor: pointer;
+    
+    border: 1px solid #9a9a9d; 
+}
+.nav>li:not(.active)>a:hover.tabpad{
+    cursor:auto;
+    color: #34c9ff; 
+}
+.nav>li.active>a:hover.tabpad{
+    cursor:auto;
+    background-color:#34c9ff;
+    color: #fff;
+}
+.nav>li.active>a.tabpad{
+    color: #fff;
+    cursor: default;
+    border: 0px solid #ddd; 
+    background-color: #34c9ff;
+    border-bottom-color: transparent;
+    border-radius: 10px;
+    padding: 0px 20px;
+}
+.nav>li:not(.active)>a.tabpad{
+    color: #9a9a9d;
+    cursor: default;
+    border: 1px solid transparent; 
+    background-color: transparent;
+    border-bottom-color: transparent;
+    border-radius: 10px;
+    padding: 0px 20px;
+}
+.navbar .navbar-nav > li > a.tabpad, .navbar .navbar-nav > li > select.tabpad{
+    
+    padding: 2px 20px;
+    margin: 0px 0px;
+}
+.navbar .navbar-nav > li.tabpad{
+    
+    margin: 10px 0px;
+}
+.selected{
+    color:#fff;
+}
+.dropdownCat{
+    
+    border-color: transparent;
+    background-color: #fafafa;
+    font-style: italic;
+    float:right;
+    border-radius: 10px;
+}
+@media(max-width: 768px){
+    .dropdownCat{
+    margin: 2px 20px;
+    float:left;
+        
+    }
 }
 .panel{
     padding-top: 2em;
@@ -31,7 +155,23 @@ p{
 }
 .navbar {
     background-color: white;
+    min-height: 40px;
     
+}
+
+@media (min-width: 992px)
+.navbar {
+    min-height: 40px;
+}
+
+.widthchat{
+    width: 15%;
+    z-index: 2;
+    position: relative;
+    
+}.widthpanel{
+    background-color: #f8f8f8;
+    width: 100%;
 }
 .col-md-9 {
     padding-left: 0em;
@@ -39,9 +179,9 @@ p{
     background-color: #F8F8F8;
 }
 .top{
-    border-style:  1px;
-    background-color: deepskyblue;
-    color: deepskyblue;
+    background-color: #34c9ff;
+    color: #fff;
+    border-radius: 10px;
     
 }
 .copy{
@@ -64,6 +204,7 @@ p{
 .content{
     padding-left: 2em;
     padding-right: 2em;
+     padding-top: 1em;
 }
 .h-line{
     margin: 10px 0 0 0;
@@ -74,13 +215,24 @@ p{
 }
 .bottom{
     background-color:#F8F8F8; 
+    padding: 0px 10px;
 }
+
 .text{
    color: black;
+    font-size: 8pt;
+    font-family: 'lato-regular';
 }
+.panmain{
+    border-color: white;
+    border-radius: 0px;
+    box-shadow: 0px 0px 20px rgba(6, 6, 6, 0.1);
+}
+
 .pan{
     border-color: white;
-    box-shadow: 0px 0px 0px 3px #F8F8F8 ;
+    border-radius: 0px;
+    box-shadow: 0px 0px 5px rgba(6, 6, 6, 0.1);
 }
 .overlay{
   position: absolute;
@@ -111,14 +263,126 @@ p{
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
 }
-.col-md-12:hover .overlay {
+.ok{
+    margin: 2em 1em 2em 1em;
+    width: 90%; 
+    height:100%;
+    background: #fafafa;
+}
+.ok:hover .overlay {
   opacity: 0.5;
 }
 .bar{
      padding-left: 1em;
     padding-right: 1em;
 }
-.slct{
-    top:2em;
-    left:4em;
+ 
+.btn{
+    float: right;
+    border: 0;
 }
+.bt1{
+    font-size: 8pt;
+    position: absolute;
+    
+    border-radius: 12px;  
+}
+.title1{
+    
+    font-family: lato-regular;
+    font-size: 12pt;
+    text-align: left;
+    
+    
+}
+.text-muted {
+    color: #a3a3a3;
+    font-family: lato-regular;
+}
+.p1{
+    font-family: lato-regular;
+    font-size: 10pt;
+    text-align: justify;
+    font-style: italic;
+    
+}
+.sm1{
+     font-size: 1.825em;
+    font-family: lato-medium;
+}
+.panel1{
+    padding-left: 2em;
+    padding-right: 2em;
+}
+
+#articleimage{
+    max-height: 100%;
+    max-width: 100%;
+}
+#articleTitleDiv{
+    padding-left: 1em; 
+}
+#articleImageDiv{
+    height: 12em;
+}
+@media (min-width: 1224px) {#articleImageDiv{ height : 8em;}
+    
+}@media (min-width: 1440px) {#articleImageDiv{ height : 12em;}
+}
+@media (min-width: 768px) {#articleImageDiv{ height : 20em;}
+}
+@media (min-width: 375px) {#articleImageDiv{ height : 12em;}
+}
+.img-responsive{
+    height: 100%;
+}
+@media (max-width: 375px) {.img-responsive{ width: 100%}
+}
+@media (max-width: 992px) {.img-responsive{ width: 100%; padding-right: 1em}
+}
+
+@media (max-width: 768px) {.img-responsive{ width: 100%; padding-right: 0em}
+}
+@media (min-width: 992px) {.img-responsive{ width: 100%; padding-right: 0em}
+}
+
+
+
+.navbar-collapse.collapse {}
+@media (min-width: 992px){
+.navbar-collapse.collapse {
+    display: block!important;
+    height: auto!important;
+    padding-bottom: 0;
+    overflow: visible!important;
+}
+}
+
+.pArt{
+    
+    font-family: lato-medium;
+    font-weight: 600;
+    font-size: 8pt;
+    padding-top:1em;
+    height: 55px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+@media(max-width: 992px){
+    .pArt{
+        height: 90px;
+    padding-top:1em;
+}
+}
+@media(max-width: 768px){
+    .pArt{
+        height: 55px;
+    padding-top:1em;
+}
+}
+
+/*
+@media (min-width: 1224px) {.img-responsive{ height : 12em;}
+}
+@media (min-width: 1440px) {.img-responsive{height : 12em;}
+}*/

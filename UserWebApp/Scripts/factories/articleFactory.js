@@ -6,7 +6,8 @@ angular.module('DigitalMarket').factory(serviceId,
 function articleFactory($http) {
 
     function getArticles() {
-        return $http.get('http://localhost:3208/api/user/articles');
+        var data = { uid: '12345', category: null, sub_category: null};
+        return $http.post('http://localhost:3208/api/user/articles',data);
     }
 
 

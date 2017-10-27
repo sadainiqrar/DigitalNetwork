@@ -59,30 +59,30 @@ namespace DigitalNetwork.Controllers
 
         }
 
-        ////user_login
-        //[HttpPost]
-        //[Route("api/user/login")]
-        //public IEnumerable<user_sign_in_Result> GetUser([FromBody]user_sign_in_Result user)
-        //{
-        //    return dataCon.DB.db.user_sign_in(user.email, user.password);
-        //}
+        //user_login
+        [HttpPost]
+        [Route("api/user/login")]
+        public IEnumerable<user_sign_in_Result> GetUser([FromBody]user_sign_in_Result user)
+        {
+            return dataCon.DB.db.user_sign_in(user.uid);
+        }
 
-        ////user_signup
-        //[HttpPut]
-        //[Route("api/user/create")]
-        //public int PutSignup_User([FromBody] user_sign_up_Result user )
-        //{
-        //    return dataCon.DB.db.user_sign_up(user.email,user.uid,user.username,user.password,user.photourl,user.url,user.description);
-        //}
+        //user_signup
+        [HttpPut]
+        [Route("api/user/create")]
+        public int PutSignup_User([FromBody] user_sign_up_Result user)
+        {
+            return dataCon.DB.db.user_sign_up(user.uid, user.username,  user.photourl,user.user_token);
+        }
 
-        ////user_update
-        //[HttpPut]
-        //[Route("api/user/update")]
-        //public IEnumerable<user_sign_in_Result> PutUpdate_User([FromBody] user_sign_up_Result user)
-        //{
-        //    dataCon.DB.db.user_sign_up(user.email, user.uid, user.username, user.password, user.photourl, user.url, user.description);
-        //    return dataCon.DB.db.user_sign_in(user.email, user.password);
-        //}
+        //user_update
+        [HttpPut]
+        [Route("api/user/update")]
+        public IEnumerable<user_sign_in_Result> PutUpdate_User([FromBody] user_sign_up_Result user)
+        {
+            dataCon.DB.db.user_update(user.uid, user.photourl);
+            return dataCon.DB.db.user_sign_in(user.uid);
+        }
 
     }
 }

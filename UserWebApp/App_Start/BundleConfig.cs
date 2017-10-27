@@ -12,47 +12,22 @@ namespace UserWebApp
                                      //add link to jquery on the CDN
 
             bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
-
-                "~/js/bootstrap.js",
-                "~/js/app.js",
-                "~/js/app.plugin.js",
-                "~/js/slimscroll/jquery.slimscroll.min.js",
-                "~/js/charts/sparkline/jquery.sparkline.min.js",
-                "~/js/charts/flot/jquery.flot.min.js",
-                "~/js/charts/flot/jquery.flot.tooltip.min.js",
-                "~/js/charts/flot/jquery.flot.resize.js",
-                "~/js/charts/flot/jquery.flot.grow.js",
-                "~/js/charts/flot/demo.js",
-                "~/js/userdata.js",
-                "~/js/realtime.js",
-                "~/js/calendar/bootstrap_calendar.js",
-                "~/js/calendar/demo.js",
-                "~/js/sortable/jquery.sortable.js",
-                "~/Scripts/toastr.js",
-                "~/Scripts/jquery.raty.js",
-                "~/Scripts/respond.src.js",
-                "~/Scripts/ui-bootstrap-tpls-0.13.1.js",
-                "~/Scripts/underscore.js",
-                "~/Scripts/raphael.js",
-                "~/Scripts/morris.js",
-                "~/Scripts/jquery.fancybox.js",
-                "~/Scripts/jquery.fancybox-media.js",
-                "~/Scripts/loading-bar.js",
-                        "~/Scripts/jquery.js",
-                                "~/js/paper-dashboard.js",
-                        "~/Scripts/jquery-{version}.js"
+                "~/js/bootstrap.min.js",
+                "~/js/paper-dashboard.js",
+                "~/Scripts/jquery-1.10.2.min.js"
                         ));
 
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                 "~/Content/bootstrap.css",
+                 "~/Content/bootstrap.min.css",
                  "~/Content/animate.css",
                  "~/Content/angular-material.min.css",
-                 "~/Content/font-awesome.min.css",
-                 "~/Content/font.css",
-                 "~/Content/custom.css",
-                   "~/Content/paper-dashboard.css"
-           
+                   "~/Content/paper-dashboard.css",
+                 "~/Content/custom.css"
+
+
+
+
                  ));
 
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
