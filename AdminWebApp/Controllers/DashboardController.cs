@@ -10,7 +10,7 @@ namespace AdminWebApp.Controllers
     public class DashboardController : Controller
     {
         // GET: Dashboard
-       // [Route("/admin/dashboard")]
+       // [Route("/admin/dashboard")] Router
         public ActionResult Index()
         {
             return View();
