@@ -5,11 +5,11 @@ angular.module('DigitalMarket').controller(controllerId,
 
 function articlesController($scope, articleFactory, updateArticleFactory) {
     $scope.message = 'Articles Controller';
-    $scope.articles = [];
-    articleFactory.getArticles().then(
+    $scope.shared_articles = [];
+    articleFactory.getSharedArticles().then(
         // callback function for successful http request
         function success(response) {
-            $scope.articles = response.data;
+            $scope.shared_articles = response.data;
         },
         // callback function for error in http request
         function error(response) {
@@ -17,11 +17,12 @@ function articlesController($scope, articleFactory, updateArticleFactory) {
         }
     );
 
-    $scope.updateStatus = function () {
-        updateArticleFactory.updateArticle(this.article.serial_no).then(
+    $scope.updateStatusCopied = function () {
+        this.article.copied = true;
+        articleFactory.updateCopiedArticles('12345', this.article.serial_no, this.article.shared).then(
             // callback function for successful http request
             function success(response) {
-                this.article.status = response.data;
+              
             },
             // callback function for error in http request
             function error(response) {
@@ -29,4 +30,18 @@ function articlesController($scope, articleFactory, updateArticleFactory) {
             }
         );
     }
+    $scope.updateStatusShared = function () {
+        this.article.shared = true;
+        articleFactory.updateSharedArticles('12345', this.article.serial_no, this.article.copied).then(
+            // callback function for successful http request
+            function success(response) {
+               
+            },
+            // callback function for error in http request
+            function error(response) {
+                // log errors
+            }
+        );
+    }
+
 }

@@ -76,7 +76,7 @@ namespace DigitalNetwork.Controllers
             return dataCon.DB.db.add_shared_article(article.uid, article.serial_no, article.copied,article.shared);
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route("api/user/update/shared_article")]
         public int Update_Shared_Articles([FromBody] User_Articles article)
         {

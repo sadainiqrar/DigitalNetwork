@@ -2,7 +2,11 @@
 .main-panel::-webkit-scrollbar {
     width: 0px;
 }
-
+@media(min-width : 667px){
+    .xs{
+        width:50%;
+    }
+}
 .main-panel::-webkit-scrollbar,
 .main-panel::-webkit-scrollbar-thumb {
 }
@@ -22,8 +26,69 @@
 	background: transparent;
 }
 
+.subPanel::-webkit-scrollbar {
+    width: 5px;
+}
+.subPanel::-webkit-scrollbar-thumb {
+    background: rgba(30, 139, 179, 1);
+}
+.subPanel::-webkit-scrollbar-track {
+    background: #dddddd;
+}
 
 
+.table-responsive::-webkit-scrollbar {
+    overflow: visible;
+    width: 100px;
+}
+.table-responsive::-webkit-scrollbar-thumb {
+    background: rgba(30, 139, 179, 1);
+}
+.table-responsive::-webkit-scrollbar-track {
+    background: #dddddd;
+}
+
+
+
+.tableResp{
+    margin: 2px 20px ;
+}
+@media(max-width : 500px)
+{
+    .tableResp{
+    margin: 0px 0px ;
+        width:75px;
+
+    }
+    #tablesm{
+        padding:0px;
+    }
+    
+}
+@media(max-width : 400px)
+{
+    .tableResp{
+    margin: 0px 0px ;
+        width:35px;
+
+    }
+    #tablesm{
+        padding:0px;
+    }
+    
+}
+ 
+@media(max-width : 375px)
+{
+    .tableResp{
+    margin: 0px 0px ;
+        width:20px;
+
+    }
+    #tablesm{
+        padding:0px;
+    }
+}
  
 
 .chat {
@@ -141,6 +206,16 @@ color: white;
     padding-bottom: 2em;
     
 }
+.SubPanel{
+    padding-top: 0em;
+    padding-bottom: 0em;
+    align-content: center;
+    margin: 0px;
+    border: 0px solid transparent;
+    height: : 75px;
+    overflow: auto;
+    
+}
 .b-r {
     border-right: 1px solid;
     border-color: gainsboro; 
@@ -191,6 +266,7 @@ p{
     padding-top: 1em;
     padding-bottom: 1em;
 }
+
 .fa-share-alt {
     float: right;
     padding-top: 1em;
@@ -281,19 +357,51 @@ p{
     float: right;
     border: 0;
 }
-.bt1{
+.bt1 {
     font-size: 8pt;
     position: absolute;
-    
-    border-radius: 12px;  
+    border-radius: 12px;
+    border-color: #34c9ff;
+    padding: 5px 8px;
+    font-weight: bold;
+    background-color: #d6f2fc;
 }
+.bt2 {
+    font-size: 8pt;
+    position: relative;
+    float: right;
+    border-radius: 12px;
+    border-color: red;
+    padding: 5px 8px;
+    font-weight: bold;
+    background-color: coral;
+}
+
 .title1{
-    
+    height: 75px;
     font-family: lato-regular;
+    overflow: hidden;
     font-size: 12pt;
     text-align: left;
     
     
+}
+@media(max-width: 425px){
+    .title1{
+        padding-top:8px;
+    height: 90px;
+        font-size: 8pt;
+    }
+}
+.btnclass
+{
+    font-size: 8pt;
+    color: #0cc907;
+    position: absolute;
+    border:none;
+    padding: 5px 8px;
+    font-weight: bold;
+    background-color: transparent;
 }
 .text-muted {
     color: #a3a3a3;
@@ -301,9 +409,11 @@ p{
 }
 .p1{
     font-family: lato-regular;
-    font-size: 10pt;
     text-align: justify;
-    font-style: italic;
+    font-style: italic; 
+    float:left;
+    font-size: 10px;
+}
     
 }
 .sm1{
@@ -314,10 +424,13 @@ p{
     padding-left: 2em;
     padding-right: 2em;
 }
+#imageDiv{
+    padding-top:10px;
+    padding-left:10px;
+}
 
 #articleimage{
     max-height: 100%;
-    max-width: 100%;
 }
 #articleTitleDiv{
     padding-left: 1em; 
@@ -380,9 +493,168 @@ p{
     padding-top:1em;
 }
 }
+.sharedArticleDiv:hover
+{
+    background-color: #f5fafc;
+}
+#tablesm{
+    padding: 1em 4em 1em 2em;
+    margin : 0em;
+}
+@media(max-width:320px){
+    #tablesm{
+    padding: 1em 1em 1em 1em;
+    margin : 0em;
+}   
+}
 
+
+.table> tbody > tr:hover
+{
+    background-color: #f5fafc;
+    cursor: pointer;
+    
+}
+.table> tbody > tr > td
+{
+   font-family: lato-regular;
+    font-size: 7pt;
+    
+}
+
+#subTable{
+        
+    border-top: 0px solid #CCC5B9;
+    
+}
+
+
+.tableSub thead tr > th,
+.tableSub thead tr > td,
+.tableSub tbody tr > th,
+.tableSub tbody tr > td,
+.tableSub tfoot tr > th,
+.tableSub tfoot tr > td {
+  border-top: 0px solid #CCC5B9;
+    background: #f9f9f9;
+    
+}
+
+
+#tsp1
+{
+    padding-left: 2em;
+    width: 25em;
+    font-family: lato-regular;
+    font-size: 8pt;
+    
+}
+#tsp2
+{
+    width: 21em;
+    font-family: lato-regular;
+    font-size: 8pt;
+}
+#tsp3
+{
+    width: 12em;
+    font-family: lato-regular;
+    font-size: 8pt;
+}
+
+#fromDiv{
+    margin-left:11em;
+    font-family: lato-regular;
+    font-size: 8pt;
+}
+@media(max-width:1180px){
+    #fromDiv{
+    margin-left:5em;
+    font-family: lato-regular;
+    font-size: 8pt;
+}
+ 
+}
+#toDiv{
+    
+    font-family: lato-regular;
+    font-size: 8pt;   
+}
+@media(max-width:768px){
+    #toDiv{
+    margin-left:5em;
+    font-family: lato-regular;
+    font-size: 8pt;
+}
+}
+
+    
 /*
 @media (min-width: 1224px) {.img-responsive{ height : 12em;}
 }
 @media (min-width: 1440px) {.img-responsive{height : 12em;}
+}*/
+
+
+
+
+.title2{
+    padding: 3em 0em 1em 0em;
+    font-size: 12pt;
+    margin: 0;
+    font-family: lato-regular;
+}
+@media (max-width: 768px) {.title2{ padding: 6em 0em 1em 0em;}
+}
+@media (max-width: 500px) {.title2{ padding: 3em 0em 1em 0em;}
+}
+
+
+
+
+#categoryby{
+    font-size: 8pt;
+    font-style: italic;
+    color: gray;
+}
+
+#msimage{
+    max-height: 100%;
+}
+@media(max-width:320px)
+{
+    #msimage{
+        height: 5em;
+        width : 5em;
+    }
+}
+
+.marketingSourceDiv:hover
+{
+    background-color: #f5fafc;
+}
+
+#imageDivMS{
+    height: 8em;
+}
+@media (max-width: 768px) {#imageDivMS{ height : 15em;}
+}
+@media (max-width: 500px) {#imageDivMS{ height : 8em;}
+}
+
+MSArt{
+    
+    height: 85px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/*
+@media (min-width: 1224px) {#imageDivMS{ height : 8em;}
+    
+}@media (min-width: 1440px) {#imageDivMS{ height : 12em;}
+}
+@media (min-width: 768px) {#imageDivMS{ height : 20em;}
+}
+@media (min-width: 375px) {#imageDivMS{ height : 12em;}
 }*/

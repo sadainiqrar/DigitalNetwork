@@ -1,4 +1,126 @@
-<div class="container">
-    <h2>{{message}}</h2>
+﻿
+               
+                    
+      <div class="col-md-12 widthpanel">
+     
+        <div class="bar">
+            <ul class="nav nav-tabs" id="Tab">
+           <li class="active"><a class=" maintab " data-toggle="tab" >Premium</a></li>
+           <li ><a class="maintab" data-toggle="tab">Non Premium</a></li>
+                  </ul>
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-cat-collapse">
+            <i class="fa fa-bars"></i></button>
+           <section class="panel panel-default panmain">
+                <div style="margin-bottom: 20px"><p>TOP ARTICLES</p></div>
+        
+        <nav class="navbar navbar-default navbar-collapse collapse" id= "navbar-cat-collapse">
 
-</div>
+         
+            <ul class="nav navbar-nav" style="display: inline;">
+              <li class="active  "><a class="tabpad" data-toggle="tab" href="page-top">All</a></li>
+              <li class=""><a class="tabpad" data-toggle="tab"  href="#">Entertainment</a></li>
+              <li class=""><a class="tabpad" data-toggle="tab" href="#">Sports</a></li>
+              <li class=""><a class="tabpad" data-toggle="tab" href="#">Health & Food</a></li>
+              <li class=""><a class="tabpad"data-toggle="tab"  href="#">Showbiz</a></li>
+              <li class=""><a class="tabpad"data-toggle="tab" href="#">Motivation</a></li>
+                <li class=""><a class="tabpad" data-toggle="tab" href="#">Featured</a></li>
+                
+            </ul>
+                <select class="tabpad dropdownCat text" style="font-style: oblique;
+    opacity: .5;">
+                   <option value="" hidden>Sortby</option>
+                   <option value="All">All</option>
+                   <option value="Entertainment">Entertainment</option>
+                   <option value="Sports">Sports</option>
+                   <option value="Health&Food">Health & Food</option>
+                    <option value="Showbiz">Showbiz</option>
+                    <option value="Motivation">Motivation</option>
+                    <option value="Featured">Featured</option>
+                    </select>
+                
+                
+                </nav>	
+               
+                 
+               
+               <div class="container-fluid"> 
+                                
+            <div class="col-md-12 col-sm-12" onclick="fn2()" style="cursor: pointer">
+                
+                <!-- shared Articles body -->
+                
+                    <div class="row" ng-repeat="article in shared_articles">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sharedArticleDiv" style="padding: 0px 0px 0px 0px;" >
+                            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                                <div id="imageDiv" class="col-lg-4 col-md-6 col-sm-5 col-xs-6" style="height: 180px">
+                                    <img id ="articleimage"  src={{article.photo_url}} height= "100%" width="100%" >
+                                </div>
+                                <div id = "articleTitleDiv"  class="col-lg-8 col-md-6 col-sm-7 col-xs-6">
+                                    <br>
+                                <button  ng-click="updateStatusShared()"type="button" class="bt1" >SHARE NOW</button>
+                                    
+                                <button  ng-click="updateStatusCopied()" type="button" class="bt2">COPY NOW</button>
+                                   
+                                    <br>
+                                <h4 class="title1" ng-bind-html="article.title"></h4>
+
+                                <p class="p1">Article by:{{article.site_url }} </p>
+                                </div>
+                            </div>
+                            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="padding: 4em 1em 4em 1em">
+                             
+                                    <span class="h3 block m-t-xs"><center>
+                                        
+                                        <i class="fa fa-money" aria-hidden="true"  style="margin: 8px; color: #bc49ff;"></i>
+                                        <strong style="color: #bc49ff; font-size: 12pt;">
+                                            
+                                            <br> 600$ 
+                                        </strong></center>
+                             </span>
+                             
+                                    <center>
+                                        <small class="text-muted text-uc" style="font-size: 7pt; margin : 12px 0px 0px 0px;">EARNED SO FAR</small>
+                                    </center>
+                                </div>      
+
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="padding: 4em 1em 4em 1em">
+                                    <span class="h3 block m-t-xs"><center>
+                                        
+                                        <i class="fa fa-line-chart" aria-hidden="true"  style="margin: 8px; color: #bc49ff;"></i>
+                                        <strong style="color: #bc49ff; font-size: 12pt;">
+                                            
+                                            <br> 900$ 
+                                        </strong></center>
+                                        </span>
+                             
+                                    <center>
+                                        <small class="text-muted text-uc" style="font-size: 7pt; margin : 12px 0px 0px 0px;">TRAFFIC GENERATED</small>
+                                    </center>
+                                </div> 
+
+
+
+                            </div>
+                        </div>
+                            </div>
+                       <hr>
+                
+                       
+                
+                
+                   </div>
+               </div>
+            </section>
+            
+          </div>
+            </div>
+            
+        
+            
+             
+                
+  
+    
+        
+   

@@ -97,13 +97,13 @@ scotchApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', f
             // redirect to login page if not logged in and trying to access a restricted page
             var restrictedPage = $.inArray($location.path(), ['/', '/register']) === -1;
             var loggedIn = $rootScope.globals.currentUser;
-            if (restrictedPage && !loggedIn) {
-                $location.path('/dashboard');
-            }
-            else if (!restrictedPage && loggedIn) {
+            //if (restrictedPage && !loggedIn) {
+            //    $location.path('/dashboard');
+            //}
+            //else if (!restrictedPage && loggedIn) {
 
-                $location.path("/dashboard");
-            }
+            //    $location.path("/dashboard");
+            //}
 
             
         });
