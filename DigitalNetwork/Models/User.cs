@@ -25,7 +25,7 @@ namespace DigitalNetwork.Models
         public string uid { get; set; }
         public string username { get; set; }
         public string photourl { get; set; }
-        public string user_token { get; set; }
+        public string fullname { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Payment> Payments { get; set; }

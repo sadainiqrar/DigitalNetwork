@@ -64,16 +64,20 @@ namespace DigitalNetwork.Controllers
         [Route("api/user/login")]
         public IEnumerable<user_sign_in_Result> GetUser([FromBody]user_sign_in_Result user)
         {
+            var ob = dataCon.DB.db.user_sign_in(user.uid);
+            int count = ob.Count<user_sign_in_Result>();
+            if(count==0)
+            {
+                string username = UsernameCreater(user.fullname,user.uid);
+                dataCon.DB.db.user_sign_up(user.uid, username, user.photourl, user.fullname);
+            }
+
             return dataCon.DB.db.user_sign_in(user.uid);
+           
+           
         }
 
-        //user_signup
-        [HttpPut]
-        [Route("api/user/create")]
-        public int PutSignup_User([FromBody] user_sign_up_Result user)
-        {
-            return dataCon.DB.db.user_sign_up(user.uid, user.username,  user.photourl,user.user_token);
-        }
+
 
         //user_update
         [HttpPut]
@@ -83,6 +87,20 @@ namespace DigitalNetwork.Controllers
             dataCon.DB.db.user_update(user.uid, user.photourl);
             return dataCon.DB.db.user_sign_in(user.uid);
         }
+
+
+        public string UsernameCreater(string name,string uid)
+        {
+            string [] nam = name.Split();
+            string names = nam[0];
+            long id = long.Parse(uid);
+            // Convert integer as a hex in a string variable
+            string hexValue = id.ToString("X");
+         
+        
+            return names + hexValue;
+        }
+
 
     }
 }

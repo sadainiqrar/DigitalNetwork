@@ -38,6 +38,7 @@ namespace UserWebApp
                 "~/Scripts/angular.js",
                 "~/Scripts/angular-route.js",
 
+                "~/js/angular-facebook.js",
                 "~/Scripts/angular-cookies.js",
                 "~/Scripts/angular-validator.js",
                 "~/Scripts/angular-base64.js",

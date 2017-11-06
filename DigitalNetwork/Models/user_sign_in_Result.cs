@@ -16,6 +16,6 @@ namespace DigitalNetwork.Models
         public string uid { get; set; }
         public string username { get; set; }
         public string photourl { get; set; }
-        public string user_token { get; set; }
+        public string fullname { get; set; }
     }
 }

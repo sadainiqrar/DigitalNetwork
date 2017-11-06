@@ -1,33 +1,52 @@
-﻿(function () {
-    'use strict';
+﻿
 
-    angular
-        .module('DigitalMarket')
-        .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$location','$state' ,'AuthenticationService', 'FlashService'];
-    function LoginController($location, $state, AuthenticationService, FlashService) {
-        var vm = this;
 
-        vm.login = login;
+  angular.module('DigitalMarket')
 
-        (function initController() {
-            // reset login status
-            AuthenticationService.ClearCredentials();
-        })();
+    .controller('LoginController', function ($scope, Facebook,$state) {
 
-        function login() {
-            vm.dataLoading = true;
-            AuthenticationService.Login(vm.username, vm.password, function (response) {
+        $scope.loginStatus = 'disconnected';
+        $scope.facebookIsReady = false;
+        $scope.user = null;
+
+ 
+        $scope.login = function () {
+
+            Facebook.login(function (response) {
                 if (response.success) {
-                    AuthenticationService.SetCredentials(vm.username, vm.password);
+                 
+                    $scope.loginStatus = response.status;
                     $state.go('dashboard.home');
                 } else {
-                    FlashService.Error(response.message);
-                    vm.dataLoading = false;
+                    //FlashService.Error(response.message);
+
                 }
             });
         };
-    }
+   
+        $scope.removeAuth = function () {
+            Facebook.api({
+                method: 'Auth.revokeAuthorization'
+            }, function (response) {
+                Facebook.getLoginStatus(function (response) {
+                    $scope.loginStatus = response.status;
+                });
+            });
+        };
 
-})();
+        $scope.api = function () {
+            Facebook.api('/me', function (response) {
+                $scope.user = response;
+            });
+        };
+
+        $scope.$watch(function () {
+            return Facebook.isReady();
+        }, function (newVal) {
+            if (newVal) {
+                $scope.facebookIsReady = true;
+            }
+        });
+    });
+

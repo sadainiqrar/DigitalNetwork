@@ -1,4 +1,4 @@
-﻿<div class="col-md-6 col-md-offset-3">
+﻿<!--<div class="col-md-6 col-md-offset-3">
     <h2>Login</h2>
     <form name="form" ng-submit="vm.login()" role="form">
         <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
@@ -18,4 +18,12 @@
         </div>
 
     </form>
+</div>-->
+<div >
+    <button type="button" id="login" ng-click="login()">login</button>
+    <button type="button" id="api" ng-click="api()">api user data call</button>
+    <button type="button" id="remove_auth" ng-click="removeAuth()">remove auth</button>
+    <pre>isReady: <span id="is_ready" ng-bind="facebookIsReady"></span></pre>
+    <pre>status: <span id="login_status" ng-bind="loginStatus"></span></pre>
+    <pre>username: <span id="api_first_name" ng-bind="user.name"></span></pre>
 </div>

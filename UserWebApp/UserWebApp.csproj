@@ -186,6 +186,8 @@
     <Content Include="images\thumb_1.png" />
     <Content Include="images\thumb_2.png" />
     <Content Include="images\thumb_3.png" />
+    <Content Include="js\angular-facebook-phonegap.js" />
+    <Content Include="js\angular-facebook.js" />
     <Content Include="js\app.js" />
     <Content Include="js\app.plugin.js" />
     <Content Include="js\appear\jquery.appear.js" />

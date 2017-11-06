@@ -1,12 +1,14 @@
 
    // 'use strict'// create the module and name it scotchApp
    // var loginApp = angular.module('loginApp',['ui-router']);
-var scotchApp = angular.module('DigitalMarket', ['ui.router','ngRoute', 'ngCookies','ngSanitize','ngMaterial']);
+var scotchApp = angular.module('DigitalMarket', ['ui.router', 'ngRoute', 'ngCookies', 'ngSanitize', 'ngMaterial','facebook']);
 	// configure our routes
 
 
-scotchApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function ($stateProvider, $urlRouterProvider, $locationProvider) {
-
+scotchApp.config(['$stateProvider', 'FacebookProvider', '$urlRouterProvider', '$locationProvider', function ($stateProvider, FacebookProvider, $urlRouterProvider, $locationProvider) {
+  
+        FacebookProvider.init('141614143143756');
+    
     
 
 
@@ -69,8 +71,8 @@ scotchApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', f
         .state('home.login', {
             url: '/',
             templateUrl: 'Views/Dashboard/Home/login.view.html',
-            controller: 'LoginController',
-            controllerAs: 'vm'
+            controller: 'LoginController'
+           
         })
         .state('home.register', {
             url: '/register',
@@ -94,11 +96,11 @@ scotchApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', f
         }
 
         $rootScope.$on('$locationChangeStart', function (event, next, current) {
-            // redirect to login page if not logged in and trying to access a restricted page
-            var restrictedPage = $.inArray($location.path(), ['/', '/register']) === -1;
-            var loggedIn = $rootScope.globals.currentUser;
+           //  redirect to login page if not logged in and trying to access a restricted page
+            //var restrictedPage = $.inArray($location.path(), ['/', '/register']) === -1;
+            //var loggedIn = $rootScope.globals.currentUser;
             //if (restrictedPage && !loggedIn) {
-            //    $location.path('/dashboard');
+            //    $location.path('/');
             //}
             //else if (!restrictedPage && loggedIn) {
 
