@@ -5,8 +5,8 @@ angular.module('DigitalMarket').factory(serviceId,
 
 function articleFactory($http) {
 
-    function getArticles() {
-        var data = { uid: '12345', category: null, sub_category: null};
+    function getArticles(_uid,_category,_sub_category) {
+        var data = { uid: _uid, category: _category, sub_category: _sub_category};
         return $http.post('http://localhost:3208/api/user/articles',data);
     }
 
@@ -19,8 +19,8 @@ function articleFactory($http) {
         return $http.put('http://localhost:3208/api/user/insert/shared_article', data);
     }
 
-    function getSharedArticles() {
-        var data = { uid: '12345', category: null, sub_category: null };
+    function getSharedArticles(_uid, _category, _sub_category) {
+        var data = { uid: _uid, category: _category, sub_category: _sub_category };
         return $http.post('http://localhost:3208/api/user/shared_articles', data);
     }
     function updateSharedArticles(_uid, _serial, _copied) {

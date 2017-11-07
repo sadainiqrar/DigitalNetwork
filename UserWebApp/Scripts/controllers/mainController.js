@@ -10,14 +10,13 @@ angular.module('DigitalMarket').controller(controllerId,
 
 function mainController($scope, $rootScope, $cookies, articleFactory, sessionFactory) {
     $rootScope.globals = $cookies.getObject('globals') || {};
-    //// create a message to display in our view
-    //  $scope.userdata = $rootScope.globals.currentUser;
-    //  $scope.email = $scope.userdata.email;
-
+    $scope.userdata = $rootScope.globals.currentUser;
+    $scope.username = $scope.userdata.fullname;
+    $scope.uid = $scope.userdata.uid;
 
 
     $scope.articles = [];
-    articleFactory.getArticles().then(
+    articleFactory.getArticles($scope.uid ,null,null).then(
         // callback function for successful http request
         function success(response) {
             $scope.articles = response.data;
@@ -69,11 +68,10 @@ function mainController($scope, $rootScope, $cookies, articleFactory, sessionFac
     );
 
     $scope.insertShared = function () {
-        articleFactory.insertSharedArticles('12345', this.article.serial_no).then(
+        articleFactory.insertSharedArticles($scope.uid , this.article.serial_no).then(
             // callback function for successful http request
             function success(response) {
-                $scope.articles = [];
-                articleFactory.getArticles().then(
+                articleFactory.getArticles($scope.uid).then(
                     // callback function for successful http request
                     function success(response) {
                         $scope.articles = response.data;
@@ -95,11 +93,10 @@ function mainController($scope, $rootScope, $cookies, articleFactory, sessionFac
         );
     }
     $scope.insertCopied = function () {
-        articleFactory.insertCopiedArticles('12345', this.article.serial_no).then(
+        articleFactory.insertCopiedArticles($scope.uid , this.article.serial_no).then(
             // callback function for successful http request
             function success(response) {
-                $scope.articles = [];
-                articleFactory.getArticles().then(
+                articleFactory.getArticles($scope.uid).then(
                     // callback function for successful http request
                     function success(response) {
                         $scope.articles = response.data;

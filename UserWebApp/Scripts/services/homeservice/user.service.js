@@ -26,9 +26,9 @@
             return $http.get('/api/users/' + id).then(handleSuccess, handleError('Error getting user by id'));
         }
 
-        function GetUser(username, pass) {
+        function GetUser(_uid, _fullname) {
         
-            var data = { email: username, password:pass };
+            var data = { uid: _uid, fullname:_fullname };
             return $http.post('http://localhost:3208/api/user/login',data).then(handleSuccess, handleError('Error getting user by username'));
         }
 

@@ -1,12 +1,16 @@
 var controllerId = 'articlesController';
 
 angular.module('DigitalMarket').controller(controllerId,
-    ['$scope','articleFactory', 'updateArticleFactory', articlesController]);
+    ['$scope',  '$rootScope', '$cookies','articleFactory', 'updateArticleFactory', articlesController]);
 
-function articlesController($scope, articleFactory, updateArticleFactory) {
+function articlesController($scope, $rootScope, $cookies, articleFactory, updateArticleFactory) {
+    $rootScope.globals = $cookies.getObject('globals') || {};
+    $scope.userdata = $rootScope.globals.currentUser;
+    $scope.username = $scope.userdata.fullname;
+    $scope.uid = $scope.userdata.uid;
     $scope.message = 'Articles Controller';
     $scope.shared_articles = [];
-    articleFactory.getSharedArticles().then(
+    articleFactory.getSharedArticles($scope.uid, null, null).then(
         // callback function for successful http request
         function success(response) {
             $scope.shared_articles = response.data;
@@ -19,7 +23,7 @@ function articlesController($scope, articleFactory, updateArticleFactory) {
 
     $scope.updateStatusCopied = function () {
         this.article.copied = true;
-        articleFactory.updateCopiedArticles('12345', this.article.serial_no, this.article.shared).then(
+        articleFactory.updateCopiedArticles($scope.uid , this.article.serial_no, this.article.shared).then(
             // callback function for successful http request
             function success(response) {
               
@@ -32,7 +36,7 @@ function articlesController($scope, articleFactory, updateArticleFactory) {
     }
     $scope.updateStatusShared = function () {
         this.article.shared = true;
-        articleFactory.updateSharedArticles('12345', this.article.serial_no, this.article.copied).then(
+        articleFactory.updateSharedArticles($scope.uid , this.article.serial_no, this.article.copied).then(
             // callback function for successful http request
             function success(response) {
                
