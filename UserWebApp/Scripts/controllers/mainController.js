@@ -13,10 +13,10 @@ function mainController($scope, $rootScope, $cookies, articleFactory, sessionFac
     $scope.userdata = $rootScope.globals.currentUser;
     $scope.username = $scope.userdata.fullname;
     $scope.uid = $scope.userdata.uid;
-
-
+   
     $scope.articles = [];
-    articleFactory.getArticles($scope.uid ,null,null).then(
+    $scope.category = 'premium';
+    articleFactory.getArticles($scope.uid, $scope.category, null).then(
         // callback function for successful http request
         function success(response) {
             $scope.articles = response.data;
@@ -26,6 +26,7 @@ function mainController($scope, $rootScope, $cookies, articleFactory, sessionFac
         function error(response) {
             // log errors
         }
+    
     );
     sessionFactory.getRate().then(
         // callback function for successful http request
@@ -71,7 +72,7 @@ function mainController($scope, $rootScope, $cookies, articleFactory, sessionFac
         articleFactory.insertSharedArticles($scope.uid , this.article.serial_no).then(
             // callback function for successful http request
             function success(response) {
-                articleFactory.getArticles($scope.uid).then(
+                articleFactory.getArticles($scope.uid, $scope.category, null).then(
                     // callback function for successful http request
                     function success(response) {
                         $scope.articles = response.data;
@@ -96,7 +97,7 @@ function mainController($scope, $rootScope, $cookies, articleFactory, sessionFac
         articleFactory.insertCopiedArticles($scope.uid , this.article.serial_no).then(
             // callback function for successful http request
             function success(response) {
-                articleFactory.getArticles($scope.uid).then(
+                articleFactory.getArticles($scope.uid, $scope.category, null).then(
                     // callback function for successful http request
                     function success(response) {
                         $scope.articles = response.data;
@@ -112,6 +113,35 @@ function mainController($scope, $rootScope, $cookies, articleFactory, sessionFac
 
             },
             // callback function for error in http request
+            function error(response) {
+                // log errors
+            }
+        );
+    }
+    $scope.premium = function () {
+        $scope.category = 'premium';
+        articleFactory.getArticles($scope.uid, $scope.category, null).then(
+            // callback function for successful http request
+            function success(response) {
+                $scope.articles = response.data;
+
+            },
+            // callback function for error in http request
+            function error(response) {
+                // log errors
+            }
+        );
+    }
+    $scope.non_premium = function () {
+
+        $scope.category = 'non_premium';
+        articleFactory.getArticles($scope.uid, $scope.category, null).then(
+            // callback function for successful http request
+            function success(response) {
+                $scope.articles = response.data;
+
+            },
+           //  callback function for error in http request
             function error(response) {
                 // log errors
             }

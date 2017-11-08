@@ -63,6 +63,7 @@
                 
             });
         };
+       
 
         $scope.$watch(function () {
             return Facebook.isReady();

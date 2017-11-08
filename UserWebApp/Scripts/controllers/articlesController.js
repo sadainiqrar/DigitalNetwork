@@ -10,7 +10,7 @@ function articlesController($scope, $rootScope, $cookies, articleFactory, update
     $scope.uid = $scope.userdata.uid;
     $scope.message = 'Articles Controller';
     $scope.shared_articles = [];
-    articleFactory.getSharedArticles($scope.uid, null, null).then(
+    articleFactory.getSharedArticles($scope.uid, 'premium',null).then(
         // callback function for successful http request
         function success(response) {
             $scope.shared_articles = response.data;
@@ -47,5 +47,30 @@ function articlesController($scope, $rootScope, $cookies, articleFactory, update
             }
         );
     }
+    $scope.premium = function () {
+        articleFactory.getSharedArticles($scope.uid, 'premium', null).then(
+            // callback function for successful http request
+            function success(response) {
+                $scope.shared_articles = response.data;
 
+            },
+            // callback function for error in http request
+            function error(response) {
+                // log errors
+            }
+        );
+    }
+    $scope.non_premium = function () {
+        articleFactory.getSharedArticles($scope.uid, 'non_premium', null).then(
+            // callback function for successful http request
+            function success(response) {
+                $scope.shared_articles = response.data;
+
+            },
+            //  callback function for error in http request
+            function error(response) {
+                // log errors
+            }
+        );
+    }
 }

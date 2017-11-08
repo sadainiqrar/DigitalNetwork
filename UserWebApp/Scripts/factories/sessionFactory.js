@@ -17,7 +17,7 @@ function sessionFactory($http) {
         var toDate = lastDay.toISOString();
         var to = toDate.split('T');
         var t = to[0];
-        var data = { ga_id: 'ga:162220485', from_date: f, to_date: t, extra: 'ga:campaign==zuraiz' };
+        var data = { ga_id: 'ga:162220485', from_date: f, to_date: t, extra: 'ga:campaign==(not set)' };
       
         return $http.post('http://localhost:3208/api/sessions', data);
     }
@@ -31,7 +31,7 @@ function sessionFactory($http) {
         var from = fromYear.split('T');
         var f = from[0];
     
-        var data = { ga_id: 'ga:162220485', from_date: f, to_date: f, extra: 'ga:campaign==zuraiz' };
+        var data = { ga_id: 'ga:162220485', from_date: f, to_date: f, extra: 'ga:campaign==(not set)' };
 
         return $http.post('http://localhost:3208/api/sessions', data);
     }
