@@ -11,10 +11,19 @@ namespace DigitalNetwork.Models
 {
     using System;
     
-    public partial class admin_sign_in_Result
+    public partial class get_all_articles_Result
     {
-        public string email { get; set; }
-        public string adminname { get; set; }
+        public int serial_no { get; set; }
+        public int a_id { get; set; }
+        public string url { get; set; }
+        public bool status { get; set; }
+        public string title { get; set; }
+        public string summary { get; set; }
         public string photo_url { get; set; }
+        public System.DateTime modified_date { get; set; }
+        public string site_url { get; set; }
+        public string category { get; set; }
+        public string sub_category { get; set; }
+        public bool custom { get; set; }
     }
 }

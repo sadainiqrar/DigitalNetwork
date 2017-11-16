@@ -19,7 +19,7 @@ namespace DigitalNetwork.Scheduler
             ITrigger trigger = TriggerBuilder.Create()
                 .WithDailyTimeIntervalSchedule
                   (s =>
-                     s.WithIntervalInMinutes(6)
+                     s.WithIntervalInMinutes(10)
                     .OnEveryDay()
                     .StartingDailyAt(TimeOfDay.HourAndMinuteOfDay(0, 0))
                   )

@@ -16,10 +16,29 @@ function mainController($scope, $rootScope, $cookies, articleFactory, sessionFac
    
     $scope.articles = [];
     $scope.category = 'premium';
+    $scope._sub_category = 'Political';
+
+
+  
     articleFactory.getArticles($scope.uid, $scope.category, null).then(
         // callback function for successful http request
         function success(response) {
             $scope.articles = response.data;
+            angular.forEach($scope.articles, function (value,key) {
+                articleFactory.getViewShares(value.site_url, value.modified_date, value.url).then(
+                    // callback function for successful http request
+                    function success(response) {
+                        value.views = response.data;
+                    },
+                    // callback function for error in http request
+                    function error(response) {
+                        value.views = "-1";
+                        //// log errors
+                    }
+
+                );
+                }
+            );
 
         },
         // callback function for error in http request
@@ -28,7 +47,7 @@ function mainController($scope, $rootScope, $cookies, articleFactory, sessionFac
         }
     
     );
-    sessionFactory.getRate().then(
+    sessionFactory.getRate($scope.category).then(
         // callback function for successful http request
         function success(response) {
             $scope.rate = response.data;
@@ -146,6 +165,11 @@ function mainController($scope, $rootScope, $cookies, articleFactory, sessionFac
                 // log errors
             }
         );
+    }
+
+    $scope.active = 'Political';
+    $scope.makeActive = function (item) {
+        $scope.active = $scope.active === item ? item : item;
     }
 
 }

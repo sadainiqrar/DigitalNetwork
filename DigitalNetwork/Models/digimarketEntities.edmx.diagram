@@ -4,8 +4,8 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8a82099ce9044efe9a905237eacb5691" Name="Diagram1" ZoomLevel="25">
-        <EntityTypeShape EntityType="digimarketModel.Admin" Width="1.5" PointX="1.5" PointY="16.25" IsExpanded="true" />
+      <Diagram DiagramId="7c5734ff42854a5685f73608ee8b239a" Name="Diagram1">
+        <EntityTypeShape EntityType="digimarketModel.Admin" Width="1.5" PointX="1.5" PointY="16.375" IsExpanded="true" />
         <EntityTypeShape EntityType="digimarketModel.Article" Width="1.5" PointX="3.75" PointY="12.375" IsExpanded="true" />
         <EntityTypeShape EntityType="digimarketModel.Payment" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
         <EntityTypeShape EntityType="digimarketModel.Rate" Width="1.5" PointX="5.75" PointY="1.125" IsExpanded="true" />

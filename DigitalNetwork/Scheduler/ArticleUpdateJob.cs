@@ -15,26 +15,34 @@ namespace DigitalNetwork.Scheduler
     {
      
         List<ArticleModel> siteList;
-        List<get_admin_articles_Result> dbList;
+        List<get_all_articles_Result> dbList;
 
 
         public void Execute(IJobExecutionContext context)
         {
-            DateTime date = DateTime.Now;
-            deleteExtra();
-            insertNew();
-            DateTime date2 = DateTime.Now;
+            string [] siteResult;
+            using (var sites = dataCon.DB.db.get_all_site())
+            {
+               siteResult  = sites.ToArray<string>();
+            }
+            foreach (var site in siteResult)
+            {
+                DateTime date = DateTime.Now;
+                deleteExtra(site);
+                insertNew(site);
+                DateTime date2 = DateTime.Now;
+            }
         }
 
 
-        private void insertNew()
+        private void insertNew(string url)
         {
            int count = 0;
             foreach (ArticleModel post in siteList)
             {
                 try
                 {
-                    dataCon.DB.db.add_article(post.aId, post.aUrl, false, post.title, post.excerpt, post.featuredImage,post.modifiedDate, "http://trumpgossiptoday.com","Premium","Political",false);
+                    dataCon.DB.db.add_article(post.aId, post.aUrl, false, post.title, post.excerpt, post.featuredImage,post.modifiedDate, url, "Premium","Political",false);
                     count++;
                 }
                 catch (Exception e)
@@ -43,25 +51,37 @@ namespace DigitalNetwork.Scheduler
                 }
             }
         }
-        private void deleteExtra()
+        private void deleteExtra(string url)
         {
             
-            dbList = dbArticles();
-            siteList = makeArticleList();
+            
+            dbList = dbArticles(url);
+            siteList = makeArticleList(url);
 
-            foreach (get_admin_articles_Result dblistItem in dbList)
+            foreach (get_all_articles_Result dblistItem in dbList)
             {
                 if (!siteList.Contains(checkElement(dblistItem.a_id, dblistItem.site_url,siteList)))
                 {
                     if (dblistItem.custom == false)
                     {
+                        try { 
                         dataCon.DB.db.delete_article(dblistItem.serial_no);
+                        }
+                        catch(Exception ex)
+                        { }
                     }
                 }
                 if (siteList.Contains(checkElement(dblistItem.a_id, dblistItem.site_url, siteList)))
                 {
                     ArticleModel post = checkElement(dblistItem.a_id, dblistItem.site_url, siteList);
-                    dataCon.DB.db.update_article_data(dblistItem.serial_no, post.aUrl, post.title, post.excerpt, post.featuredImage, post.modifiedDate );
+                    try
+                    {
+                        dataCon.DB.db.update_article_data(dblistItem.serial_no, post.aUrl, post.title, post.excerpt, post.featuredImage, post.modifiedDate);
+                    }
+                    catch(Exception ex)
+                    {
+
+                    }
                 }
             }
         }
@@ -76,49 +96,53 @@ namespace DigitalNetwork.Scheduler
             }
             return new ArticleModel();
         }
-        private List<get_admin_articles_Result> dbArticles()
+        private List<get_all_articles_Result> dbArticles(string url)
         {
-            List<get_admin_articles_Result> dbArticles = new List<get_admin_articles_Result>();
-            foreach(get_admin_articles_Result dbPost in getDBArticles())
+            List<get_all_articles_Result> dbArticles = new List<get_all_articles_Result>();
+            foreach(get_all_articles_Result dbPost in getDBArticles(url))
             {
                 dbArticles.Add(dbPost);
             }
             return dbArticles;
         }
 
-        private IEnumerable<get_admin_articles_Result> getDBArticles()
+        private IEnumerable<get_all_articles_Result> getDBArticles(string url)
         {
 
-            return dataCon.DB.db.get_admin_articles("zuraiz.com", "http://trumpgossiptoday.com");
+            return dataCon.DB.db.get_all_articles(url);
         }
-        private List<ArticleModel> makeArticleList()
+        private List<ArticleModel> makeArticleList(string url)
         {
             List<ArticleModel> articles = new List<ArticleModel>();
-            string url = "http://trumpgossiptoday.com";
-            JArray posts = callBack(url + "/wp-json/wp/v2/posts");
+            // string url = "http://trumpgossiptoday.com";
+            try {
+                JArray posts = callBack(url + "/wp-json/wp/v2/posts");
 
-            foreach (JObject post in posts)
-            {
-                ArticleModel article = new ArticleModel();
-                article.site_url = url;
-                article.aId = post.SelectToken("id").Value<int>();
-                article.title = post.SelectToken("title.rendered").Value<string>();
-                article.excerpt = post.SelectToken("excerpt.rendered").Value<string>();
-                article.modifiedDate = post.SelectToken("modified").Value<DateTime>();
-                article.aUrl = post.SelectToken("link").Value<string>();
-                try { 
-                    string image_post_url = post.SelectToken("_links.wp:featuredmedia[0].href").Value<string>();
-                    JObject images = ObjectPaging(image_post_url);
-                    article.featuredImage = images.SelectToken("guid.rendered").Value<string>();
-                }
-                catch(Exception e)
+                foreach (JObject post in posts)
                 {
-                    article.featuredImage = "";
+                    ArticleModel article = new ArticleModel();
+                    article.site_url = url;
+                    article.aId = post.SelectToken("id").Value<int>();
+                    article.title = post.SelectToken("title.rendered").Value<string>();
+                    article.excerpt = post.SelectToken("excerpt.rendered").Value<string>();
+                    article.modifiedDate = post.SelectToken("modified").Value<DateTime>();
+                    article.aUrl = post.SelectToken("link").Value<string>();
+                    try {
+                        string image_post_url = post.SelectToken("_links.wp:featuredmedia[0].href").Value<string>();
+                        JObject images = ObjectPaging(image_post_url);
+                        article.featuredImage = images.SelectToken("guid.rendered").Value<string>();
+                    }
+                    catch (Exception e)
+                    {
+                        article.featuredImage = "";
+                    }
+                    articles.Add(article);
                 }
-                articles.Add(article);
+            } catch(Exception e)
+            {
             }
             return articles;
-        }
+            }
 
 
         private JArray callBack(string url)

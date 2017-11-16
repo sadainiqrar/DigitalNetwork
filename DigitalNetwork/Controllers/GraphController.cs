@@ -15,7 +15,7 @@ namespace DigitalNetwork.Controllers
         public List<Time_Session> PostC_Session([FromBody]Analytics_Input analytics_Input)
         {
             List<Time_Session> list = new List<Time_Session>();
-            Authorization auth = new Authorization();
+            Authorization auth = new Authorization("sadain@digihawks.com");
             var result = auth.service.Data.Ga.Get(analytics_Input.ga_id, analytics_Input.from_date, analytics_Input.to_date, analytics_Input.session);
             result.Dimensions = "ga:day";
             if ((analytics_Input.extra != null))

@@ -24,11 +24,13 @@ namespace DigitalNetwork.Controllers
     public class TrafficController : ApiController
     {
 
+
         [HttpPost]
         [Route("api/sessions")]
         public string PostSession([FromBody]Analytics_Input analytics_Input)
         {
-            Authorization auth = new Authorization();
+            Authorization auth = new Authorization("sadain@digihawks.com");
+
             var result = auth.service.Data.Ga.Get(analytics_Input.ga_id, analytics_Input.from_date, analytics_Input.to_date, analytics_Input.session);
             if ((analytics_Input.extra != null))
             {
@@ -54,7 +56,7 @@ namespace DigitalNetwork.Controllers
         public List<Campaign_Session> PostC_Session([FromBody]Analytics_Input analytics_Input)
         {
             List<Campaign_Session> list = new List<Campaign_Session>();
-            Authorization auth = new Authorization();
+            Authorization auth = new Authorization("sadain@digihawks.com");
             var result = auth.service.Data.Ga.Get(analytics_Input.ga_id, analytics_Input.from_date, analytics_Input.to_date, analytics_Input.session);
             result.Dimensions = analytics_Input.campaign;
             if ((analytics_Input.extra != null))
@@ -87,7 +89,7 @@ namespace DigitalNetwork.Controllers
         public List<Page_Session> PostP_Session([FromBody]Analytics_Input analytics_Input)
         {
             List<Page_Session> list = new List<Page_Session>();
-            Authorization auth = new Authorization();
+            Authorization auth = new Authorization("sadain@digihawks.com");
             var result = auth.service.Data.Ga.Get(analytics_Input.ga_id, analytics_Input.from_date, analytics_Input.to_date, analytics_Input.session);
             result.Dimensions = analytics_Input.landing_page_path;
             if ((analytics_Input.extra != null))
@@ -120,7 +122,7 @@ namespace DigitalNetwork.Controllers
         public List<Page_Campaign_Session> PostP_C_Session([FromBody]Analytics_Input analytics_Input)
         {
             List<Page_Campaign_Session> list = new List<Page_Campaign_Session>();
-            Authorization auth = new Authorization();
+            Authorization auth = new Authorization("sadain@digihawks.com");
             var result = auth.service.Data.Ga.Get(analytics_Input.ga_id, analytics_Input.from_date, analytics_Input.to_date, analytics_Input.session);
             result.Dimensions =analytics_Input.campaign+","+analytics_Input.landing_page_path;
             if ((analytics_Input.extra != null))

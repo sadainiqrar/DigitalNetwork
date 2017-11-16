@@ -11,10 +11,9 @@ namespace DigitalNetwork.Models
 {
     using System;
     
-    public partial class admin_sign_in_Result
+    public partial class get_admin_gid_Result
     {
-        public string email { get; set; }
-        public string adminname { get; set; }
-        public string photo_url { get; set; }
+        public string Email { get; set; }
+        public string ga_id { get; set; }
     }
 }

@@ -8,8 +8,10 @@ using DigitalNetwork.Scheduler;
 using System.IO;
 using Newtonsoft.Json.Linq;
 using DigitalNetwork.Models;
+using DigitalNetwork.DataModel;
 using System.Web.Helpers;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace DigitalNetwork.Controllers
 {
@@ -53,18 +55,84 @@ namespace DigitalNetwork.Controllers
 
         [HttpPost]
         [Route("api/user/articles")]
-        public IEnumerable<get_articles_Result> PostArticles([FromBody] user_article_input article)
+        public IEnumerable<get_Articles> PostArticles([FromBody] user_article_input article)
         {
+            List<get_articles_Result> articleList = new List<get_articles_Result>();
+            List<get_Articles> finalArticleList = new List<get_Articles>();
 
-            return dataCon.DB.db.get_articles(article.uid,article.category,article.sub_category);
+            using (var articles = dataCon.DB.db.get_articles(article.uid, article.category, article.sub_category))
+            {
+                articleList = articles.ToList<get_articles_Result>();
+            }
+            foreach(var item in articleList)
+            {
+                get_Articles post = new get_Articles();
+                post.serial_no = item.serial_no;
+                post.a_id = item.a_id;
+                post.title = item.title;
+                post.site_url = item.site_url;
+                post.photo_url = item.photo_url;
+                post.modified_date = item.modified_date;
+                post.category = item.category;
+                post.url = item.url;
+                post.summary = item.summary;
+                post.custom = item.custom;
+                post.copied = item.copied;
+                post.shared = item.shared;
+                post.sub_category = item.sub_category;
+                try
+                {
+                    using (var count = dataCon.DB.db.get_shared_article_serial(item.serial_no))
+                    {
+                        post.shares = count.First<int?>();
+                    }
+
+                }
+
+                catch (Exception ex)
+                {
+                    post.shares = -1;
+                }
+                post.views = "0";
+                finalArticleList.Add(post);
+            }
+            return finalArticleList;
+         
         }
 
         [HttpPost]
         [Route("api/user/shared_articles")]
-        public IEnumerable<get_shared_article_Result> Post_Shared_Articles([FromBody] user_article_input article)
+        public IEnumerable<get_Articles> Post_Shared_Articles([FromBody] user_article_input article)
         {
 
-            return dataCon.DB.db.get_shared_article(article.uid, article.category, article.sub_category);
+            List<get_shared_article_Result> articleList = new List<get_shared_article_Result>();
+            List<get_Articles> finalArticleList = new List<get_Articles>();
+
+            using (var articles = dataCon.DB.db.get_shared_article(article.uid, article.category, article.sub_category))
+            {
+                articleList = articles.ToList<get_shared_article_Result>();
+            }
+            foreach (var item in articleList)
+            {
+                get_Articles post = new get_Articles();
+                post.serial_no = item.serial_no.GetValueOrDefault();
+                post.a_id = item.a_id.GetValueOrDefault();
+                post.title = item.title;
+                post.site_url = item.site_url;
+                post.photo_url = item.photo_url;
+                post.modified_date = item.modified_date.GetValueOrDefault();
+                post.category = item.category;
+                post.url = item.url;
+                post.summary = item.summary;
+                post.custom = item.custom.GetValueOrDefault();
+                post.copied = item.copied;
+                post.shared = item.shared;
+                post.sub_category = item.sub_category;
+                post.shares = 0;
+                post.views = "0";
+                finalArticleList.Add(post);
+            }
+            return finalArticleList;
         }
 
 
@@ -91,6 +159,87 @@ namespace DigitalNetwork.Controllers
         {
 
             return dataCon.DB.db.add_article(article.a_id, article.url, article.status, article.title, article.summary, article.photo_url, article.modified_date, article.url, article.category, article.sub_category,article.custom);
+        }
+
+        
+        [NonAction]
+        public string admin_gid(string url, DateTime publishDate, string a_url)
+        {
+            get_admin_gid_Result res;
+            using (var data = dataCon.DB.db.get_admin_gid(url))
+            {
+
+                res = data.FirstOrDefault<get_admin_gid_Result>();
+            }
+                Authorization auth = new Authorization(res.Email);
+                var result = auth.service.Data.Ga.Get(("ga:" + res.ga_id), convertDate(publishDate), convertDate(System.DateTime.Now), "ga:sessions");
+                result.Filters = "ga:medium=@referral;ga:landingPagePath=@" + convertUrl(a_url, url);
+                var final = result.Execute();
+                int count = (int)final.TotalResults;
+                if (count != 0)
+                {
+                    IList<string> l = final.Rows[0];
+                    return l[0];
+                }
+                return "" + 1;
+            
+        }
+
+        [NonAction]
+        public string convertDate(DateTime date)
+        {
+            var day = date.Day<10? "0" + date.Day.ToString() : date.Day.ToString();
+            var month = date.Month<10 ? "0" + date.Month.ToString() : date.Month.ToString(); ;
+            var year = date.Year;
+            return year + "-" + month + "-" + day;
+        }
+
+        [NonAction]
+        public string convertUrl(string a_url, string url)
+        {
+            a_url = a_url.Replace(url, "");
+            return a_url;
+        }
+
+        [HttpPost]
+        [Route("api/user/views_shares")]
+        public string views_Shares([FromBody] Article article)
+        {
+            return admin_gid(article.site_url, article.modified_date, article.url);
+           
+        }
+
+        [HttpPost]
+        [Route("api/user/shared/views_shares")]
+        public string views_Shares_user([FromBody] shared_input article)
+        {
+            return admin_gid(article.site_url, article.modified_date, article.url,article.username);
+
+        }
+
+
+
+        [NonAction]
+        public string admin_gid(string url, DateTime publishDate, string a_url,string username)
+        {
+            get_admin_gid_Result res;
+            using (var data = dataCon.DB.db.get_admin_gid(url))
+            {
+
+                res = data.FirstOrDefault<get_admin_gid_Result>();
+            }
+            Authorization auth = new Authorization(res.Email);
+            var result = auth.service.Data.Ga.Get(("ga:" + res.ga_id), convertDate(publishDate), convertDate(System.DateTime.Now), "ga:sessions");
+            result.Filters = "ga:medium=@referral;ga:landingPagePath=@" + convertUrl(a_url, url)+";ga:campaign=@"+username;
+            var final = result.Execute();
+            int count = (int)final.TotalResults;
+            if (count != 0)
+            {
+                IList<string> l = final.Rows[0];
+                return l[0];
+            }
+            return "" + 0;
+
         }
     }
 }

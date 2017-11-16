@@ -17,14 +17,14 @@
 
          
             <ul class="nav navbar-nav" style="display: inline;">
-              <li class="active  "><a class="tabpad" data-toggle="tab" href="page-top">All</a></li>
-              <li class=""><a class="tabpad" data-toggle="tab"  href="#">Entertainment</a></li>
-              <li class=""><a class="tabpad" data-toggle="tab" href="#">Sports</a></li>
-              <li class=""><a class="tabpad" data-toggle="tab" href="#">Health & Food</a></li>
-              <li class=""><a class="tabpad"data-toggle="tab"  href="#">Showbiz</a></li>
-              <li class=""><a class="tabpad"data-toggle="tab" href="#">Motivation</a></li>
-                <li class=""><a class="tabpad" data-toggle="tab" href="#">Featured</a></li>
-                
+                <li ng-click='makeActive("Political")' ng-class="{ 'active': active=='Political'}"><a class="tabpad" ng-click="_sub_category = 'Political'">All</a></li>
+                <li ng-click='makeActive("Entertainment")' ng-class="{ 'active': active=='Entertainment'}"><a class="tabpad" ng-click="_sub_category = 'Entertainment'">Entertainment</a></li>
+                <li ng-click='makeActive("Sports")' ng-class="{ 'active': active=='Sports'}"><a class="tabpad" ng-click="_sub_category = 'Sports'">Sports</a></li>
+                <li ng-click='makeActive("Health")' ng-class="{ 'active': active=='Health'}"><a class="tabpad" ng-click="_sub_category = 'Health'">Health & Food</a></li>
+                <li ng-click='makeActive("Showbiz")' ng-class="{ 'active': active=='Showbiz'}"><a class="tabpad" ng-click="_sub_category = 'Showbiz'">Showbiz</a></li>
+                <li ng-click='makeActive("Motivation")' ng-class="{ 'active': active=='Motivation'}"><a class="tabpad" ng-click="_sub_category = 'Motivation'">Motivation</a></li>
+                <li ng-click='makeActive("Featured")' ng-class="{ 'active': active=='Featured'}"><a class="tabpad" ng-click="_sub_category = 'Featured'">Featured</a></li>
+
             </ul>
                 <select class="tabpad dropdownCat text" style="font-style: oblique;
     opacity: .5;">
@@ -49,7 +49,7 @@
                 
                 <!-- shared Articles body -->
                 
-                    <div class="row" ng-repeat="article in shared_articles">
+                    <div class="row" ng-repeat="article in shared_articles | filter:{ sub_category: _sub_category }">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sharedArticleDiv" style="padding: 0px 0px 0px 0px;" >
                             <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                                 <div id="imageDiv" class="col-lg-4 col-md-6 col-sm-5 col-xs-6" style="height: 180px">
@@ -75,7 +75,7 @@
                                         <i class="fa fa-money" aria-hidden="true"  style="margin: 8px; color: #bc49ff;"></i>
                                         <strong style="color: #bc49ff; font-size: 12pt;">
                                             
-                                            <br> 600$ 
+                                            <br> {{article.shares}} 
                                         </strong></center>
                              </span>
                              
@@ -90,7 +90,7 @@
                                         <i class="fa fa-line-chart" aria-hidden="true"  style="margin: 8px; color: #bc49ff;"></i>
                                         <strong style="color: #bc49ff; font-size: 12pt;">
                                             
-                                            <br> 900$ 
+                                            <br> {{article.views}} 
                                         </strong></center>
                                         </span>
                              

@@ -39,8 +39,10 @@ angular.module('DigitalMarket').controller('dashboardController', function ($sco
            }
        });
    };
-
- 
+   $scope.active = $location.$$path;
+   $scope.makeActive = function (item) {
+       $scope.active = $scope.active == item ? '' : item;
+   }
   
    
 });

@@ -18,16 +18,16 @@ namespace DigitalNetwork.Controllers
     public class Authorization
     {
         public AnalyticsService service;
- 
-        public Authorization()
+      
+        public Authorization(string email)
         { 
-            Task <AnalyticsService> task = Task.Run<AnalyticsService>(async () => await RunAsync());
+            Task <AnalyticsService> task = Task.Run<AnalyticsService>(async () => await RunAsync(email));
             service= task.Result;
         }
 
      
     
-    public  async Task<AnalyticsService> RunAsync()
+    public  async Task<AnalyticsService> RunAsync(string email)
         {  
             var clientId = "122077380940-vn0cl0ece9gk4bcc40nrnlhpki93dsc5.apps.googleusercontent.com";
             var clientSecret = "top5xI1-65DS8KwgD4OQJHkI";
@@ -42,7 +42,7 @@ namespace DigitalNetwork.Controllers
             ClientSecret = clientSecret
         },
     new[] { AnalyticsService.Scope.Analytics, AnalyticsService.Scope.AnalyticsReadonly },
-    "user",
+    email,
     CancellationToken.None,
     new FileDataStore("account.users"));
 

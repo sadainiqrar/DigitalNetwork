@@ -236,7 +236,13 @@
     <Compile Include="Models\get_admin_articles_Result.cs">
       <DependentUpon>digimarketEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\get_admin_gid_Result.cs">
+      <DependentUpon>digimarketEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\get_admin_single_article_Result.cs">
+      <DependentUpon>digimarketEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\get_all_articles_Result.cs">
       <DependentUpon>digimarketEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\get_articles_Result.cs">

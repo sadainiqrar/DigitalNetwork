@@ -68,7 +68,7 @@
 
         <div class="sidebar-wrapper  hidden-md hidden-lg">
             <ul class="nav">
-                <li>
+                <li ng-click='makeActive("/profile")' ng-class="{ 'active-o': active=='/profile'}">
                     <a href="Articles.html">
                         <img class="img-circle" style="width: 20px;" src="download.jpg">
                         <span class="text">
@@ -77,15 +77,15 @@
                     </a>
                 </li>
                 <hr style="margin: 0px; border-color: white">
-                <li class="active-o">
-                    <a ui-sref="dashboard.home" class="active">
+                <li ng-click='makeActive("/dashboard")' ng-class="{ 'active-o': active=='/dashboard'}">
+                    <a ui-sref="dashboard.home">
                         <i class="fa fa-search aria-hidden=" true"">
                             <b class="bg-success"></b>
                         </i>
                         <span class="text">OVERVIEW</span>
                     </a>
                 </li>
-                <li>
+                <li ng-click='makeActive("/articles")' ng-class="{ 'active-o': active=='/articles'}">
                     <a ui-sref="dashboard.articles">
                         <i class="fa fa-pencil-square-o icon">
                             <b class="bg-success"></b>
@@ -93,7 +93,7 @@
                         <span class="text">SHARED ARTICLES</span>
                     </a>
                 </li>
-                <li>
+                <li ng-click='makeActive("/stats")' ng-class="{ 'active-o': active=='/stats'}">
                     <a href="Statistics.html">
                         <i class="fa fa-pie-chart icon">
                             <b class="bg-success"></b>
@@ -101,7 +101,7 @@
                         <span class="text">STATISTICS</span>
                     </a>
                 </li>
-                <li>
+                <li ng-click='makeActive("/ums")' ng-class="{ 'active-o': active=='/ums'}">
                     <a href="Marketing Sources.html">
                         <i class="fa fa-rocket icon">
                             <b class="bg-success"></b>
@@ -109,7 +109,7 @@
                         <span class="text">MARKETING SOURCES</span>
                     </a>
                 </li>
-                <li>
+                <li ng-click='makeActive("/pays")' ng-class="{ 'active-o': active=='/pays'}">
                     <a href="Payment.html">
                         <i class="fa fa-briefcase">
                             <b class="bg-success"></b>
@@ -118,7 +118,7 @@
                     </a>
                 </li>
                 <hr style="margin: 0px; border-color: white">
-                <li>
+                <li ng-click='makeActive("/logout")' ng-class="{ 'active-o': active=='/logout'}">
                     <a ng-click="logout()">
                         <i class="fa fa-briefcase">
                             <b class="bg-success"></b>
@@ -141,15 +141,15 @@
 
         <div class="sidebar-wrapper">
             <ul class="nav">
-                <li class="active-o">
-                    <a ui-sref="dashboard.home" class="active">
+                <li ng-click='makeActive("/dashboard")' ng-class="{ 'active-o': active=='/dashboard'}">
+                    <a ui-sref="dashboard.home">
                         <i class="fa fa-search aria-hidden=" true"">
                             <b class="bg-success"></b>
                         </i>
                         <span class="text">OVERVIEW</span>
                     </a>
                 </li>
-                <li>
+                <li ng-click='makeActive("/articles")' ng-class="{ 'active-o': active=='/articles'}">
                     <a ui-sref="dashboard.articles">
                         <i class="fa fa-pencil-square-o icon">
                             <b class="bg-success"></b>
@@ -157,7 +157,7 @@
                         <span class="text">SHARED ARTICLES</span>
                     </a>
                 </li>
-                <li>
+                <li ng-click='makeActive("stats")' ng-class="{ 'active-o': active=='stats'}">
                     <a href="Statistics.html">
                         <i class="fa fa-pie-chart icon">
                             <b class="bg-success"></b>
@@ -165,7 +165,7 @@
                         <span class="text">STATISTICS</span>
                     </a>
                 </li>
-                <li>
+                <li ng-click='makeActive("ums")' ng-class="{ 'active-o': active=='ums'}">
                     <a href="Marketing Sources.html">
                         <i class="fa fa-rocket icon">
                             <b class="bg-success"></b>
@@ -173,7 +173,7 @@
                         <span class="text">MARKETING SOURCES</span>
                     </a>
                 </li>
-                <li>
+                <li ng-click='makeActive("pays")' ng-class="{ 'active-o': active=='pays'}">
                     <a href="Payment.html">
                         <i class="fa fa-briefcase">
                             <b class="bg-success"></b>

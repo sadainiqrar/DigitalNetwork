@@ -18,7 +18,12 @@ var fixedTop = false;
 var transparent = true;
 var navbar_initialized = false;
 
-$(document).ready(function(){
+
+
+
+$(document).ready(function () {
+
+
     window_width = $(window).width();
 
     // Init navigation toggle for small screens
@@ -29,6 +34,8 @@ $(document).ready(function(){
     //  Activate the tooltips
     $('[rel="tooltip"]').tooltip();
 
+    
+
 });
 
 // activate collapse right menu when the windows is resized
@@ -37,6 +44,9 @@ $(window).resize(function(){
         pd.initRightMenu();
     }
 });
+
+    
+
 
 pd = {
     misc:{

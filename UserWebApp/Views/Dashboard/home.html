@@ -45,13 +45,13 @@
 
 
                 <ul class="nav navbar-nav" style="display: inline;">
-                    <li class="active  "><a class="tabpad" data-toggle="tab" href="page-top">All</a></li>
-                    <li class=""><a class="tabpad" data-toggle="tab" href="#">Entertainment</a></li>
-                    <li class=""><a class="tabpad" data-toggle="tab" href="#">Sports</a></li>
-                    <li class=""><a class="tabpad" data-toggle="tab" href="#">Health & Food</a></li>
-                    <li class=""><a class="tabpad" data-toggle="tab" href="#">Showbiz</a></li>
-                    <li class=""><a class="tabpad" data-toggle="tab" href="#">Motivation</a></li>
-                    <li class=""><a class="tabpad" data-toggle="tab" href="#">Featured</a></li>
+                    <li ng-click='makeActive("Political")' ng-class="{ 'active': active=='Political'}"><a class="tabpad"  ng-click="_sub_category = 'Political'">All</a></li>
+                    <li ng-click='makeActive("Entertainment")' ng-class="{ 'active': active=='Entertainment'}"><a class="tabpad"  ng-click="_sub_category = 'Entertainment'">Entertainment</a></li>
+                    <li ng-click='makeActive("Sports")' ng-class="{ 'active': active=='Sports'}"><a class="tabpad"  ng-click="_sub_category = 'Sports'">Sports</a></li>
+                    <li ng-click='makeActive("Health")' ng-class="{ 'active': active=='Health'}"><a class="tabpad"  ng-click="_sub_category = 'Health'">Health & Food</a></li>
+                    <li ng-click='makeActive("Showbiz")' ng-class="{ 'active': active=='Showbiz'}"><a class="tabpad"  ng-click="_sub_category = 'Showbiz'">Showbiz</a></li>
+                    <li ng-click='makeActive("Motivation")' ng-class="{ 'active': active=='Motivation'}"><a class="tabpad"  ng-click="_sub_category = 'Motivation'">Motivation</a></li>
+                    <li ng-click='makeActive("Featured")' ng-class="{ 'active': active=='Featured'}"><a class="tabpad"  ng-click="_sub_category = 'Featured'">Featured</a></li>
 
                 </ul>
                 <select class="tabpad dropdownCat text" style="font-style: oblique;
@@ -73,16 +73,16 @@
 
             <div class="container-fluid">
 
-                <div class="col-md-12 col-sm-12">
+                <div ng- class="col-md-12 col-sm-12">
 
-                    <div class="col-md-4 col-sm-12" ng-repeat="article in articles">
+                    <div class="col-md-4 col-sm-12" ng-repeat="article in articles | filter:{ sub_category: _sub_category }">
                         <div class="col-xs-12 col-md-12 col-sm-12 ok pan">
                             <div id="articleImageDiv" class="col-md-12 col-sm-6" style="padding: 0px 0px 0px 0px;">
 
                                 <img class="img-responsive" src={{article.photo_url}}>
-                                <div class="overlay">
-                                    <div class="textt"><i class="fa fa-eye" aria-hidden="true"></i><p style="font-size: 10px;">VIEWS</p> <p style="color: deepskyblue">956K</p> </div>
-                                    <div class="txt"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><p style="font-size: 10px;">SHARES</p><p style="color: deepskyblue">12K</p></div>
+                                <div   class="overlay">
+                                    <div class="textt"><i class="fa fa-eye" aria-hidden="true"></i><p style="font-size: 10px;">VIEWS</p> <p style="color: deepskyblue">{{ article.views}}</p> </div>
+                                    <div class="txt"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><p style="font-size: 10px;">SHARES</p><p style="color: deepskyblue">{{article.shares}}</p></div>
                                 </div>
 
                             </div>
@@ -98,11 +98,9 @@
                                 <a class="btn" ng-click="insertShared()"> <span class="fa fa-share-alt" aria-hidden="true"></span> </a>
                                 <a class="btn"ng-click="insertCopied()"><span class="fa fa-link" aria-hidden="true"></span></a>
 
-
-
-
                             </div>
                         </div>
+
                     </div>
 
        

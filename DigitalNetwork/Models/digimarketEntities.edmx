@@ -4,14 +4,13 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="digimarketModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="digimarketModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Admin">
           <Key>
             <PropertyRef Name="email" />
           </Key>
           <Property Name="email" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="adminname" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="password" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="photo_url" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="AdminSite">
@@ -240,21 +239,15 @@
         </Function>
         <Function Name="admin_sign_in" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="email" Type="varchar" Mode="In" />
-          <Parameter Name="pass" Type="varchar" Mode="In" />
         </Function>
         <Function Name="admin_sign_up" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="email" Type="varchar" Mode="In" />
           <Parameter Name="name" Type="varchar" Mode="In" />
-          <Parameter Name="pass" Type="varchar" Mode="In" />
           <Parameter Name="photo" Type="varchar(max)" Mode="In" />
-          <Parameter Name="site_name" Type="varchar" Mode="In" />
-          <Parameter Name="site" Type="varchar(max)" Mode="In" />
-          <Parameter Name="gid" Type="varchar(max)" Mode="In" />
         </Function>
         <Function Name="admin_update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="email" Type="varchar" Mode="In" />
           <Parameter Name="name" Type="varchar" Mode="In" />
-          <Parameter Name="pass" Type="varchar" Mode="In" />
           <Parameter Name="photo" Type="varchar(max)" Mode="In" />
         </Function>
         <Function Name="count_ums" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -274,11 +267,18 @@
           <Parameter Name="email" Type="varchar" Mode="In" />
           <Parameter Name="site" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="get_admin_gid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="site" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="get_admin_single_article" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="aid" Type="int" Mode="In" />
           <Parameter Name="email" Type="varchar" Mode="In" />
           <Parameter Name="site" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="get_all_articles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="site" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="get_all_site" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="get_articles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="uid" Type="varchar" Mode="In" />
           <Parameter Name="cat" Type="varchar" Mode="In" />
@@ -299,6 +299,9 @@
           <Parameter Name="uid" Type="varchar" Mode="In" />
           <Parameter Name="cat" Type="varchar" Mode="In" />
           <Parameter Name="subcat" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="get_shared_article_serial" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="serial" Type="int" Mode="In" />
         </Function>
         <Function Name="get_site" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="email" Type="varchar" Mode="In" />
@@ -396,8 +399,7 @@
             <End Role="User_Marketing_Source" EntitySet="User_Marketing_Source" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="digimarketModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -407,7 +409,6 @@
           </Key>
           <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="adminname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="password" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="photo_url" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Sites" Relationship="Self.AdminSite" FromRole="Admin" ToRole="Sites" />
         </EntityType>
@@ -659,46 +660,47 @@
             <Parameter Name="uid" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="admin_sign_in" ReturnType="Collection(digimarketModel.admin_sign_in_Result)">
-            <Parameter Name="email" Mode="In" Type="String" />
-            <Parameter Name="pass" Mode="In" Type="String" />
+          <Parameter Name="email" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="admin_sign_up">
             <Parameter Name="email" Mode="In" Type="String" />
             <Parameter Name="name" Mode="In" Type="String" />
-            <Parameter Name="pass" Mode="In" Type="String" />
             <Parameter Name="photo" Mode="In" Type="String" />
-            <Parameter Name="site_name" Mode="In" Type="String" />
-            <Parameter Name="site" Mode="In" Type="String" />
-            <Parameter Name="gid" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="admin_update">
             <Parameter Name="email" Mode="In" Type="String" />
             <Parameter Name="name" Mode="In" Type="String" />
-            <Parameter Name="pass" Mode="In" Type="String" />
             <Parameter Name="photo" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="count_ums" ReturnType="Collection(Int32)">
-            <Parameter Name="uid" Mode="In" Type="String" />
+          <Parameter Name="uid" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="delete_article">
-            <Parameter Name="serial" Mode="In" Type="Int32" />
+          <Parameter Name="serial" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="delete_site">
             <Parameter Name="site_url" Mode="In" Type="String" />
             <Parameter Name="email" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="delete_ums">
-            <Parameter Name="ums_id" Mode="In" Type="Int32" />
+          <Parameter Name="ums_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="get_admin_articles" ReturnType="Collection(digimarketModel.get_admin_articles_Result)">
             <Parameter Name="email" Mode="In" Type="String" />
             <Parameter Name="site" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="get_admin_gid" ReturnType="Collection(digimarketModel.get_admin_gid_Result)">
+          <Parameter Name="site" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_admin_single_article" ReturnType="Collection(digimarketModel.get_admin_single_article_Result)">
             <Parameter Name="aid" Mode="In" Type="Int32" />
             <Parameter Name="email" Mode="In" Type="String" />
             <Parameter Name="site" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="get_all_articles" ReturnType="Collection(digimarketModel.get_all_articles_Result)">
+          <Parameter Name="site" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="get_all_site" ReturnType="Collection(String)" />
           <FunctionImport Name="get_articles" ReturnType="Collection(digimarketModel.get_articles_Result)">
             <Parameter Name="uid" Mode="In" Type="String" />
             <Parameter Name="cat" Mode="In" Type="String" />
@@ -713,24 +715,27 @@
             <Parameter Name="pay_date" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="get_rate" ReturnType="Collection(digimarketModel.get_rate_Result)">
-            <Parameter Name="category" Mode="In" Type="String" />
+          <Parameter Name="category" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_shared_article" ReturnType="Collection(digimarketModel.get_shared_article_Result)">
             <Parameter Name="uid" Mode="In" Type="String" />
             <Parameter Name="cat" Mode="In" Type="String" />
             <Parameter Name="subcat" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="get_shared_article_serial" ReturnType="Collection(Int32)">
+          <Parameter Name="serial" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="get_site" ReturnType="Collection(digimarketModel.get_site_Result)">
-            <Parameter Name="email" Mode="In" Type="String" />
+          <Parameter Name="email" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_ums" ReturnType="Collection(digimarketModel.get_ums_Result)">
-            <Parameter Name="uid" Mode="In" Type="String" />
+          <Parameter Name="uid" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_user_single_article" ReturnType="Collection(digimarketModel.get_user_single_article_Result)">
-            <Parameter Name="serial" Mode="In" Type="Int32" />
+          <Parameter Name="serial" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="getArticleBySerial" ReturnType="Collection(digimarketModel.getArticleBySerial_Result)">
-            <Parameter Name="serial" Mode="In" Type="Int32" />
+          <Parameter Name="serial" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="update_article_data">
             <Parameter Name="serial_no" Mode="In" Type="Int32" />
@@ -760,7 +765,7 @@
             <Parameter Name="site" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="user_sign_in" ReturnType="Collection(digimarketModel.user_sign_in_Result)">
-            <Parameter Name="uid" Mode="In" Type="String" />
+          <Parameter Name="uid" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="user_sign_up">
             <Parameter Name="uid" Mode="In" Type="String" />
@@ -776,7 +781,6 @@
         <ComplexType Name="admin_sign_in_Result">
           <Property Type="String" Name="email" Nullable="false" MaxLength="30" />
           <Property Type="String" Name="adminname" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="password" Nullable="false" MaxLength="15" />
           <Property Type="String" Name="photo_url" Nullable="true" />
         </ComplexType>
         <ComplexType Name="get_admin_articles_Result">
@@ -793,7 +797,25 @@
           <Property Type="String" Name="sub_category" Nullable="false" MaxLength="50" />
           <Property Type="Boolean" Name="custom" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="get_admin_gid_Result">
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="ga_id" Nullable="true" />
+        </ComplexType>
         <ComplexType Name="get_admin_single_article_Result">
+          <Property Type="Int32" Name="serial_no" Nullable="false" />
+          <Property Type="Int32" Name="a_id" Nullable="false" />
+          <Property Type="String" Name="url" Nullable="false" />
+          <Property Type="Boolean" Name="status" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="summary" Nullable="false" />
+          <Property Type="String" Name="photo_url" Nullable="true" />
+          <Property Type="DateTime" Name="modified_date" Nullable="false" />
+          <Property Type="String" Name="site_url" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="category" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="sub_category" Nullable="false" MaxLength="50" />
+          <Property Type="Boolean" Name="custom" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="get_all_articles_Result">
           <Property Type="Int32" Name="serial_no" Nullable="false" />
           <Property Type="Int32" Name="a_id" Nullable="false" />
           <Property Type="String" Name="url" Nullable="false" />
@@ -907,7 +929,6 @@
               <MappingFragment StoreEntitySet="Admin">
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="adminname" ColumnName="adminname" />
-                <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="photo_url" ColumnName="photo_url" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1019,7 +1040,6 @@
               <ComplexTypeMapping TypeName="digimarketModel.admin_sign_in_Result">
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="adminname" ColumnName="adminname" />
-                <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="photo_url" ColumnName="photo_url" />
               </ComplexTypeMapping>
             </ResultMapping>
@@ -1048,6 +1068,14 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_admin_gid" FunctionName="digimarketModel.Store.get_admin_gid">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="digimarketModel.get_admin_gid_Result">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ga_id" ColumnName="ga_id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="get_admin_single_article" FunctionName="digimarketModel.Store.get_admin_single_article">
             <ResultMapping>
               <ComplexTypeMapping TypeName="digimarketModel.get_admin_single_article_Result">
@@ -1066,6 +1094,25 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_all_articles" FunctionName="digimarketModel.Store.get_all_articles">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="digimarketModel.get_all_articles_Result">
+                <ScalarProperty Name="serial_no" ColumnName="serial_no" />
+                <ScalarProperty Name="a_id" ColumnName="a_id" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="summary" ColumnName="summary" />
+                <ScalarProperty Name="photo_url" ColumnName="photo_url" />
+                <ScalarProperty Name="modified_date" ColumnName="modified_date" />
+                <ScalarProperty Name="site_url" ColumnName="site_url" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="sub_category" ColumnName="sub_category" />
+                <ScalarProperty Name="custom" ColumnName="custom" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_all_site" FunctionName="digimarketModel.Store.get_all_site" />
           <FunctionImportMapping FunctionImportName="get_articles" FunctionName="digimarketModel.Store.get_articles">
             <ResultMapping>
               <ComplexTypeMapping TypeName="digimarketModel.get_articles_Result">
@@ -1128,6 +1175,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_shared_article_serial" FunctionName="digimarketModel.Store.get_shared_article_serial" />
           <FunctionImportMapping FunctionImportName="get_site" FunctionName="digimarketModel.Store.get_site">
             <ResultMapping>
               <ComplexTypeMapping TypeName="digimarketModel.get_site_Result">

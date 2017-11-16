@@ -11,53 +11,64 @@ namespace DigitalNetwork.Controllers
     public class AuthController : ApiController
     {
 
-        //admin_login
-        [HttpPost]
-        [Route("api/admin/login")]
-        public admin_site_list PostAdmin([FromBody] admin_sign_in_Result admin)
-        {
-            try
-            {
-                admin_site_list administrator = new admin_site_list();
+        ////admin_login
+        //[HttpPost]
+        //[Route("api/admin/login")]
+        //public admin_site_list PostAdmin([FromBody] admin_sign_in_Result admin)
+        //{
+        //    try
+        //    {
+        //        admin_site_list administrator = new admin_site_list();
 
-                admin_sign_in_Result _admin = dataCon.DB.db.admin_sign_in(admin.email, admin.password).ElementAt<admin_sign_in_Result>(0);
-                List<get_site_Result> sites = new List<get_site_Result>();
-                foreach (get_site_Result site in dataCon.DB.db.get_site(_admin.email))
-                {
-                    sites.Add(site);
-                }
+        //        admin_sign_in_Result _admin = dataCon.DB.db.admin_sign_in(admin.email, admin.password).ElementAt<admin_sign_in_Result>(0);
+        //        List<get_site_Result> sites = new List<get_site_Result>();
+        //        foreach (get_site_Result site in dataCon.DB.db.get_site(_admin.email))
+        //        {
+        //            sites.Add(site);
+        //        }
 
-                administrator.email = _admin.email;
-                administrator.adminname = _admin.adminname;
-                administrator.password = _admin.password;
-                administrator.photo_url = _admin.photo_url;
-                administrator.sites = sites;
+        //        administrator.email = _admin.email;
+        //        administrator.adminname = _admin.adminname;
+        //        administrator.password = _admin.password;
+        //        administrator.photo_url = _admin.photo_url;
+        //        administrator.sites = sites;
 
-                return administrator;
-            }catch(Exception e)
-            {
-                return null;
-            }
+        //        return administrator;
+        //    }catch(Exception e)
+        //    {
+        //        return null;
+        //    }
 
-        }
+        //}
 
         //admin_signup
-        [HttpPut]
-        [Route("api/admin/create")]
-        public int PutSignup_Admin([FromBody] admin_sign_up_Result admin)
+        [HttpGet]
+        [Route("api/admin/signin")]
+        public int PutSignup_Admin()
         {
-            return dataCon.DB.db.admin_sign_up(admin.email, admin.adminname, admin.password, admin.photo_url, admin.site_name, admin.site_url, admin.ga_id);
+
+            Authorization auth = new Authorization("sadain@digihawks.com");
+            var result = auth.service.Management.Accounts.List();
+            var account = result.Execute();
+            return dataCon.DB.db.admin_sign_up(account.Username, account.Username,"photo");
         }
 
-        //admin_update
-        [HttpPut]
-        [Route("api/admin/update")]
-        public IEnumerable<admin_sign_in_Result> PutUpdate_Admin([FromBody] admin_sign_in_Result admin)
+        [HttpPost]
+        [Route("api/admin/addsite")]
+        public IEnumerable<get_site_Result> PostAdminSite([FromBody]Admin admin)
         {
-            dataCon.DB.db.admin_update(admin.email, admin.adminname, admin.password, admin.photo_url);
-            return dataCon.DB.db.admin_sign_in(admin.email, admin.password);
 
+            Authorization auth = new Authorization(admin.email);
+            var result = auth.service.Management.Profiles.List("~all","~all");
+            var site = result.Execute();
+            foreach(var item in site.Items)
+            {
+                dataCon.DB.db.add_site(item.WebsiteUrl, item.Name, item.Id, site.Username);
+            }
+            return dataCon.DB.db.get_site(site.Username);
         }
+
+
 
         //user_login
         [HttpPost]

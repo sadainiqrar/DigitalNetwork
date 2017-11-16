@@ -85,13 +85,12 @@ function sessionFactory($http) {
 
     function getSessionRate(s,r) {
         var session = parseFloat(s);
-     
         var earned = (r / 1000) * session;
         return earned;
     }
-    function getRate() {
+    function getRate(category) {
 
-        return $http.get('http://localhost:3208/api/rate/non-premium')
+        return $http.get('http://localhost:3208/api/rate/' + category);
 
     }
 
