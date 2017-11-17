@@ -32,8 +32,8 @@
 
     <div class="bar">
         <ul class="nav nav-tabs" id="Tab">
-            <li class="active"><a class=" maintab " data-toggle="tab" ng-click="premium()">Premium</a></li>
-            <li><a class="maintab" data-toggle="tab" ng-click="non_premium()">Non Premium</a></li>
+            <li class="active"><a class=" maintab " data-toggle="tab" ng-click="_category = 'premium'">Premium</a></li>
+            <li><a class="maintab" data-toggle="tab" ng-click="_category = 'non_premium'">Non Premium</a></li>
         </ul>
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-cat-collapse">
             <i class="fa fa-bars"></i>
@@ -75,7 +75,7 @@
 
                 <div ng- class="col-md-12 col-sm-12">
 
-                    <div class="col-md-4 col-sm-12" ng-repeat="article in articles | filter:{ sub_category: _sub_category }">
+                    <div class="col-md-4 col-sm-12" ng-repeat="article in articles | filter:{ sub_category: _sub_category, category: _category }">
                         <div class="col-xs-12 col-md-12 col-sm-12 ok pan">
                             <div id="articleImageDiv" class="col-md-12 col-sm-6" style="padding: 0px 0px 0px 0px;">
 

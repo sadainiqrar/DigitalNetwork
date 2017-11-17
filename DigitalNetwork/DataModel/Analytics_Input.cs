@@ -23,11 +23,34 @@ namespace DigitalNetwork.DataModel
         public string campaign { get; set; }
         public string landing_page_path { get; set; }
         public string country { get; set; }
-        public string  extra{ get; set; }
+        public string extra { get; set; }
+    }
+
+
+    public class User_Analytic_Input
+    {
+        public User_Analytic_Input()
+        {
+            this.campaign = "ga:campaign";
+            this.session = "ga:sessions";
+            this.pageViews = "ga:pageViews";
+            this.landing_page_path = "ga:landingPagePath";
+            this.country = "ga:country";
+        }
+        public string uid { get; set; }
+
+        public string from_date { get; set; }
+        public string to_date { get; set; }
+        public string session { get; set; }
+        public string pageViews { get; set; }
+        public string campaign { get; set; }
+        public string landing_page_path { get; set; }
+        public string country { get; set; }
+        public string extra { get; set; }
     }
     public class get_Articles
-    { 
-    public int serial_no { get; set; }
+    {
+        public int serial_no { get; set; }
         public int a_id { get; set; }
         public string url { get; set; }
         public bool status { get; set; }
@@ -58,8 +81,15 @@ namespace DigitalNetwork.DataModel
     }
     public class view_share
     {
-      
+
         public string views { get; set; }
         public int? shares { get; set; }
+    }
+
+    public class user_traffic
+    {
+        public long premium { get; set; }
+        public long non_premium { get; set; }
+
     }
 }

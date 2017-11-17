@@ -266,6 +266,9 @@
     <Compile Include="Models\get_user_single_article_Result.cs">
       <DependentUpon>digimarketEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\get_user_traffic_Result.cs">
+      <DependentUpon>digimarketEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Payment.cs">
       <DependentUpon>digimarketEntities.tt</DependentUpon>
     </Compile>

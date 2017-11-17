@@ -4,27 +4,78 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Google.Apis.Discovery;
-using Google.Apis.Analytics.v3;
-using Google.Apis.Util.Store;
-using Google.Apis.Services;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
-using Google.Apis.Analytics.v3.Data;
-using Google.Apis.Auth.OAuth2;
-using System.Threading;
-using System.IO;
 using DigitalNetwork.DataModel;
 using Newtonsoft.Json.Linq;
 using System.Web.Helpers;
 using Newtonsoft.Json;
+using DigitalNetwork.Models;
 
 namespace DigitalNetwork.Controllers
 {
     public class TrafficController : ApiController
     {
 
+        /* User Apis */
+        [HttpPost]
+        [Route("api/user/sessions")]
+        public user_traffic UserSessions([FromBody]User_Analytic_Input analytics_Input)
+        {
+            user_traffic traffic = new user_traffic();
+            traffic.non_premium = 0;
+            traffic.premium = 0;
+            List<get_user_traffic_Result> res = get_all_sites(analytics_Input.uid);
 
+
+            foreach (var item in res)
+            {
+
+                Authorization auth = new Authorization(item.email);
+
+                var result = auth.service.Data.Ga.Get("ga:" + item.ga_id, analytics_Input.from_date, analytics_Input.to_date, analytics_Input.session);
+                var result1 = auth.service.Data.Ga.Get("ga:" + item.ga_id, analytics_Input.from_date, analytics_Input.to_date, analytics_Input.session);
+                if ((analytics_Input.extra != null))
+                {
+                    if (!analytics_Input.extra.Equals(""))
+                    {
+                        result.Filters = "ga:campaign=@" + analytics_Input.extra;
+                        result1.Filters = "ga:campaign=@" + analytics_Input.extra + ";ga:country=@Canada";
+                    }
+                }
+                var session_result = result.Execute();
+                var session_result1 = result1.Execute();
+                int count = (int)session_result.TotalResults;
+                if (count != 0)
+                {
+                    IList<string> l = session_result.Rows[0];
+                    traffic.non_premium = traffic.non_premium + long.Parse(l[0]);
+
+                }
+                traffic.non_premium = traffic.non_premium + 0;
+                int count2 = (int)session_result1.TotalResults;
+                if (count2 != 0)
+                {
+                    IList<string> lp = session_result1.Rows[0];
+                    traffic.premium = traffic.premium + long.Parse(lp[0]);
+
+                }
+                traffic.premium = traffic.premium + 0;
+            }
+
+            traffic.non_premium = traffic.non_premium - traffic.premium;
+            return traffic;
+        }
+
+
+        private List<get_user_traffic_Result> get_all_sites(string uid)
+        {
+            return dataCon.DB.db.get_user_traffic(uid).ToList<get_user_traffic_Result>();
+        }
+
+
+
+
+
+        /* Admin Apis */
         [HttpPost]
         [Route("api/sessions")]
         public string PostSession([FromBody]Analytics_Input analytics_Input)
@@ -147,11 +198,7 @@ namespace DigitalNetwork.Controllers
             return list;
 
         }
-
-
-       
-
-
+        
 
     }
 }

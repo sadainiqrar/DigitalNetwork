@@ -12,10 +12,10 @@ function articlesController($scope, $rootScope, $cookies, articleFactory, sessio
     $scope.message = 'Articles Controller';
     $scope.shared_articles = [];
 
-    $scope.category = 'premium';
+    $scope._category = 'premium';
     $scope._sub_category = 'Political';
 
-    articleFactory.getSharedArticles($scope.uid, $scope.category, null).then(
+    articleFactory.getSharedArticles($scope.uid, $scope._category, null).then(
         // callback function for successful http request
         function success(response) {
             $scope.shared_articles = response.data;
@@ -77,34 +77,34 @@ function articlesController($scope, $rootScope, $cookies, articleFactory, sessio
             }
         );
     }
-    $scope.premium = function () {
-        $scope.category = 'premium';
-        articleFactory.getSharedArticles($scope.uid, $scope.category, null).then(
-            // callback function for successful http request
-            function success(response) {
-                $scope.shared_articles = response.data;
+    //$scope.premium = function () {
+    //    $scope.category = 'premium';
+    //    articleFactory.getSharedArticles($scope.uid, $scope.category, null).then(
+    //        // callback function for successful http request
+    //        function success(response) {
+    //            $scope.shared_articles = response.data;
 
-            },
-            // callback function for error in http request
-            function error(response) {
-                // log errors
-            }
-        );
-    }
-    $scope.non_premium = function () {
-        $scope.category = 'non_premium';
-        articleFactory.getSharedArticles($scope.uid, $scope.category, null).then(
-            // callback function for successful http request
-            function success(response) {
-                $scope.shared_articles = response.data;
+    //        },
+    //        // callback function for error in http request
+    //        function error(response) {
+    //            // log errors
+    //        }
+    //    );
+    //}
+    //$scope.non_premium = function () {
+    //    $scope.category = 'non_premium';
+    //    articleFactory.getSharedArticles($scope.uid, $scope.category, null).then(
+    //        // callback function for successful http request
+    //        function success(response) {
+    //            $scope.shared_articles = response.data;
 
-            },
-            //  callback function for error in http request
-            function error(response) {
-                // log errors
-            }
-        );
-    }
+    //        },
+    //        //  callback function for error in http request
+    //        function error(response) {
+    //            // log errors
+    //        }
+    //    );
+    //}
 
     $scope.active = 'Political';
     $scope.makeActive = function (item) {

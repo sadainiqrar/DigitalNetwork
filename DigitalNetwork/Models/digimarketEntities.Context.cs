@@ -562,5 +562,14 @@ namespace DigitalNetwork.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("user_update", uidParameter, photoParameter);
         }
+    
+        public virtual ObjectResult<get_user_traffic_Result> get_user_traffic(string uid)
+        {
+            var uidParameter = uid != null ?
+                new ObjectParameter("uid", uid) :
+                new ObjectParameter("uid", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_user_traffic_Result>("get_user_traffic", uidParameter);
+        }
     }
 }
