@@ -14,8 +14,103 @@ namespace DigitalNetwork.Controllers
 {
     public class TrafficController : ApiController
     {
-
+        private digimarketEntities1 db = new digimarketEntities1();
         /* User Apis */
+
+        [HttpPost]
+        [Route("api/user/statistics")]
+        public List<UserStats> statistics([FromBody]User_Analytic_Input analytics_Input)
+        {
+            //List < List < UserStats >> total_stats = new List<List<UserStats>>();
+
+            List<UserStats> user_stats = new List<UserStats>();
+            List<get_user_traffic_Result> res = get_all_sites(analytics_Input.uid);
+            foreach (var item in res)
+            {
+
+                Authorization auth = new Authorization(item.email);
+
+                var result = auth.service.Data.Ga.Get("ga:" + item.ga_id, analytics_Input.from_date, analytics_Input.to_date, analytics_Input.session + ",ga:newUsers");
+                result.Dimensions = "ga:date, " + analytics_Input.country;
+                result.Filters = "ga:campaign=@" + analytics_Input.extra;
+                var response = result.Execute();
+                if (response.TotalResults != 0)
+                {
+                    foreach (var row in response.Rows)
+                    {
+                        UserStats temp = new UserStats() { day = "", premium = 0, non_premium = 0, country_stats = new List<CountryStats>() };
+                        // UserStats temp = user_stats.Last<UserStats>();
+
+
+                        temp = user_stats.FirstOrDefault(x => x.day == row[0]);
+
+                        if (temp == null)
+                        {
+                            temp = new UserStats() { day = "", premium = 0, non_premium = 0, country_stats = new List<CountryStats>() };
+                        }
+                        if (!(temp.day.Equals(row[0])))
+                        {
+
+                            UserStats stats = new UserStats() { day = "", premium = 0, non_premium = 0, country_stats = new List<CountryStats>() };
+                            CountryStats cTemp = new CountryStats();
+                            stats.day = row[0];
+                            if (row[1].Equals("Canada"))
+                            {
+                                stats.premium += long.Parse(row[2]);
+                            }
+                            else
+                            {
+                                stats.non_premium += long.Parse(row[2]);
+                            }
+
+                            cTemp.country = row[1];
+                            cTemp.sessions = row[2];
+                            cTemp.newSessions = row[3];
+                            stats.country_stats.Add(cTemp);
+                            user_stats.Add(stats);
+                        }
+                        else
+                        {
+
+                            user_stats.Remove(temp);
+                            CountryStats cTemp = new CountryStats();
+                            if (row[1].Equals("Canada"))
+                            {
+                                temp.premium += long.Parse(row[2]);
+                            }
+                            else
+                            {
+                                temp.non_premium += long.Parse(row[2]);
+                            }
+                            cTemp.country = row[1];
+                            cTemp.sessions = row[2];
+                            cTemp.newSessions = row[3];
+                            temp.country_stats.Add(cTemp);
+                            user_stats.Add(temp);
+
+                        }
+
+
+
+                    }
+
+                }
+               // total_stats.Add(user_stats);
+            }
+            return user_stats;
+        }
+
+
+
+        [NonAction]
+        public bool checkList(string row, List<UserStats> list)
+        {
+            var find = list.FirstOrDefault(x => x.day == row);
+            if (find != null)
+                return true;
+            return false;
+        }
+
         [HttpPost]
         [Route("api/user/sessions")]
         public user_traffic UserSessions([FromBody]User_Analytic_Input analytics_Input)
@@ -68,7 +163,7 @@ namespace DigitalNetwork.Controllers
 
         private List<get_user_traffic_Result> get_all_sites(string uid)
         {
-            return dataCon.DB.db.get_user_traffic(uid).ToList<get_user_traffic_Result>();
+            return db.get_user_traffic(uid).ToList<get_user_traffic_Result>();
         }
 
 

@@ -1144,6 +1144,7 @@
     <Content Include="Views\Dashboard\Home\login.html" />
     <Content Include="Views\Dashboard\Home\login.view.html" />
     <Content Include="Views\Dashboard\Home\register.view.html" />
+    <Content Include="Views\Dashboard\statistics.html" />
     <Content Include="Views\Dashboard\invoices.html" />
     <Content Include="Views\Dashboard\payment.html" />
     <Content Include="Views\Dashboard\profile.html" />

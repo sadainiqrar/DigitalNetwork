@@ -35,9 +35,9 @@ scotchApp.config(['$stateProvider', 'FacebookProvider', '$urlRouterProvider', '$
             controller: 'realtimeController'
         })
 
-        .state('dashboard.traffic', {
-            url: '/traffic',
-            templateUrl: 'Views/Dashboard/traffic.html',
+        .state('dashboard.statistics', {
+            url: '/statistics',
+            templateUrl: 'Views/Dashboard/statistics.html',
             controller: 'trafficController'
         })
         .state('dashboard.articles', {

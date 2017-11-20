@@ -10,13 +10,13 @@ namespace DigitalNetwork.Controllers
 {
     public class PaymentController : ApiController
     {
-        
+        private digimarketEntities1 db = new digimarketEntities1();
         //add_Payment
         [HttpPut]
         [Route("api/payment/make")]
         public int PutPayment([FromBody]get_payment_Result _payment)
         {
-            return dataCon.DB.db.add_payment(_payment.uid, _payment.traffic, _payment.amount, _payment.from_date, _payment.to_date, _payment.payment_date);
+            return db.add_payment(_payment.uid, _payment.traffic, _payment.amount, _payment.from_date, _payment.to_date, _payment.payment_date);
         }
 
 
@@ -27,7 +27,7 @@ namespace DigitalNetwork.Controllers
         [Route("api/payment/history")]
         public IEnumerable<get_payment_Result> payment_history([FromBody] Payment _payment)
         {
-            return dataCon.DB.db.get_payment(_payment.uid, null, null, null, null, null);
+            return db.get_payment(_payment.uid, null, null, null, null, null);
         }
 
     }

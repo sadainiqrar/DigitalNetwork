@@ -10,7 +10,7 @@ namespace DigitalNetwork.Controllers
 {
     public class AuthController : ApiController
     {
-
+        private digimarketEntities1 db = new digimarketEntities1();
         ////admin_login
         //[HttpPost]
         //[Route("api/admin/login")]
@@ -20,9 +20,9 @@ namespace DigitalNetwork.Controllers
         //    {
         //        admin_site_list administrator = new admin_site_list();
 
-        //        admin_sign_in_Result _admin = dataCon.DB.db.admin_sign_in(admin.email, admin.password).ElementAt<admin_sign_in_Result>(0);
+        //        admin_sign_in_Result _admin = db.admin_sign_in(admin.email, admin.password).ElementAt<admin_sign_in_Result>(0);
         //        List<get_site_Result> sites = new List<get_site_Result>();
-        //        foreach (get_site_Result site in dataCon.DB.db.get_site(_admin.email))
+        //        foreach (get_site_Result site in db.get_site(_admin.email))
         //        {
         //            sites.Add(site);
         //        }
@@ -50,7 +50,7 @@ namespace DigitalNetwork.Controllers
             Authorization auth = new Authorization("sadain@digihawks.com");
             var result = auth.service.Management.Accounts.List();
             var account = result.Execute();
-            return dataCon.DB.db.admin_sign_up(account.Username, account.Username,"photo");
+            return db.admin_sign_up(account.Username, account.Username,"photo");
         }
 
         [HttpPost]
@@ -63,9 +63,9 @@ namespace DigitalNetwork.Controllers
             var site = result.Execute();
             foreach(var item in site.Items)
             {
-                dataCon.DB.db.add_site(item.WebsiteUrl, item.Name, item.Id, site.Username);
+               db.add_site(item.WebsiteUrl, item.Name, item.Id, site.Username);
             }
-            return dataCon.DB.db.get_site(site.Username);
+            return db.get_site(site.Username);
         }
 
 
@@ -75,15 +75,15 @@ namespace DigitalNetwork.Controllers
         [Route("api/user/login")]
         public IEnumerable<user_sign_in_Result> GetUser([FromBody]user_sign_in_Result user)
         {
-            var ob = dataCon.DB.db.user_sign_in(user.uid);
+            var ob = db.user_sign_in(user.uid);
             int count = ob.Count<user_sign_in_Result>();
             if(count==0)
             {
                 string username = UsernameCreater(user.fullname,user.uid);
-                dataCon.DB.db.user_sign_up(user.uid, username, user.photourl, user.fullname);
+                db.user_sign_up(user.uid, username, user.photourl, user.fullname);
             }
 
-            return dataCon.DB.db.user_sign_in(user.uid);
+            return db.user_sign_in(user.uid);
            
            
         }
@@ -95,8 +95,8 @@ namespace DigitalNetwork.Controllers
         [Route("api/user/update")]
         public IEnumerable<user_sign_in_Result> PutUpdate_User([FromBody] user_sign_up_Result user)
         {
-            dataCon.DB.db.user_update(user.uid, user.photourl);
-            return dataCon.DB.db.user_sign_in(user.uid);
+            db.user_update(user.uid, user.photourl);
+            return db.user_sign_in(user.uid);
         }
 
 

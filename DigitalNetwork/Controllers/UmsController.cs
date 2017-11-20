@@ -10,12 +10,13 @@ namespace DigitalNetwork.Controllers
 {
     public class UmsController : ApiController
     {
+        private digimarketEntities1 db = new digimarketEntities1();
         //get_ums
         [HttpGet]
         [Route("api/ums/{uid}")]
         public IEnumerable<get_ums_Result> GetUms(string uid)
         {
-            return dataCon.DB.db.get_ums(uid);
+            return db.get_ums(uid);
         }
 
         //add_ums
@@ -23,7 +24,7 @@ namespace DigitalNetwork.Controllers
         [Route("api/ums/add")]
         public int PutUms([FromBody]User_Marketing_Source ums)
         {
-            return dataCon.DB.db.add_ums(ums.ums_id, ums.access_token, ums.uid);
+            return db.add_ums(ums.ums_id, ums.access_token, ums.uid);
         }
 
 
@@ -33,7 +34,7 @@ namespace DigitalNetwork.Controllers
         public int putdelete_ums([FromBody]User_Marketing_Source ums)
         {
             if (countUms(ums.uid) > 1)
-                return dataCon.DB.db.delete_ums(ums.ums_id);
+                return db.delete_ums(ums.ums_id);
             else
                 return 0;
         }
@@ -44,7 +45,7 @@ namespace DigitalNetwork.Controllers
         {
 
             int count = 0;
-            foreach (Nullable<int> result in dataCon.DB.db.count_ums(uid))
+            foreach (Nullable<int> result in db.count_ums(uid))
                 count = result.Value;
             return count;
         }

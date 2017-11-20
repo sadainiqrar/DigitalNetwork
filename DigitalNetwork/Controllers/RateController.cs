@@ -10,12 +10,13 @@ namespace DigitalNetwork.Controllers
 {
     public class RateController : ApiController
     {
+        private digimarketEntities1 db = new digimarketEntities1();
         //get_rate
         [HttpGet]
         [Route("api/rate/{category}")]
         public IEnumerable<get_rate_Result> GetRate(string category)
         {
-            return dataCon.DB.db.get_rate(category); 
+            return db.get_rate(category); 
         }
 
 
@@ -24,7 +25,7 @@ namespace DigitalNetwork.Controllers
         [Route("api/rate/update")]
         public int PutRate([FromBody]Rate _rate)
         {
-            return dataCon.DB.db.update_rates(_rate.category, _rate.rate1, _rate.date);
+            return db.update_rates(_rate.category, _rate.rate1, _rate.date);
         }
 
     }

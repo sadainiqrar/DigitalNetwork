@@ -99,7 +99,6 @@
 .sidebar-wrapper{
     background-color: #eeeeee;
 }
-
 .active-o{
     background-color: rgba(52, 201, 255, 0.51);
     border-left: 5px solid #34c9ff
@@ -203,8 +202,8 @@ color: white;
     }
 }
 .panel{
-    padding-top: 2em;
-    padding-bottom: 2em;
+    padding-top: 3em;
+    padding-bottom: 3em;
     
 }
 .SubPanel{
@@ -405,8 +404,10 @@ p{
     background-color: transparent;
 }
 .text-muted {
-    color: #a3a3a3;
+    color: #e3e3e3;
     font-family: lato-regular;
+    font-size: 8pt;
+    
 }
 .p1{
     font-family: lato-regular;
@@ -418,7 +419,7 @@ p{
     
 }
 .sm1{
-     font-size: 1.825em;
+     font-size: 1.8em !important;
     font-family: lato-medium;
 }
 .panel1{
@@ -565,6 +566,7 @@ p{
 
 #fromDiv{
     margin-left:11em;
+    margin-bottom: 1em;
     font-family: lato-regular;
     font-size: 8pt;
 }
@@ -649,6 +651,435 @@ MSArt{
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+/*realtime*/
+
+#realtimetable{
+    border-bottom: 1px solid;
+    font-size: 8pt;
+    
+}
+
+
+.lock-dial{
+	height: 11em;
+	width: 3.5em;
+    top: 1em;
+    left: 12em;
+	margin-left: 22px;
+	background: rgba(0,0,0,.7);
+    opacity: 0.4;
+	float: left;
+	position: relative;
+	border-radius: 5px 5px 5px 5px;
+}
+@media (min-width: 320px) {.lock-dial{margin: 4px; left: 0em; width: 2.5em;height: 8em}
+}
+@media (min-width: 375px) {.lock-dial{margin: 3px; left: 0em; width: 3.5em;height: 10em}
+}
+@media (min-width: 425px) {.lock-dial{margin: 3px; left: 4em; width: 3.5em;height: 10em}
+}
+@media (min-width: 768px) {.lock-dial{margin: 2px; left: 16em; width: 3.5em;height: 10em}
+}
+@media (min-width: 1024px) {.lock-dial{margin: 3px; left: 18em;width: 3.5em;height: 10em}
+}
+@media (min-width: 1440px) {.lock-dial{margin: 3px; left: 20em; width: 3.5em;height: 10em}
+}
+@media (min-width: 2560px) {.lock-dial{margin: 3px; left: 50em; width: 3.5em;height: 10em}
+}
+
+
+.lockPosition{
+    margin-left: 4em;
+}
+@media(min-width : 570px){
+    .lockPosition{
+    margin-left: 8em;
+}
+}
+@media (min-width: 992px){
+    .lockPosition{
+    margin-left: -4em;
+}
+}
+@media (min-width: 1184px){
+    .lockPosition{
+    margin-left: 0em;
+}
+}
+@media (min-width: 1224px){
+    .lockPosition{
+    margin-left: 2em;
+}
+}
+@media (min-width: 1424px){
+    .lockPosition{
+    margin-left: 6em;
+}
+}
+
+
+#numbrlock{
+    font-size: 50pt;
+    color: white;
+    padding-top: 28px;
+}
+
+@media (max-width: 375px){
+    #numbrlock{
+    font-size: 35pt;
+    color: white;
+    padding-top: 28px;
+}
+}
+@media (min-width: 376px){
+    #numbrlock{
+    font-size: 50pt;
+    color: white;
+    padding-top: 28px;
+}
+}
+
+#sessioncolor{
+    color: red;
+    font-size: 8pt;
+    
+}
+#fontcolor{
+     color: lightgreen;
+    font-size: 8pt;
+    
+}
+#namefont{
+    font-size: 8pt;
+    text-align:justify;
+}
+
+
+/*Marketing source*/
+
+.table-filter {
+	background-color: #fff;
+	border-bottom: 1px solid #eee;
+}
+.table-filter tbody tr:hover {
+	cursor: pointer;
+	background-color: #eee;
+}
+.table-filter tbody tr td {
+	padding: 10px;
+	vertical-align: middle;
+	border-top-color: #eee;
+}
+.table-filter tbody tr.selected td {
+	background-color: #eee;
+}
+.table-filter tr td:first-child {
+	width: 38px;
+}
+.table-filter tr td:nth-child(2) {
+	width: 35px;
+}
+
+.table-filter .star {
+	color: #ccc;
+	text-align: center;
+	display: block;
+}
+.table-filter .star.star-checked {
+	color: #F0AD4E;
+}
+.table-filter .star:hover {
+	color: #ccc;
+}
+.table-filter .star.star-checked:hover {
+	color: #F0AD4E;
+}
+.table-filter .media-photo {
+	width: 35px;
+}
+.table-filter .media-body {
+    display: block;
+    /* Had to use this style to force the div to expand (wasn't necessary with my bootstrap version 3.3.6) */
+}
+.table-filter .media-meta {
+	font-size: 11px;
+	color: #999;
+}
+.table-filter .media .title {
+	color: #2BBCDE;
+	font-size: 14px;
+	font-weight: bold;
+	line-height: normal;
+	margin: 0;
+}
+.table-filter .media .title span {
+	font-size: .8em;
+	margin-right: 20px;
+}
+.table-filter .media .title span.pagado {
+	color: #5cb85c;
+}
+.table-filter .media .title span.pendiente {
+	color: #f0ad4e;
+}
+.table-filter .media .title span.cancelado {
+	color: #d9534f;
+}
+.table-filter .media .summary {
+	font-size: 14px;
+}
+
+/* payments page css*/
+
+#paragraph{
+    float: right;
+    font-size: 6pt;
+    margin: 0;
+    font-style: italic;
+}
+@media(min-width:240px)
+{
+    #paragraph{
+        padding-right: 10em;
+    }
+}
+@media(min-width:423px)
+{
+    #paragraph{
+        padding-right: 18em;
+    }
+}
+@media(min-width:768px)
+{
+    #paragraph{
+        padding-right: 5em;
+    }
+}
+
+#paymenttable{
+    padding: 10px;
+    color: #8b8b8b;
+    font-size: 8pt;
+}
+#sec{
+    height: 75px;
+    overflow: auto;
+}
+
+.progress{
+    width:50%;
+   height: 10px;
+    margin: 0;
+    
+}
+.progress-bar{
+    width:70%;
+    height: 10px;
+    margin: 0;
+}
+.fa-info-circle{
+    float: right;
+    padding-top: 4px;
+}
+#trafficbox{
+    color: white;
+    font-size: 30pt;
+    margin: 0;
+   
+}
+#viewbutton{
+    border: none; 
+    border-radius: 8px; 
+    background-color:#bc49ff;
+    color: #fff;  
+    width: 13em;
+    height: 31px;
+    font-size: 8pt;
+    margin-top: 1em;
+}
+#withdrawbutton{
+    border: none; 
+    border-radius: 8px; 
+    background-color: #34c9ff;
+    color: #fff;
+    width: 13em;
+    height: 31px;
+    font-size: 8pt;
+    margin-top: 1em;
+}
+.paymentselect{
+    border-radius: 8px;
+    background-color: #fff;
+    height: 17px;
+    width: 135px;
+    font-size: 8pt;
+    padding-left: 17px;
+    font-weight: bold;
+}
+
+@media (min-width: 1024px) {.paymentselect{width: 80px;}
+}
+#trafficgenerated
+{
+    background-color:#2f94c7;
+    padding: 4em 2em 4em 2em;
+    width: 75%;
+    margin-top: 13px;
+}
+
+#moneygenerated{
+   background-color:#c25efb;
+    padding: 4em 2em 4em 2em; 
+    width: 75%;
+    margin-top: 13px;
+}
+
+
+#tparagraph{
+    float: left;
+    font-size: 12pt;
+    margin: 0;
+    font-size: 8pt;
+    font-weight: bold;
+    padding-top: 3px;
+}
+@media (max-width: 1024px) {#tparagraph{font-size: 8pt;margin: 0;padding-top: 5px}
+}
+#lastpayment{
+    color: #a3a3a3;
+    padding-left: 3em;
+    font-style: italic;
+    font-size: 6pt;
+}
+#link{
+   text-decoration: underline;
+    font-size: 6pt;
+    font-style: italic;
+}
+#usdselect{
+    padding-left: 9px;
+    font-style: oblique;
+    border-radius: 8px;
+    background: #f0f0f1;
+    color: black;
+    width: 60px;
+    height: 20px;
+    font-size: 8pt;
+    font-weight: bold;
+    margin: 0px;
+    margin-left: 13px;
+}
+.verticalline {
+    transform: rotate(-90deg);
+    width: 6em;
+    float:right;
+    color: gainsboro;
+    border: 1px solid;
+    margin-top: -8em;
+    margin-right: 6px;
+}
+@media(min-width:1211px){
+    .verticalline {
+        transform: rotate(-90deg);
+        width: 6em;
+        float:right;
+        color: gainsboro;
+        border: 1px solid;
+        margin-top: 8em;
+        margin-right: 6px;
+    }
+    
+}
+@media(min-width:500px){
+    .xsp{
+        max-width: 33%;
+    }
+}
+#linePaymentWelocome{
+    margin:1em 6em 0em 2em;
+}
+@media(min-width:500px){
+    #linePaymentWelocome{
+    
+    margin:1em 5em 0em 4em;
+}
+}
+.secPayment1a{
+     color: #2b9cd5;
+    font-size: 1.8em;
+    padding-left: 2em;
+}
+@media(max-width:500px)
+{
+    .secPayment1a{
+        padding-left: 1em;
+    }
+}
+.secPayment1{
+    color: #a3a3a3;
+    padding-left: 5em;
+    font-style: italic;
+    font-size: 8pt;
+}
+@media(max-width:500px)
+{
+    .secPayment1{
+        padding-left: 2.5em;
+    }
+}
+
+/* shared articles details */
+
+
+#backbutton{
+    background: transparent;
+    border: 0 ;
+    font-family:sans-serif;
+}
+
+#nextbuton{
+     background: transparent;
+    border: 0;
+    padding-left: 17em;
+    font-family:sans-serif;
+}
+
+#monthbutton{
+  padding: 3em 1em 0em 15em;
+}
+#mbtn{
+background: transparent;
+    border: 0
+}
+#activebutton{
+     background:#bc49ff;
+    color: #fff;
+    border-radius: 10px;
+    width: 5em;
+    border: 0
+}
+
+#chartContainer{
+    height: 15em; 
+    width:50em;
+}
+
+#chartContainer2{
+    height: 15em; 
+    width:50em;
+}
+#backdiv{
+    padding: 3em 2em 0em 2em;
+    margin: 0;
+}
+@media (min-width: 320px){#backdiv{padding: 1em 0em 0em 1em;}}
+
+#nextdiv{
+    padding: 3em 2em 0em 2em;
+    margin: 0;
+}
+@media (min-width: 320px){#nextdiv{padding: 1em 0em 0em 1em;margin: o;}}
 
 /*
 @media (min-width: 1224px) {#imageDivMS{ height : 8em;}

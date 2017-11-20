@@ -86,6 +86,23 @@ namespace DigitalNetwork.DataModel
         public int? shares { get; set; }
     }
 
+
+    public class UserStats
+    {
+        public string day { get; set; }
+        public long premium { get; set; }
+        public long non_premium { get; set; }
+
+        public List<CountryStats> country_stats { get; set; }
+    }
+
+    public class CountryStats
+    {
+        public string country { get; set; }
+        public string sessions { get; set; }
+        public string newSessions { get; set; }
+    }
+
     public class user_traffic
     {
         public long premium { get; set; }

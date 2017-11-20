@@ -17,14 +17,14 @@ namespace DigitalNetwork.Controllers
 {
     public class ArticleController : ApiController
     {
+        private digimarketEntities1 db = new digimarketEntities1();
 
-        
         [HttpGet]
         [Route("api/admin/articles")]
         public IEnumerable<get_admin_articles_Result> Geti()
         {
 
-            return dataCon.DB.db.get_admin_articles("zuraiz.com", "http://trumpgossiptoday.com");
+            return db.get_admin_articles("zuraiz.com", "http://trumpgossiptoday.com");
 
 
         }
@@ -34,9 +34,9 @@ namespace DigitalNetwork.Controllers
         public IEnumerable<get_admin_single_article_Result> PostSingleArticle(int id,[FromBody] AdminSite adsite)
         {
 
-            getArticleBySerial_Result article = dataCon.DB.db.getArticleBySerial(id).ElementAt<getArticleBySerial_Result>(0);
+            getArticleBySerial_Result article = db.getArticleBySerial(id).ElementAt<getArticleBySerial_Result>(0);
 
-            return dataCon.DB.db.get_admin_single_article(article.a_id, adsite.email, article.site_url);
+            return db.get_admin_single_article(article.a_id, adsite.email, article.site_url);
 
         }
 
@@ -46,9 +46,9 @@ namespace DigitalNetwork.Controllers
         [Route("api/admin/articles/{id}/update")]
         public bool updateSingleArticle(int id)
         {
-            getArticleBySerial_Result article = dataCon.DB.db.getArticleBySerial(id).ElementAt< getArticleBySerial_Result>(0);
-            int result = dataCon.DB.db.update_articles(!article.status, id);
-            article = dataCon.DB.db.getArticleBySerial(id).ElementAt<getArticleBySerial_Result>(0);
+            getArticleBySerial_Result article = db.getArticleBySerial(id).ElementAt< getArticleBySerial_Result>(0);
+            int result = db.update_articles(!article.status, id);
+            article = db.getArticleBySerial(id).ElementAt<getArticleBySerial_Result>(0);
             return article.status;
 
         }
@@ -60,7 +60,7 @@ namespace DigitalNetwork.Controllers
             List<get_articles_Result> articleList = new List<get_articles_Result>();
             List<get_Articles> finalArticleList = new List<get_Articles>();
 
-            using (var articles = dataCon.DB.db.get_articles(article.uid, article.category, article.sub_category))
+            using (var articles = db.get_articles(article.uid, article.category, article.sub_category))
             {
                 articleList = articles.ToList<get_articles_Result>();
             }
@@ -82,7 +82,7 @@ namespace DigitalNetwork.Controllers
                 post.sub_category = item.sub_category;
                 try
                 {
-                    using (var count = dataCon.DB.db.get_shared_article_serial(item.serial_no))
+                    using (var count = db.get_shared_article_serial(item.serial_no))
                     {
                         post.shares = count.First<int?>();
                     }
@@ -108,7 +108,7 @@ namespace DigitalNetwork.Controllers
             List<get_shared_article_Result> articleList = new List<get_shared_article_Result>();
             List<get_Articles> finalArticleList = new List<get_Articles>();
 
-            using (var articles = dataCon.DB.db.get_shared_article(article.uid, article.category, article.sub_category))
+            using (var articles = db.get_shared_article(article.uid, article.category, article.sub_category))
             {
                 articleList = articles.ToList<get_shared_article_Result>();
             }
@@ -141,7 +141,7 @@ namespace DigitalNetwork.Controllers
         public int Put_Shared_Articles([FromBody] User_Articles article)
         {
 
-            return dataCon.DB.db.add_shared_article(article.uid, article.serial_no, article.copied,article.shared);
+            return db.add_shared_article(article.uid, article.serial_no, article.copied,article.shared);
         }
 
         [HttpPut]
@@ -149,7 +149,7 @@ namespace DigitalNetwork.Controllers
         public int Update_Shared_Articles([FromBody] User_Articles article)
         {
 
-            return dataCon.DB.db.update_shared_articles(article.uid, article.serial_no, article.shared, article.copied);
+            return db.update_shared_articles(article.uid, article.serial_no, article.shared, article.copied);
         }
 
 
@@ -158,7 +158,7 @@ namespace DigitalNetwork.Controllers
         public int Put_Article([FromBody] Article article)
         {
 
-            return dataCon.DB.db.add_article(article.a_id, article.url, article.status, article.title, article.summary, article.photo_url, article.modified_date, article.url, article.category, article.sub_category,article.custom);
+            return db.add_article(article.a_id, article.url, article.status, article.title, article.summary, article.photo_url, article.modified_date, article.url, article.category, article.sub_category,article.custom);
         }
 
         
@@ -166,7 +166,7 @@ namespace DigitalNetwork.Controllers
         public string admin_gid(string url, DateTime publishDate, string a_url)
         {
             get_admin_gid_Result res;
-            using (var data = dataCon.DB.db.get_admin_gid(url))
+            using (var data = db.get_admin_gid(url))
             {
 
                 res = data.FirstOrDefault<get_admin_gid_Result>();
@@ -223,7 +223,7 @@ namespace DigitalNetwork.Controllers
         public string admin_gid(string url, DateTime publishDate, string a_url,string username)
         {
             get_admin_gid_Result res;
-            using (var data = dataCon.DB.db.get_admin_gid(url))
+            using (var data = db.get_admin_gid(url))
             {
 
                 res = data.FirstOrDefault<get_admin_gid_Result>();

@@ -13,7 +13,8 @@ namespace DigitalNetwork.Scheduler
 {
     public class ArticleUpdateJob : IJob
     {
-     
+        private digimarketEntities1 db = new digimarketEntities1();
+
         List<ArticleModel> siteList;
         List<get_all_articles_Result> dbList;
 
@@ -21,7 +22,7 @@ namespace DigitalNetwork.Scheduler
         public void Execute(IJobExecutionContext context)
         {
             string [] siteResult;
-            using (var sites = dataCon.DB.db.get_all_site())
+            using (var sites = db.get_all_site())
             {
                siteResult  = sites.ToArray<string>();
             }
@@ -42,7 +43,7 @@ namespace DigitalNetwork.Scheduler
             {
                 try
                 {
-                    dataCon.DB.db.add_article(post.aId, post.aUrl, false, post.title, post.excerpt, post.featuredImage,post.modifiedDate, url, "Premium","Political",false);
+                    db.add_article(post.aId, post.aUrl, false, post.title, post.excerpt, post.featuredImage,post.modifiedDate, url, "Premium","Political",false);
                     count++;
                 }
                 catch (Exception e)
@@ -65,7 +66,7 @@ namespace DigitalNetwork.Scheduler
                     if (dblistItem.custom == false)
                     {
                         try { 
-                        dataCon.DB.db.delete_article(dblistItem.serial_no);
+                        db.delete_article(dblistItem.serial_no);
                         }
                         catch(Exception ex)
                         { }
@@ -76,7 +77,7 @@ namespace DigitalNetwork.Scheduler
                     ArticleModel post = checkElement(dblistItem.a_id, dblistItem.site_url, siteList);
                     try
                     {
-                        dataCon.DB.db.update_article_data(dblistItem.serial_no, post.aUrl, post.title, post.excerpt, post.featuredImage, post.modifiedDate);
+                        db.update_article_data(dblistItem.serial_no, post.aUrl, post.title, post.excerpt, post.featuredImage, post.modifiedDate);
                     }
                     catch(Exception ex)
                     {
@@ -109,7 +110,7 @@ namespace DigitalNetwork.Scheduler
         private IEnumerable<get_all_articles_Result> getDBArticles(string url)
         {
 
-            return dataCon.DB.db.get_all_articles(url);
+            return db.get_all_articles(url);
         }
         private List<ArticleModel> makeArticleList(string url)
         {
