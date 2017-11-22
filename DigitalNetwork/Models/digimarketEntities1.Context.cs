@@ -35,6 +35,7 @@ namespace DigitalNetwork.Models
         public virtual DbSet<Site> Sites { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<User_Articles> User_Articles { get; set; }
+        public virtual DbSet<User_Date> User_Date { get; set; }
         public virtual DbSet<User_Marketing_Source> User_Marketing_Source { get; set; }
     
         public virtual int add_article(Nullable<int> aid, string article_url, Nullable<bool> status, string title, string summary, string photo_url, Nullable<System.DateTime> modified_date, string site_url, string category, string sub_category, Nullable<bool> custom)
@@ -86,7 +87,7 @@ namespace DigitalNetwork.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("add_article", aidParameter, article_urlParameter, statusParameter, titleParameter, summaryParameter, photo_urlParameter, modified_dateParameter, site_urlParameter, categoryParameter, sub_categoryParameter, customParameter);
         }
     
-        public virtual int add_payment(string uid, Nullable<int> traffic, Nullable<decimal> amount, Nullable<System.DateTime> from_date, Nullable<System.DateTime> to_date, Nullable<System.DateTime> pay_date)
+        public virtual int add_payment(string uid, Nullable<int> traffic, Nullable<decimal> amount, Nullable<System.DateTime> pay_date)
         {
             var uidParameter = uid != null ?
                 new ObjectParameter("uid", uid) :
@@ -100,19 +101,11 @@ namespace DigitalNetwork.Models
                 new ObjectParameter("amount", amount) :
                 new ObjectParameter("amount", typeof(decimal));
     
-            var from_dateParameter = from_date.HasValue ?
-                new ObjectParameter("from_date", from_date) :
-                new ObjectParameter("from_date", typeof(System.DateTime));
-    
-            var to_dateParameter = to_date.HasValue ?
-                new ObjectParameter("to_date", to_date) :
-                new ObjectParameter("to_date", typeof(System.DateTime));
-    
             var pay_dateParameter = pay_date.HasValue ?
                 new ObjectParameter("pay_date", pay_date) :
                 new ObjectParameter("pay_date", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("add_payment", uidParameter, trafficParameter, amountParameter, from_dateParameter, to_dateParameter, pay_dateParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("add_payment", uidParameter, trafficParameter, amountParameter, pay_dateParameter);
         }
     
         public virtual int add_shared_article(string uid, Nullable<int> serial_no, Nullable<bool> copied, Nullable<bool> shared)
@@ -327,33 +320,22 @@ namespace DigitalNetwork.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_articles_Result>("get_articles", uidParameter, catParameter, subcatParameter);
         }
     
-        public virtual ObjectResult<get_payment_Result> get_payment(string uid, Nullable<int> traffic, Nullable<decimal> amount, Nullable<System.DateTime> from_date, Nullable<System.DateTime> to_date, Nullable<System.DateTime> pay_date)
+        public virtual ObjectResult<get_joining_date_Result> get_joining_date(string uid)
         {
             var uidParameter = uid != null ?
                 new ObjectParameter("uid", uid) :
                 new ObjectParameter("uid", typeof(string));
     
-            var trafficParameter = traffic.HasValue ?
-                new ObjectParameter("traffic", traffic) :
-                new ObjectParameter("traffic", typeof(int));
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_joining_date_Result>("get_joining_date", uidParameter);
+        }
     
-            var amountParameter = amount.HasValue ?
-                new ObjectParameter("amount", amount) :
-                new ObjectParameter("amount", typeof(decimal));
+        public virtual ObjectResult<get_payment_Result> get_payment(string uid)
+        {
+            var uidParameter = uid != null ?
+                new ObjectParameter("uid", uid) :
+                new ObjectParameter("uid", typeof(string));
     
-            var from_dateParameter = from_date.HasValue ?
-                new ObjectParameter("from_date", from_date) :
-                new ObjectParameter("from_date", typeof(System.DateTime));
-    
-            var to_dateParameter = to_date.HasValue ?
-                new ObjectParameter("to_date", to_date) :
-                new ObjectParameter("to_date", typeof(System.DateTime));
-    
-            var pay_dateParameter = pay_date.HasValue ?
-                new ObjectParameter("pay_date", pay_date) :
-                new ObjectParameter("pay_date", typeof(System.DateTime));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_payment_Result>("get_payment", uidParameter, trafficParameter, amountParameter, from_dateParameter, to_dateParameter, pay_dateParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_payment_Result>("get_payment", uidParameter);
         }
     
         public virtual ObjectResult<get_rate_Result> get_rate(string category)
@@ -400,6 +382,15 @@ namespace DigitalNetwork.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_site_Result>("get_site", emailParameter);
         }
     
+        public virtual ObjectResult<get_total_earned_Result> get_total_earned(string uid)
+        {
+            var uidParameter = uid != null ?
+                new ObjectParameter("uid", uid) :
+                new ObjectParameter("uid", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_total_earned_Result>("get_total_earned", uidParameter);
+        }
+    
         public virtual ObjectResult<get_ums_Result> get_ums(string uid)
         {
             var uidParameter = uid != null ?
@@ -416,6 +407,15 @@ namespace DigitalNetwork.Models
                 new ObjectParameter("serial", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_user_single_article_Result>("get_user_single_article", serialParameter);
+        }
+    
+        public virtual ObjectResult<get_user_traffic_Result> get_user_traffic(string uid)
+        {
+            var uidParameter = uid != null ?
+                new ObjectParameter("uid", uid) :
+                new ObjectParameter("uid", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_user_traffic_Result>("get_user_traffic", uidParameter);
         }
     
         public virtual ObjectResult<getArticleBySerial_Result> getArticleBySerial(Nullable<int> serial)
@@ -529,7 +529,7 @@ namespace DigitalNetwork.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<user_sign_in_Result>("user_sign_in", uidParameter);
         }
     
-        public virtual int user_sign_up(string uid, string name, string photo, string fullname)
+        public virtual int user_sign_up(string uid, string name, string photo, string fullname, Nullable<System.DateTime> joindate)
         {
             var uidParameter = uid != null ?
                 new ObjectParameter("uid", uid) :
@@ -547,7 +547,11 @@ namespace DigitalNetwork.Models
                 new ObjectParameter("fullname", fullname) :
                 new ObjectParameter("fullname", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("user_sign_up", uidParameter, nameParameter, photoParameter, fullnameParameter);
+            var joindateParameter = joindate.HasValue ?
+                new ObjectParameter("joindate", joindate) :
+                new ObjectParameter("joindate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("user_sign_up", uidParameter, nameParameter, photoParameter, fullnameParameter, joindateParameter);
         }
     
         public virtual int user_update(string uid, string photo)
@@ -561,15 +565,6 @@ namespace DigitalNetwork.Models
                 new ObjectParameter("photo", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("user_update", uidParameter, photoParameter);
-        }
-    
-        public virtual ObjectResult<get_user_traffic_Result> get_user_traffic(string uid)
-        {
-            var uidParameter = uid != null ?
-                new ObjectParameter("uid", uid) :
-                new ObjectParameter("uid", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_user_traffic_Result>("get_user_traffic", uidParameter);
         }
     }
 }

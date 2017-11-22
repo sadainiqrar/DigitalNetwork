@@ -80,7 +80,7 @@ namespace DigitalNetwork.Controllers
             if(count==0)
             {
                 string username = UsernameCreater(user.fullname,user.uid);
-                db.user_sign_up(user.uid, username, user.photourl, user.fullname);
+                db.user_sign_up(user.uid, username, user.photourl, user.fullname,System.DateTime.Now);
             }
 
             return db.user_sign_in(user.uid);

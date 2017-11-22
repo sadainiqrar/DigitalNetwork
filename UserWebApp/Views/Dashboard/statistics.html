@@ -5,7 +5,7 @@
 
             <div class="col-md-4 b-r">
                 <a class="clear">
-                    <span class="h3 block m-t-xs sm1"><center><strong style="color: #34c9ff">200$ </strong></center></span>
+                    <span class="h3 block m-t-xs sm1"><center><strong style="color: #34c9ff">{{today_earned}} </strong></center></span>
 
                     <small class="text-muted text-uc " style="color: #a3a3a3"><center>EARNED TODAY</center></small>
 
@@ -14,7 +14,7 @@
             <div class="col-md-4 b-r">
 
                 <a class="clear">
-                    <span class="h3 block m-t-xs sm1"><center><strong style="color: #bc49ff">705$</strong></center></span>
+                    <span class="h3 block m-t-xs sm1"><center><strong style="color: #bc49ff">{{monthly_earned}}$</strong></center></span>
 
                     <small class="text-muted text-uc " style="color: #a3a3a3"><center>EARNED THIS MONTH</center></small>
                 </a>
@@ -22,7 +22,7 @@
             <div class="col-md-4">
 
                 <a class="clear">
-                    <span class="h3 m-t-xs sm1"><center><strong style="color: #6344ff"> 600K </strong></center></span>
+                    <span class="h3 m-t-xs sm1"><center><strong style="color: #6344ff">{{sessions}}</strong></center></span>
 
                     <small class="text-muted text-uc " style="color: #a3a3a3"><center>THIS MONTH'S TRAFFIC</center></small>
                 </a>
@@ -88,8 +88,8 @@
                                         <button type="button" class=" btn-md btn-link" ng-init="clickedh=false" ng-click="clickedh=!clickedh">View Details</button>
                                     </td>
                                 </tr>
-                                <tr ng-show="clickedh">
-                                    <td colspan="8">
+                                <div ng-show="clickedh">
+                                    <div colspan="8">
                                         <div>
                                             <section class="panel-default subPanel" style=" height: 120px; overflow: auto;">
                                                 <table class="tableSub table">
@@ -135,37 +135,10 @@
                                                 </table>
                                             </section>
                                         </div>
-                                    </td>
-                                </tr>
+                                    </div>
+                                </div>
 
-                                <tr style="font-size: 8pt">
-                                    <td id="tsp1">10/10/2017</td>
-                                    <td id="tsp2">2378</td>
-                                    <td id="tsp3">128$</td>
-                                    <td>
-
-                                        <button type="button" class=" btn-md btn-link" ng-init="clickedh=false" ng-click="clickedh=!clickedh">View Details</button>
-                                    </td>
-                                </tr>
-
-                                <tr style="font-size: 8pt">
-                                    <td id="tsp1">10/10/2017</td>
-                                    <td id="tsp2">2378</td>
-                                    <td id="tsp3">128$</td>
-                                    <td>
-
-                                        <button type="button" class=" btn-md btn-link" ng-init="clickedh=false" ng-click="clickedh=!clickedh">View Details</button>
-                                    </td>
-                                </tr>
-                                <tr style="font-size: 8pt">
-                                    <td id="tsp1">10/10/2017</td>
-                                    <td id="tsp2">2378</td>
-                                    <td id="tsp3">128$</td>
-                                    <td>
-
-                                        <button type="button" class=" btn-md btn-link" ng-init="clickedh=false" ng-click="clickedh=!clickedh">View Details</button>
-                                    </td>
-                                </tr>
+                          
                             </tbody>
                         </table>
                     </div>

@@ -31,6 +31,7 @@ namespace DigitalNetwork.Models
         public virtual ICollection<Payment> Payments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User_Articles> User_Articles { get; set; }
+        public virtual User_Date User_Date { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User_Marketing_Source> User_Marketing_Source { get; set; }
     }

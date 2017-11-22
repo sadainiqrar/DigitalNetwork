@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="digimarketModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="digimarketModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Admin">
           <Key>
             <PropertyRef Name="email" />
@@ -47,8 +47,6 @@
           <Property Name="traffic" Type="int" Nullable="false" />
           <Property Name="amount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="payment_date" Type="date" Nullable="false" />
-          <Property Name="from_date" Type="date" Nullable="false" />
-          <Property Name="to_date" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="Rate">
           <Key>
@@ -94,6 +92,13 @@
           <Property Name="serial_no" Type="int" Nullable="false" />
           <Property Name="copied" Type="bit" Nullable="false" />
           <Property Name="shared" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User_Date">
+          <Key>
+            <PropertyRef Name="uid" />
+          </Key>
+          <Property Name="uid" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="date" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="User_Marketing_Source">
           <Key>
@@ -187,6 +192,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_User_Date_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="User_Date" Type="Self.User_Date" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="uid" />
+            </Principal>
+            <Dependent Role="User_Date">
+              <PropertyRef Name="uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_User_Marketing_Source_User">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="User_Marketing_Source" Type="Self.User_Marketing_Source" Multiplicity="*" />
@@ -216,8 +233,6 @@
           <Parameter Name="uid" Type="varchar" Mode="In" />
           <Parameter Name="traffic" Type="int" Mode="In" />
           <Parameter Name="amount" Type="decimal" Mode="In" />
-          <Parameter Name="from_date" Type="date" Mode="In" />
-          <Parameter Name="to_date" Type="date" Mode="In" />
           <Parameter Name="pay_date" Type="date" Mode="In" />
         </Function>
         <Function Name="add_shared_article" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -284,13 +299,11 @@
           <Parameter Name="cat" Type="varchar" Mode="In" />
           <Parameter Name="subcat" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="get_joining_date" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="uid" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="get_payment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="uid" Type="varchar" Mode="In" />
-          <Parameter Name="traffic" Type="int" Mode="In" />
-          <Parameter Name="amount" Type="decimal" Mode="In" />
-          <Parameter Name="from_date" Type="date" Mode="In" />
-          <Parameter Name="to_date" Type="date" Mode="In" />
-          <Parameter Name="pay_date" Type="date" Mode="In" />
         </Function>
         <Function Name="get_rate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="category" Type="varchar" Mode="In" />
@@ -305,6 +318,9 @@
         </Function>
         <Function Name="get_site" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="email" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="get_total_earned" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="uid" Type="varchar" Mode="In" />
         </Function>
         <Function Name="get_ums" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="uid" Type="varchar" Mode="In" />
@@ -353,6 +369,7 @@
           <Parameter Name="name" Type="varchar" Mode="In" />
           <Parameter Name="photo" Type="varchar(max)" Mode="In" />
           <Parameter Name="fullname" Type="varchar(max)" Mode="In" />
+          <Parameter Name="joindate" Type="date" Mode="In" />
         </Function>
         <Function Name="user_update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="uid" Type="varchar" Mode="In" />
@@ -368,6 +385,7 @@
           <EntitySet Name="Sites" EntityType="Self.Sites" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Articles" EntityType="Self.User_Articles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User_Date" EntityType="Self.User_Date" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Marketing_Source" EntityType="Self.User_Marketing_Source" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__AdminSite__email__34C8D9D1" Association="Self.FK__AdminSite__email__34C8D9D1">
             <End Role="Admin" EntitySet="Admin" />
@@ -397,12 +415,17 @@
             <End Role="Rate" EntitySet="Rate" />
             <End Role="Rates_History" EntitySet="Rates_History" />
           </AssociationSet>
+          <AssociationSet Name="FK_User_Date_User" Association="Self.FK_User_Date_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="User_Date" EntitySet="User_Date" />
+          </AssociationSet>
           <AssociationSet Name="FK_User_Marketing_Source_User" Association="Self.FK_User_Marketing_Source_User">
             <End Role="User" EntitySet="User" />
             <End Role="User_Marketing_Source" EntitySet="User_Marketing_Source" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="digimarketModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -443,8 +466,6 @@
           <Property Name="traffic" Type="Int32" Nullable="false" />
           <Property Name="amount" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="payment_date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="from_date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="to_date" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="User" Relationship="Self.FK_Payment_User" FromRole="Payment" ToRole="User" />
         </EntityType>
         <EntityType Name="Rate">
@@ -487,6 +508,7 @@
           <Property Name="fullname" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Payments" Relationship="Self.FK_Payment_User" FromRole="User" ToRole="Payment" />
           <NavigationProperty Name="User_Articles" Relationship="Self.FK__User_Articl__uid__01142BA1" FromRole="User" ToRole="User_Articles" />
+          <NavigationProperty Name="User_Date" Relationship="Self.FK_User_Date_User" FromRole="User" ToRole="User_Date" />
           <NavigationProperty Name="User_Marketing_Source" Relationship="Self.FK_User_Marketing_Source_User" FromRole="User" ToRole="User_Marketing_Source" />
         </EntityType>
         <EntityType Name="User_Articles">
@@ -500,6 +522,14 @@
           <Property Name="shared" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Article" Relationship="Self.FK__User_Arti__seria__02084FDA" FromRole="User_Articles" ToRole="Articles" />
           <NavigationProperty Name="User" Relationship="Self.FK__User_Articl__uid__01142BA1" FromRole="User_Articles" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User_Date">
+          <Key>
+            <PropertyRef Name="uid" />
+          </Key>
+          <Property Name="uid" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="User" Relationship="Self.FK_User_Date_User" FromRole="User_Date" ToRole="User" />
         </EntityType>
         <EntityType Name="User_Marketing_Source">
           <Key>
@@ -570,6 +600,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_User_Date_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="User_Date" Type="Self.User_Date" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="uid" />
+            </Principal>
+            <Dependent Role="User_Date">
+              <PropertyRef Name="uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_User_Marketing_Source_User">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="User_Marketing_Source" Type="Self.User_Marketing_Source" Multiplicity="*" />
@@ -595,6 +637,7 @@
           <EntitySet Name="Sites" EntityType="Self.Site" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="User_Articles" EntityType="Self.User_Articles" />
+          <EntitySet Name="User_Date" EntityType="Self.User_Date" />
           <EntitySet Name="User_Marketing_Source" EntityType="Self.User_Marketing_Source" />
           <AssociationSet Name="FK__User_Arti__seria__02084FDA" Association="Self.FK__User_Arti__seria__02084FDA">
             <End Role="Articles" EntitySet="Articles" />
@@ -615,6 +658,10 @@
           <AssociationSet Name="FK__User_Articl__uid__01142BA1" Association="Self.FK__User_Articl__uid__01142BA1">
             <End Role="User" EntitySet="Users" />
             <End Role="User_Articles" EntitySet="User_Articles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Date_User" Association="Self.FK_User_Date_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="User_Date" EntitySet="User_Date" />
           </AssociationSet>
           <AssociationSet Name="FK_User_Marketing_Source_User" Association="Self.FK_User_Marketing_Source_User">
             <End Role="User" EntitySet="Users" />
@@ -641,8 +688,6 @@
             <Parameter Name="uid" Mode="In" Type="String" />
             <Parameter Name="traffic" Mode="In" Type="Int32" />
             <Parameter Name="amount" Mode="In" Type="Decimal" />
-            <Parameter Name="from_date" Mode="In" Type="DateTime" />
-            <Parameter Name="to_date" Mode="In" Type="DateTime" />
             <Parameter Name="pay_date" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="add_shared_article">
@@ -663,7 +708,7 @@
             <Parameter Name="uid" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="admin_sign_in" ReturnType="Collection(digimarketModel.admin_sign_in_Result)">
-          <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="admin_sign_up">
             <Parameter Name="email" Mode="In" Type="String" />
@@ -676,24 +721,24 @@
             <Parameter Name="photo" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="count_ums" ReturnType="Collection(Int32)">
-          <Parameter Name="uid" Mode="In" Type="String" />
+            <Parameter Name="uid" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="delete_article">
-          <Parameter Name="serial" Mode="In" Type="Int32" />
+            <Parameter Name="serial" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="delete_site">
             <Parameter Name="site_url" Mode="In" Type="String" />
             <Parameter Name="email" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="delete_ums">
-          <Parameter Name="ums_id" Mode="In" Type="Int32" />
+            <Parameter Name="ums_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="get_admin_articles" ReturnType="Collection(digimarketModel.get_admin_articles_Result)">
             <Parameter Name="email" Mode="In" Type="String" />
             <Parameter Name="site" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_admin_gid" ReturnType="Collection(digimarketModel.get_admin_gid_Result)">
-          <Parameter Name="site" Mode="In" Type="String" />
+            <Parameter Name="site" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_admin_single_article" ReturnType="Collection(digimarketModel.get_admin_single_article_Result)">
             <Parameter Name="aid" Mode="In" Type="Int32" />
@@ -701,7 +746,7 @@
             <Parameter Name="site" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_all_articles" ReturnType="Collection(digimarketModel.get_all_articles_Result)">
-          <Parameter Name="site" Mode="In" Type="String" />
+            <Parameter Name="site" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_all_site" ReturnType="Collection(String)" />
           <FunctionImport Name="get_articles" ReturnType="Collection(digimarketModel.get_articles_Result)">
@@ -709,16 +754,14 @@
             <Parameter Name="cat" Mode="In" Type="String" />
             <Parameter Name="subcat" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="get_joining_date" ReturnType="Collection(digimarketModel.get_joining_date_Result)">
+            <Parameter Name="uid" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="get_payment" ReturnType="Collection(digimarketModel.get_payment_Result)">
             <Parameter Name="uid" Mode="In" Type="String" />
-            <Parameter Name="traffic" Mode="In" Type="Int32" />
-            <Parameter Name="amount" Mode="In" Type="Decimal" />
-            <Parameter Name="from_date" Mode="In" Type="DateTime" />
-            <Parameter Name="to_date" Mode="In" Type="DateTime" />
-            <Parameter Name="pay_date" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="get_rate" ReturnType="Collection(digimarketModel.get_rate_Result)">
-          <Parameter Name="category" Mode="In" Type="String" />
+            <Parameter Name="category" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_shared_article" ReturnType="Collection(digimarketModel.get_shared_article_Result)">
             <Parameter Name="uid" Mode="In" Type="String" />
@@ -726,19 +769,25 @@
             <Parameter Name="subcat" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_shared_article_serial" ReturnType="Collection(Int32)">
-          <Parameter Name="serial" Mode="In" Type="Int32" />
+            <Parameter Name="serial" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="get_site" ReturnType="Collection(digimarketModel.get_site_Result)">
-          <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="get_total_earned" ReturnType="Collection(digimarketModel.get_total_earned_Result)">
+            <Parameter Name="uid" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_ums" ReturnType="Collection(digimarketModel.get_ums_Result)">
-          <Parameter Name="uid" Mode="In" Type="String" />
+            <Parameter Name="uid" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_user_single_article" ReturnType="Collection(digimarketModel.get_user_single_article_Result)">
-          <Parameter Name="serial" Mode="In" Type="Int32" />
+            <Parameter Name="serial" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="get_user_traffic" ReturnType="Collection(digimarketModel.get_user_traffic_Result)">
+            <Parameter Name="uid" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="getArticleBySerial" ReturnType="Collection(digimarketModel.getArticleBySerial_Result)">
-          <Parameter Name="serial" Mode="In" Type="Int32" />
+            <Parameter Name="serial" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="update_article_data">
             <Parameter Name="serial_no" Mode="In" Type="Int32" />
@@ -768,20 +817,18 @@
             <Parameter Name="site" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="user_sign_in" ReturnType="Collection(digimarketModel.user_sign_in_Result)">
-          <Parameter Name="uid" Mode="In" Type="String" />
+            <Parameter Name="uid" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="user_sign_up">
             <Parameter Name="uid" Mode="In" Type="String" />
             <Parameter Name="name" Mode="In" Type="String" />
             <Parameter Name="photo" Mode="In" Type="String" />
             <Parameter Name="fullname" Mode="In" Type="String" />
+            <Parameter Name="joindate" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="user_update">
             <Parameter Name="uid" Mode="In" Type="String" />
             <Parameter Name="photo" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="get_user_traffic" ReturnType="Collection(digimarketModel.get_user_traffic_Result)">
-            <Parameter Name="uid" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="admin_sign_in_Result">
@@ -851,14 +898,16 @@
           <Property Type="Boolean" Name="copied" Nullable="false" />
           <Property Type="Boolean" Name="shared" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="get_joining_date_Result">
+          <Property Type="String" Name="uid" Nullable="false" MaxLength="20" />
+          <Property Type="DateTime" Name="date" Nullable="false" />
+        </ComplexType>
         <ComplexType Name="get_payment_Result">
           <Property Type="Int32" Name="invoice_id" Nullable="false" />
           <Property Type="String" Name="uid" Nullable="false" MaxLength="20" />
           <Property Type="Int32" Name="traffic" Nullable="false" />
           <Property Type="Decimal" Name="amount" Nullable="false" Precision="10" Scale="2" />
           <Property Type="DateTime" Name="payment_date" Nullable="false" />
-          <Property Type="DateTime" Name="from_date" Nullable="false" />
-          <Property Type="DateTime" Name="to_date" Nullable="false" />
         </ComplexType>
         <ComplexType Name="get_rate_Result">
           <Property Type="String" Name="category" Nullable="false" MaxLength="50" />
@@ -886,6 +935,10 @@
           <Property Type="String" Name="site_name" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="ga_id" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="get_total_earned_Result">
+          <Property Type="Int32" Name="totalTraffic" Nullable="true" />
+          <Property Type="Decimal" Name="totalAmount" Nullable="true" Precision="38" Scale="2" />
+        </ComplexType>
         <ComplexType Name="get_ums_Result">
           <Property Type="Int32" Name="ums_id" Nullable="false" />
           <Property Type="String" Name="access_token" Nullable="false" />
@@ -903,6 +956,10 @@
           <Property Type="String" Name="category" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="sub_category" Nullable="false" MaxLength="50" />
           <Property Type="Boolean" Name="custom" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="get_user_traffic_Result">
+          <Property Type="String" Name="ga_id" Nullable="false" />
+          <Property Type="String" Name="email" Nullable="false" MaxLength="30" />
         </ComplexType>
         <ComplexType Name="getArticleBySerial_Result">
           <Property Type="Int32" Name="serial_no" Nullable="false" />
@@ -923,10 +980,6 @@
           <Property Type="String" Name="username" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="photourl" Nullable="true" />
           <Property Type="String" Name="fullname" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="get_user_traffic_Result">
-          <Property Type="String" Name="ga_id" Nullable="false" />
-          <Property Type="String" Name="email" Nullable="false" MaxLength="30" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -969,8 +1022,6 @@
                 <ScalarProperty Name="traffic" ColumnName="traffic" />
                 <ScalarProperty Name="amount" ColumnName="amount" />
                 <ScalarProperty Name="payment_date" ColumnName="payment_date" />
-                <ScalarProperty Name="from_date" ColumnName="from_date" />
-                <ScalarProperty Name="to_date" ColumnName="to_date" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1020,6 +1071,14 @@
                 <ScalarProperty Name="serial_no" ColumnName="serial_no" />
                 <ScalarProperty Name="copied" ColumnName="copied" />
                 <ScalarProperty Name="shared" ColumnName="shared" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User_Date">
+            <EntityTypeMapping TypeName="digimarketModel.User_Date">
+              <MappingFragment StoreEntitySet="User_Date">
+                <ScalarProperty Name="uid" ColumnName="uid" />
+                <ScalarProperty Name="date" ColumnName="date" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1143,6 +1202,14 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_joining_date" FunctionName="digimarketModel.Store.get_joining_date">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="digimarketModel.get_joining_date_Result">
+                <ScalarProperty Name="uid" ColumnName="uid" />
+                <ScalarProperty Name="date" ColumnName="date" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="get_payment" FunctionName="digimarketModel.Store.get_payment">
             <ResultMapping>
               <ComplexTypeMapping TypeName="digimarketModel.get_payment_Result">
@@ -1151,8 +1218,6 @@
                 <ScalarProperty Name="traffic" ColumnName="traffic" />
                 <ScalarProperty Name="amount" ColumnName="amount" />
                 <ScalarProperty Name="payment_date" ColumnName="payment_date" />
-                <ScalarProperty Name="from_date" ColumnName="from_date" />
-                <ScalarProperty Name="to_date" ColumnName="to_date" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -1195,6 +1260,14 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_total_earned" FunctionName="digimarketModel.Store.get_total_earned">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="digimarketModel.get_total_earned_Result">
+                <ScalarProperty Name="totalTraffic" ColumnName="totalTraffic" />
+                <ScalarProperty Name="totalAmount" ColumnName="totalAmount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="get_ums" FunctionName="digimarketModel.Store.get_ums">
             <ResultMapping>
               <ComplexTypeMapping TypeName="digimarketModel.get_ums_Result">
@@ -1218,6 +1291,14 @@
                 <ScalarProperty Name="category" ColumnName="category" />
                 <ScalarProperty Name="sub_category" ColumnName="sub_category" />
                 <ScalarProperty Name="custom" ColumnName="custom" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_user_traffic" FunctionName="digimarketModel.Store.get_user_traffic">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="digimarketModel.get_user_traffic_Result">
+                <ScalarProperty Name="ga_id" ColumnName="ga_id" />
+                <ScalarProperty Name="email" ColumnName="email" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -1256,14 +1337,6 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="user_sign_up" FunctionName="digimarketModel.Store.user_sign_up" />
           <FunctionImportMapping FunctionImportName="user_update" FunctionName="digimarketModel.Store.user_update" />
-          <FunctionImportMapping FunctionImportName="get_user_traffic" FunctionName="digimarketModel.Store.get_user_traffic">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="digimarketModel.get_user_traffic_Result">
-                <ScalarProperty Name="ga_id" ColumnName="ga_id" />
-                <ScalarProperty Name="email" ColumnName="email" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

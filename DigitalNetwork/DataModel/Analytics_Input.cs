@@ -109,4 +109,20 @@ namespace DigitalNetwork.DataModel
         public long non_premium { get; set; }
 
     }
+    public class user_earned
+    {
+        public double premium { get; set; }
+        public double non_premium { get; set; }
+
+    }
+
+    public class PaymentStats
+    {
+        public long total_traffic { get; set; }
+        public long unpaid_traffic { get; set; }
+        public double total_earned { get; set; }
+        public double last_paid { get; set; }
+        public double available { get; set; }
+
+    }
 }

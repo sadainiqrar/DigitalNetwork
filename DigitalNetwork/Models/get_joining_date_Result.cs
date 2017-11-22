@@ -10,16 +10,10 @@
 namespace DigitalNetwork.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Payment
+    public partial class get_joining_date_Result
     {
-        public int invoice_id { get; set; }
         public string uid { get; set; }
-        public int traffic { get; set; }
-        public decimal amount { get; set; }
-        public System.DateTime payment_date { get; set; }
-    
-        public virtual User User { get; set; }
+        public System.DateTime date { get; set; }
     }
 }

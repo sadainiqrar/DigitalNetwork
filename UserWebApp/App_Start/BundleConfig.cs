@@ -70,7 +70,9 @@ namespace UserWebApp
 
                         "~/Scripts/factories/singleArticleFactory.js",
                         "~/Scripts/factories/updateArticleFactory.js",
-                         "~/Scripts/factories/sessionFactory.js"
+                         "~/Scripts/factories/sessionFactory.js",
+                         "~/Scripts/factories/paymentFactory.js",
+                           "~/Scripts/factories/statisticsFactory.js"
                         ));
 
             bundles.Add(new ScriptBundle("~/bundles/homeScript").Include(
