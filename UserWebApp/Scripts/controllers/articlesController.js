@@ -3,7 +3,7 @@ var controllerId = 'articlesController';
 angular.module('DigitalMarket').controller(controllerId,
     ['$scope',  '$rootScope', '$cookies','articleFactory', 'sessionFactory', articlesController]);
 
-function articlesController($scope, $rootScope, $cookies, articleFactory, sessionFactory) {
+function articlesController($scope,  $rootScope, $cookies, articleFactory, sessionFactory) {
     $rootScope.globals = $cookies.getObject('globals') || {};
     $scope.userdata = $rootScope.globals.currentUser;
     $scope.username = $scope.userdata.fullname;

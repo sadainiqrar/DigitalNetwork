@@ -164,6 +164,7 @@
     <Content Include="Content\font.css" />
     <Content Include="Content\landing.css" />
     <Content Include="Content\material.indigo-pink.min.css" />
+    <Content Include="Content\modal.css" />
     <Content Include="Content\paper-dashboard.css" />
     <Content Include="Content\realtime.css" />
     <Content Include="Content\Site.css" />
@@ -357,6 +358,7 @@
     <Content Include="Scripts\controllers\paymentController.js" />
     <Content Include="Scripts\controllers\profileController.js" />
     <Content Include="Scripts\controllers\realtimeController.js" />
+    <Content Include="Scripts\controllers\sourcesController.js" />
     <Content Include="Scripts\controllers\trafficController.js" />
     <Content Include="Scripts\controllers\userdataController.js" />
     <Content Include="Scripts\controllers\userstatsController.js" />
@@ -1139,6 +1141,8 @@
     <Content Include="Scripts\services\homeservice\flash.service.js" />
     <Content Include="Scripts\services\homeservice\user.service.js" />
     <Content Include="Scripts\services\homeservice\user.service.local-storage.js" />
+    <Content Include="Scripts\services\modalDirective.js" />
+    <Content Include="Scripts\services\modalService.js" />
     <Content Include="Views\Dashboard\articles.html" />
     <Content Include="Views\Dashboard\articlestats.html" />
     <Content Include="Views\Dashboard\dashboard.html" />
@@ -1146,14 +1150,9 @@
     <Content Include="Views\Dashboard\Home\login.html" />
     <Content Include="Views\Dashboard\Home\login.view.html" />
     <Content Include="Views\Dashboard\Home\register.view.html" />
+    <Content Include="Views\Dashboard\sources.html" />
     <Content Include="Views\Dashboard\statistics.html" />
-    <Content Include="Views\Dashboard\invoices.html" />
     <Content Include="Views\Dashboard\payment.html" />
-    <Content Include="Views\Dashboard\profile.html" />
-    <Content Include="Views\Dashboard\realtime.html" />
-    <Content Include="Views\Dashboard\traffic.html" />
-    <Content Include="Views\Dashboard\userdata.html" />
-    <Content Include="Views\Dashboard\userstats.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

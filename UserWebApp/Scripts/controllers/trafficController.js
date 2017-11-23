@@ -22,7 +22,38 @@ function trafficController($scope, $rootScope, $cookies, sessionFactory, statist
     statisticsFactory.get_statistics($scope.uid, $scope.from, $scope.to, $scope.id).then(
         // callback function for successful http request
         function success(response) {
-            userStat = response.data;
+            $scope.userStat = response.data;
+       
+          
+            angular.forEach($scope.userStat, function (value, key) {
+                value.total_traffic = value.premium + value.non_premium;
+                value.day = dateParser(value.day);
+                sessionFactory.getRate("premium").then(
+                    // callback function for successful http request
+                    function success(response) {
+                        value.total_earning = value.total_earning + ((value.premium / 1000) * response.data[0].rate);
+
+
+                    },
+                    // callback function for error in http request
+                    function error(response) {
+                        // log errors
+                    }
+                );
+                sessionFactory.getRate("non-premium").then(
+                    // callback function for successful http request
+                    function success(response) {
+                        value.total_earning = value.total_earning + ((value.non_premium / 1000) * response.data[0].rate);
+
+
+                    },
+                    // callback function for error in http request
+                    function error(response) {
+                        // log errors
+                    }
+                );
+
+            });
 
         },
         // callback function for error in http request
@@ -30,6 +61,8 @@ function trafficController($scope, $rootScope, $cookies, sessionFactory, statist
             // log errors
         }
     );
+
+
     sessionFactory.getCurrentMonthSession($scope.uid, $scope.id).then(
         // callback function for successful http request
         function success(response) {
@@ -106,9 +139,65 @@ function trafficController($scope, $rootScope, $cookies, sessionFactory, statist
         }
     );
 
+    $scope.stats = function ()
+    {
+
+        statisticsFactory.get_statistics($scope.uid, $scope.from, $scope.to, $scope.id).then(
+            // callback function for successful http request
+            function success(response) {
+                $scope.userStat = response.data;
+
+                angular.forEach($scope.userStat, function (value, key) {
+                    value.total_traffic = value.premium + value.non_premium;
+                    value.day = dateParser(value.day);
+
+                    sessionFactory.getRate("premium").then(
+                        // callback function for successful http request
+                        function success(response) {
+                            value.total_earning = value.total_earning + ((value.premium / 1000) * response.data[0].rate);
+
+
+                        },
+                        // callback function for error in http request
+                        function error(response) {
+                            // log errors
+                        }
+                    );
+                    sessionFactory.getRate("non-premium").then(
+                        // callback function for successful http request
+                        function success(response) {
+                            value.total_earning = value.total_earning + ((value.non_premium / 1000) * response.data[0].rate);
+
+
+                        },
+                        // callback function for error in http request
+                        function error(response) {
+                            // log errors
+                        }
+                    );
+
+                });
+
+            },
+            // callback function for error in http request
+            function error(response) {
+                // log errors
+            }
+        );
 
 
 
+    }
+
+
+    function dateParser(str) {
+    
+        var day = str.slice(6, 8);
+        var month = str.slice(4, 6);
+        var year = str.slice(0, 4);
+        return new Date(year + '/' + month + '/' + day).toDateString();
+     
+    }
 
 
 }

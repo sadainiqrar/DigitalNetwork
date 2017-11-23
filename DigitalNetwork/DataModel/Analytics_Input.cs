@@ -92,6 +92,8 @@ namespace DigitalNetwork.DataModel
         public string day { get; set; }
         public long premium { get; set; }
         public long non_premium { get; set; }
+        public long total_traffic { get; set; }
+        public long total_earning { get; set; }
 
         public List<CountryStats> country_stats { get; set; }
     }

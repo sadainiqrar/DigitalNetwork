@@ -38,14 +38,14 @@
 
 
 .table-responsive::-webkit-scrollbar {
-    overflow: visible;
-    width: 100px;
+    overflow-x: scroll;
+    width: 0px;
 }
 .table-responsive::-webkit-scrollbar-thumb {
-    background: rgba(30, 139, 179, 1);
+    background: #fff;
 }
 .table-responsive::-webkit-scrollbar-track {
-    background: #dddddd;
+    background: #fff;
 }
 
 
@@ -502,6 +502,7 @@ p{
 #tablesm{
     padding: 1em 4em 1em 2em;
     margin : 0em;
+    
 }
 @media(max-width:320px){
     #tablesm{
@@ -523,7 +524,16 @@ p{
     font-size: 7pt;
     
 }
-
+.table thead tr > th, .table thead tr > td, .table tbody tr > th, .table tbody tr > td, .table tfoot tr > th, .table tfoot tr > td {
+    border-top: 1px solid #fbfafa;
+}
+.table thead tr > th.asd, .table thead tr > td.asd  , .table tbody tr > th.asd, .table tbody tr > td.asd, .table tfoot tr > th.asd, .table tfoot tr > td.asd {
+    border-bottom: 1px solid #eaeaeb;
+}
+tr > td.yeclass
+{
+   display: none;
+}
 #subTable{
         
     border-top: 0px solid #CCC5B9;
@@ -546,14 +556,14 @@ p{
 #tsp1
 {
     padding-left: 2em;
-    width: 25em;
+    width: 26em;
     font-family: lato-regular;
     font-size: 8pt;
     
 }
 #tsp2
 {
-    width: 21em;
+    width: 22em;
     font-family: lato-regular;
     font-size: 8pt;
 }
@@ -563,31 +573,48 @@ p{
     font-family: lato-regular;
     font-size: 8pt;
 }
+@media(min-width:1400px){
+   #tsp1
+    {
+        width: 28em;
+    }
+    #tsp2
+    {
+        width: 24em;
+    }
+}
 
 #fromDiv{
     margin-left:11em;
-    margin-bottom: 1em;
     font-family: lato-regular;
     font-size: 8pt;
+    padding-bottom: 1em;
+    padding-top: 1em;
 }
 @media(max-width:1180px){
     #fromDiv{
     margin-left:5em;
     font-family: lato-regular;
     font-size: 8pt;
+    padding-bottom: 1em;
+    padding-top: 1em;
 }
  
 }
 #toDiv{
     
     font-family: lato-regular;
-    font-size: 8pt;   
+    font-size: 8pt;
+    padding-bottom: 1em;
+    padding-top: 1em;
 }
 @media(max-width:768px){
     #toDiv{
     margin-left:5em;
     font-family: lato-regular;
-    font-size: 8pt;
+    font-size: 8pt;   
+    padding-bottom: 1em;
+    padding-top: 1em;
 }
 }
 
@@ -1046,7 +1073,7 @@ MSArt{
 }
 
 #monthbutton{
-  padding: 3em 1em 0em 15em;
+  padding: 3em 1em 1em 15em;
 }
 #mbtn{
 background: transparent;

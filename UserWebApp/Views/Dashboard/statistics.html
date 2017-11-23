@@ -1,162 +1,134 @@
 ﻿
-<div class="col-md-12 widthpanel">
-    <section class="panel panel-default panmain">
-        <div class="row">
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 main-panel main-panel-margin">
+    <div class="col-md-12 widthpanel">
+        <section class="panel panel-default panmain">
+            <div class="row">
 
-            <div class="col-md-4 b-r">
-                <a class="clear">
-                    <span class="h3 block m-t-xs sm1"><center><strong style="color: #34c9ff">{{today_earned}} </strong></center></span>
+                <div class="col-md-4 b-r">
+                    <a class="clear">
+                        <span class="h3 block m-t-xs sm1"><center><strong style="color: #34c9ff">{{today_earned}} </strong></center></span>
 
-                    <small class="text-muted text-uc " style="color: #a3a3a3"><center>EARNED TODAY</center></small>
+                        <small class="text-muted text-uc " style="color: #a3a3a3"><center>EARNED TODAY</center></small>
 
-                </a>
-            </div>
-            <div class="col-md-4 b-r">
+                    </a>
+                </div>
+                <div class="col-md-4 b-r">
 
-                <a class="clear">
-                    <span class="h3 block m-t-xs sm1"><center><strong style="color: #bc49ff">{{monthly_earned}}$</strong></center></span>
+                    <a class="clear">
+                        <span class="h3 block m-t-xs sm1"><center><strong style="color: #bc49ff">{{monthly_earned}}$</strong></center></span>
 
-                    <small class="text-muted text-uc " style="color: #a3a3a3"><center>EARNED THIS MONTH</center></small>
-                </a>
-            </div>
-            <div class="col-md-4">
+                        <small class="text-muted text-uc " style="color: #a3a3a3"><center>EARNED THIS MONTH</center></small>
+                    </a>
+                </div>
+                <div class="col-md-4">
 
-                <a class="clear">
-                    <span class="h3 m-t-xs sm1"><center><strong style="color: #6344ff">{{sessions}}</strong></center></span>
+                    <a class="clear">
+                        <span class="h3 m-t-xs sm1"><center><strong style="color: #6344ff">{{sessions}}</strong></center></span>
 
-                    <small class="text-muted text-uc " style="color: #a3a3a3"><center>THIS MONTH'S TRAFFIC</center></small>
-                </a>
-            </div>
-        </div>
-    </section>
-
-
-
-    <div class="bar">
-
-        <center><h6 style="color:#878787;">Statistics</h6></center>
-        <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div class="row col-xs-12 col-sm-6 col-md-6 col-lg-6">
-
-                <div flex-gt-xs>
-                    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" style="vertical-align:auto" id="fromDiv"><b>From</b></div>
-
-                    <div id="datetimepicker" class=" input-append date col-xs-3 col-sm-3 col-md-3 col-lg-4">
-                        <md-datepicker style="background: transparent;" ng-model="from" md-placeholder="From Date"></md-datepicker>
-                    </div>
-                    </div>
-            </div>
-            <div class="row col-xs-12 col-sm-6 col-md-6 col-lg-6">
-
-                <div flex-gt-xs>
-                    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" style="vertical-align:auto" id="toDiv"><b>To</b></div>
-
-                    <div id="datetimepicker" class=" input-append date col-xs-3 col-sm-3 col-md-3 col-lg-4">
-                        <md-datepicker style="background: transparent;" ng-model="to" md-placeholder="To Date"></md-datepicker>
-                    </div>
+                        <small class="text-muted text-uc " style="color: #a3a3a3"><center>THIS MONTH'S TRAFFIC</center></small>
+                    </a>
                 </div>
             </div>
-
-        </div>
-
+        </section>
 
 
 
+        <div class="bar">
+
+            <center><h6 style="color:#878787;">Statistics</h6></center>
+            <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="row col-xs-12 col-sm-6 col-md-6 col-lg-6">
+
+                    <div flex-gt-xs>
+                        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" style="vertical-align:auto" id="fromDiv"><b>From</b></div>
+
+                        <div id="datetimepicker" class=" input-append date col-xs-3 col-sm-3 col-md-3 col-lg-4">
+                            <md-datepicker style="background: transparent;" ng-model="from" md-placeholder="From Date" ng-change="stats()"></md-datepicker>
+                        </div>
+                    </div>
+                </div>
+                <div class="row col-xs-12 col-sm-6 col-md-6 col-lg-6">
+
+                    <div flex-gt-xs>
+                        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" style="vertical-align:auto" id="toDiv"><b>To</b></div>
+
+                        <div id="datetimepicker" class=" input-append date col-xs-3 col-sm-3 col-md-3 col-lg-4">
+                            <md-datepicker style="background: transparent;" ng-model="to" md-placeholder="To Date" ng-change="stats()"></md-datepicker>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
 
 
 
-        <div class="col-md-12 col-sm-12 col-xs-12" style="padding: 1em 1em 1em 1em">
-            <section class="panel panel-default table-responsive" id="tablesm">
-                <div class="container-fluid" style="padding: 0px 0px 0px 0px">
-                    <div>
+
+
+
+
+            <div class="col-md-12 col-sm-12 col-xs-12" style="padding: 1em 0em 1em 0em">
+                <section class="panel panel-default table-responsive panmain" id="tablesm">
+                    <div class="container-fluid" style="padding: 0px 0px 0px 0px">
                         <table class="table tableResp">
                             <thead>
                                 <tr>
-                                    <th id="tsp1"><b>DATE</b></th>
-                                    <th id="tsp2"><b>TRAFFIC</b></th>
-                                    <th id="tsp3"><b>EARNINGS</b></th>
+                                    <th id="tsp1" class="asd"><b>DATE</b></th>
+                                    <th id="tsp2" class="asd"><b>TRAFFIC</b></th>
+                                    <th id="tsp3" class="asd"><b>EARNINGS</b></th>
+                                    <th class="asd"> </th>
 
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr style="font-size: 8pt">
-                                    <td id="tsp1">10/10/2017</td>
-                                    <td id="tsp2">2378</td>
-                                    <td id="tsp3">128$</td>
+                            <tbody ng-repeat="s in userStat |orderBy:day:true">
+
+                                <tr>
+                                    <td class="yeclass" style="font-size: 8pt"></td>
+                                    <td id="tsp1">{{s.day}}</td>
+                                    <td id="tsp2">{{s.total_traffic}}</td>
+                                    <td id="tsp3">{{s.total_earning}}</td>
+
                                     <td>
 
                                         <button type="button" class=" btn-md btn-link" ng-init="clickedh=false" ng-click="clickedh=!clickedh">View Details</button>
                                     </td>
                                 </tr>
-                                <div ng-show="clickedh">
-                                    <div colspan="8">
+                                <tr>
+                                    <td ng-show="clickedh" colspan="8">
                                         <div>
                                             <section class="panel-default subPanel" style=" height: 120px; overflow: auto;">
                                                 <table class="tableSub table">
                                                     <tbody>
-                                                        <tr style="font-size: 8pt">
-                                                            <td><left>UNITED KINGDOM</left></td>
-                                                            <td><right>SESSIONS: <span style="color: deepskyblue">2198</span></right></td>
-                                                            <td><right>NEW SESSIONS: <span style="color: red">2198</span></right></td>
-                                                        </tr>
-                                                        <tr style="font-size: 8pt">
-                                                            <td><left>UNITED STATES</left></td>
-                                                            <td><right>SESSIONS: <span style="color: red">598</span></right></td>
-                                                            <td><right>NEW SESSIONS: <span style="color: deepskyblue">598</span></right></td>
+                                                        <tr style="font-size: 8pt" ng-repeat="c in s.country_stats">
+                                                            <td><left>{{c.country}}</left></td>
+                                                            <td><right>SESSIONS: <span style="color: deepskyblue">{{c.sessions}}</span></right></td>
+                                                            <td><right>NEW SESSIONS: <span style="color: red">{{c.newSessions}}</span></right></td>
                                                         </tr>
 
-                                                        <tr style="font-size: 8pt">
-                                                            <td><left>TURKEY</left></td>
-                                                            <td><right>SESSIONS: <span style="color: deepskyblue">298</span></right></td>
-                                                            <td><right>NEW SESSIONS: <span style="color: red">298</span></right></td>
-                                                        </tr>
-                                                        <tr style="font-size: 8pt">
-                                                            <td><left>TURKEY</left></td>
-                                                            <td><right>SESSIONS: <span style="color: deepskyblue">298</span></right></td>
-                                                            <td><right>NEW SESSIONS: <span style="color: red">298</span></right></td>
-                                                        </tr>
-                                                        <tr style="font-size: 8pt">
-                                                            <td><left>TURKEY</left></td>
-                                                            <td><right>SESSIONS: <span style="color: deepskyblue">298</span></right></td>
-                                                            <td><right>NEW SESSIONS: <span style="color: red">298</span></right></td>
-                                                        </tr>
-                                                        <tr style="font-size: 8pt">
-                                                            <td><left>TURKEY</left></td>
-                                                            <td><right>SESSIONS: <span style="color: deepskyblue">298</span></right></td>
-                                                            <td><right>NEW SESSIONS: <span style="color: red">298</span></right></td>
-                                                        </tr>
-                                                        <tr style="font-size: 8pt">
-                                                            <td><left>TURKEY</left></td>
-                                                            <td><right>SESSIONS: <span style="color: deepskyblue">298</span></right></td>
-                                                            <td><right>NEW SESSIONS: <span style="color: red">298</span></right></td>
-                                                        </tr>
                                                     </tbody>
 
                                                 </table>
                                             </section>
                                         </div>
-                                    </div>
-                                </div>
-
-                          
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
+
                     </div>
-                </div>
-            </section>
+                </section>
+            </div>
+
+
+
+
+
         </div>
-
-
 
 
 
     </div>
 
-
-
-</div>
-
-
+    </div>
 
 
 

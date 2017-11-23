@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="digimarketModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="digimarketModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Admin">
           <Key>
             <PropertyRef Name="email" />
@@ -100,12 +100,11 @@
           <Property Name="uid" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="date" Type="date" Nullable="false" />
         </EntityType>
-        <EntityType Name="User_Marketing_Source">
+        <EntityType Name="User_Marketing_Sources">
           <Key>
             <PropertyRef Name="ums_id" />
           </Key>
-          <Property Name="ums_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="access_token" Type="varchar(max)" Nullable="false" />
+          <Property Name="ums_id" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="uid" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <Association Name="FK__AdminSite__email__34C8D9D1">
@@ -204,14 +203,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_User_Marketing_Source_User">
+        <Association Name="FK_User_Marketing_Sources_User">
           <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="User_Marketing_Source" Type="Self.User_Marketing_Source" Multiplicity="*" />
+          <End Role="User_Marketing_Sources" Type="Self.User_Marketing_Sources" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="uid" />
             </Principal>
-            <Dependent Role="User_Marketing_Source">
+            <Dependent Role="User_Marketing_Sources">
               <PropertyRef Name="uid" />
             </Dependent>
           </ReferentialConstraint>
@@ -248,8 +247,7 @@
           <Parameter Name="email" Type="varchar" Mode="In" />
         </Function>
         <Function Name="add_ums" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="ums_id" Type="int" Mode="In" />
-          <Parameter Name="token" Type="varchar(max)" Mode="In" />
+          <Parameter Name="ums_id" Type="varchar" Mode="In" />
           <Parameter Name="uid" Type="varchar" Mode="In" />
         </Function>
         <Function Name="admin_sign_in" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -276,7 +274,7 @@
           <Parameter Name="email" Type="varchar" Mode="In" />
         </Function>
         <Function Name="delete_ums" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="ums_id" Type="int" Mode="In" />
+          <Parameter Name="ums_id" Type="varchar" Mode="In" />
         </Function>
         <Function Name="get_admin_articles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="email" Type="varchar" Mode="In" />
@@ -386,7 +384,7 @@
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Articles" EntityType="Self.User_Articles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Date" EntityType="Self.User_Date" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="User_Marketing_Source" EntityType="Self.User_Marketing_Source" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User_Marketing_Sources" EntityType="Self.User_Marketing_Sources" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__AdminSite__email__34C8D9D1" Association="Self.FK__AdminSite__email__34C8D9D1">
             <End Role="Admin" EntitySet="Admin" />
             <End Role="AdminSite" EntitySet="AdminSite" />
@@ -419,13 +417,12 @@
             <End Role="User" EntitySet="User" />
             <End Role="User_Date" EntitySet="User_Date" />
           </AssociationSet>
-          <AssociationSet Name="FK_User_Marketing_Source_User" Association="Self.FK_User_Marketing_Source_User">
+          <AssociationSet Name="FK_User_Marketing_Sources_User" Association="Self.FK_User_Marketing_Sources_User">
             <End Role="User" EntitySet="User" />
-            <End Role="User_Marketing_Source" EntitySet="User_Marketing_Source" />
+            <End Role="User_Marketing_Sources" EntitySet="User_Marketing_Sources" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="digimarketModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -509,7 +506,7 @@
           <NavigationProperty Name="Payments" Relationship="Self.FK_Payment_User" FromRole="User" ToRole="Payment" />
           <NavigationProperty Name="User_Articles" Relationship="Self.FK__User_Articl__uid__01142BA1" FromRole="User" ToRole="User_Articles" />
           <NavigationProperty Name="User_Date" Relationship="Self.FK_User_Date_User" FromRole="User" ToRole="User_Date" />
-          <NavigationProperty Name="User_Marketing_Source" Relationship="Self.FK_User_Marketing_Source_User" FromRole="User" ToRole="User_Marketing_Source" />
+          <NavigationProperty Name="User_Marketing_Sources" Relationship="Self.FK_User_Marketing_Sources_User" FromRole="User" ToRole="User_Marketing_Sources" />
         </EntityType>
         <EntityType Name="User_Articles">
           <Key>
@@ -531,14 +528,13 @@
           <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="User" Relationship="Self.FK_User_Date_User" FromRole="User_Date" ToRole="User" />
         </EntityType>
-        <EntityType Name="User_Marketing_Source">
+        <EntityType Name="User_Marketing_Sources">
           <Key>
             <PropertyRef Name="ums_id" />
           </Key>
-          <Property Name="ums_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="access_token" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ums_id" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="uid" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK_User_Marketing_Source_User" FromRole="User_Marketing_Source" ToRole="User" />
+          <NavigationProperty Name="User" Relationship="Self.FK_User_Marketing_Sources_User" FromRole="User_Marketing_Sources" ToRole="User" />
         </EntityType>
         <Association Name="FK__User_Arti__seria__02084FDA">
           <End Role="Articles" Type="Self.Article" Multiplicity="1" />
@@ -612,14 +608,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_User_Marketing_Source_User">
+        <Association Name="FK_User_Marketing_Sources_User">
           <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="User_Marketing_Source" Type="Self.User_Marketing_Source" Multiplicity="*" />
+          <End Role="User_Marketing_Sources" Type="Self.User_Marketing_Sources" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="uid" />
             </Principal>
-            <Dependent Role="User_Marketing_Source">
+            <Dependent Role="User_Marketing_Sources">
               <PropertyRef Name="uid" />
             </Dependent>
           </ReferentialConstraint>
@@ -638,7 +634,7 @@
           <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="User_Articles" EntityType="Self.User_Articles" />
           <EntitySet Name="User_Date" EntityType="Self.User_Date" />
-          <EntitySet Name="User_Marketing_Source" EntityType="Self.User_Marketing_Source" />
+          <EntitySet Name="User_Marketing_Sources" EntityType="Self.User_Marketing_Sources" />
           <AssociationSet Name="FK__User_Arti__seria__02084FDA" Association="Self.FK__User_Arti__seria__02084FDA">
             <End Role="Articles" EntitySet="Articles" />
             <End Role="User_Articles" EntitySet="User_Articles" />
@@ -663,9 +659,9 @@
             <End Role="User" EntitySet="Users" />
             <End Role="User_Date" EntitySet="User_Date" />
           </AssociationSet>
-          <AssociationSet Name="FK_User_Marketing_Source_User" Association="Self.FK_User_Marketing_Source_User">
+          <AssociationSet Name="FK_User_Marketing_Sources_User" Association="Self.FK_User_Marketing_Sources_User">
             <End Role="User" EntitySet="Users" />
-            <End Role="User_Marketing_Source" EntitySet="User_Marketing_Source" />
+            <End Role="User_Marketing_Sources" EntitySet="User_Marketing_Sources" />
           </AssociationSet>
           <AssociationSet Name="AdminSite" Association="Self.AdminSite">
             <End Role="Admin" EntitySet="Admins" />
@@ -703,12 +699,11 @@
             <Parameter Name="email" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="add_ums">
-            <Parameter Name="ums_id" Mode="In" Type="Int32" />
-            <Parameter Name="token" Mode="In" Type="String" />
+            <Parameter Name="ums_id" Mode="In" Type="String" />
             <Parameter Name="uid" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="admin_sign_in" ReturnType="Collection(digimarketModel.admin_sign_in_Result)">
-            <Parameter Name="email" Mode="In" Type="String" />
+          <Parameter Name="email" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="admin_sign_up">
             <Parameter Name="email" Mode="In" Type="String" />
@@ -720,25 +715,25 @@
             <Parameter Name="name" Mode="In" Type="String" />
             <Parameter Name="photo" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="count_ums" ReturnType="Collection(Int32)">
-            <Parameter Name="uid" Mode="In" Type="String" />
+          <FunctionImport Name="count_ums">
+          <Parameter Name="uid" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="delete_article">
-            <Parameter Name="serial" Mode="In" Type="Int32" />
+          <Parameter Name="serial" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="delete_site">
             <Parameter Name="site_url" Mode="In" Type="String" />
             <Parameter Name="email" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="delete_ums">
-            <Parameter Name="ums_id" Mode="In" Type="Int32" />
+          <Parameter Name="ums_id" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_admin_articles" ReturnType="Collection(digimarketModel.get_admin_articles_Result)">
             <Parameter Name="email" Mode="In" Type="String" />
             <Parameter Name="site" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_admin_gid" ReturnType="Collection(digimarketModel.get_admin_gid_Result)">
-            <Parameter Name="site" Mode="In" Type="String" />
+          <Parameter Name="site" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_admin_single_article" ReturnType="Collection(digimarketModel.get_admin_single_article_Result)">
             <Parameter Name="aid" Mode="In" Type="Int32" />
@@ -746,7 +741,7 @@
             <Parameter Name="site" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_all_articles" ReturnType="Collection(digimarketModel.get_all_articles_Result)">
-            <Parameter Name="site" Mode="In" Type="String" />
+          <Parameter Name="site" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_all_site" ReturnType="Collection(String)" />
           <FunctionImport Name="get_articles" ReturnType="Collection(digimarketModel.get_articles_Result)">
@@ -755,13 +750,13 @@
             <Parameter Name="subcat" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_joining_date" ReturnType="Collection(digimarketModel.get_joining_date_Result)">
-            <Parameter Name="uid" Mode="In" Type="String" />
+          <Parameter Name="uid" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_payment" ReturnType="Collection(digimarketModel.get_payment_Result)">
-            <Parameter Name="uid" Mode="In" Type="String" />
+          <Parameter Name="uid" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_rate" ReturnType="Collection(digimarketModel.get_rate_Result)">
-            <Parameter Name="category" Mode="In" Type="String" />
+          <Parameter Name="category" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_shared_article" ReturnType="Collection(digimarketModel.get_shared_article_Result)">
             <Parameter Name="uid" Mode="In" Type="String" />
@@ -769,25 +764,25 @@
             <Parameter Name="subcat" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_shared_article_serial" ReturnType="Collection(Int32)">
-            <Parameter Name="serial" Mode="In" Type="Int32" />
+          <Parameter Name="serial" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="get_site" ReturnType="Collection(digimarketModel.get_site_Result)">
-            <Parameter Name="email" Mode="In" Type="String" />
+          <Parameter Name="email" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_total_earned" ReturnType="Collection(digimarketModel.get_total_earned_Result)">
-            <Parameter Name="uid" Mode="In" Type="String" />
+          <Parameter Name="uid" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="get_ums" ReturnType="Collection(digimarketModel.get_ums_Result)">
-            <Parameter Name="uid" Mode="In" Type="String" />
+          <FunctionImport Name="get_ums" ReturnType="Collection(String)">
+          <Parameter Name="uid" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_user_single_article" ReturnType="Collection(digimarketModel.get_user_single_article_Result)">
-            <Parameter Name="serial" Mode="In" Type="Int32" />
+          <Parameter Name="serial" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="get_user_traffic" ReturnType="Collection(digimarketModel.get_user_traffic_Result)">
-            <Parameter Name="uid" Mode="In" Type="String" />
+          <Parameter Name="uid" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="getArticleBySerial" ReturnType="Collection(digimarketModel.getArticleBySerial_Result)">
-            <Parameter Name="serial" Mode="In" Type="Int32" />
+          <Parameter Name="serial" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="update_article_data">
             <Parameter Name="serial_no" Mode="In" Type="Int32" />
@@ -817,7 +812,7 @@
             <Parameter Name="site" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="user_sign_in" ReturnType="Collection(digimarketModel.user_sign_in_Result)">
-            <Parameter Name="uid" Mode="In" Type="String" />
+          <Parameter Name="uid" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="user_sign_up">
             <Parameter Name="uid" Mode="In" Type="String" />
@@ -938,10 +933,6 @@
         <ComplexType Name="get_total_earned_Result">
           <Property Type="Int32" Name="totalTraffic" Nullable="true" />
           <Property Type="Decimal" Name="totalAmount" Nullable="true" Precision="38" Scale="2" />
-        </ComplexType>
-        <ComplexType Name="get_ums_Result">
-          <Property Type="Int32" Name="ums_id" Nullable="false" />
-          <Property Type="String" Name="access_token" Nullable="false" />
         </ComplexType>
         <ComplexType Name="get_user_single_article_Result">
           <Property Type="Int32" Name="serial_no" Nullable="false" />
@@ -1082,11 +1073,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="User_Marketing_Source">
-            <EntityTypeMapping TypeName="digimarketModel.User_Marketing_Source">
-              <MappingFragment StoreEntitySet="User_Marketing_Source">
+          <EntitySetMapping Name="User_Marketing_Sources">
+            <EntityTypeMapping TypeName="digimarketModel.User_Marketing_Sources">
+              <MappingFragment StoreEntitySet="User_Marketing_Sources">
                 <ScalarProperty Name="ums_id" ColumnName="ums_id" />
-                <ScalarProperty Name="access_token" ColumnName="access_token" />
                 <ScalarProperty Name="uid" ColumnName="uid" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1268,14 +1258,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="get_ums" FunctionName="digimarketModel.Store.get_ums">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="digimarketModel.get_ums_Result">
-                <ScalarProperty Name="ums_id" ColumnName="ums_id" />
-                <ScalarProperty Name="access_token" ColumnName="access_token" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_ums" FunctionName="digimarketModel.Store.get_ums" />
           <FunctionImportMapping FunctionImportName="get_user_single_article" FunctionName="digimarketModel.Store.get_user_single_article">
             <ResultMapping>
               <ComplexTypeMapping TypeName="digimarketModel.get_user_single_article_Result">

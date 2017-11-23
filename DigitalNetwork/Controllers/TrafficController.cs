@@ -38,7 +38,7 @@ namespace DigitalNetwork.Controllers
                 {
                     foreach (var row in response.Rows)
                     {
-                        UserStats temp = new UserStats() { day = "", premium = 0, non_premium = 0, country_stats = new List<CountryStats>() };
+                        UserStats temp = new UserStats() { day = "", premium = 0, non_premium = 0, total_traffic = 0, total_earning = 0, country_stats = new List<CountryStats>() };
                         // UserStats temp = user_stats.Last<UserStats>();
 
 
@@ -46,12 +46,12 @@ namespace DigitalNetwork.Controllers
 
                         if (temp == null)
                         {
-                            temp = new UserStats() { day = "", premium = 0, non_premium = 0, country_stats = new List<CountryStats>() };
+                            temp = new UserStats() { day = "", premium = 0, non_premium = 0, total_traffic = 0, total_earning = 0, country_stats = new List<CountryStats>() };
                         }
                         if (!(temp.day.Equals(row[0])))
                         {
 
-                            UserStats stats = new UserStats() { day = "", premium = 0, non_premium = 0, country_stats = new List<CountryStats>() };
+                            UserStats stats = new UserStats() { day = "", premium = 0, non_premium = 0,total_traffic=0,total_earning=0, country_stats = new List<CountryStats>() };
                             CountryStats cTemp = new CountryStats();
                             stats.day = row[0];
                             if (row[1].Equals("Canada"))

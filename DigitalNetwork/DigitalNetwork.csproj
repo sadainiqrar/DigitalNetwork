@@ -266,9 +266,6 @@
     <Compile Include="Models\get_total_earned_Result.cs">
       <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\get_ums_Result.cs">
-      <DependentUpon>digimarketEntities1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\get_user_single_article_Result.cs">
       <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
@@ -296,7 +293,7 @@
     <Compile Include="Models\User_Date.cs">
       <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\User_Marketing_Source.cs">
+    <Compile Include="Models\User_Marketing_Sources.cs">
       <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\user_sign_in_Result.cs">

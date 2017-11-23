@@ -14,7 +14,7 @@ namespace DigitalNetwork.Controllers
         //get_ums
         [HttpGet]
         [Route("api/ums/{uid}")]
-        public IEnumerable<get_ums_Result> GetUms(string uid)
+        public IEnumerable<string> GetUms(string uid)
         {
             return db.get_ums(uid);
         }
@@ -22,16 +22,16 @@ namespace DigitalNetwork.Controllers
         //add_ums
         [HttpPut]
         [Route("api/ums/add")]
-        public int PutUms([FromBody]User_Marketing_Source ums)
+        public int PutUms([FromBody]User_Marketing_Sources ums)
         {
-            return db.add_ums(ums.ums_id, ums.access_token, ums.uid);
+            return db.add_ums(ums.ums_id, ums.uid);
         }
 
 
         //delete_ums
         [HttpDelete]
         [Route("api/ums/delete")]
-        public int putdelete_ums([FromBody]User_Marketing_Source ums)
+        public int putdelete_ums([FromBody]User_Marketing_Sources ums)
         {
             if (countUms(ums.uid) > 1)
                 return db.delete_ums(ums.ums_id);
@@ -45,8 +45,7 @@ namespace DigitalNetwork.Controllers
         {
 
             int count = 0;
-            foreach (Nullable<int> result in db.count_ums(uid))
-                count = result.Value;
+            count = db.count_ums(uid);
             return count;
         }
     }

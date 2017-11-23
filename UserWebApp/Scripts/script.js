@@ -45,10 +45,10 @@ scotchApp.config(['$stateProvider', 'FacebookProvider', '$urlRouterProvider', '$
             templateUrl: 'Views/Dashboard/articles.html',
             controller: 'articlesController'
         })
-        .state('dashboard.userdata', {
-            url: '/userdata',
-            templateUrl: 'Views/Dashboard/userdata.html',
-            controller: 'userdataController'
+        .state('dashboard.marketingsources', {
+            url: '/marketingsources',
+            templateUrl: 'Views/Dashboard/sources.html',
+            controller: 'sourcesController'
         })
         .state('dashboard.payment', {
             url: '/payment',

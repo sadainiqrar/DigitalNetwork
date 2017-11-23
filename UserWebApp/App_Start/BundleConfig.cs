@@ -19,7 +19,8 @@ namespace UserWebApp
 
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                 "~/Content/bootstrap.min.css",
+                "~/Content/modal.css",
+                "~/Content/bootstrap.min.css",
                  "~/Content/animate.css",
                  "~/Content/angular-material.min.css",
                    "~/Content/paper-dashboard.css",
@@ -72,7 +73,10 @@ namespace UserWebApp
                         "~/Scripts/factories/updateArticleFactory.js",
                          "~/Scripts/factories/sessionFactory.js",
                          "~/Scripts/factories/paymentFactory.js",
-                           "~/Scripts/factories/statisticsFactory.js"
+                           "~/Scripts/factories/statisticsFactory.js",
+                           "~/Scripts/services/modalService.js",
+                           "~/Scripts/services/modalDirective.js",
+                           "~/Scripts/controllers/sourcesController.js"
                         ));
 
             bundles.Add(new ScriptBundle("~/bundles/homeScript").Include(

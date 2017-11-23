@@ -36,7 +36,7 @@ namespace DigitalNetwork.Models
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<User_Articles> User_Articles { get; set; }
         public virtual DbSet<User_Date> User_Date { get; set; }
-        public virtual DbSet<User_Marketing_Source> User_Marketing_Source { get; set; }
+        public virtual DbSet<User_Marketing_Sources> User_Marketing_Sources { get; set; }
     
         public virtual int add_article(Nullable<int> aid, string article_url, Nullable<bool> status, string title, string summary, string photo_url, Nullable<System.DateTime> modified_date, string site_url, string category, string sub_category, Nullable<bool> custom)
         {
@@ -150,21 +150,17 @@ namespace DigitalNetwork.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("add_site", siteParameter, site_nameParameter, gidParameter, emailParameter);
         }
     
-        public virtual int add_ums(Nullable<int> ums_id, string token, string uid)
+        public virtual int add_ums(string ums_id, string uid)
         {
-            var ums_idParameter = ums_id.HasValue ?
+            var ums_idParameter = ums_id != null ?
                 new ObjectParameter("ums_id", ums_id) :
-                new ObjectParameter("ums_id", typeof(int));
-    
-            var tokenParameter = token != null ?
-                new ObjectParameter("token", token) :
-                new ObjectParameter("token", typeof(string));
+                new ObjectParameter("ums_id", typeof(string));
     
             var uidParameter = uid != null ?
                 new ObjectParameter("uid", uid) :
                 new ObjectParameter("uid", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("add_ums", ums_idParameter, tokenParameter, uidParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("add_ums", ums_idParameter, uidParameter);
         }
     
         public virtual ObjectResult<admin_sign_in_Result> admin_sign_in(string email)
@@ -210,13 +206,13 @@ namespace DigitalNetwork.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("admin_update", emailParameter, nameParameter, photoParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> count_ums(string uid)
+        public virtual int count_ums(string uid)
         {
             var uidParameter = uid != null ?
                 new ObjectParameter("uid", uid) :
                 new ObjectParameter("uid", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("count_ums", uidParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("count_ums", uidParameter);
         }
     
         public virtual int delete_article(Nullable<int> serial)
@@ -241,11 +237,11 @@ namespace DigitalNetwork.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("delete_site", site_urlParameter, emailParameter);
         }
     
-        public virtual int delete_ums(Nullable<int> ums_id)
+        public virtual int delete_ums(string ums_id)
         {
-            var ums_idParameter = ums_id.HasValue ?
+            var ums_idParameter = ums_id != null ?
                 new ObjectParameter("ums_id", ums_id) :
-                new ObjectParameter("ums_id", typeof(int));
+                new ObjectParameter("ums_id", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("delete_ums", ums_idParameter);
         }
@@ -391,13 +387,13 @@ namespace DigitalNetwork.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_total_earned_Result>("get_total_earned", uidParameter);
         }
     
-        public virtual ObjectResult<get_ums_Result> get_ums(string uid)
+        public virtual ObjectResult<string> get_ums(string uid)
         {
             var uidParameter = uid != null ?
                 new ObjectParameter("uid", uid) :
                 new ObjectParameter("uid", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_ums_Result>("get_ums", uidParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("get_ums", uidParameter);
         }
     
         public virtual ObjectResult<get_user_single_article_Result> get_user_single_article(Nullable<int> serial)

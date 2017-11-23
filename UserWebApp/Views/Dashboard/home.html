@@ -1,113 +1,115 @@
 
-<div class="col-md-12 widthpanel">
-    <section class="panel panel-default panmain">
-        <div class="row">
-
-            <div class="col-md-4 b-r">
-                <a class="clear">
-                    <span class="h3 block m-t-xs sm1"><center><strong style="color: #34c9ff">{{today_earned}}$ </strong></center></span>
-
-                    <small class="text-muted text-uc " style="color: #a3a3a3"><center>EARNED TODAY</center></small>
-
-                </a>
-            </div>
-            <div class="col-md-4 b-r">
-
-                <a class="clear">
-                    <span class="h3 block m-t-xs sm1"><center><strong style="color: #bc49ff">{{monthly_earned}}$</strong></center></span>
-
-                    <small class="text-muted text-uc " style="color: #a3a3a3"><center>EARNED THIS MONTH</center></small>
-                </a>
-            </div>
-            <div class="col-md-4">
-
-                <a class="clear">
-                    <span class="h3 m-t-xs sm1"><center><strong style="color: #6344ff"> {{sessions}} </strong></center></span>
-
-                    <small class="text-muted text-uc " style="color: #a3a3a3"><center>THIS MONTH'S TRAFFIC</center></small>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <div class="bar">
-        <ul class="nav nav-tabs" id="Tab">
-            <li class="active"><a class=" maintab " data-toggle="tab" ng-click="_category = 'premium'">Premium</a></li>
-            <li><a class="maintab" data-toggle="tab" ng-click="_category = 'non_premium'">Non Premium</a></li>
-        </ul>
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-cat-collapse">
-            <i class="fa fa-bars"></i>
-        </button>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 main-panel main-panel-margin">
+    <div class="col-md-12 widthpanel">
         <section class="panel panel-default panmain">
-            <div style="margin-bottom: 20px"><p>TOP ARTICLES</p></div>
+            <div class="row">
 
-            <nav class="navbar navbar-default navbar-collapse collapse" id="navbar-cat-collapse">
+                <div class="col-md-4 b-r">
+                    <a class="clear">
+                        <span class="h3 block m-t-xs sm1"><center><strong style="color: #34c9ff">{{today_earned}}$ </strong></center></span>
 
+                        <small class="text-muted text-uc " style="color: #a3a3a3"><center>EARNED TODAY</center></small>
 
-                <ul class="nav navbar-nav" style="display: inline;">
-                    <li ng-click='makeActive("Political")' ng-class="{ 'active': active=='Political'}"><a class="tabpad"  ng-click="_sub_category = 'Political'">All</a></li>
-                    <li ng-click='makeActive("Entertainment")' ng-class="{ 'active': active=='Entertainment'}"><a class="tabpad"  ng-click="_sub_category = 'Entertainment'">Entertainment</a></li>
-                    <li ng-click='makeActive("Sports")' ng-class="{ 'active': active=='Sports'}"><a class="tabpad"  ng-click="_sub_category = 'Sports'">Sports</a></li>
-                    <li ng-click='makeActive("Health")' ng-class="{ 'active': active=='Health'}"><a class="tabpad"  ng-click="_sub_category = 'Health'">Health & Food</a></li>
-                    <li ng-click='makeActive("Showbiz")' ng-class="{ 'active': active=='Showbiz'}"><a class="tabpad"  ng-click="_sub_category = 'Showbiz'">Showbiz</a></li>
-                    <li ng-click='makeActive("Motivation")' ng-class="{ 'active': active=='Motivation'}"><a class="tabpad"  ng-click="_sub_category = 'Motivation'">Motivation</a></li>
-                    <li ng-click='makeActive("Featured")' ng-class="{ 'active': active=='Featured'}"><a class="tabpad"  ng-click="_sub_category = 'Featured'">Featured</a></li>
+                    </a>
+                </div>
+                <div class="col-md-4 b-r">
 
-                </ul>
-                <select class="tabpad dropdownCat text" style="font-style: oblique;
-    opacity: .5;">
-                    <option value="" hidden>Sortby</option>
-                    <option value="All">All</option>
-                    <option value="Entertainment">Entertainment</option>
-                    <option value="Sports">Sports</option>
-                    <option value="Health&Food">Health & Food</option>
-                    <option value="Showbiz">Showbiz</option>
-                    <option value="Motivation">Motivation</option>
-                    <option value="Featured">Featured</option>
-                </select>
+                    <a class="clear">
+                        <span class="h3 block m-t-xs sm1"><center><strong style="color: #bc49ff">{{monthly_earned}}$</strong></center></span>
 
+                        <small class="text-muted text-uc " style="color: #a3a3a3"><center>EARNED THIS MONTH</center></small>
+                    </a>
+                </div>
+                <div class="col-md-4">
 
-            </nav>
+                    <a class="clear">
+                        <span class="h3 m-t-xs sm1"><center><strong style="color: #6344ff"> {{sessions}} </strong></center></span>
 
-
-
-            <div class="container-fluid">
-
-                <div ng- class="col-md-12 col-sm-12">
-
-                    <div class="col-md-4 col-sm-12" ng-repeat="article in articles | filter:{ sub_category: _sub_category, category: _category }">
-                        <div class="col-xs-12 col-md-12 col-sm-12 ok pan">
-                            <div id="articleImageDiv" class="col-md-12 col-sm-6" style="padding: 0px 0px 0px 0px;">
-
-                                <img class="img-responsive" src={{article.photo_url}}>
-                                <div   class="overlay">
-                                    <div class="textt"><i class="fa fa-eye" aria-hidden="true"></i><p style="font-size: 10px;">VIEWS</p> <p style="color: deepskyblue">{{ article.views}}</p> </div>
-                                    <div class="txt"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><p style="font-size: 10px;">SHARES</p><p style="color: deepskyblue">{{article.shares}}</p></div>
-                                </div>
-
-                            </div>
-
-                            <div class="col-md-12 col-sm-6 bottom">
-
-                                <p style="font-size: 10px;float: left;padding-top:  5px">{{article.modified_date}}</p><br>
-                                <p class="pArt" style="text-align:left;" ng-bind-html="article.title"></p>
-
-                                <hr class="h-line" style="margin-top: 1em">
-                                <p class="copy">Article by:{{article.site_url }} </p>
-
-                                <a class="btn" ng-click="insertShared()"> <span class="fa fa-share-alt" aria-hidden="true"></span> </a>
-                                <a class="btn"ng-click="insertCopied()"><span class="fa fa-link" aria-hidden="true"></span></a>
-
-                            </div>
-                        </div>
-
-                    </div>
-
-       
-
+                        <small class="text-muted text-uc " style="color: #a3a3a3"><center>THIS MONTH'S TRAFFIC</center></small>
+                    </a>
                 </div>
             </div>
         </section>
 
+        <div class="bar">
+            <ul class="nav nav-tabs" id="Tab">
+                <li class="active"><a class=" maintab " data-toggle="tab" ng-click="_category = 'premium'">Premium</a></li>
+                <li><a class="maintab" data-toggle="tab" ng-click="_category = 'non_premium'">Non Premium</a></li>
+            </ul>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-cat-collapse">
+                <i class="fa fa-bars"></i>
+            </button>
+            <section class="panel panel-default panmain">
+                <div style="margin-bottom: 20px"><p>TOP ARTICLES</p></div>
+
+                <nav class="navbar navbar-default navbar-collapse collapse" id="navbar-cat-collapse">
+
+
+                    <ul class="nav navbar-nav" style="display: inline;">
+                        <li ng-click='makeActive("Political")' ng-class="{ 'active': active=='Political'}"><a class="tabpad" ng-click="_sub_category = 'Political'">All</a></li>
+                        <li ng-click='makeActive("Entertainment")' ng-class="{ 'active': active=='Entertainment'}"><a class="tabpad" ng-click="_sub_category = 'Entertainment'">Entertainment</a></li>
+                        <li ng-click='makeActive("Sports")' ng-class="{ 'active': active=='Sports'}"><a class="tabpad" ng-click="_sub_category = 'Sports'">Sports</a></li>
+                        <li ng-click='makeActive("Health")' ng-class="{ 'active': active=='Health'}"><a class="tabpad" ng-click="_sub_category = 'Health'">Health & Food</a></li>
+                        <li ng-click='makeActive("Showbiz")' ng-class="{ 'active': active=='Showbiz'}"><a class="tabpad" ng-click="_sub_category = 'Showbiz'">Showbiz</a></li>
+                        <li ng-click='makeActive("Motivation")' ng-class="{ 'active': active=='Motivation'}"><a class="tabpad" ng-click="_sub_category = 'Motivation'">Motivation</a></li>
+                        <li ng-click='makeActive("Featured")' ng-class="{ 'active': active=='Featured'}"><a class="tabpad" ng-click="_sub_category = 'Featured'">Featured</a></li>
+
+                    </ul>
+                    <select class="tabpad dropdownCat text" style="font-style: oblique;
+    opacity: .5;">
+                        <option value="" hidden>Sortby</option>
+                        <option value="All">All</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Sports">Sports</option>
+                        <option value="Health&Food">Health & Food</option>
+                        <option value="Showbiz">Showbiz</option>
+                        <option value="Motivation">Motivation</option>
+                        <option value="Featured">Featured</option>
+                    </select>
+
+
+                </nav>
+
+
+
+                <div class="container-fluid">
+
+                    <div ng- class="col-md-12 col-sm-12">
+
+                        <div class="col-md-4 col-sm-12" ng-repeat="article in articles | filter:{ sub_category: _sub_category, category: _category }">
+                            <div class="col-xs-12 col-md-12 col-sm-12 ok pan">
+                                <div id="articleImageDiv" class="col-md-12 col-sm-6" style="padding: 0px 0px 0px 0px;">
+
+                                    <img class="img-responsive" src={{article.photo_url}}>
+                                    <div class="overlay">
+                                        <div class="textt"><i class="fa fa-eye" aria-hidden="true"></i><p style="font-size: 10px;">VIEWS</p> <p style="color: deepskyblue">{{ article.views}}</p> </div>
+                                        <div class="txt"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><p style="font-size: 10px;">SHARES</p><p style="color: deepskyblue">{{article.shares}}</p></div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-12 col-sm-6 bottom">
+
+                                    <p style="font-size: 10px;float: left;padding-top:  5px">{{article.modified_date}}</p><br>
+                                    <p class="pArt" style="text-align:left;" ng-bind-html="article.title"></p>
+
+                                    <hr class="h-line" style="margin-top: 1em">
+                                    <p class="copy">Article by:{{article.site_url }} </p>
+
+                                    <a class="btn" ng-click="insertShared()"> <span class="fa fa-share-alt" aria-hidden="true"></span> </a>
+                                    <a class="btn" ng-click="insertCopied()"><span class="fa fa-link" aria-hidden="true"></span></a>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </section>
+
+        </div>
     </div>
-</div>
+    </div>

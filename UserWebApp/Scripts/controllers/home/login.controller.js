@@ -26,7 +26,7 @@
                     //FlashService.Error(response.message);
 
                 }
-            }, { scope: 'manage_pages,pages_show_list' });
+            }, { scope: 'manage_pages,pages_show_list,publish_actions' });
         };
    
         $scope.removeAuth = function () {
