@@ -14,36 +14,90 @@ function sourcesController($scope, Facebook, $rootScope, $cookies, umsFactory, M
     $scope.addedUms = [];
     $scope.fbUms = [];
     $scope.ums = [];
+    $scope.loginStatus = 'disconnected';
     $scope.bodyText = 'This text can be updated in modal 1';
 
+    $scope.url = "";
+    umsFactory.urlShortner('http://trumpgossiptoday.com').then(
+        // callback function for successful http request
+        function success(response) {
+            $scope.url = response.data;
 
-    Facebook.api('/me/accounts', {
-        fields: 'id,name,category,fan_count,rating_count'
-    }, function (response) {
-        if (response) {
-            $scope.ums = response.data;
-
-        } else {
-            //FlashService.Error(response.message);
-
+        },
+        // callback function for error in http request
+        function error(response) {
+            // log errors
         }
+    );
 
-    });
 
+    Facebook.getLoginStatus(function (response) {
+        if (response.status === 'connected') {
 
-    umsFactory.getUms($scope.id).then(
+            $scope.loginStatus = response.status;
+            Facebook.api('/me/accounts', {
+                fields: 'id,name,category,picture,fan_count,rating_count'
+            }, function (response) {
+                if (response) {
+                    $scope.ums = response.data;
+                    angular.forEach($scope.ums, function (value, key) {
+                        if ($scope.dbUms.indexOf(value.id) !== -1) {
+                            $scope.addedUms.push(value);
+                        }
+                        else {
+                            $scope.fbUms.push(value);
+                        }
+                    }
+                    );
+                } else {
+                    //FlashService.Error(response.message);
+
+                }
+
+            });
+           
+        } else {
+            Facebook.login(function (response) {
+                if (response.status === 'connected') {
+
+                    $scope.loginStatus = response.status;
+                    Facebook.api('/me/accounts', {
+                        fields: 'id,name,category,fan_count,rating_count'
+                    }, function (response) {
+                        if (response) {
+                            $scope.ums = response.data;
+                            angular.forEach($scope.ums, function (value, key) {
+                                if ($scope.dbUms.indexOf(value.id) !== -1) {
+                                    $scope.addedUms.push(value);
+                                }
+                                else {
+                                    $scope.fbUms.push(value);
+                                }
+                            }
+                            );
+                        } else {
+                            //FlashService.Error(response.message);
+
+                        }
+
+                    });
+
+                } else {
+                    //FlashService.Error(response.message);
+
+                }
+            }, { scope: 'manage_pages,pages_show_list,publish_actions' });
+        };
+        }
+    );
+    
+   
+
+    umsFactory.getUms($scope.uid).then(
         // callback function for successful http request
         function success(response) {
             $scope.dbUms = response.data;
-            angular.forEach($scope.ums, function (value, key) {
-                if ($scope.dbUms.indexOf(value.id) !== -1) {
-                    $scope.addedUms.push(value);
-                }
-                else {
-                    $scope.fbUms.push(value);
-                }
-            }
-            );
+            
 
         },
         // callback function for error in http request
@@ -53,12 +107,35 @@ function sourcesController($scope, Facebook, $rootScope, $cookies, umsFactory, M
     );
 
     $scope.addPage = function () {
-        umsFactory.addUms(this.s.id, $scope.uid).then(
+        var obj = this.s;
+        umsFactory.addUms(obj.id, $scope.uid).then(
             // callback function for successful http request
             function success(response) {
-                $scope.addedUms.push(this.s);
-                var index = $scope.fbUms.indexOf(this.s);
+                $scope.addedUms.push(obj);
+                var index = $scope.fbUms.indexOf(obj);
                 $scope.fbUms.splice(index, 1);
+            },
+            // callback function for error in http request
+            function error(response) {
+                // log errors
+            }
+        );
+    };
+    $scope.deletePage = function () {
+        var obj = this.source;
+        umsFactory.deleteUms(obj.id, $scope.uid).then(
+            // callback function for successful http request
+            function success(response) {
+                if (response.data === -1) {
+                    $scope.fbUms.push(obj);
+                    var index = $scope.addedUms.indexOf(obj);
+                    $scope.addedUms.splice(index, 1);
+                }
+                else {
+                    alert('error');
+
+                }
+
             },
             // callback function for error in http request
             function error(response) {

@@ -96,7 +96,7 @@
                                     <hr class="h-line" style="margin-top: 1em">
                                     <p class="copy">Article by:{{article.site_url }} </p>
 
-                                    <a class="btn" ng-click="insertShared()"> <span class="fa fa-share-alt" aria-hidden="true"></span> </a>
+                                    <a class="btn" ng-click="openModal('custom-modal-2')"> <span class="fa fa-share-alt" aria-hidden="true"></span> </a>
                                     <a class="btn" ng-click="insertCopied()"><span class="fa fa-link" aria-hidden="true"></span></a>
 
                                 </div>
@@ -113,3 +113,75 @@
         </div>
     </div>
     </div>
+
+
+<!-- this is modal-->
+<modal id="custom-modal-2">
+    <center>
+        <div class="modal" style="display: grid">
+            <div class="modal-body" style="width: 60%">
+                <div class="row">
+                    <span class="btn" style="color: red;" ng-click="closeModal('custom-modal-2');"><i class="fa fa-window-close" aria-hidden="true"></i></span>
+
+                    <h6>ADD MARKETING SOURCE</h6>
+
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marketingSourceDiv" style="padding: 0px 0px 0px 0px;" ng-repeat="s in addedUms">
+                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                            <div id="imageDivMS" class="col-lg-4 col-md-6 col-sm-5 col-xs-6" style="padding: 2em 5px 1em 1em;">
+                                <img id="msimage" src={{s.picture.data.url}} height="100%" width="100%">
+                            </div>
+                            <div id="MSTitleDiv" class="col-lg-8 col-md-6 col-sm-7 col-xs-6">
+
+
+                                <center><h4 class="title2">{{s.name}}<br><span id="categoryby" class="text-muted">Category:{{s.category}}</span></h4></center>
+                            </div>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding: 2em 1em 1em 1em">
+
+                                <span class="h3 block m-t-xs">
+                                    <center>
+
+                                        <i class="fa fa-thumbs-o-up" aria-hidden="true" style="margin: 8px; color: #3dcaff;"></i>
+                                        <strong style="color: #3dcaff; font-size: 12pt;">
+
+                                            <br> {{s.fan_count}}
+                                        </strong>
+                                    </center>
+                                </span>
+
+                                <center>
+                                    <small class="text-muted text-uc" style="font-size: 7pt; margin : 12px 0px 0px 0px;">LIKES</small>
+                                </center>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding: 2em 1em 1em 1em">
+                                <span class="h3 block m-t-xs">
+                                    <center>
+
+                                        <i class="fa fa-rss" aria-hidden="true" style="margin: 8px; color: #bc49ff;"></i>
+                                        <strong style="color: #bc49ff; font-size: 12pt;">
+
+                                            <br> {{s.rating_count}}
+                                        </strong>
+                                    </center>
+                                </span>
+
+                                <center>
+                                    <small class="text-muted text-uc" style="font-size: 7pt; margin : 12px 0px 0px 0px;">Rating</small>
+                                </center>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding: 4em 4em 1em 1em">
+                                <span class="btn" style="color: #337ab7; float: left; margin-left: 5px;" ng-click="insertShared()"><i class="fa fa-plus-circle" aria-hidden="true" style="font-weight: 600;"> Share</i></span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <hr style="margin : 0px">
+            </div>
+        </div>
+    </center>
+    <div class="modal-background"></div>
+</modal>

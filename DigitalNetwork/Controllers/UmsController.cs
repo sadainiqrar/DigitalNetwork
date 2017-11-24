@@ -29,9 +29,9 @@ namespace DigitalNetwork.Controllers
 
 
         //delete_ums
-        [HttpDelete]
+        [HttpPost]
         [Route("api/ums/delete")]
-        public int putdelete_ums([FromBody]User_Marketing_Sources ums)
+        public int delete_ums([FromBody]User_Marketing_Sources ums)
         {
             if (countUms(ums.uid) > 1)
                 return db.delete_ums(ums.ums_id);

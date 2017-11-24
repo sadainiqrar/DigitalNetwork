@@ -19,6 +19,9 @@ function paymentController($scope,$rootScope,$cookies, paymentFactory) {
     $scope.availablePayment = 0;
     $scope.unpaidTraffic = 0;
     $scope.history = [];
+
+    
+
     paymentFactory.get_payment_details($scope.uid,$scope.id).then(
         // callback function for successful http request
         function success(response) {

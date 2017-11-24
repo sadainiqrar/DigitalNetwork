@@ -2,9 +2,9 @@
 var controllerId = 'mainController';
 
 angular.module('DigitalMarket').controller(controllerId,
-    ['$scope', '$rootScope', '$cookies', 'articleFactory', 'sessionFactory', mainController]);
+    ['$scope', 'Facebook', '$rootScope', '$cookies', 'articleFactory', 'sessionFactory', 'umsFactory', 'ModalService', mainController]);
 
-function mainController($scope, $rootScope, $cookies, articleFactory, sessionFactory) {
+function mainController($scope, Facebook, $rootScope, $cookies, articleFactory, sessionFactory, umsFactory, ModalService,) {
     $rootScope.globals = $cookies.getObject('globals') || {};
     $scope.userdata = $rootScope.globals.currentUser;
     $scope.username = $scope.userdata.fullname;
@@ -16,7 +16,77 @@ function mainController($scope, $rootScope, $cookies, articleFactory, sessionFac
     $scope._sub_category = 'Political';
 
 
-  
+    $scope.addedUms = [];
+    $scope.ums = [];
+
+    umsFactory.getUms($scope.uid).then(
+        // callback function for successful http request
+        function success(response) {
+            $scope.dbUms = response.data;
+
+
+        },
+        // callback function for error in http request
+        function error(response) {
+            // log errors
+        }
+    );
+
+
+    Facebook.getLoginStatus(function (response) {
+        if (response.status === 'connected') {
+
+            $scope.loginStatus = response.status;
+            Facebook.api('/me/accounts', {
+                fields: 'id,name,category,picture,fan_count,rating_count,access_token'
+            }, function (response) {
+                if (response) {
+                    $scope.ums = response.data;
+                    angular.forEach($scope.ums, function (value, key) {
+                        if ($scope.dbUms.indexOf(value.id) !== -1) {
+                            $scope.addedUms.push(value);
+                        }
+                    }
+                    );
+                } else {
+                    //FlashService.Error(response.message);
+
+                }
+
+            });
+
+        } else {
+            Facebook.login(function (response) {
+                if (response.status === 'connected') {
+
+                    $scope.loginStatus = response.status;
+                    Facebook.api('/me/accounts', {
+                        fields: 'id,name,category,fan_count,rating_count,access_token'
+                    }, function (response) {
+                        if (response) {
+                            $scope.ums = response.data;
+                            angular.forEach($scope.ums, function (value, key) {
+                                if ($scope.dbUms.indexOf(value.id) !== -1) {
+                                    $scope.addedUms.push(value);
+                                }
+                            }
+                            );
+                        } else {
+                            //FlashService.Error(response.message);
+
+                        }
+
+                    });
+
+                } else {
+                    //FlashService.Error(response.message);
+
+                }
+            }, { scope: 'manage_pages,pages_show_list,publish_actions' });
+        };
+    }
+    );
+
     articleFactory.getArticles($scope.uid, $scope._category, null).then(
         // callback function for successful http request
         function success(response) {
@@ -44,6 +114,8 @@ function mainController($scope, $rootScope, $cookies, articleFactory, sessionFac
         }
     
     );
+
+
 
 
     sessionFactory.getCurrentMonthSession($scope.uid, $scope.id).then(
@@ -122,31 +194,65 @@ function mainController($scope, $rootScope, $cookies, articleFactory, sessionFac
         }
     );
 
-    $scope.insertShared = function () {
-        articleFactory.insertSharedArticles($scope.uid , this.article.serial_no).then(
-            // callback function for successful http request
-            function success(response) {
-                articleFactory.getArticles($scope.uid, $scope._category, null).then(
-                    // callback function for successful http request
-                    function success(response) {
-                        $scope.articles = response.data;
 
-                    },
-                    // callback function for error in http request
-                    function error(response) {
-                        // log errors
-                    }
-                );
-
-
-
-            },
-            // callback function for error in http request
-            function error(response) {
-                // log errors
-            }
-        );
+    $scope.openModal = function (id) {
+        $scope.current = this.article;
+        ModalService.Open(id);
     }
+    $scope.closeModal = function (id) {
+        ModalService.Close(id);
+    }
+
+
+
+    $scope.insertShared = function () {
+
+        var page = this.s;
+
+        Facebook.api("/me/feed?access_token=" + page.access_token,
+            "POST",
+            {
+                "message": "Test Share",
+                "link": $scope.current.url
+            }, function (response) {
+                if (response) {
+                    articleFactory.insertSharedArticles($scope.uid, $scope.current.serial_no).then(
+                        // callback function for successful http request
+                        function success(response) {
+
+                            $scope.closeModal('custom-modal-2');
+                            articleFactory.getArticles($scope.uid, $scope._category, null).then(
+                                // callback function for successful http request
+                                function success(response) {
+                                    $scope.articles = response.data;
+
+
+                                },
+                                // callback function for error in http request
+                                function error(response) {
+                                    // log errors
+                                }
+                            );
+
+
+
+                        },
+                        // callback function for error in http request
+                        function error(response) {
+                            // log errors
+                        }
+                    );
+                    
+                } else {
+                    //FlashService.Error(response.message);
+
+                }
+
+            });
+
+        
+    }
+
     $scope.insertCopied = function () {
         articleFactory.insertCopiedArticles($scope.uid , this.article.serial_no).then(
             // callback function for successful http request

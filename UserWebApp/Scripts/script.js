@@ -86,8 +86,8 @@ scotchApp.config(['$stateProvider', 'FacebookProvider', '$urlRouterProvider', '$
 
     scotchApp.run(run);
 
-    run.$inject = ['$rootScope', '$location', '$state', '$cookies', '$http'];
-    function run($rootScope, $location, $state, $cookies, $http) {
+    run.$inject = ['$rootScope','Facebook', '$location', '$state', '$cookies', '$http'];
+    function run($rootScope, Facebook, $location, $state, $cookies, $http) {
 
         // keep user logged in after page refresh
         $rootScope.globals = $cookies.getObject('globals') || {};
@@ -99,6 +99,8 @@ scotchApp.config(['$stateProvider', 'FacebookProvider', '$urlRouterProvider', '$
              // redirect to login page if not logged in and trying to access a restricted page
             var restrictedPage = $.inArray($location.path(), ['/']) === -1;
             var loggedIn = $rootScope.globals.currentUser;
+         
+           
             if (restrictedPage && !loggedIn) {
                 $location.path('/');
             }
