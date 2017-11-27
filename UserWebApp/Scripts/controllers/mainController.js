@@ -208,47 +208,46 @@ function mainController($scope, Facebook, $rootScope, $cookies, articleFactory, 
     $scope.insertShared = function () {
 
         var page = this.s;
+        var url = $scope.current.url;
 
-        Facebook.api("/me/feed?access_token=" + page.access_token,
-            "POST",
-            {
-                "message": "Test Share",
-                "link": $scope.current.url
-            }, function (response) {
-                if (response) {
-                    articleFactory.insertSharedArticles($scope.uid, $scope.current.serial_no).then(
-                        // callback function for successful http request
-                        function success(response) {
+        umsFactory.urlShortner($scope.current.url, $scope.id).then(
+            // callback function for successful http request
+            function success(response) {
+                url = response.data;
 
-                            $scope.closeModal('custom-modal-2');
-                            articleFactory.getArticles($scope.uid, $scope._category, null).then(
+
+
+                Facebook.api("/me/feed?access_token=" + page.access_token,
+                    "POST",
+                    {
+                        "link": url
+                    }, function (response) {
+                        if (response) {
+                            $scope.current.shared = true;
+                            articleFactory.updateSharedArticles($scope.uid, $scope.current.serial_no, $scope.current.copied).then(
                                 // callback function for successful http request
                                 function success(response) {
-                                    $scope.articles = response.data;
-
-
+                                    $scope.closeModal('custom-modal-2');
                                 },
                                 // callback function for error in http request
                                 function error(response) {
                                     // log errors
                                 }
                             );
+                        } else {
+                            //FlashService.Error(response.message);
 
-
-
-                        },
-                        // callback function for error in http request
-                        function error(response) {
-                            // log errors
                         }
-                    );
-                    
-                } else {
-                    //FlashService.Error(response.message);
 
-                }
+                    });
 
-            });
+            },
+            // callback function for error in http request
+            function error(response) {
+                // log errors
+            }
+        );
+
 
         
     }

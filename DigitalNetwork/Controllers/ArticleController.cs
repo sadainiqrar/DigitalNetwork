@@ -29,6 +29,8 @@ namespace DigitalNetwork.Controllers
 
         }
 
+
+
         [HttpPost]
         [Route("api/admin/articles/{id}")]
         public IEnumerable<get_admin_single_article_Result> PostSingleArticle(int id,[FromBody] AdminSite adsite)
@@ -52,6 +54,17 @@ namespace DigitalNetwork.Controllers
             return article.status;
 
         }
+
+
+
+        [HttpGet]
+        [Route("api/user/article/{serial}")]
+        public getArticleBySerial_Result GetSingleArticle(int serial)
+        {
+            return db.getArticleBySerial(serial).FirstOrDefault<getArticleBySerial_Result>();
+
+        }
+
 
         [HttpPost]
         [Route("api/user/articles")]
@@ -241,5 +254,6 @@ namespace DigitalNetwork.Controllers
             return "" + 0;
 
         }
+        
     }
 }

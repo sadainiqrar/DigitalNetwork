@@ -11,9 +11,10 @@ function umsFactory($http) {
         return $http.put('http://localhost:3208/api/ums/add', data);
     }
 
-    function urlShortner(_url) {
-        var data = { longUrl: _url };
-        return $http.post('https://www.googleapis.com/urlshortener/v1/url?key=AIzaSyDvURFxjBImiFEEsJjNunfVSvbrRP1u9yA', data);
+    function urlShortner(_url, _uid) {
+       
+       var data = { ums_id: _url, uid : _uid };
+       return $http.post('http://localhost:3208/api/url/shorten', data);
     }
 
     function getUms( _uid) {

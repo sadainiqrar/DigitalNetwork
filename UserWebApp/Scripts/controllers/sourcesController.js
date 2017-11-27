@@ -16,19 +16,8 @@ function sourcesController($scope, Facebook, $rootScope, $cookies, umsFactory, M
     $scope.ums = [];
     $scope.loginStatus = 'disconnected';
     $scope.bodyText = 'This text can be updated in modal 1';
-
-    $scope.url = "";
-    umsFactory.urlShortner('http://trumpgossiptoday.com').then(
-        // callback function for successful http request
-        function success(response) {
-            $scope.url = response.data;
-
-        },
-        // callback function for error in http request
-        function error(response) {
-            // log errors
-        }
-    );
+    
+    
 
 
     Facebook.getLoginStatus(function (response) {

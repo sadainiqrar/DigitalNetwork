@@ -57,9 +57,10 @@ scotchApp.config(['$stateProvider', 'FacebookProvider', '$urlRouterProvider', '$
         })
 
         .state('dashboard.articlestats', {
-            url: '/articlestats/:id',
+            url: '/articlestats/:serial',
             templateUrl: 'Views/Dashboard/articlestats.html',
-            controller: 'articlestatsController'
+            controller: 'articlestatsController',
+            
         })
 
 

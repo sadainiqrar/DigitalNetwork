@@ -14,7 +14,10 @@ namespace UserWebApp
             bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
                 "~/js/bootstrap.min.js",
                 "~/js/paper-dashboard.js",
-                "~/Scripts/jquery-1.10.2.min.js"
+                "~/js/barScript.js",
+                "~/Scripts/jquery-1.10.2.min.js",
+
+                "~/js/realtime.js"
                         ));
 
 

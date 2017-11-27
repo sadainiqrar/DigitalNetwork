@@ -1,9 +1,9 @@
 var controllerId = 'articlesController';
 
 angular.module('DigitalMarket').controller(controllerId,
-    ['$scope', 'Facebook', '$rootScope', '$cookies', 'articleFactory', 'umsFactory' ,'ModalService', 'sessionFactory', articlesController]);
+    ['$scope', 'Facebook', '$state', '$rootScope', '$cookies', 'articleFactory', 'umsFactory' ,'ModalService', 'sessionFactory', articlesController]);
 
-function articlesController($scope, Facebook, $rootScope, $cookies, articleFactory, umsFactory, ModalService, sessionFactory) {
+function articlesController($scope, Facebook, $state, $rootScope, $cookies, articleFactory, umsFactory, ModalService, sessionFactory) {
     $rootScope.globals = $cookies.getObject('globals') || {};
     $scope.userdata = $rootScope.globals.currentUser;
     $scope.username = $scope.userdata.fullname;
@@ -147,12 +147,19 @@ function articlesController($scope, Facebook, $rootScope, $cookies, articleFacto
     $scope.updateStatusShared = function () {
 
         var page = this.s;
+        var url = $scope.current.url;
+
+        umsFactory.urlShortner($scope.current.url, $scope.id).then(
+            // callback function for successful http request
+            function success(response) {
+                url = response.data;
+
+            
 
         Facebook.api("/me/feed?access_token=" + page.access_token,
             "POST",
             {
-                "message": "Test Share",
-                "link": $scope.current.url
+                "link": url
             }, function (response) {
             if (response) {
                 $scope.current.shared = true;
@@ -173,7 +180,12 @@ function articlesController($scope, Facebook, $rootScope, $cookies, articleFacto
 
         });
 
-       
+            },
+            // callback function for error in http request
+            function error(response) {
+                // log errors
+            }
+        );
 
 
         
@@ -182,5 +194,9 @@ function articlesController($scope, Facebook, $rootScope, $cookies, articleFacto
     $scope.active = 'Political';
     $scope.makeActive = function (item) {
         $scope.active = $scope.active === item ? item : item;
+    }
+    $scope.reroute = function ()
+    {
+        $state.go('dashboard.articlestats', { serial: this.article.serial_no });
     }
 }

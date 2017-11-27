@@ -246,6 +246,7 @@ p{
     
 }.widthpanel{
     background-color: #f8f8f8;
+    padding-bottom: 8em;
     width: 100%;
 }
 .col-md-9 {
@@ -638,6 +639,50 @@ tr > td.yeclass
 }
 @media (max-width: 500px) {.title2{ padding: 3em 0em 1em 0em;}
 }
+
+.detailsArticleImage
+{
+    padding-left: 6em;
+}
+@media(max-width:424px){
+    .detailsArticleImage
+        {
+            padding-left: 2em;
+        }
+}
+.decron{
+    padding: 1em 0em 1em 3em
+}
+@media(max-width:424px){
+    .decron{
+    padding: 1em 0em 1em 3em
+}
+}
+.articleDetailsec{
+    padding-top: 1em;
+    
+}
+@media(min-width:570px){
+    .articleDetailsec{
+        padding-left: 5em;
+        }
+}
+@media(min-width:992px){
+    .articleDetailsec{
+        padding-left: 0em;
+        }
+}
+.trafficNRev{
+    float: left; 
+    padding-left: 4.5em;
+}
+@media(max-width:425px)
+{
+    .trafficNRev{
+    padding-left: 1em;
+}
+}
+
 
 
 
@@ -1073,14 +1118,15 @@ MSArt{
 }
 
 #monthbutton{
-  padding: 3em 1em 1em 15em;
+  padding-top: 3em;
+    float: right;   
 }
 #mbtn{
 background: transparent;
     border: 0
 }
 #activebutton{
-     background:#bc49ff;
+    background:#9539ca;
     color: #fff;
     border-radius: 10px;
     width: 5em;

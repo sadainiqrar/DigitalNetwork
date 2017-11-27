@@ -79,6 +79,14 @@ namespace DigitalNetwork.DataModel
 
 
     }
+
+    public class graphInput:shared_input
+    {
+
+        public System.DateTime fromDate { get; set; }
+
+        public System.DateTime toDate { get; set; }
+    }
     public class view_share
     {
 
@@ -104,6 +112,8 @@ namespace DigitalNetwork.DataModel
         public string sessions { get; set; }
         public string newSessions { get; set; }
     }
+
+
 
     public class user_traffic
     {

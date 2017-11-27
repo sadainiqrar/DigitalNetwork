@@ -4,14 +4,12 @@ angular.module('DigitalMarket').controller(controllerId,
     ['$scope','$stateParams', 'singleArticleFactory','updateArticleFactory', articlestatsController]);
 
 function articlestatsController($scope, $stateParams, singleArticleFactory, updateArticleFactory) {
-    var id = $stateParams.id;
+    var serial = $stateParams.serial;
     $scope.message = 'Articles Stats Controller';
-    singleArticleFactory.getArticle(id).then(
+    singleArticleFactory.getArticle(serial).then(
         // callback function for successful http request
         function success(response) {
             $scope.article = response.data;
-            $scope.status = $scope.article[0].status;
-            $scope.serial = $scope.article[0].serial_no;
         },
         // callback function for error in http request
         function error(response) {

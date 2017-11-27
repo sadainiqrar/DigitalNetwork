@@ -194,6 +194,7 @@
     <Content Include="js\app.plugin.js" />
     <Content Include="js\appear\jquery.appear.js" />
     <Content Include="js\apps\notes.js" />
+    <Content Include="js\barScript.js" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\calendar\bootstrap_calendar.css" />

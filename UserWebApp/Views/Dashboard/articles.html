@@ -51,7 +51,7 @@
 
                         <!-- shared Articles body -->
 
-                        <div class="row" ng-repeat="article in shared_articles | filter:{ sub_category: _sub_category, category: _category  }">
+                        <div class="row" ng-click="reroute()" ng-repeat="article in shared_articles | filter:{ sub_category: _sub_category, category: _category  }">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sharedArticleDiv" style="padding: 0px 0px 0px 0px;">
                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                                     <div id="imageDiv" class="col-lg-6 col-md-6 col-sm-5 col-xs-6" style="height: 180px">
