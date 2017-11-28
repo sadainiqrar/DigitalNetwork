@@ -77,6 +77,7 @@ namespace UserWebApp
                          "~/Scripts/factories/sessionFactory.js",
                          "~/Scripts/factories/paymentFactory.js",
                            "~/Scripts/factories/statisticsFactory.js",
+                           "~/Scripts/factories/graphFactory.js",
                            "~/Scripts/services/modalService.js",
                            "~/Scripts/services/modalDirective.js",
                            "~/Scripts/controllers/sourcesController.js"

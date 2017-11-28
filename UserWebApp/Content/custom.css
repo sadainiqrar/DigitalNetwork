@@ -709,12 +709,31 @@ tr > td.yeclass
     background-color: #f5fafc;
 }
 
-#imageDivMS{
-    height: 8em;
+#imageDivMS {
+    height: 100%; width: 40%;
 }
-@media (max-width: 768px) {#imageDivMS{ height : 15em;}
+@media (min-width: 1200px) {
+    #imageDivMS {
+        height: 100%;
+        width: 35%;
+    }
 }
-@media (max-width: 500px) {#imageDivMS{ height : 8em;}
+@media (max-width: 768px) {
+    #imageDivMS {
+        height: 100%;
+        width: 40%;
+    }
+}
+@media (max-width: 992px) {
+    #imageDivMS {
+        height: 100%;
+        width: 30%;
+    }
+}
+@media (max-width: 500px) {
+    #imageDivMS {
+        height: 100%; width: 50%;
+    }
 }
 
 MSArt{
@@ -1121,11 +1140,11 @@ MSArt{
   padding-top: 3em;
     float: right;   
 }
-#mbtn{
+.mbtn{
 background: transparent;
     border: 0
 }
-#activebutton{
+.activebutton{
     background:#9539ca;
     color: #fff;
     border-radius: 10px;

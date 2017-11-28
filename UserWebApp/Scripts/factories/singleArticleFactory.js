@@ -9,7 +9,6 @@ function singleArticleFactory($http) {
         return $http.get('http://localhost:3208/api/user/article/' + _serial);
     }
     
-   
 
     var service = {
         getArticle: getArticle

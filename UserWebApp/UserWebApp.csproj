@@ -365,6 +365,7 @@
     <Content Include="Scripts\controllers\userdataController.js" />
     <Content Include="Scripts\controllers\userstatsController.js" />
     <Content Include="Scripts\factories\articleFactory.js" />
+    <Content Include="Scripts\factories\graphFactory.js" />
     <Content Include="Scripts\factories\paymentFactory.js" />
     <Content Include="Scripts\factories\sessionFactory.js" />
     <Content Include="Scripts\factories\singleArticleFactory.js" />

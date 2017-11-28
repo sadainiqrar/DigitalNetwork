@@ -80,12 +80,16 @@ namespace DigitalNetwork.DataModel
 
     }
 
-    public class graphInput:shared_input
+
+    public class trafficInput : User_Analytic_Input
     {
 
+        public string url { get; set; }
+  
+        public string site_url { get; set; }
         public System.DateTime fromDate { get; set; }
-
         public System.DateTime toDate { get; set; }
+        public string id { get; set; }
     }
     public class view_share
     {
@@ -111,6 +115,13 @@ namespace DigitalNetwork.DataModel
         public string country { get; set; }
         public string sessions { get; set; }
         public string newSessions { get; set; }
+    }
+
+    public class GraphStats
+    {
+        public string dateTime { get; set; }
+        public string sessions { get; set; }
+        public double earned { get; set; }
     }
 
 

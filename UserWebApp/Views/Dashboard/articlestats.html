@@ -34,7 +34,7 @@
                                             <i class="fa fa-money" aria-hidden="true" style="margin: 8px; color: #58d1ff;"></i>
                                             <strong style="color: #58d1ff; font-size: 12pt;">
 
-                                                <br> 600$
+                                                <br> {{totalEarned}}$
                                             </strong>
                                         </center>
                                     </span>
@@ -51,7 +51,7 @@
                                             <i class="fa fa-line-chart" aria-hidden="true" style="margin: 8px; color: #6a52e9;"></i>
                                             <strong style="color: #6a52e9; font-size: 12pt;">
 
-                                                <br> 900$
+                                                <br> {{totalTraffic}}
                                             </strong>
                                         </center>
                                     </span>
@@ -75,9 +75,9 @@
                         </div>
 
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-5" id="monthbutton">
-                            <button type="button" id="activebutton">Month</button>
-                            <button type="button" id="mbtn">Day</button>
-                            <button type="button" id="mbtn">Year</button>
+                            <button class="mbtn" type="button" ng-click='makeActive("month")' ng-class="{ 'activebutton': extra=='month'}">Month</button>
+                            <button class="mbtn" type="button" ng-click='makeActive("week")' ng-class="{ 'activebutton': extra=='week'}">Week</button>
+                            <button class="mbtn" type="button" ng-click='makeActive("year")' ng-class="{ 'activebutton': extra=='year'}">Year</button>
                         </div>
                     </div>
                     <div class="col-md-10 col-md-offset-1">
