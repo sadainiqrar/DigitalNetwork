@@ -1,0 +1,75 @@
+﻿<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 main-panel main-panel-margin">
+
+
+    <div class="col-md-12 widthpanel" style="padding-bottom: 2em;">
+
+        <div class="bar" style="margin-top: 0px;">
+
+
+            <div class=" col-md-12 col-sm-12 col-xs-12" style="background-image: url(http://eskipaper.com/images/blue-solid-color-wallpaper-1.jpg) ; height: 20em;">
+                <center>
+                    <h3 style="color: white;font-size: 12pt;font-family: sans-serif">REAL TIME TRAFFIC</h3>
+                </center>
+
+                <center>
+                    <div class="lockPosition">
+                        <div style="display: table-cell; padding: 0em 0.3em" ng-repeat="n in breaker(realtimeValue[uid].total_traffic *100 ) track by $index">
+                            <div class="lock-dial" ><p id="numbrlock">{{n}}</p></div>
+                        </div>
+                    </div>
+
+                </center>
+            </div>
+
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+
+
+                <div class="col-md-6 col-sm-12 col-xs-12" style="padding: 1em 1em 1em 1em">
+                    <section id="parha" class="panel" style="margin: 0;padding: 1em 1em 1em 1em;">
+                        <div>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th id="realtimetable"><b>COUNTRY NAME</b></th>
+                                        <th id="realtimetable"><b>SESSIONS</b></th>
+                                    </tr>
+                                </thead>
+                            </table>
+
+                        </div>
+                        <div class="table-responsive" style=" height: 14em;overflow-x: hidden; overflow-y: scroll;">
+                            <table class="table">
+
+                                <tbody>
+                                    <tr ng-repeat="c in realtimeValue[uid].country_stats">
+                                        <td id="namefont">{{c.country}}</td>
+                                        <td id="sessioncolor"><i class="fa fa-caret-up" aria-hidden="true"></i>{{c.sessions}}</td>
+                                    </tr>
+                                  
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+
+
+                <div class="col-lg-6 col-md-6 sol-sm-12 col-xs-12" style="padding: 1em 1em 1em 1em">
+                    <section class="panel" style="padding: 0px;" id="chart-container">
+                        A world map will load here!
+                    </section>
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+</div>
+
+
+

@@ -562,5 +562,10 @@ namespace DigitalNetwork.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("user_update", uidParameter, photoParameter);
         }
+    
+        public virtual ObjectResult<getAllUser_Result> getAllUser()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getAllUser_Result>("getAllUser");
+        }
     }
 }

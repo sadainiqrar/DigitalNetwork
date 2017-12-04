@@ -201,10 +201,37 @@ color: white;
         
     }
 }
+
 .panel{
-    padding-top: 3em;
-    padding-bottom: 3em;
+        padding: 4em 3em;
     
+}
+@media(max-width:425px)
+{
+    .panel{
+     padding: 4em 10px;
+}
+}@media(min-width:525px)
+{
+    .panel{
+     padding: 4em 7em;
+}@media(min-width:768px)
+{
+    .panel.Articlepanel{
+     padding: 4em 2em;
+        }
+}
+    @media(min-width:992px)
+{
+    .panel.Articlepanel{
+     padding: 4em 1em;
+}
+}
+}@media(min-width:992px)
+{
+    .panel{
+     padding: 4em 3em;
+}
 }
 .SubPanel{
     padding-top: 0em;
@@ -377,6 +404,13 @@ p{
     font-weight: bold;
     background-color: coral;
 }
+.icon{
+    font-size: 14pt;
+}@(max-width:425px){
+    .icon{
+    font-size: 12pt;
+    }
+}
 
 .title1{
     height: 75px;
@@ -384,15 +418,45 @@ p{
     overflow: hidden;
     font-size: 12pt;
     text-align: left;
-    
+    margin-bottom: 3.5em;
+    font-weight: 500;
+    color: #000;
     
 }
+
 @media(max-width: 425px){
     .title1{
-        padding-top:8px;
-    height: 90px;
+        margin: 5px 0px 5px 0px;
+        padding-top:0;
+        height: 50px;
         font-size: 8pt;
     }
+}
+
+@media(min-width: 425px){
+    .title1{
+        margin: 5px 0px 1em 0px;
+        height: 60px;
+    }
+}
+@media(min-width: 767px){
+    .title1{
+        margin: 1em 0px 3em 0px;
+        height: 75px;
+    }
+}
+.atributeicon{ 
+    padding: 1.3em 0em 0em 0em;
+}@media(max-width: 767px){
+        .atributeicon{  
+            padding:1em;
+        }
+}
+.padsharecopy{
+    padding-top: 3em;
+}
+#articleSeparator{
+    margin: 0px;
 }
 .btnclass
 {
@@ -405,7 +469,7 @@ p{
     background-color: transparent;
 }
 .text-muted {
-    color: #e3e3e3;
+    color: #9a9a9d;
     font-family: lato-regular;
     font-size: 8pt;
     
@@ -428,8 +492,7 @@ p{
     padding-right: 2em;
 }
 #imageDiv{
-    padding-top:10px;
-    padding-left:10px;
+    padding:10px;
 }
 
 #articleimage{
@@ -437,6 +500,7 @@ p{
 }
 #articleTitleDiv{
     padding-left: 1em; 
+    padding-right: 1em;
 }
 #articleImageDiv{
     height: 12em;
@@ -709,31 +773,12 @@ tr > td.yeclass
     background-color: #f5fafc;
 }
 
-#imageDivMS {
-    height: 100%; width: 40%;
+#imageDivMS{
+    height: 8em;
 }
-@media (min-width: 1200px) {
-    #imageDivMS {
-        height: 100%;
-        width: 35%;
-    }
+@media (max-width: 768px) {#imageDivMS{ height : 15em;}
 }
-@media (max-width: 768px) {
-    #imageDivMS {
-        height: 100%;
-        width: 40%;
-    }
-}
-@media (max-width: 992px) {
-    #imageDivMS {
-        height: 100%;
-        width: 30%;
-    }
-}
-@media (max-width: 500px) {
-    #imageDivMS {
-        height: 100%; width: 50%;
-    }
+@media (max-width: 500px) {#imageDivMS{ height : 8em;}
 }
 
 MSArt{
@@ -756,58 +801,34 @@ MSArt{
 	height: 11em;
 	width: 3.5em;
     top: 1em;
-    left: 12em;
+    left: 0em;
 	margin-left: 22px;
 	background: rgba(0,0,0,.7);
     opacity: 0.4;
-	float: left;
-	position: relative;
 	border-radius: 5px 5px 5px 5px;
 }
-@media (min-width: 320px) {.lock-dial{margin: 4px; left: 0em; width: 2.5em;height: 8em}
+@media (min-width: 320px) {.lock-dial{margin: 4px;  width: 2.5em;height: 8em}
 }
-@media (min-width: 375px) {.lock-dial{margin: 3px; left: 0em; width: 3.5em;height: 10em}
+@media (min-width: 375px) {.lock-dial{margin: 3px;  width: 3.5em;height: 10em}
 }
-@media (min-width: 425px) {.lock-dial{margin: 3px; left: 4em; width: 3.5em;height: 10em}
+@media (min-width: 425px) {.lock-dial{margin: 3px;  width: 3.5em;height: 10em}
 }
-@media (min-width: 768px) {.lock-dial{margin: 2px; left: 16em; width: 3.5em;height: 10em}
+@media (min-width: 768px) {.lock-dial{margin: 2px;  width: 3.5em;height: 10em}
 }
-@media (min-width: 1024px) {.lock-dial{margin: 3px; left: 18em;width: 3.5em;height: 10em}
+@media (min-width: 1024px) {.lock-dial{margin: 3px; width: 3.5em;height: 10em}
 }
-@media (min-width: 1440px) {.lock-dial{margin: 3px; left: 20em; width: 3.5em;height: 10em}
+@media (min-width: 1440px) {.lock-dial{margin: 3px;  width: 3.5em;height: 10em}
 }
-@media (min-width: 2560px) {.lock-dial{margin: 3px; left: 50em; width: 3.5em;height: 10em}
+@media (min-width: 2560px) {.lock-dial{margin: 3px;  width: 3.5em;height: 10em}
 }
 
 
 .lockPosition{
-    margin-left: 4em;
+    margin-left: 0%;
+    display: table;
+    
 }
-@media(min-width : 570px){
-    .lockPosition{
-    margin-left: 8em;
-}
-}
-@media (min-width: 992px){
-    .lockPosition{
-    margin-left: -4em;
-}
-}
-@media (min-width: 1184px){
-    .lockPosition{
-    margin-left: 0em;
-}
-}
-@media (min-width: 1224px){
-    .lockPosition{
-    margin-left: 2em;
-}
-}
-@media (min-width: 1424px){
-    .lockPosition{
-    margin-left: 6em;
-}
-}
+
 
 
 #numbrlock{

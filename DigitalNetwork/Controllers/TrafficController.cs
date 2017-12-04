@@ -161,7 +161,7 @@ namespace DigitalNetwork.Controllers
         }
 
 
-        private List<get_user_traffic_Result> get_all_sites(string uid)
+        public List<get_user_traffic_Result> get_all_sites(string uid)
         {
             return db.get_user_traffic(uid).ToList<get_user_traffic_Result>();
         }

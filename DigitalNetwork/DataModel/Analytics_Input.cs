@@ -117,6 +117,7 @@ namespace DigitalNetwork.DataModel
         public string newSessions { get; set; }
     }
 
+
     public class GraphStats
     {
         public string dateTime { get; set; }

@@ -164,5 +164,74 @@ namespace DigitalNetwork.Controllers
             var rate = r.GetRate(category).FirstOrDefault<get_rate_Result>().rate;
             return (Double.Parse(sessions) * Decimal.ToDouble(rate))/1000;
         }
+
+
+
+
+        [HttpGet]
+        [Route("api/user/realtime")]
+        public Dictionary<string, RealtimeModel> statistics()
+        {
+            List<getAllUser_Result> users = new List<getAllUser_Result>();
+            digimarketEntities1 db = new digimarketEntities1();
+            using (var data = db.getAllUser())
+            {
+                users = data.ToList<getAllUser_Result>();
+            }
+            Dictionary<string,RealtimeModel> realtimeList = new Dictionary<string, RealtimeModel>();
+            foreach (var user in users)
+            {
+                TrafficController trafficController = new TrafficController();
+                //List < List < UserStats >> total_stats = new List<List<UserStats>>();
+
+                RealtimeModel final = new RealtimeModel() { total_traffic = 0, message = "BackEnd Task for" + user.fullname, country_stats = new List<CountryStat>() };
+
+                List<get_user_traffic_Result> res = trafficController.get_all_sites(user.uid);
+                foreach (var item in res)
+                {
+                    
+                    Authorization auth = new Authorization(item.email);
+                    var result = auth.service.Data.Realtime.Get("ga:" + item.ga_id, "rt:activeUsers");
+                    result.Dimensions = "rt:country";
+                    result.Filters = "ga:campaign=@" + user.username;
+                    var response = result.Execute();
+                    if (response.TotalResults != 0)
+                    {
+                        final.total_traffic = final.total_traffic + Int64.Parse(response.TotalsForAllResults["rt:activeUsers"]);
+                        foreach (var row in response.Rows)
+                        {
+                            // UserStats temp = user_stats.Last<UserStats>();
+
+                            CountryStat cStats = new CountryStat();
+
+                            cStats = final.country_stats.FirstOrDefault(x => x.country == row[0]);
+
+
+                            if (cStats == null)
+                            {
+                                cStats = new CountryStat() { country = row[0], sessions = Int64.Parse(row[1]) };
+                                final.country_stats.Add(cStats);
+                            }
+                            else
+                            {
+                                final.country_stats.Remove(cStats);
+                                cStats.sessions = cStats.sessions + Int64.Parse(row[1]);
+                                final.country_stats.Add(cStats);
+
+                            }
+                        }
+                    }
+                }
+                realtimeList.Add(user.uid, final);
+            }
+            return realtimeList;
+        }
+
+
+
+
+
+
+
     }
 }

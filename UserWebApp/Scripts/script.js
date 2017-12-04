@@ -1,7 +1,7 @@
 
    // 'use strict'// create the module and name it scotchApp
    // var loginApp = angular.module('loginApp',['ui-router']);
-var scotchApp = angular.module('DigitalMarket', ['ui.router', 'ngRoute', 'ngCookies', 'ngSanitize', 'ngMaterial','facebook']);
+var scotchApp = angular.module('DigitalMarket', ['ui.router', 'ngRoute', 'ng.epoch', 'ngCookies', 'ngSanitize', 'ngMaterial','facebook']);
 	// configure our routes
 
 
@@ -87,8 +87,19 @@ scotchApp.config(['$stateProvider', 'FacebookProvider', '$urlRouterProvider', '$
 
     scotchApp.run(run);
 
-    run.$inject = ['$rootScope','Facebook', '$location', '$state', '$cookies', '$http'];
-    function run($rootScope, Facebook, $location, $state, $cookies, $http) {
+    run.$inject = ['$rootScope', 'Facebook','realtimeHubProxy', '$location', '$state', '$cookies', '$http'];
+    function run($rootScope, Facebook, realtimeHubProxy, $location, $state, $cookies, $http) {
+        $rootScope.chartEntry = [];
+        var realtimeDataHub = realtimeHubProxy("http://localhost:3208/", 'RealtimeHub');
+
+        //$scope.realtimeLineFeed = entry;
+
+
+        realtimeDataHub.on('broadcastData', function (data) {
+            var timestamp = ((new Date()).getTime() / 1000) | 0;
+            $rootScope.realtimeValue = data;
+        });
+
 
         // keep user logged in after page refresh
         $rootScope.globals = $cookies.getObject('globals') || {};

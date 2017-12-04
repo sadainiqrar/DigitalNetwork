@@ -8,6 +8,8 @@ using System.Web.Optimization;
 using DigitalNetwork.Scheduler;
 using DigitalNetwork.Controllers;
 using System.Threading.Tasks;
+using Microsoft.Owin.Cors;
+using Microsoft.AspNet.SignalR;
 
 namespace DigitalNetwork
 {
@@ -15,18 +17,10 @@ namespace DigitalNetwork
     {
  
         protected void Application_Start()
-        {
-          
-            GlobalConfiguration.Configure(WebApiConfig.Register);
-
-            GlobalConfiguration.Configuration.EnsureInitialized();
-
-
+        { 
             articleUpdate.Start();
-            
         }
 
-      
-
+       
     }
 }

@@ -364,6 +364,9 @@
     <Content Include="Scripts\controllers\trafficController.js" />
     <Content Include="Scripts\controllers\userdataController.js" />
     <Content Include="Scripts\controllers\userstatsController.js" />
+    <Content Include="Scripts\d3.js" />
+    <Content Include="Scripts\d3.min.js" />
+    <Content Include="Scripts\epoch.min.js" />
     <Content Include="Scripts\factories\articleFactory.js" />
     <Content Include="Scripts\factories\graphFactory.js" />
     <Content Include="Scripts\factories\paymentFactory.js" />
@@ -1134,11 +1137,14 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.2.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.2.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\ng-epoch.js" />
     <Content Include="Scripts\script.js" />
     <Content Include="Scripts\services\homeservice\authentication.service.js" />
     <Content Include="Scripts\services\homeservice\flash.service.js" />
@@ -1146,6 +1152,8 @@
     <Content Include="Scripts\services\homeservice\user.service.local-storage.js" />
     <Content Include="Scripts\services\modalDirective.js" />
     <Content Include="Scripts\services\modalService.js" />
+    <Content Include="Scripts\services\realtimeService.js" />
+    <Content Include="Scripts\socket.io.js" />
     <Content Include="Views\Dashboard\articles.html" />
     <Content Include="Views\Dashboard\articlestats.html" />
     <Content Include="Views\Dashboard\dashboard.html" />
@@ -1153,6 +1161,7 @@
     <Content Include="Views\Dashboard\Home\login.html" />
     <Content Include="Views\Dashboard\Home\login.view.html" />
     <Content Include="Views\Dashboard\Home\register.view.html" />
+    <Content Include="Views\Dashboard\realtime.html" />
     <Content Include="Views\Dashboard\sources.html" />
     <Content Include="Views\Dashboard\statistics.html" />
     <Content Include="Views\Dashboard\payment.html" />

@@ -101,6 +101,14 @@
                         <span class="text">STATISTICS</span>
                     </a>
                 </li>
+                <li ng-click='makeActive("/realtime")' ng-class="{ 'active-o': active=='/realtime'}">
+                    <a ui-sref="dashboard.realtime">
+                        <i class="fa fa-pie-chart icon">
+                            <b class="bg-success"></b>
+                        </i>
+                        <span class="text">REALTIME</span>
+                    </a>
+                </li>
                 <li ng-click='makeActive("/marketingsources")' ng-class="{ 'active-o': active=='/marketingsources'}">
                     <a ui-sref="dashboard.marketingsources">
                         <i class="fa fa-rocket icon">
@@ -165,6 +173,14 @@
                         <span class="text">STATISTICS</span>
                     </a>
                 </li>
+                <li ng-click='makeActive("/realtime")' ng-class="{ 'active-o': active=='/realtime'}">
+                    <a ui-sref="dashboard.realtime">
+                        <i class="fa fa-pie-chart icon">
+                            <b class="bg-success"></b>
+                        </i>
+                        <span class="text">REALTIME</span>
+                    </a>
+                </li>
                 <li ng-click='makeActive("/marketingsources")' ng-class="{ 'active-o': active=='/marketingsources'}">
                     <a ui-sref="dashboard.marketingsources">
                         <i class="fa fa-rocket icon">
@@ -194,5 +210,22 @@
 
 
 
-    <div class="col-md-3 chat widthchat hidden-xs hidden-sm" style="float:right"> Chat Section</div>
+    <div class="col-md-3 chat widthchat hidden-xs hidden-sm" style="float:right"> 
+
+        <ul>
+            <li ng-repeat="m in messages">
+                <p>{{m}}</p>
+            </li>
+        </ul>
+        <label>
+            Message word:
+            <input type="text" name="input" ng-model="message"
+                   required>
+        </label>
+        <button ng-click="send()" >Send</button>
+
+        <button ng-click="discon()">Send</button>
+    
+    
+    </div>
 </div>

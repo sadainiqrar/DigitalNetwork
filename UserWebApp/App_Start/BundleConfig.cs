@@ -16,12 +16,17 @@ namespace UserWebApp
                 "~/js/paper-dashboard.js",
                 "~/js/barScript.js",
                 "~/Scripts/jquery-1.10.2.min.js",
+                "~/Scripts/jquery.signalR-2.2.2.min.js",
+                "~/Scripts/jquery.signalR-2.2.2.js",
+                "~/Scripts/d3.min.js",
+                "~/Scripts/epoch.min.js",
+                "~/Scripts/ng-epoch.js",
 
                 "~/js/realtime.js"
                         ));
+            
 
-
-            bundles.Add(new StyleBundle("~/Content/css").Include(
+               bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/modal.css",
                 "~/Content/bootstrap.min.css",
                  "~/Content/animate.css",
@@ -80,6 +85,7 @@ namespace UserWebApp
                            "~/Scripts/factories/graphFactory.js",
                            "~/Scripts/services/modalService.js",
                            "~/Scripts/services/modalDirective.js",
+                           "~/Scripts/services/realtimeService.js",
                            "~/Scripts/controllers/sourcesController.js"
                         ));
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.SignalR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -14,8 +15,8 @@ namespace DigitalNetwork
 
             // Web API routes
 
-            var corsAttribute = new EnableCorsAttribute("*", "*", "GET, PUT, POST, DELETE, OPTIONS","*");
-            config.EnableCors(corsAttribute);
+            //var corsAttribute = new EnableCorsAttribute("*", "*", "GET, PUT, POST, DELETE, OPTIONS","*");
+            //config.EnableCors(corsAttribute);
 
             config.MapHttpAttributeRoutes();
 
