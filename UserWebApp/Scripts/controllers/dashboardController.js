@@ -1,11 +1,29 @@
 	// create the controller and inject Angular's $scope
-angular.module('DigitalMarket').controller('dashboardController', function ($scope, Facebook,  AuthenticationService,  $rootScope,$state, $cookies, $location) {
+angular.module('DigitalMarket').controller('dashboardController', function ($scope, socket, Facebook,  AuthenticationService,  $rootScope,$state, $cookies, $location) {
     $rootScope.globals = $cookies.getObject('globals') || {};
 
    $scope.userdata = $rootScope.globals.currentUser;
    $scope.username = $scope.userdata.fullname;
-   
+   $scope.tempData = [];
 
+   $scope.chat = true;
+   $scope.chattext = 'Turn On Chat';
+   
+   $scope.hidechat = function ()
+   {
+       $scope.chat = !($scope.chat);
+       if ($scope.chat)
+       {
+           $scope.chattext = 'Turn On Chat';
+       }
+       else {
+
+           $scope.chattext = 'Turn Off Chat';
+       }
+   }
+   if (socket) {
+       socket.emit('disconnect', { username: $scope.userdata.username });
+   }
 
    Facebook.getLoginStatus(function (response) {
        if (response.status === 'connected') {
@@ -43,44 +61,46 @@ angular.module('DigitalMarket').controller('dashboardController', function ($sco
        });
    };
 
+
    $scope.messages = [];
 
    $scope.message = "";
-   $scope.socket = io.connect("http://localhost:3000");
-    function initChat(userName) {
         
 
-        $scope.socket.on("connect", function () {
-            $scope.socket.emit('join', { username: userName });
+
+
+
+        socket.on("connect", function () {
+            socket.emit('join', { username: $scope.userdata.username });
+
+            socket.emit('getmessages');
+        });
+        
+
+        socket.on("initialize", function (data) {
+            $scope.messages = data;
         });
 
-        $scope.socket.on("join", function (data) {
-            alert("joined");
+        socket.on("message", function (data) {
 
+            $scope.messages.push({ username: data.username, message: data.message });
         });
 
-        $scope.socket.on("message", function (data) {
-
-            $scope.messages.push("<b>" + data.username + "</b> : " + data.message);
-        });
-
-        $scope.socket.on("unjoin", function (data) {
+        socket.on("unjoin", function (data) {
             alert(data.username + " has left")
         });
 
-
-   }
+        
 
     
-    initChat($scope.userdata.username);
 
 
     $scope.send = function ()
     {
-        if ($scope.socket)
+        if (socket && $scope.message!='')
         {
             var data = { username: $scope.userdata.username, message: $scope.message}
-            $scope.socket.emit('message', data );
+            socket.emit('message', data );
         }
 
         $scope.message = '';
@@ -88,12 +108,11 @@ angular.module('DigitalMarket').controller('dashboardController', function ($sco
 
     $scope.discon = function ()
     {
-        if ($scope.socket) {
-            $scope.socket.emit('disconnect');
+        if (socket) {
+            socket.emit('disconnect', { username: $scope.userdata.username });
         }
     }
     
-
    $scope.active = $location.$$path;
    $scope.makeActive = function (item) {
        $scope.active = $scope.active == item ? '' : item;

@@ -209,23 +209,143 @@
 
 
 
+    <div class="col-md-3 chat widthchat hidden-xs hidden-sm" style="float:right;">
 
-    <div class="col-md-3 chat widthchat hidden-xs hidden-sm" style="float:right"> 
+        <div class="col-md-12" ng-hide="!(chat)">
 
-        <ul>
-            <li ng-repeat="m in messages">
-                <p>{{m}}</p>
-            </li>
-        </ul>
-        <label>
-            Message word:
-            <input type="text" name="input" ng-model="message"
-                   required>
-        </label>
-        <button ng-click="send()" >Send</button>
+            <ul class="nav nav-tabs" id="Tab" style=" padding: 0em 1em;">
+                <li class="active"><a class="chatTab" data-toggle="tab">Top Users</a></li>
+                <li><a class="chatTab" data-toggle="tab">NOTIFICATIONS</a></li>
+            </ul>
 
-        <button ng-click="discon()">Send</button>
-    
-    
+
+
+            <div class="col-md-12 subPanel" style="overflow-y: auto; height: 460px;">
+                <div class="col-md-12 topuserpad">
+                    <div class="col-lg-2 col-md-2 imgchatpad">
+                        <img class="img-circle imagecircle" src="Images/download.jpg" style="width:30px">
+                    </div>
+                    <div class="col-lg-9 col-md-9" style="padding-left: 10px;">
+                        <p class="topusername">Sarah Wilson</p>
+                        <p class="usrearning">Total Earnings:3000$</p>
+                    </div>
+                </div>
+                <div class="col-md-12 topuserpad">
+                    <div class="col-lg-2 col-md-2 imgchatpad">
+                        <img class="img-circle imagecircle" src="Images/download.jpg" style="width:30px">
+                    </div>
+                    <div class="col-lg-9 col-md-9" style="padding-left: 10px;">
+                        <p class="topusername">Sarah Wilson</p>
+                        <p class="usrearning">Total Earnings:3000$</p>
+                    </div>
+                </div>
+                <div class="col-md-12 topuserpad">
+                    <div class="col-lg-2 col-md-2 imgchatpad">
+                        <img class="img-circle imagecircle" src="download.jpg" style="width:30px">
+                    </div>
+                    <div class="col-lg-9 col-md-9" style="padding-left: 10px;">
+                        <p class="topusername">Sarah Wilson</p>
+                        <p class="usrearning">Total Earnings:3000$</p>
+                    </div>
+                </div>
+                <div class="col-md-12 topuserpad">
+                    <div class="col-lg-2 col-md-2 imgchatpad">
+                        <img class="img-circle imagecircle" src="download.jpg" style="width:30px">
+                    </div>
+                    <div class="col-lg-9 col-md-9" style="padding-left: 10px;">
+                        <p class="topusername">Sarah Wilson</p>
+                        <p class="usrearning">Total Earnings:3000$</p>
+                    </div>
+                </div>
+                <div class="col-md-12 topuserpad">
+                    <div class="col-lg-2 col-md-2 imgchatpad">
+                        <img class="img-circle imagecircle" src="download.jpg" style="width:30px">
+                    </div>
+                    <div class="col-lg-9 col-md-9" style="padding-left: 10px;">
+                        <p class="topusername">Sarah Wilson</p>
+                        <p class="usrearning">Total Earnings:3000$</p>
+                    </div>
+                </div>
+                <div class="col-md-12 topuserpad">
+                    <div class="col-lg-2 col-md-2 imgchatpad">
+                        <img class="img-circle imagecircle" src="download.jpg" style="width:30px">
+                    </div>
+                    <div class="col-lg-9 col-md-9" style="padding-left: 10px;">
+                        <p class="topusername">Sarah Wilson</p>
+                        <p class="usrearning">Total Earnings:3000$</p>
+                    </div>
+                </div>
+                <div class="col-md-12 topuserpad">
+                    <div class="col-lg-2 col-md-2 imgchatpad">
+                        <img class="img-circle imagecircle" src="download.jpg" style="width:30px">
+                    </div>
+                    <div class="col-lg-9 col-md-9" style="padding-left: 10px;">
+                        <p class="topusername">Sarah Wilson</p>
+                        <p class="usrearning">Total Earnings:3000$</p>
+                    </div>
+                </div>
+                <div class="col-md-12 topuserpad">
+                    <div class="col-lg-2 col-md-2 imgchatpad">
+                        <img class="img-circle imagecircle" src="download.jpg" style="width:30px">
+                    </div>
+                    <div class="col-lg-9 col-md-9" style="padding-left: 10px;">
+                        <p class="topusername">Sarah Wilson</p>
+                        <p class="usrearning">Total Earnings:3000$</p>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+        </div>
+
+
+
+        <div ng-hide="chat">
+            <div class="col-md-12" style="padding: 1em 0em">
+
+                <center><p style="font-size: 8pt;font-weight: 600;color: #797d81">CHAT BOX</p></center><button type="button" class="cross" ng-click="hidechat()">&times;</button>
+
+
+            </div>
+
+            <hr class="chatline" style="margin: 0;margin-left: 5px">
+
+            <div class="col-md-12 subPanel" style="overflow-y: auto;overflow-x: hidden; height: 400px;">
+
+                <div class="row rowpad" style="height:fit-content" ng-repeat="m in messages">
+
+                    <div class="col-lg-2 col-md-2" ng-class="{ 'userchat': m.username!=userdata.username,'friendchat': m.username==userdata.username }">
+                        <img class="img-circle" src="images/download.jpg" style="width:25px;">
+                    </div>
+                    <p ng-class="{ 'chattime': m.username!=userdata.username,'chattimefriend': m.username==userdata.username  }">{{m.username}}</p>
+                    <div class="col-lg-10 col-md-10" ng-class="{ 'userdiv': m.username!=userdata.username,'frienddiv': m.username==userdata.username }">
+                        <p ng-class="{ 'userchatmsg': m.username!=userdata.username,'friendchatmsg': m.username==userdata.username  }">{{m.message}}</p>
+                    </div>
+
+                </div>
+
+
+
+
+
+            </div>
+
+
+            <div class="col-md-12">
+
+                <hr class="linechat">
+
+                <input type="text" placeholder="Type your message..." class="messagebox" style="width: 90%;" ng-model="message" ng-keyup="$event.keyCode == 13 && send()"><i class="fa fa-send" id="sendbtnicon" ng-click="send()"></i>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <button class="button" ng-class="{ 'chatbutton': chat,'chatoffbutton': !chat  }" ng-click="hidechat()">{{chattext}}<i class="fa fa-share-square-o" aria-hidden="true" style="float:right;padding-top:4px" ></i></button>
+
+        </div>
+
     </div>
 </div>

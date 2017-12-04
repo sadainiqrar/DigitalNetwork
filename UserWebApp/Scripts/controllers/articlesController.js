@@ -1,9 +1,9 @@
 var controllerId = 'articlesController';
 
 angular.module('DigitalMarket').controller(controllerId,
-    ['$scope', 'Facebook', '$state', '$rootScope', '$cookies', 'articleFactory', 'umsFactory' ,'ModalService', 'sessionFactory', articlesController]);
+    ['$scope', 'Facebook', 'clipboard', '$state', '$rootScope', '$cookies', 'articleFactory', 'umsFactory' ,'ModalService', 'sessionFactory', articlesController]);
 
-function articlesController($scope, Facebook, $state, $rootScope, $cookies, articleFactory, umsFactory, ModalService, sessionFactory) {
+function articlesController($scope, Facebook, clipboard, $state, $rootScope, $cookies, articleFactory, umsFactory, ModalService, sessionFactory) {
     $rootScope.globals = $cookies.getObject('globals') || {};
     $scope.userdata = $rootScope.globals.currentUser;
     $scope.username = $scope.userdata.fullname;
@@ -13,6 +13,13 @@ function articlesController($scope, Facebook, $state, $rootScope, $cookies, arti
     $scope.shared_articles = [];
     $scope.addedUms = [];
     $scope.ums = [];
+
+    $scope.trafficloading = true;
+    $scope.earnedloading = true;
+    $scope.umsloading = true;
+
+    $scope.order = ['modified_date', 'views', 'shares'];
+    $scope.selectedOrder = $scope.order[1];
 
     $scope._category = 'premium';
     $scope._sub_category = 'Political';
@@ -44,9 +51,13 @@ function articlesController($scope, Facebook, $state, $rootScope, $cookies, arti
                             $scope.addedUms.push(value);
                         }
                     }
+                        
                     );
+                    
+                    $scope.umsloading = false;
                 } else {
                     //FlashService.Error(response.message);
+                    $scope.umsloading = false;
 
                 }
 
@@ -68,8 +79,12 @@ function articlesController($scope, Facebook, $state, $rootScope, $cookies, arti
                                 }
                             }
                             );
+                            
+                            $scope.umsloading = false;
                         } else {
                             //FlashService.Error(response.message);
+                            
+                            $scope.umsloading = false;
 
                         }
 
@@ -77,6 +92,7 @@ function articlesController($scope, Facebook, $state, $rootScope, $cookies, arti
 
                 } else {
                     //FlashService.Error(response.message);
+                    $scope.umsloading = false;;
 
                 }
             }, { scope: 'manage_pages,pages_show_list,publish_actions' });
@@ -98,16 +114,23 @@ function articlesController($scope, Facebook, $state, $rootScope, $cookies, arti
                             function success(response) {
                                 value.shares = (response.data[0].rate / 1000) * parseFloat(value.views);
 
+                                $scope.trafficloading = false;
+                                $scope.earnedloading = false;
+
                             },
                             // callback function for error in http request
                             function error(response) {
                                 // log errors
+                                $scope.trafficloading = false;
+                                $scope.earnedloading = false;
                             }
                         );
                     },
                     // callback function for error in http request
                     function error(response) {
                         value.views = "0";
+                        $scope.trafficloading = false;
+                        $scope.earnedloading = false;
                         //// log errors
                     }
 
@@ -116,6 +139,8 @@ function articlesController($scope, Facebook, $state, $rootScope, $cookies, arti
         },
         // callback function for error in http request
         function error(response) {
+                                $scope.trafficloading = false;
+                                $scope.earnedloading = false;
             // log errors
         }
     );
@@ -130,22 +155,40 @@ function articlesController($scope, Facebook, $state, $rootScope, $cookies, arti
         ModalService.Close(id);
     }
 
-    $scope.updateStatusCopied = function () {
-
+    $scope.updateStatusCopied = function ($event) {
+        $scope.current = this.article;
         this.article.copied = true;
-        articleFactory.updateCopiedArticles($scope.uid , this.article.serial_no, this.article.shared).then(
+
+        var url = $scope.current.url;
+
+        $event.stopPropagation();
+
+        umsFactory.urlShortner($scope.current.url, $scope.id).then(
             // callback function for successful http request
             function success(response) {
-              
+                url = response.data;
+
+                articleFactory.updateCopiedArticles($scope.uid, $scope.current.serial_no, $scope.current.shared).then(
+                    // callback function for successful http request
+                    function success(response) {
+                    },
+                    // callback function for error in http request
+                    function error(response) {
+                        // log errors
+                    }
+                );
+
             },
             // callback function for error in http request
             function error(response) {
                 // log errors
             }
         );
+
+        clipboard.copyText(url);
+
     }
     $scope.updateStatusShared = function () {
-
         var page = this.s;
         var url = $scope.current.url;
 

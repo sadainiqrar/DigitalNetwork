@@ -58,7 +58,8 @@ namespace UserWebApp
                 "~/Scripts/angular-aria.min.js",
                 "~/Scripts/angular-messages.min.js",
                 "~/Scripts/angular-material.min.js",
-                "~/Scripts/material.indigo-pink.min.js"
+                "~/Scripts/material.indigo-pink.min.js",
+                "~/Scripts/angular-clipboard.js"
 
                         ));
             bundles.Add(new ScriptBundle("~/bundles/adminScript").Include(
@@ -76,6 +77,7 @@ namespace UserWebApp
                             "~/Scripts/controllers/dashboardController.js",
 
                         "~/Scripts/factories/articleFactory.js",
+                        "~/Scripts/factories/socketFactory.js",
 
                         "~/Scripts/factories/singleArticleFactory.js",
                         "~/Scripts/factories/updateArticleFactory.js",

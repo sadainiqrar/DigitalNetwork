@@ -6,8 +6,10 @@
 
                 <div class="col-md-4 b-r">
                     <a class="clear">
-                        <span class="h3 block m-t-xs sm1"><center><strong style="color: #34c9ff">{{today_earned}} </strong></center></span>
-
+                        <span class="h3 block m-t-xs sm1"><center><strong style="color: #34c9ff">{{today_earned| currency:"USD$"}} </strong></center></span>
+                        <div layout="row" layout-sm="column" layout-align="space-around">
+                            <md-progress-circular md-mode="indeterminate" class="md-hue-2" md-diameter="15px" ng-show="dailyIsLoading"></md-progress-circular>
+                        </div>
                         <small class="text-muted text-uc " style="color: #a3a3a3"><center>EARNED TODAY</center></small>
 
                     </a>
@@ -15,8 +17,10 @@
                 <div class="col-md-4 b-r">
 
                     <a class="clear">
-                        <span class="h3 block m-t-xs sm1"><center><strong style="color: #bc49ff">{{monthly_earned}}$</strong></center></span>
-
+                        <span class="h3 block m-t-xs sm1"><center><strong style="color: #bc49ff">{{monthly_earned| currency:"USD$"}}</strong></center></span>
+                        <div layout="row" layout-sm="column" layout-align="space-around">
+                            <md-progress-circular md-mode="indeterminate" class="md-hue-2" md-diameter="15px" ng-show="monthlyIsLoading"></md-progress-circular>
+                        </div>
                         <small class="text-muted text-uc " style="color: #a3a3a3"><center>EARNED THIS MONTH</center></small>
                     </a>
                 </div>
@@ -24,7 +28,9 @@
 
                     <a class="clear">
                         <span class="h3 m-t-xs sm1"><center><strong style="color: #6344ff">{{sessions}}</strong></center></span>
-
+                        <div layout="row" layout-sm="column" layout-align="space-around">
+                            <md-progress-circular md-mode="indeterminate" class="md-hue-2" md-diameter="15px" ng-show="dailyIsLoading"></md-progress-circular>
+                        </div>
                         <small class="text-muted text-uc " style="color: #a3a3a3"><center>THIS MONTH'S TRAFFIC</center></small>
                     </a>
                 </div>
@@ -113,7 +119,9 @@
                                 </tr>
                             </tbody>
                         </table>
-
+                        <div layout="row" layout-sm="column" layout-align="space-around">
+                            <md-progress-circular md-mode="indeterminate" ng-show="isLoading"></md-progress-circular>
+                        </div>
                     </div>
                 </section>
             </div>

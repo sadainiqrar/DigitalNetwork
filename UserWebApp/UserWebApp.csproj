@@ -324,6 +324,7 @@
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-aria.js" />
     <Content Include="Scripts\angular-aria.min.js" />
+    <Content Include="Scripts\angular-clipboard.js" />
     <Content Include="Scripts\angular-cookies.js" />
     <Content Include="Scripts\angular-cookies.min.js" />
     <Content Include="Scripts\angular-csp.css" />
@@ -367,6 +368,7 @@
     <Content Include="Scripts\d3.js" />
     <Content Include="Scripts\d3.min.js" />
     <Content Include="Scripts\epoch.min.js" />
+    <Content Include="Scripts\factories\socketFactory.js" />
     <Content Include="Scripts\factories\articleFactory.js" />
     <Content Include="Scripts\factories\graphFactory.js" />
     <Content Include="Scripts\factories\paymentFactory.js" />

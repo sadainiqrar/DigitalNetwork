@@ -14,11 +14,15 @@ function mainController($scope, Facebook, $rootScope, $cookies, articleFactory, 
     $scope.articles = [];
     $scope._category = 'premium';
     $scope._sub_category = 'Political';
-
-
+    $scope.order = ['modified_date', 'views', 'shares'];
+    $scope.selectedOrder = $scope.order[0];
     $scope.addedUms = [];
     $scope.ums = [];
-
+    $scope.isLoading = true;
+    $scope.monthlyIsLoading = true;
+    $scope.dailyIsLoading = true;
+    $scope.monthlyTrafficIsLoading = true;
+    $scope.umsLoading = true;
     umsFactory.getUms($scope.uid).then(
         // callback function for successful http request
         function success(response) {
@@ -42,6 +46,7 @@ function mainController($scope, Facebook, $rootScope, $cookies, articleFactory, 
             }, function (response) {
                 if (response) {
                     $scope.ums = response.data;
+                    $scope.umsLoading = false;
                     angular.forEach($scope.ums, function (value, key) {
                         if ($scope.dbUms.indexOf(value.id) !== -1) {
                             $scope.addedUms.push(value);
@@ -50,6 +55,7 @@ function mainController($scope, Facebook, $rootScope, $cookies, articleFactory, 
                     );
                 } else {
                     //FlashService.Error(response.message);
+                    $scope.umsLoading = false;
 
                 }
 
@@ -65,14 +71,17 @@ function mainController($scope, Facebook, $rootScope, $cookies, articleFactory, 
                     }, function (response) {
                         if (response) {
                             $scope.ums = response.data;
+                            $scope.umsLoading = false;
                             angular.forEach($scope.ums, function (value, key) {
                                 if ($scope.dbUms.indexOf(value.id) !== -1) {
                                     $scope.addedUms.push(value);
+                                   
                                 }
                             }
                             );
                         } else {
                             //FlashService.Error(response.message);
+                            $scope.umsLoading = false;
 
                         }
 
@@ -80,6 +89,7 @@ function mainController($scope, Facebook, $rootScope, $cookies, articleFactory, 
 
                 } else {
                     //FlashService.Error(response.message);
+                    $scope.umsLoading = false;
 
                 }
             }, { scope: 'manage_pages,pages_show_list,publish_actions' });
@@ -96,16 +106,21 @@ function mainController($scope, Facebook, $rootScope, $cookies, articleFactory, 
                     // callback function for successful http request
                     function success(response) {
                         value.views = response.data;
+
+                        $scope.isLoading = false;
                     },
                     // callback function for error in http request
                     function error(response) {
                         value.views = "-1";
+                        $scope.isLoading = false;
                         //// log errors
                     }
 
                 );
                 }
             );
+
+            $scope.isLoading = false;
 
         },
         // callback function for error in http request
@@ -122,6 +137,7 @@ function mainController($scope, Facebook, $rootScope, $cookies, articleFactory, 
         // callback function for successful http request
         function success(response) {
             $scope.sessions = response.data.premium + response.data.non_premium;
+            $scope.monthlyTrafficIsLoading = false;
             $scope.monthly_earned = 0.0;
             var premium = response.data.premium;
             var non_premium = response.data.non_premium;
@@ -129,23 +145,28 @@ function mainController($scope, Facebook, $rootScope, $cookies, articleFactory, 
                 // callback function for successful http request
                 function success(response) {
                     $scope.monthly_earned = $scope.monthly_earned + ((premium/1000) * response.data[0].rate);
-
+                    
 
                 },
                 // callback function for error in http request
                 function error(response) {
                     // log errors
+                    $scope.monthlyIsLoading = false;
+                    $scope.monthlyTrafficIsLoading = false;
                 }
             );
             sessionFactory.getRate("non-premium").then(
                 // callback function for successful http request
                 function success(response) {
                     $scope.monthly_earned = $scope.monthly_earned + ((non_premium/1000) * response.data[0].rate);
-
+                    $scope.monthlyIsLoading = false;
 
                 },
                 // callback function for error in http request
                 function error(response) {
+
+                    $scope.monthlyIsLoading = false;
+                    $scope.monthlyTrafficIsLoading = false;
                     // log errors
                 }
             );
@@ -166,11 +187,12 @@ function mainController($scope, Facebook, $rootScope, $cookies, articleFactory, 
                 // callback function for successful http request
                 function success(response) {
                     $scope.today_earned = $scope.today_earned + ((premium/1000) * response.data[0].rate);
-
+                   
 
                 },
                 // callback function for error in http request
                 function error(response) {
+                    $scope.dailyIsLoading = false;
                     // log errors
                 }
             );
@@ -178,12 +200,14 @@ function mainController($scope, Facebook, $rootScope, $cookies, articleFactory, 
                 // callback function for successful http request
                 function success(response) {
                     $scope.today_earned = $scope.today_earned + ((non_premium/1000) * response.data[0].rate);
-
+                    $scope.dailyIsLoading = false;
 
                 },
                 // callback function for error in http request
                 function error(response) {
                     // log errors
+
+                    $scope.dailyIsLoading = false;
                 }
             );
 
