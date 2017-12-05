@@ -15,5 +15,6 @@ namespace DigitalNetwork.Models
     {
         public string uid { get; set; }
         public System.DateTime date { get; set; }
+        public string status { get; set; }
     }
 }

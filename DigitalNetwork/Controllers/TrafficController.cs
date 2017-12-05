@@ -17,6 +17,60 @@ namespace DigitalNetwork.Controllers
         private digimarketEntities1 db = new digimarketEntities1();
         /* User Apis */
 
+        [HttpGet]
+        [Route("api/user/topusers")]
+        public List<KeyValuePair<string, long>> TopUsers()
+        {
+            ArticleController a = new ArticleController();
+
+            var to = System.DateTime.Now;
+            var from = new DateTime(to.Year, to.Month, 1);
+            //List < List < UserStats >> total_stats = new List<List<UserStats>>();
+            Dictionary<string, long> allUsers = new Dictionary<string, long>();
+            List<Procedure_Result> res = new List<Procedure_Result>();
+            using (var data = db.Procedure())
+            {
+                res = data.ToList<Procedure_Result>();
+            }
+            foreach (var item in res)
+            {
+
+
+                Authorization auth = new Authorization(item.email);
+
+                var result = auth.service.Data.Ga.Get("ga:" + item.ga_id, a.convertDate(from), a.convertDate(to) , "ga:Sessions");
+                result.Dimensions = "ga:campaign";
+                result.Filters = "ga:medium=@digitalmarket";
+                var response = result.Execute();
+                if (response.TotalResults != 0)
+                {
+                    foreach (var row in response.Rows)
+                    {
+
+                       
+                        if(allUsers.ContainsKey(row[0]))
+                        {
+                            allUsers[row[0]] = allUsers[row[0]] + long.Parse(row[1]);
+                        }
+                        else
+                        {
+                            allUsers.Add(row[0], long.Parse(row[1]));
+                        }
+
+
+
+                    }
+
+                }
+                // total_stats.Add(user_stats);
+            }
+           // allUsers.Remove("(not set)");
+            return  new List<KeyValuePair<string, long>>(allUsers);
+        }
+
+
+
+
         [HttpPost]
         [Route("api/user/statistics")]
         public List<UserStats> statistics([FromBody]User_Analytic_Input analytics_Input)

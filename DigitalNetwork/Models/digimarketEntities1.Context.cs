@@ -206,13 +206,13 @@ namespace DigitalNetwork.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("admin_update", emailParameter, nameParameter, photoParameter);
         }
     
-        public virtual int count_ums(string uid)
+        public virtual ObjectResult<Nullable<int>> count_ums(string uid)
         {
             var uidParameter = uid != null ?
                 new ObjectParameter("uid", uid) :
                 new ObjectParameter("uid", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("count_ums", uidParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("count_ums", uidParameter);
         }
     
         public virtual int delete_article(Nullable<int> serial)
@@ -405,6 +405,15 @@ namespace DigitalNetwork.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_user_single_article_Result>("get_user_single_article", serialParameter);
         }
     
+        public virtual ObjectResult<string> get_user_status(string uid)
+        {
+            var uidParameter = uid != null ?
+                new ObjectParameter("uid", uid) :
+                new ObjectParameter("uid", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("get_user_status", uidParameter);
+        }
+    
         public virtual ObjectResult<get_user_traffic_Result> get_user_traffic(string uid)
         {
             var uidParameter = uid != null ?
@@ -412,6 +421,11 @@ namespace DigitalNetwork.Models
                 new ObjectParameter("uid", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_user_traffic_Result>("get_user_traffic", uidParameter);
+        }
+    
+        public virtual ObjectResult<getAllUser_Result> getAllUser()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getAllUser_Result>("getAllUser");
         }
     
         public virtual ObjectResult<getArticleBySerial_Result> getArticleBySerial(Nullable<int> serial)
@@ -550,22 +564,22 @@ namespace DigitalNetwork.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("user_sign_up", uidParameter, nameParameter, photoParameter, fullnameParameter, joindateParameter);
         }
     
-        public virtual int user_update(string uid, string photo)
+        public virtual int user_update(string uid, string status)
         {
             var uidParameter = uid != null ?
                 new ObjectParameter("uid", uid) :
                 new ObjectParameter("uid", typeof(string));
     
-            var photoParameter = photo != null ?
-                new ObjectParameter("photo", photo) :
-                new ObjectParameter("photo", typeof(string));
+            var statusParameter = status != null ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("user_update", uidParameter, photoParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("user_update", uidParameter, statusParameter);
         }
     
-        public virtual ObjectResult<getAllUser_Result> getAllUser()
+        public virtual ObjectResult<Procedure_Result> Procedure()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getAllUser_Result>("getAllUser");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Procedure_Result>("Procedure");
         }
     }
 }

@@ -25,7 +25,7 @@ function sourcesController($scope, Facebook, $rootScope, $cookies, umsFactory, M
 
             $scope.loginStatus = response.status;
             Facebook.api('/me/accounts', {
-                fields: 'id,name,category,picture,fan_count,rating_count'
+                fields: 'id,name,category,picture.type(large),fan_count,rating_count'
             }, function (response) {
                 if (response) {
                     $scope.ums = response.data;
@@ -51,7 +51,7 @@ function sourcesController($scope, Facebook, $rootScope, $cookies, umsFactory, M
 
                     $scope.loginStatus = response.status;
                     Facebook.api('/me/accounts', {
-                        fields: 'id,name,category,fan_count,rating_count'
+                        fields: 'id,name,category,picture.type(large),fan_count,rating_count'
                     }, function (response) {
                         if (response) {
                             $scope.ums = response.data;

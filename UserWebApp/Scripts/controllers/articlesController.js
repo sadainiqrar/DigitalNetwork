@@ -18,8 +18,10 @@ function articlesController($scope, Facebook, clipboard, $state, $rootScope, $co
     $scope.earnedloading = true;
     $scope.umsloading = true;
 
-    $scope.order = ['modified_date', 'views', 'shares'];
-    $scope.selectedOrder = $scope.order[1];
+
+    $scope.order = [{ label: 'Recent', value: 'modified_date' }, { label: 'Top Articles', value: 'views' }];
+
+    $scope.selectedOrder = $scope.order[1].value;
 
     $scope._category = 'premium';
     $scope._sub_category = 'Political';
@@ -42,7 +44,7 @@ function articlesController($scope, Facebook, clipboard, $state, $rootScope, $co
 
             $scope.loginStatus = response.status;
             Facebook.api('/me/accounts', {
-                fields: 'id,name,category,picture,fan_count,rating_count,access_token'
+                fields: 'id,name,category,picture.type(large),fan_count,rating_count,access_token'
             }, function (response) {
                 if (response) {
                     $scope.ums = response.data;
@@ -69,7 +71,7 @@ function articlesController($scope, Facebook, clipboard, $state, $rootScope, $co
 
                     $scope.loginStatus = response.status;
                     Facebook.api('/me/accounts', {
-                        fields: 'id,name,category,fan_count,rating_count,access_token'
+                        fields: 'id,name,category,picture.type(large),fan_count,rating_count,access_token'
                     }, function (response) {
                         if (response) {
                             $scope.ums = response.data;
@@ -199,7 +201,7 @@ function articlesController($scope, Facebook, clipboard, $state, $rootScope, $co
 
             
 
-        Facebook.api("/me/feed?access_token=" + page.access_token,
+                Facebook.api("/me/feed?access_token=" + page.access_token,
             "POST",
             {
                 "link": url
@@ -221,7 +223,7 @@ function articlesController($scope, Facebook, clipboard, $state, $rootScope, $co
 
             }
 
-        });
+            });
 
             },
             // callback function for error in http request

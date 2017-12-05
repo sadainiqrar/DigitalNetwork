@@ -70,6 +70,8 @@ namespace DigitalNetwork.Controllers
 
 
 
+
+
         //user_login
         [HttpPost]
         [Route("api/user/login")]
@@ -88,14 +90,22 @@ namespace DigitalNetwork.Controllers
            
         }
 
+        [HttpPost]
+        [Route("api/user/status")]
+        public string GetUserStatus([FromBody]User_Date user)
+        {
+            return db.get_user_status(user.uid).FirstOrDefault<string>();
+
+        }
+
 
 
         //user_update
         [HttpPut]
         [Route("api/user/update")]
-        public IEnumerable<user_sign_in_Result> PutUpdate_User([FromBody] user_sign_up_Result user)
+        public IEnumerable<user_sign_in_Result> PutUpdate_User([FromBody] User_Date user)
         {
-            db.user_update(user.uid, user.photourl);
+            db.user_update(user.uid, user.status);
             return db.user_sign_in(user.uid);
         }
 

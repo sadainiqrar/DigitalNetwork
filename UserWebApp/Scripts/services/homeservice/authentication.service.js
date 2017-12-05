@@ -13,8 +13,16 @@
         service.Login = Login;
         service.SetCredentials = SetCredentials;
         service.ClearCredentials = ClearCredentials;
+        service.GetStatus = GetStatus;
 
         return service;
+
+        function GetStatus(_uid)
+        {
+            var data = { uid: _uid };
+            return $http.post('http://localhost:3208/api/user/status',data);
+        }
+
 
         function Login(uid, fullname, callback) {
 

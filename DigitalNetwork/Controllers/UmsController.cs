@@ -63,7 +63,7 @@ namespace DigitalNetwork.Controllers
         {
 
             int count = 0;
-            count = db.count_ums(uid);
+            count = db.count_ums(uid).FirstOrDefault<int?>() ?? 0;
             return count;
         }
     }

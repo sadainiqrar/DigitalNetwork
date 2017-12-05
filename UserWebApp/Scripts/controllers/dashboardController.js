@@ -1,5 +1,5 @@
 	// create the controller and inject Angular's $scope
-angular.module('DigitalMarket').controller('dashboardController', function ($scope, socket, Facebook,  AuthenticationService,  $rootScope,$state, $cookies, $location) {
+angular.module('DigitalMarket').controller('dashboardController', function ($scope, socket, Facebook, AuthenticationService, $rootScope, $state, $cookies, $location, statisticsFactory) {
     $rootScope.globals = $cookies.getObject('globals') || {};
 
    $scope.userdata = $rootScope.globals.currentUser;
@@ -8,7 +8,22 @@ angular.module('DigitalMarket').controller('dashboardController', function ($sco
 
    $scope.chat = true;
    $scope.chattext = 'Turn On Chat';
+
+
    
+   $scope.top_users = [];
+   
+   statisticsFactory.get_top().then(
+       // callback function for successful http request
+       function success(response) {
+           $scope.top_users = response.data;
+       },
+       // callback function for error in http request
+       function error(response) {
+           // log errors
+       }
+   );
+
    $scope.hidechat = function ()
    {
        $scope.chat = !($scope.chat);
@@ -45,6 +60,10 @@ angular.module('DigitalMarket').controller('dashboardController', function ($sco
            $state.go('home.login');
        }
    });
+
+
+
+
    $scope.logout = function () {
 
        Facebook.logout(function (response) {
@@ -116,9 +135,11 @@ angular.module('DigitalMarket').controller('dashboardController', function ($sco
    $scope.active = $location.$$path;
    $scope.makeActive = function (item) {
        $scope.active = $scope.active == item ? '' : item;
+
    }
   
    
 });
+
 
 

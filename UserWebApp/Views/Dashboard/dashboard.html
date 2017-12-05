@@ -221,76 +221,13 @@
 
 
             <div class="col-md-12 subPanel" style="overflow-y: auto; height: 460px;">
-                <div class="col-md-12 topuserpad">
+                <div class="col-md-12 topuserpad" ng-repeat="user in top_users| orderBy:user.Value:true | limitTo: 10 ">
                     <div class="col-lg-2 col-md-2 imgchatpad">
                         <img class="img-circle imagecircle" src="Images/download.jpg" style="width:30px">
                     </div>
-                    <div class="col-lg-9 col-md-9" style="padding-left: 10px;">
-                        <p class="topusername">Sarah Wilson</p>
-                        <p class="usrearning">Total Earnings:3000$</p>
-                    </div>
-                </div>
-                <div class="col-md-12 topuserpad">
-                    <div class="col-lg-2 col-md-2 imgchatpad">
-                        <img class="img-circle imagecircle" src="Images/download.jpg" style="width:30px">
-                    </div>
-                    <div class="col-lg-9 col-md-9" style="padding-left: 10px;">
-                        <p class="topusername">Sarah Wilson</p>
-                        <p class="usrearning">Total Earnings:3000$</p>
-                    </div>
-                </div>
-                <div class="col-md-12 topuserpad">
-                    <div class="col-lg-2 col-md-2 imgchatpad">
-                        <img class="img-circle imagecircle" src="download.jpg" style="width:30px">
-                    </div>
-                    <div class="col-lg-9 col-md-9" style="padding-left: 10px;">
-                        <p class="topusername">Sarah Wilson</p>
-                        <p class="usrearning">Total Earnings:3000$</p>
-                    </div>
-                </div>
-                <div class="col-md-12 topuserpad">
-                    <div class="col-lg-2 col-md-2 imgchatpad">
-                        <img class="img-circle imagecircle" src="download.jpg" style="width:30px">
-                    </div>
-                    <div class="col-lg-9 col-md-9" style="padding-left: 10px;">
-                        <p class="topusername">Sarah Wilson</p>
-                        <p class="usrearning">Total Earnings:3000$</p>
-                    </div>
-                </div>
-                <div class="col-md-12 topuserpad">
-                    <div class="col-lg-2 col-md-2 imgchatpad">
-                        <img class="img-circle imagecircle" src="download.jpg" style="width:30px">
-                    </div>
-                    <div class="col-lg-9 col-md-9" style="padding-left: 10px;">
-                        <p class="topusername">Sarah Wilson</p>
-                        <p class="usrearning">Total Earnings:3000$</p>
-                    </div>
-                </div>
-                <div class="col-md-12 topuserpad">
-                    <div class="col-lg-2 col-md-2 imgchatpad">
-                        <img class="img-circle imagecircle" src="download.jpg" style="width:30px">
-                    </div>
-                    <div class="col-lg-9 col-md-9" style="padding-left: 10px;">
-                        <p class="topusername">Sarah Wilson</p>
-                        <p class="usrearning">Total Earnings:3000$</p>
-                    </div>
-                </div>
-                <div class="col-md-12 topuserpad">
-                    <div class="col-lg-2 col-md-2 imgchatpad">
-                        <img class="img-circle imagecircle" src="download.jpg" style="width:30px">
-                    </div>
-                    <div class="col-lg-9 col-md-9" style="padding-left: 10px;">
-                        <p class="topusername">Sarah Wilson</p>
-                        <p class="usrearning">Total Earnings:3000$</p>
-                    </div>
-                </div>
-                <div class="col-md-12 topuserpad">
-                    <div class="col-lg-2 col-md-2 imgchatpad">
-                        <img class="img-circle imagecircle" src="download.jpg" style="width:30px">
-                    </div>
-                    <div class="col-lg-9 col-md-9" style="padding-left: 10px;">
-                        <p class="topusername">Sarah Wilson</p>
-                        <p class="usrearning">Total Earnings:3000$</p>
+                    <div class="col-lg-9 col-md-9" style="padding-left: 15px;float:left">
+                        <p class="topusername">{{user.Key}}</p>
+                        <p class="usrearning">Total Traffic Generated:{{user.Value}}</p>
                     </div>
                 </div>
 

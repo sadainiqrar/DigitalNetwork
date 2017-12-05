@@ -87,17 +87,17 @@ scotchApp.config(['$stateProvider', 'FacebookProvider', '$urlRouterProvider', '$
 
     scotchApp.run(run);
 
-    run.$inject = ['$rootScope', 'Facebook','realtimeHubProxy', '$location', '$state', '$cookies', '$http'];
-    function run($rootScope, Facebook, realtimeHubProxy, $location, $state, $cookies, $http) {
-        $rootScope.chartEntry = [];
-        var realtimeDataHub = realtimeHubProxy("http://localhost:3208/", 'RealtimeHub');
+    run.$inject = ['$rootScope', 'Facebook', 'realtimeHubProxy', 'AuthenticationService', '$location', '$state', '$cookies', '$http'];
+    function run($rootScope, Facebook, realtimeHubProxy, AuthenticationService, $location, $state, $cookies, $http) {
+        
+        $rootScope.realtimeDataHub = realtimeHubProxy("http://localhost:3208/", 'RealtimeHub');
 
         //$scope.realtimeLineFeed = entry;
 
 
-        realtimeDataHub.on('broadcastData', function (data) {
+        $rootScope.realtimeDataHub.on('broadcastData', function (data) {
             var timestamp = ((new Date()).getTime() / 1000) | 0;
-            $rootScope.realtimeValue = data;
+            $rootScope.realtimeValue = data; 
         });
 
 
@@ -116,9 +116,20 @@ scotchApp.config(['$stateProvider', 'FacebookProvider', '$urlRouterProvider', '$
             if (restrictedPage && !loggedIn) {
                 $location.path('/');
             }
-            else if (!restrictedPage && loggedIn) {
-
-                $location.path("/dashboard");
+            else if (loggedIn) {
+                AuthenticationService.GetStatus($rootScope.globals.currentUser.uid).then(
+                    // callback function for successful http request
+                    function success(response) {
+                        if (response.data != 'verified')
+                            $location.path("/marketingsources");
+                            
+                       
+                    },
+                    // callback function for error in http request
+                    function error(response) {
+                        // log errors
+                    }
+                );
             }
 
             

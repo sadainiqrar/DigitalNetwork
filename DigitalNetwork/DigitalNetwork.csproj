@@ -305,6 +305,9 @@
     <Compile Include="Models\Payment.cs">
       <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Procedure_Result.cs">
+      <DependentUpon>digimarketEntities1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Rate.cs">
       <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>

@@ -99,6 +99,7 @@
           </Key>
           <Property Name="uid" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="User_Marketing_Sources">
           <Key>
@@ -326,6 +327,9 @@
         <Function Name="get_user_single_article" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="serial" Type="int" Mode="In" />
         </Function>
+        <Function Name="get_user_status" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="uid" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="get_user_traffic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="uid" Type="varchar" Mode="In" />
         </Function>
@@ -333,6 +337,7 @@
         <Function Name="getArticleBySerial" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="serial" Type="int" Mode="In" />
         </Function>
+        <Function Name="Procedure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="update_article_data" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="serial_no" Type="int" Mode="In" />
           <Parameter Name="article_url" Type="varchar(max)" Mode="In" />
@@ -372,7 +377,7 @@
         </Function>
         <Function Name="user_update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="uid" Type="varchar" Mode="In" />
-          <Parameter Name="photo" Type="varchar(max)" Mode="In" />
+          <Parameter Name="status" Type="varchar" Mode="In" />
         </Function>
         <EntityContainer Name="digimarketModelStoreContainer">
           <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
@@ -527,6 +532,7 @@
           </Key>
           <Property Name="uid" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="User" Relationship="Self.FK_User_Date_User" FromRole="User_Date" ToRole="User" />
         </EntityType>
         <EntityType Name="User_Marketing_Sources">
@@ -716,7 +722,7 @@
             <Parameter Name="name" Mode="In" Type="String" />
             <Parameter Name="photo" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="count_ums">
+          <FunctionImport Name="count_ums" ReturnType="Collection(Int32)">
           <Parameter Name="uid" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="delete_article">
@@ -779,9 +785,13 @@
           <FunctionImport Name="get_user_single_article" ReturnType="Collection(digimarketModel.get_user_single_article_Result)">
           <Parameter Name="serial" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="get_user_status" ReturnType="Collection(String)">
+          <Parameter Name="uid" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="get_user_traffic" ReturnType="Collection(digimarketModel.get_user_traffic_Result)">
           <Parameter Name="uid" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="getAllUser" ReturnType="Collection(digimarketModel.getAllUser_Result)" />
           <FunctionImport Name="getArticleBySerial" ReturnType="Collection(digimarketModel.getArticleBySerial_Result)">
           <Parameter Name="serial" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -824,9 +834,9 @@
           </FunctionImport>
           <FunctionImport Name="user_update">
             <Parameter Name="uid" Mode="In" Type="String" />
-            <Parameter Name="photo" Mode="In" Type="String" />
+            <Parameter Name="status" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="getAllUser" ReturnType="Collection(digimarketModel.getAllUser_Result)" />
+          <FunctionImport Name="Procedure" ReturnType="Collection(digimarketModel.Procedure_Result)" />
         </EntityContainer>
         <ComplexType Name="admin_sign_in_Result">
           <Property Type="String" Name="email" Nullable="false" MaxLength="30" />
@@ -898,6 +908,7 @@
         <ComplexType Name="get_joining_date_Result">
           <Property Type="String" Name="uid" Nullable="false" MaxLength="20" />
           <Property Type="DateTime" Name="date" Nullable="false" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="20" />
         </ComplexType>
         <ComplexType Name="get_payment_Result">
           <Property Type="Int32" Name="invoice_id" Nullable="false" />
@@ -954,6 +965,12 @@
           <Property Type="String" Name="ga_id" Nullable="false" />
           <Property Type="String" Name="email" Nullable="false" MaxLength="30" />
         </ComplexType>
+        <ComplexType Name="getAllUser_Result">
+          <Property Type="String" Name="uid" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="username" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="photourl" Nullable="true" />
+          <Property Type="String" Name="fullname" Nullable="false" />
+        </ComplexType>
         <ComplexType Name="getArticleBySerial_Result">
           <Property Type="Int32" Name="serial_no" Nullable="false" />
           <Property Type="Int32" Name="a_id" Nullable="false" />
@@ -974,11 +991,9 @@
           <Property Type="String" Name="photourl" Nullable="true" />
           <Property Type="String" Name="fullname" Nullable="false" />
         </ComplexType>
-        <ComplexType Name="getAllUser_Result">
-          <Property Type="String" Name="uid" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="username" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="photourl" Nullable="true" />
-          <Property Type="String" Name="fullname" Nullable="false" />
+        <ComplexType Name="Procedure_Result">
+          <Property Type="String" Name="ga_id" Nullable="false" />
+          <Property Type="String" Name="email" Nullable="false" MaxLength="30" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1078,6 +1093,7 @@
               <MappingFragment StoreEntitySet="User_Date">
                 <ScalarProperty Name="uid" ColumnName="uid" />
                 <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="status" ColumnName="status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1205,6 +1221,7 @@
               <ComplexTypeMapping TypeName="digimarketModel.get_joining_date_Result">
                 <ScalarProperty Name="uid" ColumnName="uid" />
                 <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="status" ColumnName="status" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -1285,11 +1302,22 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_user_status" FunctionName="digimarketModel.Store.get_user_status" />
           <FunctionImportMapping FunctionImportName="get_user_traffic" FunctionName="digimarketModel.Store.get_user_traffic">
             <ResultMapping>
               <ComplexTypeMapping TypeName="digimarketModel.get_user_traffic_Result">
                 <ScalarProperty Name="ga_id" ColumnName="ga_id" />
                 <ScalarProperty Name="email" ColumnName="email" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getAllUser" FunctionName="digimarketModel.Store.getAllUser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="digimarketModel.getAllUser_Result">
+                <ScalarProperty Name="uid" ColumnName="uid" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="photourl" ColumnName="photourl" />
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -1328,13 +1356,11 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="user_sign_up" FunctionName="digimarketModel.Store.user_sign_up" />
           <FunctionImportMapping FunctionImportName="user_update" FunctionName="digimarketModel.Store.user_update" />
-          <FunctionImportMapping FunctionImportName="getAllUser" FunctionName="digimarketModel.Store.getAllUser">
+          <FunctionImportMapping FunctionImportName="Procedure" FunctionName="digimarketModel.Store.Procedure">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="digimarketModel.getAllUser_Result">
-                <ScalarProperty Name="uid" ColumnName="uid" />
-                <ScalarProperty Name="username" ColumnName="username" />
-                <ScalarProperty Name="photourl" ColumnName="photourl" />
-                <ScalarProperty Name="fullname" ColumnName="fullname" />
+              <ComplexTypeMapping TypeName="digimarketModel.Procedure_Result">
+                <ScalarProperty Name="ga_id" ColumnName="ga_id" />
+                <ScalarProperty Name="email" ColumnName="email" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

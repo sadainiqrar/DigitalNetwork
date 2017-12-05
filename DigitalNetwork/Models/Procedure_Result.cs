@@ -10,14 +10,10 @@
 namespace DigitalNetwork.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class User_Date
+    public partial class Procedure_Result
     {
-        public string uid { get; set; }
-        public System.DateTime date { get; set; }
-        public string status { get; set; }
-    
-        public virtual User User { get; set; }
+        public string ga_id { get; set; }
+        public string email { get; set; }
     }
 }

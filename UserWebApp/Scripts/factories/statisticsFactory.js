@@ -18,11 +18,14 @@ function statisticsFactory($http) {
         return $http.post('http://localhost:3208/api/user/statistics', data);
     }
 
- 
+    function get_top() {
+        return $http.get('http://localhost:3208/api/user/topusers');
+    }
 
 
     var service = {
-        get_statistics: get_statistics
+        get_statistics: get_statistics,
+        get_top: get_top
     };
 
     return service;

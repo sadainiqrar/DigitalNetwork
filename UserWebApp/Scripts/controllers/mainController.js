@@ -14,8 +14,10 @@ function mainController($scope, Facebook, $rootScope, $cookies, articleFactory, 
     $scope.articles = [];
     $scope._category = 'premium';
     $scope._sub_category = 'Political';
-    $scope.order = ['modified_date', 'views', 'shares'];
-    $scope.selectedOrder = $scope.order[0];
+
+    $scope.order = [{ label: 'Recent', value: 'modified_date' }, { label: 'Featured', value:'views'}, { label: 'Most Shared', value: 'shares'}];
+
+    $scope.selectedOrder = $scope.order[0].value;
     $scope.addedUms = [];
     $scope.ums = [];
     $scope.isLoading = true;
@@ -42,7 +44,7 @@ function mainController($scope, Facebook, $rootScope, $cookies, articleFactory, 
 
             $scope.loginStatus = response.status;
             Facebook.api('/me/accounts', {
-                fields: 'id,name,category,picture,fan_count,rating_count,access_token'
+                fields: 'id,name,category,picture.type(large),fan_count,rating_count,access_token'
             }, function (response) {
                 if (response) {
                     $scope.ums = response.data;
@@ -67,7 +69,7 @@ function mainController($scope, Facebook, $rootScope, $cookies, articleFactory, 
 
                     $scope.loginStatus = response.status;
                     Facebook.api('/me/accounts', {
-                        fields: 'id,name,category,fan_count,rating_count,access_token'
+                        fields: 'id,name,category,picture.type(large),fan_count,rating_count,access_token'
                     }, function (response) {
                         if (response) {
                             $scope.ums = response.data;

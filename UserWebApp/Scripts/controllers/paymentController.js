@@ -51,18 +51,24 @@ function paymentController($scope,$rootScope,$cookies, paymentFactory) {
         }
     );
     $scope.makePayment = function () {
-        paymentFactory.make_payment($scope.uid, $scope.unpaidTraffic, $scope.availablePayment).then(
-            // callback function for successful http request
-            function success(response) {
+        if ($scope.availablePayment > 4) {
+            paymentFactory.make_payment($scope.uid, $scope.unpaidTraffic, $scope.availablePayment).then(
+                // callback function for successful http request
+                function success(response) {
 
 
 
-            },
-            // callback function for error in http request
-            function error(response) {
-                // log errors
-            }
-        );
+                },
+                // callback function for error in http request
+                function error(response) {
+                    // log errors
+                }
+            );
+        }
+        else
+        {
+            alert("Error!:you can withdraw earned amount only greater than 5$.")
+        }
     }
 
   

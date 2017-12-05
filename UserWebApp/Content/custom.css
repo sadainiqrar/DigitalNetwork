@@ -1202,7 +1202,7 @@ background: transparent;
 
 
 /*topuser css*/
-.topusername{font-size: 10pt;
+.topusername{font-size: 8pt;
     
     font-family:lato-regular;
     color: #54565c
@@ -1228,15 +1228,15 @@ background: transparent;
 }
 @media(min-width:1188px){
     .imgchatpad{
-    padding-left: 1em;
+    padding-left: 0.5em;
 }
 }@media(min-width:1292px){
     .imgchatpad{
-    padding-left: 1.5em;
+    padding-left: 0.5em;
 }
 }@media(min-width:1390px){
     .imgchatpad{
-    padding-left: 2.5em;
+    padding-left: 1em;
 }
 }
 
