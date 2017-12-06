@@ -110,27 +110,15 @@ function articlesController($scope, Facebook, clipboard, $state, $rootScope, $co
                 articleFactory.getUserViews(value.site_url, value.modified_date, value.url, $scope.id).then(
                     // callback function for successful http request
                     function success(response) {
-                        value.views = response.data;
-                        sessionFactory.getRate(value.category).then(
-                            // callback function for successful http request
-                            function success(response) {
-                                value.shares = (response.data[0].rate / 1000) * parseFloat(value.views);
-
-                                $scope.trafficloading = false;
-                                $scope.earnedloading = false;
-
-                            },
-                            // callback function for error in http request
-                            function error(response) {
-                                // log errors
-                                $scope.trafficloading = false;
-                                $scope.earnedloading = false;
-                            }
-                        );
+                        value.views = response.data.sessions;
+                        value.shares = response.data.earned;
+                        $scope.trafficloading = false;
+                        $scope.earnedloading = false;
                     },
                     // callback function for error in http request
                     function error(response) {
                         value.views = "0";
+                        value.shares = 0;
                         $scope.trafficloading = false;
                         $scope.earnedloading = false;
                         //// log errors
@@ -238,7 +226,7 @@ function articlesController($scope, Facebook, clipboard, $state, $rootScope, $co
 
     $scope.active = 'Political';
     $scope.makeActive = function (item) {
-        $scope.active = $scope.active === item ? item : item;
+        $scope.active = item;
     }
     $scope.reroute = function ()
     {

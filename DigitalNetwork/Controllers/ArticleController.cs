@@ -224,18 +224,21 @@ namespace DigitalNetwork.Controllers
 
         [HttpPost]
         [Route("api/user/shared/views_shares")]
-        public string views_Shares_user([FromBody] shared_input article)
+        public GraphStats views_Shares_user([FromBody] shared_input article)
         {
-            return admin_gid(article.site_url, article.modified_date, article.url,article.username);
+            return admin_gid(article.site_url, article.modified_date, article.url, article.username);
 
         }
 
 
 
         [NonAction]
-        public string admin_gid(string url, DateTime publishDate, string a_url,string username)
+        public GraphStats admin_gid(string url, DateTime publishDate, string a_url, string username)
         {
+            RateController rate = new RateController();
+            user_earned earned = new user_earned() { premium = 0, non_premium = 0 };
             get_admin_gid_Result res;
+            user_traffic traffic = new user_traffic() { premium = 0, non_premium=0 };
             using (var data = db.get_admin_gid(url))
             {
 
@@ -243,17 +246,30 @@ namespace DigitalNetwork.Controllers
             }
             Authorization auth = new Authorization(res.Email);
             var result = auth.service.Data.Ga.Get(("ga:" + res.ga_id), convertDate(publishDate), convertDate(System.DateTime.Now), "ga:sessions");
-            result.Filters = "ga:medium=@referral;ga:landingPagePath=@" + convertUrl(a_url, url)+";ga:campaign=@"+username;
+            result.Filters = "ga:medium=@referral;ga:landingPagePath=@" + convertUrl(a_url, url) + ";ga:campaign=@" + username;
+            var result1 = auth.service.Data.Ga.Get(("ga:" + res.ga_id), convertDate(publishDate), convertDate(System.DateTime.Now), "ga:sessions");
+            result1.Filters = "ga:medium=@referral;ga:landingPagePath=@" + convertUrl(a_url, url) + ";ga:campaign=@" + username +";ga:country=@Canada";
+         
+            var final1 = result1.Execute();
             var final = result.Execute();
             int count = (int)final.TotalResults;
+            int count1 = (int)final1.TotalResults;
+            if (count1 != 0)
+            {
+                IList<string> l = final1.Rows[0];
+               traffic.premium+=long.Parse(l[0]);
+            }
             if (count != 0)
             {
                 IList<string> l = final.Rows[0];
-                return l[0];
+               traffic.non_premium+=long.Parse(l[0]);
             }
-            return "" + 0;
+            traffic.non_premium = traffic.non_premium - traffic.premium;
 
+            earned.premium = (Decimal.ToDouble(rate.GetRate("premium").FirstOrDefault<get_rate_Result>().rate) * traffic.premium)/1000;
+            earned.non_premium = (Decimal.ToDouble(rate.GetRate("non-premium").FirstOrDefault<get_rate_Result>().rate) * traffic.non_premium)/1000;
+            return new GraphStats() { dateTime = "", sessions = (traffic.premium + traffic.non_premium).ToString(), earned = earned.premium + earned.non_premium };
         }
-        
+
     }
 }

@@ -1,9 +1,9 @@
 var controllerId = 'paymentController';
 
 angular.module('DigitalMarket').controller(controllerId,
-    ['$scope', '$rootScope', '$cookies', 'paymentFactory', paymentController]);
+    ['$scope','$state', '$rootScope', '$cookies', 'paymentFactory', paymentController]);
 
-function paymentController($scope,$rootScope,$cookies, paymentFactory) {
+function paymentController($scope,$state,$rootScope,$cookies, paymentFactory) {
     $rootScope.globals = $cookies.getObject('globals') || {};
     $scope.userdata = $rootScope.globals.currentUser;
     $scope.username = $scope.userdata.fullname;
@@ -20,7 +20,11 @@ function paymentController($scope,$rootScope,$cookies, paymentFactory) {
     $scope.unpaidTraffic = 0;
     $scope.history = [];
 
-    
+    $scope.changeClass = function ()
+    {
+        $scope.$parent.active = "/statistics";
+        $state.go('dashboard.statistics');
+    }
 
     paymentFactory.get_payment_details($scope.uid,$scope.id).then(
         // callback function for successful http request

@@ -106,7 +106,7 @@ namespace DigitalNetwork.Controllers
                         {
 
                             UserStats stats = new UserStats() { day = "", premium = 0, non_premium = 0,total_traffic=0,total_earning=0, country_stats = new List<CountryStats>() };
-                            CountryStats cTemp = new CountryStats();
+                            
                             stats.day = row[0];
                             if (row[1].Equals("Canada"))
                             {
@@ -116,11 +116,19 @@ namespace DigitalNetwork.Controllers
                             {
                                 stats.non_premium += long.Parse(row[2]);
                             }
-
-                            cTemp.country = row[1];
-                            cTemp.sessions = row[2];
-                            cTemp.newSessions = row[3];
-                            stats.country_stats.Add(cTemp);
+                            
+                            var cFind = stats.country_stats.FirstOrDefault(x => x.country == row[1]);
+                            if(cFind == null)
+                            {
+                                cFind = new CountryStats() { country = row[1], sessions = "0", newSessions = "0" };
+                            }
+                            else
+                            {
+                                stats.country_stats.Remove(cFind);
+                            }
+                            cFind.sessions = (Int64.Parse(cFind.sessions) + Int64.Parse(row[2])).ToString();
+                            cFind.newSessions = (Int64.Parse(cFind.newSessions) + Int64.Parse(row[3])).ToString();
+                            stats.country_stats.Add(cFind);
                             user_stats.Add(stats);
                         }
                         else
@@ -136,10 +144,18 @@ namespace DigitalNetwork.Controllers
                             {
                                 temp.non_premium += long.Parse(row[2]);
                             }
-                            cTemp.country = row[1];
-                            cTemp.sessions = row[2];
-                            cTemp.newSessions = row[3];
-                            temp.country_stats.Add(cTemp);
+                            var cFind = temp.country_stats.FirstOrDefault(x => x.country == row[1]);
+                            if (cFind == null)
+                            {
+                                cFind = new CountryStats() { country = row[1], sessions = "0", newSessions = "0" };
+                            }
+                            else
+                            {
+                                temp.country_stats.Remove(cFind);
+                            }
+                            cFind.sessions = (Int64.Parse(cFind.sessions) + Int64.Parse(row[2])).ToString();
+                            cFind.newSessions = (Int64.Parse(cFind.newSessions) + Int64.Parse(row[3])).ToString();
+                            temp.country_stats.Add(cFind);
                             user_stats.Add(temp);
 
                         }

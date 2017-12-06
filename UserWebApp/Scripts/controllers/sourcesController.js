@@ -16,7 +16,7 @@ function sourcesController($scope, Facebook, $rootScope, $cookies, umsFactory, M
     $scope.ums = [];
     $scope.loginStatus = 'disconnected';
     $scope.bodyText = 'This text can be updated in modal 1';
-    
+    $scope.$parent.active = "/marketingsources"
     
 
 

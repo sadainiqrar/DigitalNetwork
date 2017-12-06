@@ -335,7 +335,7 @@ function mainController($scope, Facebook, $rootScope, $cookies, articleFactory, 
 
     $scope.active = 'Political';
     $scope.makeActive = function (item) {
-        $scope.active = $scope.active === item ? item : item;
+        $scope.active = item;
     }
 
 }
