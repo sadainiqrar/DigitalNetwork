@@ -318,6 +318,9 @@
         <Function Name="get_site" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="email" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="get_site_name" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="url" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="get_total_earned" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="uid" Type="varchar" Mode="In" />
         </Function>
@@ -837,6 +840,9 @@
             <Parameter Name="status" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="Procedure" ReturnType="Collection(digimarketModel.Procedure_Result)" />
+          <FunctionImport Name="get_site_name" ReturnType="Collection(String)">
+            <Parameter Name="url" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="admin_sign_in_Result">
           <Property Type="String" Name="email" Nullable="false" MaxLength="30" />
@@ -1364,6 +1370,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_site_name" FunctionName="digimarketModel.Store.get_site_name" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

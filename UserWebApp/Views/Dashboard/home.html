@@ -90,11 +90,11 @@
 
                                 <div class="col-md-12 col-sm-6 bottom">
 
-                                    <p style="font-size: 10px;float: left;padding-top:  5px">{{article.modified_date}}</p><br>
+                                    <p style="font-size: 10px;float: left;padding-top:  5px">{{article.modified_date | date: "fullDate"}}</p><br>
                                     <p class="pArt" style="text-align:left;" ng-bind-html="article.title"></p>
 
                                     <hr class="h-line" style="margin-top: 1em">
-                                    <p class="copy">Article by:{{article.site_url }} </p>
+                                    <p class="copy">Article by:{{article.site_name }} </p>
 
                                     <a class="btn" ng-click="openModal('custom-modal-2')"> <span class="fa fa-share-alt" aria-hidden="true"></span> </a>
                                     <a class="btn" ng-click="insertCopied()"><span class="fa fa-link" aria-hidden="true"></span></a>

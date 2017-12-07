@@ -131,7 +131,7 @@
                 </tr>
                 <tr ng-repeat="h in history | dateFilter: from : to | orderBy: payment_date :true ">
                     <td id="paymenttable">{{h.invoice_id}}</td>
-                    <td id="paymenttable">{{h.payment_date}}</td>
+                    <td id="paymenttable">{{h.payment_date | date: "fullDate"}}</td>
 
                     <td id="paymenttable">{{h.traffic}}</td>
 

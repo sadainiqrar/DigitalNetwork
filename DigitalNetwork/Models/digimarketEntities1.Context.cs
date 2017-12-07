@@ -581,5 +581,14 @@ namespace DigitalNetwork.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Procedure_Result>("Procedure");
         }
+    
+        public virtual ObjectResult<string> get_site_name(string url)
+        {
+            var urlParameter = url != null ?
+                new ObjectParameter("url", url) :
+                new ObjectParameter("url", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("get_site_name", urlParameter);
+        }
     }
 }

@@ -30,7 +30,7 @@
                         </span>
                     </a>
                     <ul class="dropdown-menu" style="background-color: white">
-                        <li>
+                       <!-- <li>
                             <a href="Overview.html">
                                 <i class="fa fa-user">
                                     <b class="bg-success"></b>
@@ -38,7 +38,7 @@
                                 <span class="text">Profile</span>
                             </a>
                         </li>
-                        <hr style="margin: 0px; border-color: #eaeaea">
+                        <hr style="margin: 0px; border-color: #eaeaea">-->
                         <li>
                             <a ng-click="logout()">
                                 <i class="fa fa-search ">
@@ -68,8 +68,8 @@
 
         <div class="sidebar-wrapper  hidden-md hidden-lg">
             <ul class="nav">
-                <li ng-click='makeActive("/profile")' ng-class="{ 'active-o': active=='/profile'}">
-                    <a href="Articles.html">
+                <li>
+                    <a >
                         <img class="img-circle" style="width: 20px;" src="download.jpg">
                         <span class="text">
                             {{username}}

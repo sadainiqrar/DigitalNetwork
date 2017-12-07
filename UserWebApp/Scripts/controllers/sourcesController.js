@@ -2,9 +2,9 @@
 var controllerId = 'sourcesController';
 
 angular.module('DigitalMarket').controller(controllerId,
-    ['$scope', 'Facebook', '$rootScope', '$cookies','umsFactory', 'ModalService', sourcesController]);
+    ['$scope', 'Facebook', '$rootScope', '$cookies', 'umsFactory', 'ModalService', 'AuthenticationService','$mdDialog', sourcesController]);
 
-function sourcesController($scope, Facebook, $rootScope, $cookies, umsFactory, ModalService) {
+function sourcesController($scope, Facebook, $rootScope, $cookies, umsFactory, ModalService, AuthenticationService,$mdDialog) {
     $rootScope.globals = $cookies.getObject('globals') || {};
     $scope.userdata = $rootScope.globals.currentUser;
     $scope.username = $scope.userdata.fullname;
@@ -17,8 +17,59 @@ function sourcesController($scope, Facebook, $rootScope, $cookies, umsFactory, M
     $scope.loginStatus = 'disconnected';
     $scope.bodyText = 'This text can be updated in modal 1';
     $scope.$parent.active = "/marketingsources"
-    
 
+
+   
+
+    AuthenticationService.GetStatus($rootScope.globals.currentUser.uid).then(
+        // callback function for successful http request
+        function success(response) {
+            if (response.data == 'incomplete') {
+                $mdDialog.show(
+                    $mdDialog.alert()
+                        .clickOutsideToClose(true)
+                        .title('Status: Incomplete')
+                        .textContent('Please Add a Marketing Source to Start Verification Process')
+                        .ariaLabel('Offscreen Demo')
+                        .ok('Got it!')
+                        // Or you can specify the rect to do the transition from
+                        .openFrom({
+                            top: -50,
+                            width: 30,
+                            height: 80
+                        })
+                        .closeTo({
+                            left: 1500
+                        })
+                );
+            } else if (response.data == 'pending') {
+
+                $mdDialog.show(
+                    $mdDialog.alert()
+                        .clickOutsideToClose(true)
+                        .title('Status: Pending')
+                        .textContent('Your Verification is in Progress')
+                        .ariaLabel('Offscreen Demo')
+                        .ok('Got it!')
+                        // Or you can specify the rect to do the transition from
+                        .openFrom({
+                            top: -50,
+                            width: 30,
+                            height: 80
+                        })
+                        .closeTo({
+                            left: 1500
+                        })
+                );
+            }
+
+
+        },
+        // callback function for error in http request
+        function error(response) {
+            // log errors
+        }
+    );
 
     Facebook.getLoginStatus(function (response) {
         if (response.status === 'connected') {

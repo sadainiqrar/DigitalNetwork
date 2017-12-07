@@ -126,7 +126,7 @@ namespace DigitalNetwork.Scheduler
                     article.aId = post.SelectToken("id").Value<int>();
                     article.title = post.SelectToken("title.rendered").Value<string>();
                     article.excerpt = post.SelectToken("excerpt.rendered").Value<string>();
-                    article.modifiedDate = post.SelectToken("modified").Value<DateTime>();
+                    article.modifiedDate = post.SelectToken("date").Value<DateTime>();
                     article.aUrl = post.SelectToken("link").Value<string>();
                     try {
                         string image_post_url = post.SelectToken("_links.wp:featuredmedia[0].href").Value<string>();

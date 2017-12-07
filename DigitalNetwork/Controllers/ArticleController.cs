@@ -18,50 +18,34 @@ namespace DigitalNetwork.Controllers
     public class ArticleController : ApiController
     {
         private digimarketEntities1 db = new digimarketEntities1();
-
-        [HttpGet]
-        [Route("api/admin/articles")]
-        public IEnumerable<get_admin_articles_Result> Geti()
-        {
-
-            return db.get_admin_articles("zuraiz.com", "http://trumpgossiptoday.com");
-
-
-        }
-
-
-
-        [HttpPost]
-        [Route("api/admin/articles/{id}")]
-        public IEnumerable<get_admin_single_article_Result> PostSingleArticle(int id,[FromBody] AdminSite adsite)
-        {
-
-            getArticleBySerial_Result article = db.getArticleBySerial(id).ElementAt<getArticleBySerial_Result>(0);
-
-            return db.get_admin_single_article(article.a_id, adsite.email, article.site_url);
-
-        }
-
-
-
-        [HttpPost]
-        [Route("api/admin/articles/{id}/update")]
-        public bool updateSingleArticle(int id)
-        {
-            getArticleBySerial_Result article = db.getArticleBySerial(id).ElementAt< getArticleBySerial_Result>(0);
-            int result = db.update_articles(!article.status, id);
-            article = db.getArticleBySerial(id).ElementAt<getArticleBySerial_Result>(0);
-            return article.status;
-
-        }
-
+        
+        
 
 
         [HttpGet]
         [Route("api/user/article/{serial}")]
-        public getArticleBySerial_Result GetSingleArticle(int serial)
+        public getArticleBySerialNumber GetSingleArticle(int serial)
         {
-            return db.getArticleBySerial(serial).FirstOrDefault<getArticleBySerial_Result>();
+            getArticleBySerialNumber article = new getArticleBySerialNumber();
+            getArticleBySerial_Result temp = new getArticleBySerial_Result();
+            using (var data = db.getArticleBySerial(serial))
+            {
+                temp = data.FirstOrDefault<getArticleBySerial_Result>();
+                article.title = temp.title;
+                article.url = temp.url;
+                article.summary = temp.summary;
+                article.serial_no = temp.serial_no;
+                article.photo_url = temp.photo_url;
+                article.modified_date = temp.modified_date;
+                article.a_id = temp.a_id;
+                article.category = temp.category;
+                article.custom = temp.custom;
+                article.site_url = temp.site_url;
+                article.status = temp.status;
+                article.sub_category = temp.sub_category;
+                article.site_name = getSiteName(article.site_url);
+            }
+                return article;
 
         }
 
@@ -84,6 +68,8 @@ namespace DigitalNetwork.Controllers
                 post.a_id = item.a_id;
                 post.title = item.title;
                 post.site_url = item.site_url;
+                post.site_name = getSiteName(post.site_url);
+
                 post.photo_url = item.photo_url;
                 post.modified_date = item.modified_date;
                 post.category = item.category;
@@ -113,6 +99,13 @@ namespace DigitalNetwork.Controllers
          
         }
 
+
+        [NonAction]
+        public string getSiteName(string site_url)
+        {
+                return db.get_site_name(site_url).FirstOrDefault<string>();
+        }
+
         [HttpPost]
         [Route("api/user/shared_articles")]
         public IEnumerable<get_Articles> Post_Shared_Articles([FromBody] user_article_input article)
@@ -132,6 +125,7 @@ namespace DigitalNetwork.Controllers
                 post.a_id = item.a_id.GetValueOrDefault();
                 post.title = item.title;
                 post.site_url = item.site_url;
+                post.site_name = getSiteName(post.site_url);
                 post.photo_url = item.photo_url;
                 post.modified_date = item.modified_date.GetValueOrDefault();
                 post.category = item.category;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using DigitalNetwork.Models;
 
 namespace DigitalNetwork.DataModel
 {
@@ -48,6 +49,12 @@ namespace DigitalNetwork.DataModel
         public string country { get; set; }
         public string extra { get; set; }
     }
+
+    public class getArticleBySerialNumber : getArticleBySerial_Result
+    {
+
+        public string site_name { get; set; }
+    }
     public class get_Articles
     {
         public int serial_no { get; set; }
@@ -59,6 +66,7 @@ namespace DigitalNetwork.DataModel
         public string photo_url { get; set; }
         public System.DateTime modified_date { get; set; }
         public string site_url { get; set; }
+        public string site_name { get; set; }
         public string category { get; set; }
         public string sub_category { get; set; }
         public bool custom { get; set; }

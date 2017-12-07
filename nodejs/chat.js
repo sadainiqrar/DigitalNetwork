@@ -49,8 +49,6 @@ console.log('Message: ' + data);
 		
 		});
 		socket.on('disconnect', function (username) {
-			console.log("Disconnected : " + usernames[socket.username.username]);
-				socket.broadcast.emit('unjoin', { username : usernames[socket.username.username]});
 				
 		});		
 	});

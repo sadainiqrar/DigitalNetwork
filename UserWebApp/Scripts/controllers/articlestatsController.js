@@ -18,7 +18,7 @@ function articlestatsController($scope, $rootScope, $cookies, $stateParams, grap
     d.setDate(d.getDate() - 7);
     $scope.from = d;
     $scope.extra = 'week';
-
+    $scope.step = 0;
     $scope.trafficData = [];
     $scope.trafficDate = [];
     $scope.earnedData = [];
@@ -103,8 +103,10 @@ function articlestatsController($scope, $rootScope, $cookies, $stateParams, grap
                                 },
 
                                 axisX: {
-                                    categoricalValues: $scope.trafficDate,
-                                    offset: 4
+                                    axisTickText: {
+                                        step: $scope.step
+                                    },
+                                    categoricalValues: $scope.trafficDate
                                 },
                                 tooltipSettings: {
                                     chartBound: true,
@@ -160,15 +162,20 @@ function articlestatsController($scope, $rootScope, $cookies, $stateParams, grap
             {
         d.setDate(d.getDate() - 7);
         $scope.from = d;
+        $scope.step = 0;
         }
         else if ($scope.extra === 'month')
         {
             d.setDate(d.getDate() - 30);
             $scope.from = d;
+
+            $scope.step = 4;
         }
         else if ($scope.extra === 'year') {
             d.setDate(d.getDate() - 365);
             $scope.from = d;
+
+            $scope.step = 1;
         }
 
         graphFactory.getCountryGraph($scope.id, $scope.article.site_url, $scope.article.url, $scope.from, $scope.to).then(
@@ -233,6 +240,9 @@ function articlestatsController($scope, $rootScope, $cookies, $stateParams, grap
                             },
 
                             axisX: {
+                                axisTickText: {
+                                    step: $scope.step
+                                },
                                 categoricalValues: $scope.trafficDate,
                                 offset: 4
                             },

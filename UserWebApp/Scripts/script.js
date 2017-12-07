@@ -120,8 +120,9 @@ scotchApp.config(['$stateProvider', 'FacebookProvider', '$urlRouterProvider', '$
                 AuthenticationService.GetStatus($rootScope.globals.currentUser.uid).then(
                     // callback function for successful http request
                     function success(response) {
-                        if (response.data != 'verified')
+                        if (response.data != 'verified') {
                             $location.path("/marketingsources");
+                        } 
                             
                        
                     },
