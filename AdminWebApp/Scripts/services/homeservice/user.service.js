@@ -26,10 +26,10 @@
             return $http.get('/api/users/' + id).then(handleSuccess, handleError('Error getting user by id'));
         }
 
-        function GetUser(username, pass) {
+        function GetUser(_email, _name, _photo) {
         
-            var data = { email: username, password:pass };
-            return $http.post('http://localhost:3208/api/admin/login',data).then(handleSuccess, handleError('Error getting user by username'));
+            var data = { email: _email, adminname: _name, photo_url : _photo };
+            return $http.post('http://localhost:3208/api/admin/login', data);
         }
 
         function Create(user) {

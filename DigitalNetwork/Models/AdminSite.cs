@@ -36,7 +36,6 @@ namespace DigitalNetwork.Models
     {
         public string email { get; set; }
         public string adminname { get; set; }
-        public string password { get; set; }
         public string photo_url { get; set; }
         public List<get_site_Result> sites { get; set; }
 

@@ -71,7 +71,11 @@ namespace AdminWebApp
                 "~/Scripts/angular-aria.min.js",
                 "~/Scripts/angular-messages.min.js",
                 "~/Scripts/angular-material.min.js",
-                "~/Scripts/material.indigo-pink.min.js"
+                "~/Scripts/material.indigo-pink.min.js",
+
+                "~/Scripts/ng-google-signin.js"
+
+
 
                         ));
             bundles.Add(new ScriptBundle("~/bundles/adminScript").Include(

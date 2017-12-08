@@ -1,26 +1,34 @@
-﻿(function () {
-    'use strict';
+﻿
 
-    angular
-        .module('DigitalMarket')
-        .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$location','$state' ,'AuthenticationService', 'FlashService'];
-    function LoginController($location, $state, AuthenticationService, FlashService) {
-        var vm = this;
 
-        vm.login = login;
+angular.module('DigitalMarket')
+
+    .controller('LoginController', function ($scope, GoogleSignin, $state, AuthenticationService, FlashService) {
+
+        $scope.auth = false;
+        $scope.googleUser = null;
 
         (function initController() {
             // reset login status
             AuthenticationService.ClearCredentials();
         })();
 
-        function login() {
-            vm.dataLoading = true;
-            AuthenticationService.Login(vm.username, vm.password, function (response) {
+        $scope.googleLogin = function () {
+
+            $scope.auth = GoogleSignin.isSignedIn();
+            if (!$scope.auth) {
+                GoogleSignin.signIn().then(function (user) {
+                    // $scope.googleUser = user;
+                }, function (err) {
+                    console.log(err);
+                });
+            }
+            $scope.googleUser = GoogleSignin.getBasicProfile();
+
+            AuthenticationService.Login($scope.googleUser.email, $scope.googleUser.name, $scope.googleUser.photo, function (response) {
                 if (response.success) {
-                    AuthenticationService.SetCredentials(vm.username, vm.password);
+                    AuthenticationService.SetCredentials();
                     $state.go('dashboard.home');
                 } else {
                     FlashService.Error(response.message);
@@ -28,6 +36,27 @@
                 }
             });
         };
-    }
 
-})();
+
+       
+
+
+        //$scope.api = function () {
+        //    Facebook.api('/me', {
+        //        fields: 'name'
+        //    }, function (response) {
+        //        if (response) {
+        //            $scope.user = response;
+        //            //$scope.loginStatus = response.status;
+        //            //$state.go('dashboard.home');
+        //        } else {
+        //            //FlashService.Error(response.message);
+
+        //        }
+
+        //    });
+        //};
+
+
+    });
+

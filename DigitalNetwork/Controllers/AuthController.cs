@@ -12,46 +12,50 @@ namespace DigitalNetwork.Controllers
     {
         private digimarketEntities1 db = new digimarketEntities1();
         ////admin_login
-        //[HttpPost]
-        //[Route("api/admin/login")]
-        //public admin_site_list PostAdmin([FromBody] admin_sign_in_Result admin)
-        //{
-        //    try
-        //    {
-        //        admin_site_list administrator = new admin_site_list();
-
-        //        admin_sign_in_Result _admin = db.admin_sign_in(admin.email, admin.password).ElementAt<admin_sign_in_Result>(0);
-        //        List<get_site_Result> sites = new List<get_site_Result>();
-        //        foreach (get_site_Result site in db.get_site(_admin.email))
-        //        {
-        //            sites.Add(site);
-        //        }
-
-        //        administrator.email = _admin.email;
-        //        administrator.adminname = _admin.adminname;
-        //        administrator.password = _admin.password;
-        //        administrator.photo_url = _admin.photo_url;
-        //        administrator.sites = sites;
-
-        //        return administrator;
-        //    }catch(Exception e)
-        //    {
-        //        return null;
-        //    }
-
-        //}
-
-        //admin_signup
-        [HttpGet]
-        [Route("api/admin/signin")]
-        public int PutSignup_Admin()
+        [HttpPost]
+        [Route("api/admin/login")]
+        public admin_site_list PostAdmin([FromBody] admin_sign_in_Result admin)
         {
+            try
+            {
+                admin_site_list administrator = new admin_site_list();
+                int count = 0;
+                using (var data = new digimarketEntities1().admin_sign_in(admin.email))
+                {
+                    count = data.Count<admin_sign_in_Result>();
+                }
+                if (count == 0)
+                {
+                    new digimarketEntities1().admin_sign_up(admin.email, admin.adminname, admin.photo_url);
+                    Authorization authfirst = new Authorization(admin.email);
+                }
 
-            Authorization auth = new Authorization("sadain@digihawks.com");
-            var result = auth.service.Management.Accounts.List();
-            var account = result.Execute();
-            return db.admin_sign_up(account.Username, account.Username,"photo");
+                new digimarketEntities1().admin_update(admin.email, admin.adminname, admin.photo_url);
+                admin_sign_in_Result _admin = new digimarketEntities1().admin_sign_in(admin.email).ElementAt<admin_sign_in_Result>(0);
+                List<get_site_Result> sites = new List<get_site_Result>();
+                try { 
+                foreach (get_site_Result site in new digimarketEntities1().get_site(_admin.email))
+                {
+                    sites.Add(site);
+                }
+                }
+                catch(Exception e)
+                { }
+
+                administrator.email = _admin.email;
+                administrator.adminname = _admin.adminname;
+                administrator.photo_url = _admin.photo_url;
+                administrator.sites = sites;
+                return administrator;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+
         }
+
+        
 
         [HttpPost]
         [Route("api/admin/addsite")]

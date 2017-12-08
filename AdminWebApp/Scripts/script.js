@@ -1,14 +1,17 @@
 
    // 'use strict'// create the module and name it scotchApp
    // var loginApp = angular.module('loginApp',['ui-router']);
-var scotchApp = angular.module('DigitalMarket', ['ui.router','ngRoute', 'ngCookies','ngSanitize','ngMaterial']);
+var scotchApp = angular.module('DigitalMarket', ['ui.router', 'ngRoute', 'ngCookies', 'ngSanitize', 'ngMaterial', 'google-signin']);
 	// configure our routes
 
 
-scotchApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function ($stateProvider, $urlRouterProvider, $locationProvider) {
+scotchApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider','GoogleSigninProvider', function ($stateProvider, $urlRouterProvider, $locationProvider, GoogleSigninProvider) {
 
     
+    GoogleSigninProvider.init({
+        client_id: '122077380940-vn0cl0ece9gk4bcc40nrnlhpki93dsc5.apps.googleusercontent.com',
 
+    });
 
 
     $stateProvider
