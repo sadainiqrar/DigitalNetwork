@@ -54,7 +54,7 @@ namespace AdminWebApp
                  "~/Content/realtime.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                "~/Scripts/modernizr-2.6.2.js"));
+                "~/Scripts/modernizr-2.6.2.js")); 
 
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
 

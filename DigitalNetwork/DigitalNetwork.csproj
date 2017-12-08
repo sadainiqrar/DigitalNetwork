@@ -190,6 +190,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\digimarket.mdf" />
+    <Content Include="App_Data\digimarket_log.ldf">
+      <DependentUpon>digimarket.mdf</DependentUpon>
+    </Content>
     <Content Include="Global.asax" />
     <None Include="job_scheduling_data_2_0.xsd">
       <SubType>Designer</SubType>
@@ -355,9 +359,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
