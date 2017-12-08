@@ -16,25 +16,28 @@ angular.module('DigitalMarket')
 
         $scope.googleLogin = function () {
 
-            $scope.auth = GoogleSignin.isSignedIn();
-            if (!$scope.auth) {
+          
+           
                 GoogleSignin.signIn().then(function (user) {
+
+                    $scope.googleUser = GoogleSignin.getBasicProfile();
                     // $scope.googleUser = user;
+                    AuthenticationService.Login($scope.googleUser.email, $scope.googleUser.name, $scope.googleUser.image, function (response) {
+                        if (response.success) {
+                            AuthenticationService.SetCredentials();
+                            $state.go('dashboard.home');
+                        } else {
+                            FlashService.Error(response.message);
+                            vm.dataLoading = false;
+                        }
+                    });
                 }, function (err) {
                     console.log(err);
                 });
-            }
-            $scope.googleUser = GoogleSignin.getBasicProfile();
+          
+           
 
-            AuthenticationService.Login($scope.googleUser.email, $scope.googleUser.name, $scope.googleUser.photo, function (response) {
-                if (response.success) {
-                    AuthenticationService.SetCredentials();
-                    $state.go('dashboard.home');
-                } else {
-                    FlashService.Error(response.message);
-                    vm.dataLoading = false;
-                }
-            });
+           
         };
 
 

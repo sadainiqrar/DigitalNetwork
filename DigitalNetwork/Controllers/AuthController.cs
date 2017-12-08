@@ -28,6 +28,14 @@ namespace DigitalNetwork.Controllers
                 {
                     new digimarketEntities1().admin_sign_up(admin.email, admin.adminname, admin.photo_url);
                     Authorization authfirst = new Authorization(admin.email);
+                    try
+                    {
+                        authfirst.service.Management.Accounts.List();
+                    }
+                    catch(Exception ex)
+                    {
+                        return null;
+                    }
                 }
 
                 new digimarketEntities1().admin_update(admin.email, admin.adminname, admin.photo_url);

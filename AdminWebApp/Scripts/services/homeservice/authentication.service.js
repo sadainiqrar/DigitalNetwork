@@ -49,10 +49,10 @@
 
                     $rootScope.globals = {
                         currentUser: {
-                            username: authdata.adminname,
-                            email: authdata.email,
-                            photo_url: authdata.photo_url,
-                            sites: authdata.sites
+                            username: authdata.data.adminname,
+                            email: authdata.data.email,
+                            photo_url: authdata.data.photo_url,
+                            sites: authdata.data.sites
                         }
                     };
 
