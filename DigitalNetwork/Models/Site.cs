@@ -18,6 +18,7 @@ namespace DigitalNetwork.Models
         public Site()
         {
             this.Articles = new HashSet<Article>();
+            this.DeletedArticles = new HashSet<DeletedArticle>();
             this.Admins = new HashSet<Admin>();
         }
     
@@ -27,6 +28,9 @@ namespace DigitalNetwork.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Article> Articles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DeletedArticle> DeletedArticles { get; set; }
+        public virtual Sites_Custom Sites_Custom { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Admin> Admins { get; set; }
     }

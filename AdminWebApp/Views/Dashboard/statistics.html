@@ -1,0 +1,142 @@
+﻿
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 main-panel main-panel-margin">
+    <div class="col-md-12 widthpanel">
+        <section class="panel panel-default panmain">
+            <div class="row">
+
+                <div class="col-md-4 b-r">
+                    <a class="clear">
+                        <span class="h3 block m-t-xs sm1"><center><strong style="color: #34c9ff">{{today_earned| currency:"USD$"}} </strong></center></span>
+                        <div layout="row" layout-sm="column" layout-align="space-around">
+                            <md-progress-circular md-mode="indeterminate" class="md-hue-2" md-diameter="15px" ng-show="dailyIsLoading"></md-progress-circular>
+                        </div>
+                        <small class="text-muted text-uc " style="color: #a3a3a3"><center>EARNED TODAY</center></small>
+
+                    </a>
+                </div>
+                <div class="col-md-4 b-r">
+
+                    <a class="clear">
+                        <span class="h3 block m-t-xs sm1"><center><strong style="color: #bc49ff">{{monthly_earned| currency:"USD$"}}</strong></center></span>
+                        <div layout="row" layout-sm="column" layout-align="space-around">
+                            <md-progress-circular md-mode="indeterminate" class="md-hue-2" md-diameter="15px" ng-show="monthlyIsLoading"></md-progress-circular>
+                        </div>
+                        <small class="text-muted text-uc " style="color: #a3a3a3"><center>EARNED THIS MONTH</center></small>
+                    </a>
+                </div>
+                <div class="col-md-4">
+
+                    <a class="clear">
+                        <span class="h3 m-t-xs sm1"><center><strong style="color: #6344ff">{{sessions}}</strong></center></span>
+                        <div layout="row" layout-sm="column" layout-align="space-around">
+                            <md-progress-circular md-mode="indeterminate" class="md-hue-2" md-diameter="15px" ng-show="dailyIsLoading"></md-progress-circular>
+                        </div>
+                        <small class="text-muted text-uc " style="color: #a3a3a3"><center>THIS MONTH'S TRAFFIC</center></small>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+
+
+        <div class="bar">
+
+            <center><h6 style="color:#878787;">Statistics</h6></center>
+            <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="row col-xs-12 col-sm-6 col-md-6 col-lg-6">
+
+                    <div flex-gt-xs>
+                        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" style="vertical-align:auto" id="fromDiv"><b>From</b></div>
+
+                        <div id="datetimepicker" class=" input-append date col-xs-3 col-sm-3 col-md-3 col-lg-4">
+                            <md-datepicker style="background: transparent;" ng-model="from" md-placeholder="From Date" ng-change="stats()"></md-datepicker>
+                        </div>
+                    </div>
+                </div>
+                <div class="row col-xs-12 col-sm-6 col-md-6 col-lg-6">
+
+                    <div flex-gt-xs>
+                        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" style="vertical-align:auto" id="toDiv"><b>To</b></div>
+
+                        <div id="datetimepicker" class=" input-append date col-xs-3 col-sm-3 col-md-3 col-lg-4">
+                            <md-datepicker style="background: transparent;" ng-model="to" md-placeholder="To Date" ng-change="stats()"></md-datepicker>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+
+
+
+            <div class="col-md-12 col-sm-12 col-xs-12" style="padding: 1em 0em 1em 0em">
+                <section class="panel panel-default table-responsive panmain" id="tablesm">
+                    <div class="container-fluid" style="padding: 0px 0px 0px 0px">
+                        <table class="table tableResp">
+                            <thead>
+                                <tr>
+                                    <th id="tsp1" class="asd"><b>DATE</b></th>
+                                    <th id="tsp2" class="asd"><b>TRAFFIC</b></th>
+                                    <th id="tsp3" class="asd"><b>EARNINGS</b></th>
+                                    <th class="asd"> </th>
+
+                                </tr>
+                            </thead>
+                            <tbody ng-repeat="s in userStat |orderBy:day:true">
+
+                                <tr>
+                                    <td class="yeclass" style="font-size: 8pt"></td>
+                                    <td id="tsp1">{{s.day}}</td>
+                                    <td id="tsp2">{{s.total_traffic}}</td>
+                                    <td id="tsp3">{{s.total_earning}}</td>
+
+                                    <td>
+
+                                        <button type="button" class=" btn-md btn-link" ng-init="clickedh=false" ng-click="clickedh=!clickedh">View Details</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td ng-show="clickedh" colspan="8">
+                                        <div>
+                                            <section class="panel-default subPanel" style=" height: 120px; overflow: auto;">
+                                                <table class="tableSub table">
+                                                    <tbody>
+                                                        <tr style="font-size: 8pt" ng-repeat="c in s.country_stats">
+                                                            <td><left>{{c.country}}</left></td>
+                                                            <td><right>SESSIONS: <span style="color: deepskyblue">{{c.sessions}}</span></right></td>
+                                                            <td><right>NEW SESSIONS: <span style="color: red">{{c.newSessions}}</span></right></td>
+                                                        </tr>
+
+                                                    </tbody>
+
+                                                </table>
+                                            </section>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div layout="row" layout-sm="column" layout-align="space-around">
+                            <md-progress-circular md-mode="indeterminate" ng-show="isLoading"></md-progress-circular>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+
+
+
+
+        </div>
+
+
+
+    </div>
+
+    </div>
+
+
+

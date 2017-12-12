@@ -10,11 +10,17 @@
     <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <title>@ViewBag.Title DigitalNetwork</title>
+
+    <link rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/light/all.min.css" />
     @Styles.Render("~/Content/css")
 
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
     @Scripts.Render("~/bundles/angular")
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.js" integrity="sha256-w3THDDhkzdjMczax74BBlkhjBxWIGisjArsP5wIQSHc=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
     @Scripts.Render("~/bundles/adminScript")
     @Scripts.Render("~/bundles/homeScript")
 
@@ -23,7 +29,7 @@
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
-<body>
+<body style="overflow: hidden;">
 
     <!-- angular templating -->
     <!-- this is where content will be injected -->

@@ -1,175 +1,124 @@
-<div class="container-fluid">
-    {{message}}
-       <div class="col-md-6" ng-repeat="a in article">
-           <section class="panel panel-default">
-            <div class="thumbnail">
-                <div>
-                </div>
-                <img src="{{a.photo_url}}" alt="" >
-                <a href="{{a.url}}"><center>{{a.url}}</center></a>
-                <div class="caption">
-                    <h4 class="text-left" ><b ng-bind-html="a.title"></b></h4>
-                    <div class="text-justify" ng-bind-html="a.summary"></div>
-                   
 
-                    <md-switch class="md-primary" ng-model="status" aria-label="Switch"
-                               ng-change="updateStatus()">
-                        Status : {{ status }}
-                    </md-switch>  
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 main-panel main-panel-margin">
+
+
+    <div class="col-md-12 widthpanel" style="padding-top: 1.5em">
+
+        <div class="bar">
+
+            <div class="col-md-12 col-sm-12 col-xs-12 panmain" style="padding-bottom: 4em">
+
+                <section class="panel" style="margin: 0">
+                    <div class="row">
+
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0px 0px 0em 0px;">
+
+                            <div class="col-lg-6 col-md-7 col-sm-12 col-xs-12 articleDetailsec">
+
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 detailsArticleImage">
+                                    <img src={{article.photo_url}} style="width: 7em;height: 5em;">
+                                </div>
+
+                                <div class="col-md-6" style="padding: 1.5em 0em 1em 2em">
+                                    <h5 style="margin: 0;font-size: 12pt;font-family:sans-serif">{{article.title}}<br><span id="categoryby" class="text-muted">Article by: {{article.site_name}}</span></h5>
+                                </div>
+
+                            </div>
+
+                            <div class="col-lg-6 col-md-5 col-sm-12 col-xs-12">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 decron">
+                                    <span class="h3 block m-t-xs">
+                                        <center>
+
+                                            <i class="fa fa-money" aria-hidden="true" style="margin: 8px; color: #58d1ff;"></i>
+                                            <strong style="color: #58d1ff; font-size: 12pt;">
+
+                                                <br> {{totalEarned}}$
+                                            </strong>
+                                        </center>
+                                    </span>
+
+                                    <center>
+                                        <small class="text-muted text-uc" style="font-size: 7pt; margin : 12px 0px 0px 0px;">EARNED SO FAR</small>
+                                    </center>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="padding: 1em 2em 1em 0em;">
+                                    <span class="h3 block m-t-xs">
+                                        <center>
+
+                                            <i class="fa fa-line-chart" aria-hidden="true" style="margin: 8px; color: #6a52e9;"></i>
+                                            <strong style="color: #6a52e9; font-size: 12pt;">
+
+                                                <br> {{totalTraffic}}
+                                            </strong>
+                                        </center>
+                                    </span>
+
+                                    <center>
+                                        <small class="text-muted text-uc" style="font-size: 7pt; margin : 12px 0px 0px 0px;">TRAFFIC GENERATED</small>
+                                    </center>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </section>
+
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="background-color:#f8f8f8;">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-8 col-md-8 col-sm-6 col-xs-7" style="padding: 3em 0em 1em 0em;">
+                            <p class="trafficNRev">Traffic and Revenue Generated</p>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-5" id="monthbutton">
+                            <button class="mbtn" type="button" ng-click='makeActive("month")' ng-class="{ 'activebutton': extra=='month'}">Month</button>
+                            <button class="mbtn" type="button" ng-click='makeActive("week")' ng-class="{ 'activebutton': extra=='week'}">Week</button>
+                            <button class="mbtn" type="button" ng-click='makeActive("year")' ng-class="{ 'activebutton': extra=='year'}">Year</button>
+                        </div>
+                    </div>
+                    <div class="col-md-10 col-md-offset-1">
+
+                        <my-custom-chart-control data-id="chart2">
+                        </my-custom-chart-control>
 
                     </div>
-                 
+
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" style="padding-top: 2em;">
+                        <p class="trafficNRev" style="padding-bottom: 1em;">Location</p>
+                    </div>
+
+                    <div class="col-md-10 col-md-offset-1">
+
+                        <my-custom-chart-control data-id="chart3">
+                        </my-custom-chart-control>
+
+                    </div>
+
+
+
+                </div>
+
+                <div class="row">
+
+
+
+
+
+                </div>
+
+
+
             </div>
-         
-    </section>
+
+
+
+        </div>
     </div>
-<div class="col-md-6">
-                  <section class="panel panel-default">
-                    <header class="panel-heading font-bold">Top Users</header>
-                      <div class="panel-body">
-                                    <div class="table-container">
 
-                            <table class="table table-filter">
-                                <thead>
-                                    <th>Username</th>
-                                    <th><center>Traffic</center></th>                                    
-                                </thead>
-                                <tbody>
-                                </tbody>
-                                <tr data-status="pagado">
-                                    <td>
-                                            <div class="media">
-                                                <div class="media-body">
-                                                    <h4 class="title">
-                                                        Sana Arooj
-                                                    </h4>
 
-                                                </div>
-                                            </div>
-                                        </td>
 
-                                <td>
-                                            <div class="media">
-                                                <div class="media-body">
-                                                    <h4 class="title">
-                                                        <span class="pull-right pagado">(1.3 M)</span>
-                                                    </h4>
-
-                                                </div>
-                                            </div>
-                                        </td>
-                                </tr>
-                                  <tr data-status="pagado">
-                                    <td>
-                                            <div class="media">
-                                                <div class="media-body">
-                                                    <h4 class="title">
-                                                        M.Zuraiz
-                                                    </h4>
-
-                                                </div>
-                                            </div>
-                                        </td>
-
-                                <td>
-                                            <div class="media">
-                                                <div class="media-body">
-                                                    <h4 class="title">
-                                                        <span class="pull-right pagado">(1.2 M)</span>
-                                                    </h4>
-
-                                                </div>
-                                            </div>
-                                        </td>
-                                </tr>
-                                 <tr data-status="pagado">
-                                    <td>
-                                            <div class="media">
-                                                <div class="media-body">
-                                                    <h4 class="title">
-                                                        Sadain 
-                                                    </h4>
-
-                                                </div>
-                                            </div>
-                                        </td>
-
-                                <td>
-                                            <div class="media">
-                                                <div class="media-body">
-                                                    <h4 class="title">
-                                                        <span class="pull-right pagado">(1.1 M)</span>
-                                                    </h4>
-
-                                                </div>
-                                            </div>
-                                        </td>
-                                </tr>
-                                   <tr data-status="pagado">
-                                    <td>
-                                            <div class="media">
-                                                <div class="media-body">
-                                                    <h4 class="title">
-                                                        M.Usman
-                                                    </h4>
-
-                                                </div>
-                                            </div>
-                                        </td>
-
-                                <td>
-                                            <div class="media">
-                                                <div class="media-body">
-                                                    <h4 class="title">
-                                                        <span class="pull-right pagado">(1.0 M)</span>
-                                                    </h4>
-
-                                                </div>
-                                            </div>
-                                        </td>
-                                </tr>
-                             </table>
-                          </div>
-                    </div>
-                  </section>
-                </div>
-    <div class="col-md-6">
-            <section class="panel panel-default">
-                    <header class="panel-heading font-bold"><center>Data Graph</center></header>
-
-            
-                <div class="caption">
-                    <div class="bg-light dk wrapper">
-                      <span class="pull-right">Friday</span>
-                      <span class="h4">$540<br>
-                        <small class="text-muted">+1.05(2.15%)</small>
-                      </span>
-                      <div class="text-center m-b-n m-t-sm">
-                          <div class="sparkline" data-type="line" data-height="65" data-width="100%" data-line-width="2" data-line-color="#dddddd" data-spot-color="#bbbbbb" data-fill-color="" data-highlight-line-color="#fff" data-spot-radius="3" data-resize="true" values="280,320,220,385,450,320,345,250,250,250,400,380"></div>
-                          <div class="sparkline inline" data-type="bar" data-height="45" data-bar-width="6" data-bar-spacing="6" data-bar-color="#65bd77">10,9,11,10,11,10,12,10,9,10,11,9,8</div>
-                      </div>
-                    </div>
-                    <div class="panel-body">
-                      <div>
-                        <span class="text-muted">Total:</span>
-                        <span class="h3 block">$2500.00</span>
-                      </div>
-                      <div class="line pull-in"></div>
-                      <div class="row m-t-sm">
-                        <div class="col-xs-4">
-                          <small class="text-muted block">Market</small>
-                          <span>$1500.00</span>
-                        </div>
-                        <div class="col-xs-4">
-                          <small class="text-muted block">Referal</small>
-                          <span>$600.00</span>
-                        </div>
-                        <div class="col-xs-4">
-                          <small class="text-muted block">Affiliate</small>
-                          <span>$400.00</span>
-                        </div>
-                      </div>
-                    </div>
-                      
-                </div></section></div>
-</div>
+</div> 

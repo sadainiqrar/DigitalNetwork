@@ -21,16 +21,16 @@ namespace DigitalNetwork.Scheduler
 
         public void Execute(IJobExecutionContext context)
         {
-            string [] siteResult;
+            get_all_site_Result[] siteResult;
             using (var sites = db.get_all_site())
             {
-               siteResult  = sites.ToArray<string>();
+               siteResult  = sites.ToArray<get_all_site_Result>();
             }
             foreach (var site in siteResult)
             {
                 DateTime date = DateTime.Now;
-                deleteExtra(site);
-                insertNew(site);
+                deleteExtra(site.site_url);
+                insertNew(site.site_url);
                 DateTime date2 = DateTime.Now;
             }
         }

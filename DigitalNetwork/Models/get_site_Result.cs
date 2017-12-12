@@ -16,5 +16,6 @@ namespace DigitalNetwork.Models
         public string site_url { get; set; }
         public string site_name { get; set; }
         public string ga_id { get; set; }
+        public bool custom { get; set; }
     }
 }

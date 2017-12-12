@@ -157,4 +157,8 @@ namespace DigitalNetwork.DataModel
         public double available { get; set; }
 
     }
+    public class siteInput:get_all_site_Result
+    {
+        public string email { get; set; }
+    }
 }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="digimarketModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="digimarketModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Admin">
           <Key>
             <PropertyRef Name="email" />
@@ -32,6 +32,21 @@
           <Property Name="title" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="summary" Type="varchar(max)" Nullable="false" />
           <Property Name="photo_url" Type="varchar(max)" />
+          <Property Name="modified_date" Type="date" Nullable="false" />
+          <Property Name="site_url" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="category" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="sub_category" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="custom" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DeletedArticles">
+          <Key>
+            <PropertyRef Name="serial_no" />
+          </Key>
+          <Property Name="serial_no" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="a_id" Type="int" Nullable="false" />
+          <Property Name="url" Type="varchar(max)" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="summary" Type="varchar(max)" Nullable="false" />
           <Property Name="modified_date" Type="date" Nullable="false" />
           <Property Name="site_url" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="category" Type="varchar" MaxLength="50" Nullable="false" />
@@ -73,6 +88,13 @@
           <Property Name="site_url" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="site_name" Type="varchar" MaxLength="50" />
           <Property Name="ga_id" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sites_Custom">
+          <Key>
+            <PropertyRef Name="site_url" />
+          </Key>
+          <Property Name="site_url" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="custom" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -168,6 +190,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DeletedArticles_Sites">
+          <End Role="Sites" Type="Self.Sites" Multiplicity="1" />
+          <End Role="DeletedArticles" Type="Self.DeletedArticles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sites">
+              <PropertyRef Name="site_url" />
+            </Principal>
+            <Dependent Role="DeletedArticles">
+              <PropertyRef Name="site_url" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Payment_User">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
@@ -189,6 +223,18 @@
             </Principal>
             <Dependent Role="Rates_History">
               <PropertyRef Name="category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sites_Custom_Sites">
+          <End Role="Sites" Type="Self.Sites" Multiplicity="1" />
+          <End Role="Sites_Custom" Type="Self.Sites_Custom" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Sites">
+              <PropertyRef Name="site_url" />
+            </Principal>
+            <Dependent Role="Sites_Custom">
+              <PropertyRef Name="site_url" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -246,6 +292,7 @@
           <Parameter Name="site_name" Type="varchar" Mode="In" />
           <Parameter Name="gid" Type="varchar(max)" Mode="In" />
           <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="custom" Type="bit" Mode="In" />
         </Function>
         <Function Name="add_ums" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ums_id" Type="varchar" Mode="In" />
@@ -386,10 +433,12 @@
           <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AdminSite" EntityType="Self.AdminSite" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Articles" EntityType="Self.Articles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DeletedArticles" EntityType="Self.DeletedArticles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rate" EntityType="Self.Rate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rates_History" EntityType="Self.Rates_History" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sites" EntityType="Self.Sites" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sites_Custom" EntityType="Self.Sites_Custom" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Articles" EntityType="Self.User_Articles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Date" EntityType="Self.User_Date" Schema="dbo" store:Type="Tables" />
@@ -414,6 +463,10 @@
             <End Role="Sites" EntitySet="Sites" />
             <End Role="Articles" EntitySet="Articles" />
           </AssociationSet>
+          <AssociationSet Name="FK_DeletedArticles_Sites" Association="Self.FK_DeletedArticles_Sites">
+            <End Role="Sites" EntitySet="Sites" />
+            <End Role="DeletedArticles" EntitySet="DeletedArticles" />
+          </AssociationSet>
           <AssociationSet Name="FK_Payment_User" Association="Self.FK_Payment_User">
             <End Role="User" EntitySet="User" />
             <End Role="Payment" EntitySet="Payment" />
@@ -421,6 +474,10 @@
           <AssociationSet Name="FK_Rates_History_Rate" Association="Self.FK_Rates_History_Rate">
             <End Role="Rate" EntitySet="Rate" />
             <End Role="Rates_History" EntitySet="Rates_History" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sites_Custom_Sites" Association="Self.FK_Sites_Custom_Sites">
+            <End Role="Sites" EntitySet="Sites" />
+            <End Role="Sites_Custom" EntitySet="Sites_Custom" />
           </AssociationSet>
           <AssociationSet Name="FK_User_Date_User" Association="Self.FK_User_Date_User">
             <End Role="User" EntitySet="User" />
@@ -431,7 +488,8 @@
             <End Role="User_Marketing_Sources" EntitySet="User_Marketing_Sources" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="digimarketModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -462,6 +520,22 @@
           <Property Name="custom" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="User_Articles" Relationship="Self.FK__User_Arti__seria__02084FDA" FromRole="Articles" ToRole="User_Articles" />
           <NavigationProperty Name="Site" Relationship="Self.FK_Articles_Sites" FromRole="Articles" ToRole="Sites" />
+        </EntityType>
+        <EntityType Name="DeletedArticle">
+          <Key>
+            <PropertyRef Name="serial_no" />
+          </Key>
+          <Property Name="serial_no" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="a_id" Type="Int32" Nullable="false" />
+          <Property Name="url" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="summary" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="modified_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="site_url" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="sub_category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="custom" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Site" Relationship="Self.FK_DeletedArticles_Sites" FromRole="DeletedArticles" ToRole="Sites" />
         </EntityType>
         <EntityType Name="Payment">
           <Key>
@@ -502,7 +576,17 @@
           <Property Name="site_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ga_id" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Articles" Relationship="Self.FK_Articles_Sites" FromRole="Sites" ToRole="Articles" />
+          <NavigationProperty Name="DeletedArticles" Relationship="Self.FK_DeletedArticles_Sites" FromRole="Sites" ToRole="DeletedArticles" />
+          <NavigationProperty Name="Sites_Custom" Relationship="Self.FK_Sites_Custom_Sites" FromRole="Sites" ToRole="Sites_Custom" />
           <NavigationProperty Name="Admins" Relationship="Self.AdminSite" FromRole="Sites" ToRole="Admin" />
+        </EntityType>
+        <EntityType Name="Sites_Custom">
+          <Key>
+            <PropertyRef Name="site_url" />
+          </Key>
+          <Property Name="site_url" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="custom" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Site" Relationship="Self.FK_Sites_Custom_Sites" FromRole="Sites_Custom" ToRole="Sites" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -570,6 +654,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DeletedArticles_Sites">
+          <End Role="Sites" Type="Self.Site" Multiplicity="1" />
+          <End Role="DeletedArticles" Type="Self.DeletedArticle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sites">
+              <PropertyRef Name="site_url" />
+            </Principal>
+            <Dependent Role="DeletedArticles">
+              <PropertyRef Name="site_url" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Payment_User">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
@@ -591,6 +687,18 @@
             </Principal>
             <Dependent Role="Rates_History">
               <PropertyRef Name="category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sites_Custom_Sites">
+          <End Role="Sites" Type="Self.Site" Multiplicity="1" />
+          <End Role="Sites_Custom" Type="Self.Sites_Custom" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Sites">
+              <PropertyRef Name="site_url" />
+            </Principal>
+            <Dependent Role="Sites_Custom">
+              <PropertyRef Name="site_url" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -637,10 +745,12 @@
         <EntityContainer Name="digimarketEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Admins" EntityType="Self.Admin" />
           <EntitySet Name="Articles" EntityType="Self.Article" />
+          <EntitySet Name="DeletedArticles" EntityType="Self.DeletedArticle" />
           <EntitySet Name="Payments" EntityType="Self.Payment" />
           <EntitySet Name="Rates" EntityType="Self.Rate" />
           <EntitySet Name="Rates_History" EntityType="Self.Rates_History" />
           <EntitySet Name="Sites" EntityType="Self.Site" />
+          <EntitySet Name="Sites_Custom" EntityType="Self.Sites_Custom" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="User_Articles" EntityType="Self.User_Articles" />
           <EntitySet Name="User_Date" EntityType="Self.User_Date" />
@@ -653,6 +763,10 @@
             <End Role="Sites" EntitySet="Sites" />
             <End Role="Articles" EntitySet="Articles" />
           </AssociationSet>
+          <AssociationSet Name="FK_DeletedArticles_Sites" Association="Self.FK_DeletedArticles_Sites">
+            <End Role="Sites" EntitySet="Sites" />
+            <End Role="DeletedArticles" EntitySet="DeletedArticles" />
+          </AssociationSet>
           <AssociationSet Name="FK_Payment_User" Association="Self.FK_Payment_User">
             <End Role="User" EntitySet="Users" />
             <End Role="Payment" EntitySet="Payments" />
@@ -660,6 +774,10 @@
           <AssociationSet Name="FK_Rates_History_Rate" Association="Self.FK_Rates_History_Rate">
             <End Role="Rate" EntitySet="Rates" />
             <End Role="Rates_History" EntitySet="Rates_History" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sites_Custom_Sites" Association="Self.FK_Sites_Custom_Sites">
+            <End Role="Sites" EntitySet="Sites" />
+            <End Role="Sites_Custom" EntitySet="Sites_Custom" />
           </AssociationSet>
           <AssociationSet Name="FK__User_Articl__uid__01142BA1" Association="Self.FK__User_Articl__uid__01142BA1">
             <End Role="User" EntitySet="Users" />
@@ -707,13 +825,14 @@
             <Parameter Name="site_name" Mode="In" Type="String" />
             <Parameter Name="gid" Mode="In" Type="String" />
             <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="custom" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="add_ums">
             <Parameter Name="ums_id" Mode="In" Type="String" />
             <Parameter Name="uid" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="admin_sign_in" ReturnType="Collection(digimarketModel.admin_sign_in_Result)">
-          <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="admin_sign_up">
             <Parameter Name="email" Mode="In" Type="String" />
@@ -726,24 +845,24 @@
             <Parameter Name="photo" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="count_ums" ReturnType="Collection(Int32)">
-          <Parameter Name="uid" Mode="In" Type="String" />
+            <Parameter Name="uid" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="delete_article">
-          <Parameter Name="serial" Mode="In" Type="Int32" />
+            <Parameter Name="serial" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="delete_site">
             <Parameter Name="site_url" Mode="In" Type="String" />
             <Parameter Name="email" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="delete_ums">
-          <Parameter Name="ums_id" Mode="In" Type="String" />
+            <Parameter Name="ums_id" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_admin_articles" ReturnType="Collection(digimarketModel.get_admin_articles_Result)">
             <Parameter Name="email" Mode="In" Type="String" />
             <Parameter Name="site" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_admin_gid" ReturnType="Collection(digimarketModel.get_admin_gid_Result)">
-          <Parameter Name="site" Mode="In" Type="String" />
+            <Parameter Name="site" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_admin_single_article" ReturnType="Collection(digimarketModel.get_admin_single_article_Result)">
             <Parameter Name="aid" Mode="In" Type="Int32" />
@@ -751,22 +870,22 @@
             <Parameter Name="site" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_all_articles" ReturnType="Collection(digimarketModel.get_all_articles_Result)">
-          <Parameter Name="site" Mode="In" Type="String" />
+            <Parameter Name="site" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="get_all_site" ReturnType="Collection(String)" />
+          <FunctionImport Name="get_all_site" ReturnType="Collection(digimarketModel.get_all_site_Result)" />
           <FunctionImport Name="get_articles" ReturnType="Collection(digimarketModel.get_articles_Result)">
             <Parameter Name="uid" Mode="In" Type="String" />
             <Parameter Name="cat" Mode="In" Type="String" />
             <Parameter Name="subcat" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_joining_date" ReturnType="Collection(digimarketModel.get_joining_date_Result)">
-          <Parameter Name="uid" Mode="In" Type="String" />
+            <Parameter Name="uid" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_payment" ReturnType="Collection(digimarketModel.get_payment_Result)">
-          <Parameter Name="uid" Mode="In" Type="String" />
+            <Parameter Name="uid" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_rate" ReturnType="Collection(digimarketModel.get_rate_Result)">
-          <Parameter Name="category" Mode="In" Type="String" />
+            <Parameter Name="category" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_shared_article" ReturnType="Collection(digimarketModel.get_shared_article_Result)">
             <Parameter Name="uid" Mode="In" Type="String" />
@@ -774,30 +893,34 @@
             <Parameter Name="subcat" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_shared_article_serial" ReturnType="Collection(Int32)">
-          <Parameter Name="serial" Mode="In" Type="Int32" />
+            <Parameter Name="serial" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="get_site" ReturnType="Collection(digimarketModel.get_site_Result)">
-          <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="get_site_name" ReturnType="Collection(String)">
+            <Parameter Name="url" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_total_earned" ReturnType="Collection(digimarketModel.get_total_earned_Result)">
-          <Parameter Name="uid" Mode="In" Type="String" />
+            <Parameter Name="uid" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_ums" ReturnType="Collection(String)">
-          <Parameter Name="uid" Mode="In" Type="String" />
+            <Parameter Name="uid" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_user_single_article" ReturnType="Collection(digimarketModel.get_user_single_article_Result)">
-          <Parameter Name="serial" Mode="In" Type="Int32" />
+            <Parameter Name="serial" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="get_user_status" ReturnType="Collection(String)">
-          <Parameter Name="uid" Mode="In" Type="String" />
+            <Parameter Name="uid" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_user_traffic" ReturnType="Collection(digimarketModel.get_user_traffic_Result)">
-          <Parameter Name="uid" Mode="In" Type="String" />
+            <Parameter Name="uid" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="getAllUser" ReturnType="Collection(digimarketModel.getAllUser_Result)" />
           <FunctionImport Name="getArticleBySerial" ReturnType="Collection(digimarketModel.getArticleBySerial_Result)">
-          <Parameter Name="serial" Mode="In" Type="Int32" />
+            <Parameter Name="serial" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="Procedure" ReturnType="Collection(digimarketModel.Procedure_Result)" />
           <FunctionImport Name="update_article_data">
             <Parameter Name="serial_no" Mode="In" Type="Int32" />
             <Parameter Name="article_url" Mode="In" Type="String" />
@@ -826,7 +949,7 @@
             <Parameter Name="site" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="user_sign_in" ReturnType="Collection(digimarketModel.user_sign_in_Result)">
-          <Parameter Name="uid" Mode="In" Type="String" />
+            <Parameter Name="uid" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="user_sign_up">
             <Parameter Name="uid" Mode="In" Type="String" />
@@ -838,10 +961,6 @@
           <FunctionImport Name="user_update">
             <Parameter Name="uid" Mode="In" Type="String" />
             <Parameter Name="status" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="Procedure" ReturnType="Collection(digimarketModel.Procedure_Result)" />
-          <FunctionImport Name="get_site_name" ReturnType="Collection(String)">
-            <Parameter Name="url" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="admin_sign_in_Result">
@@ -893,6 +1012,12 @@
           <Property Type="String" Name="site_url" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="category" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="sub_category" Nullable="false" MaxLength="50" />
+          <Property Type="Boolean" Name="custom" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="get_all_site_Result">
+          <Property Type="String" Name="site_url" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="site_name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ga_id" Nullable="false" />
           <Property Type="Boolean" Name="custom" Nullable="false" />
         </ComplexType>
         <ComplexType Name="get_articles_Result">
@@ -948,6 +1073,7 @@
           <Property Type="String" Name="site_url" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="site_name" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="ga_id" Nullable="false" />
+          <Property Type="Boolean" Name="custom" Nullable="false" />
         </ComplexType>
         <ComplexType Name="get_total_earned_Result">
           <Property Type="Int32" Name="totalTraffic" Nullable="true" />
@@ -991,15 +1117,15 @@
           <Property Type="String" Name="sub_category" Nullable="false" MaxLength="50" />
           <Property Type="Boolean" Name="custom" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="Procedure_Result">
+          <Property Type="String" Name="ga_id" Nullable="false" />
+          <Property Type="String" Name="email" Nullable="false" MaxLength="30" />
+        </ComplexType>
         <ComplexType Name="user_sign_in_Result">
           <Property Type="String" Name="uid" Nullable="false" MaxLength="20" />
           <Property Type="String" Name="username" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="photourl" Nullable="true" />
           <Property Type="String" Name="fullname" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="Procedure_Result">
-          <Property Type="String" Name="ga_id" Nullable="false" />
-          <Property Type="String" Name="email" Nullable="false" MaxLength="30" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1026,6 +1152,22 @@
                 <ScalarProperty Name="title" ColumnName="title" />
                 <ScalarProperty Name="summary" ColumnName="summary" />
                 <ScalarProperty Name="photo_url" ColumnName="photo_url" />
+                <ScalarProperty Name="modified_date" ColumnName="modified_date" />
+                <ScalarProperty Name="site_url" ColumnName="site_url" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="sub_category" ColumnName="sub_category" />
+                <ScalarProperty Name="custom" ColumnName="custom" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeletedArticles">
+            <EntityTypeMapping TypeName="digimarketModel.DeletedArticle">
+              <MappingFragment StoreEntitySet="DeletedArticles">
+                <ScalarProperty Name="serial_no" ColumnName="serial_no" />
+                <ScalarProperty Name="a_id" ColumnName="a_id" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="summary" ColumnName="summary" />
                 <ScalarProperty Name="modified_date" ColumnName="modified_date" />
                 <ScalarProperty Name="site_url" ColumnName="site_url" />
                 <ScalarProperty Name="category" ColumnName="category" />
@@ -1071,6 +1213,14 @@
                 <ScalarProperty Name="site_url" ColumnName="site_url" />
                 <ScalarProperty Name="site_name" ColumnName="site_name" />
                 <ScalarProperty Name="ga_id" ColumnName="ga_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sites_Custom">
+            <EntityTypeMapping TypeName="digimarketModel.Sites_Custom">
+              <MappingFragment StoreEntitySet="Sites_Custom">
+                <ScalarProperty Name="site_url" ColumnName="site_url" />
+                <ScalarProperty Name="custom" ColumnName="custom" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1201,7 +1351,16 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="get_all_site" FunctionName="digimarketModel.Store.get_all_site" />
+          <FunctionImportMapping FunctionImportName="get_all_site" FunctionName="digimarketModel.Store.get_all_site">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="digimarketModel.get_all_site_Result">
+                <ScalarProperty Name="site_url" ColumnName="site_url" />
+                <ScalarProperty Name="site_name" ColumnName="site_name" />
+                <ScalarProperty Name="ga_id" ColumnName="ga_id" />
+                <ScalarProperty Name="custom" ColumnName="custom" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="get_articles" FunctionName="digimarketModel.Store.get_articles">
             <ResultMapping>
               <ComplexTypeMapping TypeName="digimarketModel.get_articles_Result">
@@ -1278,9 +1437,11 @@
                 <ScalarProperty Name="site_url" ColumnName="site_url" />
                 <ScalarProperty Name="site_name" ColumnName="site_name" />
                 <ScalarProperty Name="ga_id" ColumnName="ga_id" />
+                <ScalarProperty Name="custom" ColumnName="custom" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_site_name" FunctionName="digimarketModel.Store.get_site_name" />
           <FunctionImportMapping FunctionImportName="get_total_earned" FunctionName="digimarketModel.Store.get_total_earned">
             <ResultMapping>
               <ComplexTypeMapping TypeName="digimarketModel.get_total_earned_Result">
@@ -1345,6 +1506,14 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Procedure" FunctionName="digimarketModel.Store.Procedure">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="digimarketModel.Procedure_Result">
+                <ScalarProperty Name="ga_id" ColumnName="ga_id" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="update_article_data" FunctionName="digimarketModel.Store.update_article_data" />
           <FunctionImportMapping FunctionImportName="update_articles" FunctionName="digimarketModel.Store.update_articles" />
           <FunctionImportMapping FunctionImportName="update_rates" FunctionName="digimarketModel.Store.update_rates" />
@@ -1362,15 +1531,6 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="user_sign_up" FunctionName="digimarketModel.Store.user_sign_up" />
           <FunctionImportMapping FunctionImportName="user_update" FunctionName="digimarketModel.Store.user_update" />
-          <FunctionImportMapping FunctionImportName="Procedure" FunctionName="digimarketModel.Store.Procedure">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="digimarketModel.Procedure_Result">
-                <ScalarProperty Name="ga_id" ColumnName="ga_id" />
-                <ScalarProperty Name="email" ColumnName="email" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="get_site_name" FunctionName="digimarketModel.Store.get_site_name" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

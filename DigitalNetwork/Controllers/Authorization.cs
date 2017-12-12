@@ -41,7 +41,7 @@ namespace DigitalNetwork.Controllers
             ClientId = clientId,
             ClientSecret = clientSecret
         },
-    new[] { AnalyticsService.Scope.Analytics, AnalyticsService.Scope.AnalyticsReadonly },
+    new[] { AnalyticsService.Scope.Analytics, AnalyticsService.Scope.AnalyticsReadonly, AnalyticsService.Scope.AnalyticsEdit},
     email,
     CancellationToken.None,
     new FileDataStore("account.users"));

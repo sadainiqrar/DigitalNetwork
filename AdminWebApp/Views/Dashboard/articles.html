@@ -1,41 +1,208 @@
-<div class="container">
-    <h2>{{message}}</h2>
-
-    <div class="row">
-        <section class="panel panel-default">
-        
-        <div class="col-xs-12 col-sm-6 col-md-3" ng-repeat="article in articles">
-
+﻿
             
-            <div class="thumbnail">
-               <div>
-                    <md-switch class="md-primary" ng-model="article.status" aria-label="Switch"
-                               ng-change="updateStatus()">
-                        Status : {{ article.status }}
-                    </md-switch>  
-                
-                </div>
-                <a href="#!/articlestats/{{article.serial_no}}">
-                    <div class="container"  style="width:100%">
-                        <img  src="{{article.photo_url}}" alt="">
-                    </div>
-                    
-                    <div class="caption"    overflow="auto" >
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 main-panel main-panel-margin">
 
-                       
-                        <h5 class="text-justify"><b ng-bind-html="article.title"></b></h5>
+    <div class="col-md-12 widthpanel">
 
-                   
-                            <a class="text-left" style="color: chocolate" href=  {{article.url}}>Link of this post</a>
-                          
-                     
-                    </div>
-                </a>
-          </div>
-            
-        </div>
-        
- 
-        </section>
-    </div>
+        <div class="bar">
+            <ul class="nav nav-tabs" id="Tab">
+                <li class="active"><a class=" maintab " data-toggle="tab" ng-click="_category = 'premium'">Premium</a></li>
+                <li><a class="maintab" data-toggle="tab" ng-click="_category = 'non_premium'">Non Premium</a></li>
+            </ul>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-cat-collapse">
+                <i class="fa fa-bars"></i>
+            </button>
+            <section class="panel panel-default panmain">
+                <div style="margin-bottom: 20px"><p>TOP ARTICLES</p></div>
+
+                <nav class="navbar navbar-default navbar-collapse collapse" id="navbar-cat-collapse">
+
+
+                    <ul class="nav navbar-nav" style="display: inline;">
+                        <li ng-click='makeActive("Political")' ng-class="{ 'active': active=='Political'}"><a class="tabpad" ng-click="_sub_category = 'Political'">All</a></li>
+                        <li ng-click='makeActive("Entertainment")' ng-class="{ 'active': active=='Entertainment'}"><a class="tabpad" ng-click="_sub_category = 'Entertainment'">Entertainment</a></li>
+                        <li ng-click='makeActive("Sports")' ng-class="{ 'active': active=='Sports'}"><a class="tabpad" ng-click="_sub_category = 'Sports'">Sports</a></li>
+                        <li ng-click='makeActive("Health")' ng-class="{ 'active': active=='Health'}"><a class="tabpad" ng-click="_sub_category = 'Health'">Health & Food</a></li>
+                        <li ng-click='makeActive("Showbiz")' ng-class="{ 'active': active=='Showbiz'}"><a class="tabpad" ng-click="_sub_category = 'Showbiz'">Showbiz</a></li>
+                        <li ng-click='makeActive("Motivation")' ng-class="{ 'active': active=='Motivation'}"><a class="tabpad" ng-click="_sub_category = 'Motivation'">Motivation</a></li>
+                        <li ng-click='makeActive("Featured")' ng-class="{ 'active': active=='Featured'}"><a class="tabpad" ng-click="_sub_category = 'Featured'">Featured</a></li>
+
+                    </ul>
+
+                    <select class="tabpad dropdownCat text" style="font-style: oblique;
+    opacity: .5;" ng-model="selectedOrder" ng-options="o.value as o.label for o in order"></select>
+
+
+                </nav>
+
+
+
+                <div class="container-fluid">
+
+                    <div class="col-md-12 col-sm-12" style="cursor: pointer">
+
+                        <!-- shared Articles body -->
+
+                        <div class="row" ng-click="reroute(); $event.stopPropagation()" ng-repeat="article in shared_articles | filter:{ sub_category: _sub_category, category: _category  } | orderBy : selectedOrder : true">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sharedArticleDiv" style="padding: 0px 0px 0px 0px;">
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                                    <div id="imageDiv" class="col-lg-6 col-md-6 col-sm-5 col-xs-6" style="height: 180px">
+                                        <img id="articleimage" src={{article.photo_url}} height="100%" width="100%">
+                                    </div>
+                                    <div id="articleTitleDiv" class="col-lg-6 col-md-6 col-sm-7 col-xs-6">
+                                        <br>
+                                        <button ng-click="openModal('custom-modal-2'); $event.stopPropagation()" type="button" class="bt1">SHARE NOW</button>
+
+                                        <button ng-click="updateStatusCopied($event); " type="button" class="bt2">COPY NOW</button>
+
+                                        <br>
+                                        <h4 class="title1" ng-bind-html="article.title"></h4>
+
+                                        <p class="p1">Article by:{{article.site_name }} </p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="padding: 4em 1em 4em 1em">
+
+                                        <span class="h3 block m-t-xs">
+                                            <center>
+                                                <div layout="row" layout-sm="column" layout-align="space-around">
+                                                    <md-progress-circular md-mode="indeterminate" class="md-hue-2" md-diameter="15px" ng-show="earnedloading"></md-progress-circular>
+                                                </div>
+                                                <i class="fa fa-money" aria-hidden="true" style="margin: 8px; color: #bc49ff;"></i>
+
+                                                <strong style="color: #bc49ff; font-size: 12pt;">
+
+                                                    <br>
+                                                    
+                                                    {{article.shares}}
+                                                </strong>
+                                            </center>
+                                        </span>
+
+                                        <center>
+                                            <small class="text-muted text-uc" style="font-size: 7pt; margin : 12px 0px 0px 0px;">EARNED SO FAR</small>
+                                        </center>
+                                    </div>
+
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="padding: 4em 1em 4em 1em">
+                                        <span class="h3 block m-t-xs">
+                                            <div layout="row" layout-sm="column" layout-align="space-around">
+    <md-progress-circular md-mode="indeterminate" class="md-hue-2" md-diameter="15px" ng-show="trafficloading"></md-progress-circular>
 </div>
+                                            <center>
+
+                                                <i class="fa fa-line-chart" aria-hidden="true" style="margin: 8px; color: #bc49ff;"></i>
+                                                <strong style="color: #bc49ff; font-size: 12pt;">
+
+                                                    <br> {{article.views}}
+                                                </strong>
+                                            </center>
+                                        </span>
+
+                                        <center>
+                                            <small class="text-muted text-uc" style="font-size: 7pt; margin : 12px 0px 0px 0px;">TRAFFIC GENERATED</small>
+                                        </center>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+
+
+
+
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    </div>
+
+
+
+<!-- this is modal-->
+<modal id="custom-modal-2">
+    <center>
+        <div class="modal" style="display: grid">
+            <div class="modal-body" style="width: 60%">
+                <div class="row">
+                    <span class="btn" style="color: red;" ng-click="closeModal('custom-modal-2');"><i class="fa fa-window-close" aria-hidden="true"></i></span>
+
+                    <h6>ADD MARKETING SOURCE</h6>
+
+                    <hr style="margin : 0px">
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marketingSourceDiv" style="padding: 0px 0px 0px 0px;" ng-repeat="s in addedUms">
+                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                            <div id="imageDivMS" class="col-lg-4 col-md-6 col-sm-5 col-xs-6" style="padding: 2em 5px 1em 1em;">
+                                <img id="msimage" src={{s.picture.data.url}} height="100%" width="100%">
+                            </div>
+                            <div id="MSTitleDiv" class="col-lg-8 col-md-6 col-sm-7 col-xs-6">
+
+
+                                <center><h4 class="title2">{{s.name}}<br><span id="categoryby" class="text-muted">Category:{{s.category}}</span></h4></center>
+                            </div>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding: 2em 1em 1em 1em">
+
+                                <span class="h3 block m-t-xs">
+                                    <center>
+
+                                        <i class="fa fa-thumbs-o-up" aria-hidden="true" style="margin: 8px; color: #3dcaff;"></i>
+                                        <strong style="color: #3dcaff; font-size: 12pt;">
+
+                                            <br> {{s.fan_count}}
+                                        </strong>
+                                    </center>
+                                </span>
+
+                                <center>
+                                    <small class="text-muted text-uc" style="font-size: 7pt; margin : 12px 0px 0px 0px;">LIKES</small>
+                                </center>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding: 2em 1em 1em 1em">
+                                <span class="h3 block m-t-xs">
+                                    <center>
+
+                                        <i class="fa fa-rss" aria-hidden="true" style="margin: 8px; color: #bc49ff;"></i>
+                                        <strong style="color: #bc49ff; font-size: 12pt;">
+
+                                            <br> {{s.rating_count}}
+                                        </strong>
+                                    </center>
+                                </span>
+
+                                <center>
+                                    <small class="text-muted text-uc" style="font-size: 7pt; margin : 12px 0px 0px 0px;">Rating</small>
+                                </center>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding: 4em 4em 1em 1em">
+                                <span class="btn" style="color: #337ab7; float: left; margin-left: 5px;" ng-click="updateStatusShared()"><i class="fa fa-plus-circle" aria-hidden="true" style="font-weight: 600;"> Share</i></span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div layout="row" layout-sm="column" layout-align="space-around">
+                        <md-progress-circular md-mode="indeterminate" class="md-hue-2" md-diameter="100px" ng-show="umsloading"></md-progress-circular>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </center>
+    <div class="modal-background"></div>
+</modal>
+
+
+
+
+
+

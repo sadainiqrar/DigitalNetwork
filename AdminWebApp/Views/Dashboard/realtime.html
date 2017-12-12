@@ -1,164 +1,70 @@
-<div class="container-fluid">
+﻿<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 main-panel main-panel-margin">
 
-    <h2>{{message}}</h2>
-  <div class="row" id="mini-charts">
-      <div class="col-md-6 col-sm-4"><h2>RealTime</h2></div>
-    </div>  
-  <ul class="nav nav-tabs" id="adminTab">
-      <li class="active"><a data-toggle="tab" href="#summary">Summary</a></li>
-  </ul> 
-  <div class="tab-content">
-      <div class="tab-pane active" id="summary">
-        <div class="row">
-          <div class="col-md-8 col-md-3 padder-v b-r b-light">
-                <span class="fa-stack fa-2x pull-left m-r-sm">
-                      <i class="fa fa-circle fa-stack-2x text-info"></i>
-                      <i class="fa fa-male fa-stack-1x text-black"></i>
-                    </span>
-                   <a class="clear" href="#">
-                      <span class="h3 block m-t-xs"><strong>52,000</strong></span>
-                      <small class="text-muted text-uc">Current Users</small>
-                    </a>
-              <br>
-               <span class="fa-stack fa-2x pull-left m-r-sm">
-                      <i class="fa fa-circle fa-stack-2x text-info"></i>
-                      <i class="fa fa-signal fa-stack-1x text-black"></i>
-                    </span>
-                   <a class="clear" href="#">
-                      <span class="h3 block m-t-xs"><strong>52,000</strong></span>
-                      <small class="text-muted text-uc">Total Traffic</small>
-                    </a>
-            </div>
-     <!--/col-4-->
-          <div class="col-sm-9">
-              <h4 class="text-center">
-                <div class="btn-group btn-toggle realtime"> 
-                 <button class="btn btn-xs btn-default">off</button>
-                 <button class="btn btn-xs btn-success active">live</button>
-                </div>
-              </h4>
-              <div id="chart1" class="big-chart"></div>
-          </div><!--/col-8-->
-        </div><!--/row-->
-        <div class="col-md-12">
-            <section class="panel panel-default">
-                    <header class="panel-heading font-bold">Articles</header>
-        <div class="row" id="mini-charts"> 
-           <div class="col-xs-12 col-sm-6 col-md-3">
-            <div class="thumbnail">
-                <div>
-                        <div class="col-md-6">
-                            <h4>Status</h4>
+
+    <div class="col-md-12 widthpanel" style="padding-bottom: 2em;">
+
+        <div class="bar" style="margin-top: 0px;">
+
+
+            <div class=" col-md-12 col-sm-12 col-xs-12" style="background-image: url(http://eskipaper.com/images/blue-solid-color-wallpaper-1.jpg) ; height: 20em;">
+                <center>
+                    <h3 style="color: white;font-size: 12pt;font-family: sans-serif">REAL TIME TRAFFIC</h3>
+                </center>
+
+                <center>
+                    <div class="lockPosition">
+                        <div style="display: table-cell; padding: 0em 0.3em" ng-repeat="n in breaker(realtimeValue[uid].total_traffic || 0 ) track by $index">
+                            <div class="lock-dial" ><p id="numbrlock">{{n}}</p></div>
                         </div>
-                        <div class="my-toggle-btn" class="col-md-6">
-                            <input type="checkbox" id="checkbox1">
-                            <label for="checkbox1">
-                              <span class="on">ON</span>
-                              <span class="off">OFF</span>
-                            </label>
-                        </div>
-                
-                </div>
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVcxVGC8Fa1wbspSjPOTz3IywOeu67h1pdALrLFkdHUNdp2qgrzw" alt="">
-                <div class="caption">
-                    <h4 class="text-center">Article 1</h4>
-                    <p>
-                        This is the content of the article...........
-                    </p>
-                    <h4 class="text-left" style="color: chocolate">
-                        Traffic 2500
-                    </h4>
-                </div>
+                    </div>
+
+                </center>
             </div>
+
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+
+
+                <div class="col-md-12 col-sm-12 col-xs-12" style="padding: 1em 1em 1em 1em">
+                    <section id="parha" class="panel" style="margin: 0;padding: 1em 1em 1em 1em;">
+                        <div>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th id="realtimetable"><b>COUNTRY NAME</b></th>
+                                        <th id="realtimetable"><b>SESSIONS</b></th>
+                                    </tr>
+                                </thead>
+                            </table>
+
+                        </div>
+                        <div class="table-responsive" style=" height: 14em;overflow-x: hidden; overflow-y: scroll;">
+                            <table class="table">
+
+                                <tbody>
+                                    <tr ng-repeat="c in realtimeValue[uid].country_stats">
+                                        <td id="namefont">{{c.country}}</td>
+                                        <td id="sessioncolor"><i class="fa fa-caret-up" aria-hidden="true"></i>{{c.sessions}}</td>
+                                    </tr>
+                                  
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+
+
+
+
+            </div>
+
+
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-3">
-            <div class="thumbnail">
-                <div>
-                        <div class="col-md-6">
-                            <h4>Status</h4>
-                        </div>
-                        <div class="my-toggle-btn" class="col-md-6">
-                            <input type="checkbox" id="checkbox2">
-                            <label for="checkbox2">
-                              <span class="on">ON</span>
-                              <span class="off">OFF</span>
-                            </label>
-                        </div>
-                
-                </div>
-                <img src="http://all-that-is-interesting.com/wordpress/wp-content/uploads/2015/09/pablo-escobar-mugshot.jpg" alt="">
-                <div class="caption">
-                    <h4 class="text-center">Article 2</h4>
-                    <p>
-                        This is the content of the article...........
-                    </p>
-                    <h4 class="text-left" style="color: chocolate">
-                        Traffic 691
-                    </h4>
-                </div>
-            </div>
-        </div>
-         <div class="col-xs-12 col-sm-6 col-md-3">
-            <div class="thumbnail">
-                <div>
-                        <div class="col-md-6">
-                            <h4>Status</h4>
-                        </div>
-                        <div class="my-toggle-btn" class="col-md-6">
-                            <input type="checkbox" id="checkbox3">
-                            <label for="checkbox3">
-                              <span class="on">ON</span>
-                              <span class="off">OFF</span>
-                            </label>
-                        </div>
-                
-                </div>
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_VlO5UsxTfMg5wJmnlKVOZ5K2imK_hEdDB43F-cbGvw_r4lVT" alt="">
-                <div class="caption">
-                    <h4 class="text-center">Article 3</h4>
-                    <p>
-                        This is the content of the article...........
-                    </p>
-                    <h4 class="text-left" style="color: chocolate">
-                        Traffic 18k
-                    </h4>
-                </div>
-            </div>
-        </div>
- <div class="col-xs-12 col-sm-6 col-md-3">
-            <div class="thumbnail">
-                <div>
-                        <div class="col-md-6">
-                            <h4>Status</h4>
-                        </div>
-                        <div class="my-toggle-btn" class="col-md-6">
-                            <input type="checkbox" id="checkbox4">
-                            <label for="checkbox4">
-                              <span class="on">ON</span>
-                              <span class="off">OFF</span>
-                            </label>
-                        </div>
-                
-                </div>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Pervez_Musharraf_2004.jpg/220px-Pervez_Musharraf_2004.jpg" alt="" height="10" width="20">
-                <div class="caption">
-                    <h4 class="text-center">Article 4</h4>
-                    <p>
-                        This is the content of the article...........
-                    </p>
-                    <h4 class="text-left" style="color: chocolate">
-                        Traffic 89k
-                    </h4>
-                </div>
-            </div>
-          </div>
-                </div>
-            </section>
-          </div>
-          <div class="col-md-12">
-            <section class="panel panel-default">
-                    <header class="panel-heading font-bold">Visitor Location</header>
-        	<iframe width="40%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.co.uk/maps?f=q&source=s_q&hl=en&geocode=&q=15+Springfield+Way,+Hythe,+CT21+5SH&aq=t&sll=52.8382,-2.327815&sspn=8.047465,13.666992&ie=UTF8&hq=&hnear=15+Springfield+Way,+Hythe+CT21+5SH,+United+Kingdom&t=m&z=14&ll=51.077429,1.121722&output=embed"></iframe>
-    	
-              </section>
     </div>
+
+
+
+</div>
+
+
+

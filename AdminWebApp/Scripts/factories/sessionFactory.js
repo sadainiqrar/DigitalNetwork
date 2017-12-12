@@ -1,17 +1,42 @@
 ﻿var serviceId = 'sessionFactory';
 
 angular.module('DigitalMarket').factory(serviceId,
-    ['$http', sessionFactory]);
+    ['$http',  sessionFactory]);
 
 function sessionFactory($http) {
 
-    function getSession() {
+    function getCurrentMonthSession(_uid , _username) {
 
+        var date = new Date(), y = date.getFullYear(), m = date.getMonth();
+        var firstDay = new Date(y, m, 1);
+        var lastDay = new Date(y, m + 1, 0);
+        var fromYear = firstDay.toISOString();
 
-        var data = { ga_id: 'ga:162220485' ,from_date:'2017-10-01',to_date:'2017-10-16',extra:null};
+        var from = fromYear.split('T');
+        var f = from[0];
+        var toDate = lastDay.toISOString();
+        var to = toDate.split('T');
+        var t = to[0];
+        var data = { uid: _uid, from_date: f, to_date: t, extra: _username };
       
-        return $http.post('http://localhost:3208/api/sessions', data);
+        return $http.post('http://localhost:3208/api/user/sessions', data);
     }
+    function getCurrentDaySession(_uid, _username) {
+
+        var date = new Date(), y = date.getFullYear(), m = date.getMonth();
+        var firstDay = new Date(y, m, 1);
+        var lastDay = new Date(y, m + 1, 0);
+        var fromYear = firstDay.toISOString();
+        var from = fromYear.split('T');
+        var f = from[0];
+
+        var data = { uid: _uid, from_date: f, to_date: f, extra: _username };
+
+        return $http.post('http://localhost:3208/api/user/sessions', data);
+    }
+
+
+
 
     function Session(_from_date,_to_date) {
 
@@ -59,12 +84,36 @@ function sessionFactory($http) {
         return $http.post('http://localhost:3208/api/pages/sessions', data);
     }
 
+
+    function getSessionRate(s, c) {
+        return getRate(c).then(
+            // callback function for successful http request
+            function success(response) {
+               return (response.data[0].rate ) * s;
+
+            },
+            // callback function for error in http request
+            function error(response) {
+                // log errors
+                return 0;
+            }
+        );
+    }
+    function getRate(category) {
+
+        return $http.get('http://localhost:3208/api/rate/' + category);
+
+    }
+
     var service = {
-        getSession: getSession,
+        getCurrentMonthSession: getCurrentMonthSession,
         Session: Session,
         getSession_campaign: getSession_campaign,
         Session_campaign: Session_campaign,
-        getSession_page: getSession_page
+        getSession_page: getSession_page,
+        getSessionRate: getSessionRate,
+        getCurrentDaySession: getCurrentDaySession,
+        getRate: getRate
     };
 
     return service;

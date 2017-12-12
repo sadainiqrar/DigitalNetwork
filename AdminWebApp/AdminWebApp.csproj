@@ -151,6 +151,7 @@
   <ItemGroup>
     <Content Include="Content\angular-material.min.css" />
     <Content Include="Content\animate.css" />
+    <Content Include="Content\animate.min.css" />
     <Content Include="Content\app.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
@@ -159,12 +160,15 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\custom.css" />
+    <Content Include="Content\demo.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\font.css" />
     <Content Include="Content\landing.css" />
     <Content Include="Content\material.indigo-pink.min.css" />
+    <Content Include="Content\paper-dashboard.css" />
     <Content Include="Content\realtime.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\themify-icons.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -354,8 +358,12 @@
     <Content Include="Scripts\controllers\userdataController.js" />
     <Content Include="Scripts\controllers\userstatsController.js" />
     <Content Include="Scripts\factories\articleFactory.js" />
+    <Content Include="Scripts\factories\graphFactory.js" />
+    <Content Include="Scripts\factories\paymentFactory.js" />
     <Content Include="Scripts\factories\sessionFactory.js" />
     <Content Include="Scripts\factories\singleArticleFactory.js" />
+    <Content Include="Scripts\factories\socketFactory.js" />
+    <Content Include="Scripts\factories\statisticsFactory.js" />
     <Content Include="Scripts\factories\updateArticleFactory.js" />
     <Content Include="Scripts\i18n\angular-locale_af-na.js" />
     <Content Include="Scripts\i18n\angular-locale_af-za.js" />
@@ -1115,9 +1123,6 @@
     <Content Include="Views\Dashboard\articlestats.html" />
     <Content Include="Views\Dashboard\dashboard.html" />
     <Content Include="Views\Dashboard\home.html" />
-    <Content Include="Views\Dashboard\Home\login.html" />
-    <Content Include="Views\Dashboard\Home\login.view.html" />
-    <Content Include="Views\Dashboard\Home\register.view.html" />
     <Content Include="Views\Dashboard\invoices.html" />
     <Content Include="Views\Dashboard\payment.html" />
     <Content Include="Views\Dashboard\profile.html" />
@@ -1125,6 +1130,9 @@
     <Content Include="Views\Dashboard\traffic.html" />
     <Content Include="Views\Dashboard\userdata.html" />
     <Content Include="Views\Dashboard\userstats.html" />
+    <Content Include="Views\Dashboard\Home\login.html" />
+    <Content Include="Views\Dashboard\Home\login.view.html" />
+    <Content Include="Views\Dashboard\Home\register.view.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -1,13 +1,13 @@
 
-   // 'use strict'// create the module and name it scotchApp
-   // var loginApp = angular.module('loginApp',['ui-router']);
+// 'use strict'// create the module and name it scotchApp
+// var loginApp = angular.module('loginApp',['ui-router']);
 var scotchApp = angular.module('DigitalMarket', ['ui.router', 'ngRoute', 'ngCookies', 'ngSanitize', 'ngMaterial', 'google-signin']);
-	// configure our routes
+// configure our routes
 
 
-scotchApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider','GoogleSigninProvider', function ($stateProvider, $urlRouterProvider, $locationProvider, GoogleSigninProvider) {
+scotchApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 'GoogleSigninProvider', function ($stateProvider, $urlRouterProvider, $locationProvider, GoogleSigninProvider) {
 
-    
+
     GoogleSigninProvider.init({
         client_id: '122077380940-vn0cl0ece9gk4bcc40nrnlhpki93dsc5.apps.googleusercontent.com',
 
@@ -81,37 +81,37 @@ scotchApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider','G
             controller: 'RegisterController',
             controllerAs: 'vm'
         });
-        
 
-	}]);
 
-    scotchApp.run(run);
+}]);
 
-    run.$inject = ['$rootScope', '$location', '$state', '$cookies', '$http'];
-    function run($rootScope, $location, $state, $cookies, $http) {
+scotchApp.run(run);
 
-        // keep user logged in after page refresh
-        $rootScope.globals = $cookies.getObject('globals') || {};
-        if ($rootScope.globals.currentUser) {
-            $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata;
-        }
+run.$inject = ['$rootScope', '$location', '$state', '$cookies', '$http'];
+function run($rootScope, $location, $state, $cookies, $http) {
 
-        $rootScope.$on('$locationChangeStart', function (event, next, current) {
-            // redirect to login page if not logged in and trying to access a restricted page
-            var restrictedPage = $.inArray($location.path(), ['/']) === -1;
-            var loggedIn = $rootScope.globals.currentUser;
-            if (restrictedPage && !loggedIn) { 
-                $location.path('/');
-            }
-            else if (!restrictedPage && loggedIn) {
-
-                $location.path("/dashboard");
-            }
-
-            
-        });
+    // keep user logged in after page refresh
+    $rootScope.globals = $cookies.getObject('globals') || {};
+    if ($rootScope.globals.currentUser) {
+        $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata;
     }
 
- 
+    $rootScope.$on('$locationChangeStart', function (event, next, current) {
+        // redirect to login page if not logged in and trying to access a restricted page
+        var restrictedPage = $.inArray($location.path(), ['/']) === -1;
+        var loggedIn = $rootScope.globals.currentUser;
+        if (restrictedPage && !loggedIn) {
+            $location.path('/');
+        }
+        else if (!restrictedPage && loggedIn) {
+
+            $location.path("/dashboard");
+        }
+
+
+    });
+}
+
+
 
 

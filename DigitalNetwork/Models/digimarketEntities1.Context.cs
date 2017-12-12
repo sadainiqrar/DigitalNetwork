@@ -29,10 +29,12 @@ namespace DigitalNetwork.Models
     
         public virtual DbSet<Admin> Admins { get; set; }
         public virtual DbSet<Article> Articles { get; set; }
+        public virtual DbSet<DeletedArticle> DeletedArticles { get; set; }
         public virtual DbSet<Payment> Payments { get; set; }
         public virtual DbSet<Rate> Rates { get; set; }
         public virtual DbSet<Rates_History> Rates_History { get; set; }
         public virtual DbSet<Site> Sites { get; set; }
+        public virtual DbSet<Sites_Custom> Sites_Custom { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<User_Articles> User_Articles { get; set; }
         public virtual DbSet<User_Date> User_Date { get; set; }
@@ -129,7 +131,7 @@ namespace DigitalNetwork.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("add_shared_article", uidParameter, serial_noParameter, copiedParameter, sharedParameter);
         }
     
-        public virtual int add_site(string site, string site_name, string gid, string email)
+        public virtual int add_site(string site, string site_name, string gid, string email, Nullable<bool> custom)
         {
             var siteParameter = site != null ?
                 new ObjectParameter("site", site) :
@@ -147,7 +149,11 @@ namespace DigitalNetwork.Models
                 new ObjectParameter("email", email) :
                 new ObjectParameter("email", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("add_site", siteParameter, site_nameParameter, gidParameter, emailParameter);
+            var customParameter = custom.HasValue ?
+                new ObjectParameter("custom", custom) :
+                new ObjectParameter("custom", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("add_site", siteParameter, site_nameParameter, gidParameter, emailParameter, customParameter);
         }
     
         public virtual int add_ums(string ums_id, string uid)
@@ -294,9 +300,9 @@ namespace DigitalNetwork.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_all_articles_Result>("get_all_articles", siteParameter);
         }
     
-        public virtual ObjectResult<string> get_all_site()
+        public virtual ObjectResult<get_all_site_Result> get_all_site()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("get_all_site");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_all_site_Result>("get_all_site");
         }
     
         public virtual ObjectResult<get_articles_Result> get_articles(string uid, string cat, string subcat)
@@ -378,6 +384,15 @@ namespace DigitalNetwork.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_site_Result>("get_site", emailParameter);
         }
     
+        public virtual ObjectResult<string> get_site_name(string url)
+        {
+            var urlParameter = url != null ?
+                new ObjectParameter("url", url) :
+                new ObjectParameter("url", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("get_site_name", urlParameter);
+        }
+    
         public virtual ObjectResult<get_total_earned_Result> get_total_earned(string uid)
         {
             var uidParameter = uid != null ?
@@ -435,6 +450,11 @@ namespace DigitalNetwork.Models
                 new ObjectParameter("serial", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getArticleBySerial_Result>("getArticleBySerial", serialParameter);
+        }
+    
+        public virtual ObjectResult<Procedure_Result> Procedure()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Procedure_Result>("Procedure");
         }
     
         public virtual int update_article_data(Nullable<int> serial_no, string article_url, string title, string summary, string photo_url, Nullable<System.DateTime> modified_date)
@@ -575,20 +595,6 @@ namespace DigitalNetwork.Models
                 new ObjectParameter("status", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("user_update", uidParameter, statusParameter);
-        }
-    
-        public virtual ObjectResult<Procedure_Result> Procedure()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Procedure_Result>("Procedure");
-        }
-    
-        public virtual ObjectResult<string> get_site_name(string url)
-        {
-            var urlParameter = url != null ?
-                new ObjectParameter("url", url) :
-                new ObjectParameter("url", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("get_site_name", urlParameter);
         }
     }
 }

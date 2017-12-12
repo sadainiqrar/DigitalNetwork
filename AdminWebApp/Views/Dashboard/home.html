@@ -1,271 +1,191 @@
 
-<h2>{{message}}</h2>
-        <!-- /.aside -->
-        <section id="content">
-          <section class="vbox">          
-            <section class="scrollable padder">
-              <ul class="breadcrumb no-border no-radius b-b b-light pull-in">
-                <li><a href="index.html"><i class="fa fa-home"></i> Home</a></li>
-                <li class="active">Overview</li>
-              </ul>
-              <div class="m-b-md">
-                <h3 class="m-b-none">Overview</h3>
-                <small>Welcome back, {{email}}</small>
-              </div>
-              <section class="panel panel-default">
-                <div class="row m-l-none m-r-none bg-light lter">
-                  <div class="col-sm-6 col-md-3 padder-v b-r b-light">
-                    <span class="fa-stack fa-2x pull-left m-r-sm">
-                      <i class="fa fa-circle fa-stack-2x text-info"></i>
-                      <i class="fa fa-male fa-stack-1x text-white"></i>
-                    </span>
-                    <a class="clear" href="#">
-                      <span class="h3 block m-t-xs"><strong>{{ sessions }}</strong></span>
-                      <small class="text-muted text-uc">Users</small>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 main-panel main-panel-margin">
+    <div class="col-md-12 widthpanel">
+        <section class="panel panel-default panmain">
+            <div class="row">
+
+                <div class="col-md-4 b-r">
+                    <a class="clear">
+                        <span class="h3 block m-t-xs sm1"><center><strong style="color: #34c9ff">{{today_earned| currency:"USD$"}} </strong></center></span>
+                        <div layout="row" layout-sm="column" layout-align="space-around">
+                            <md-progress-circular md-mode="indeterminate" class="md-hue-2" md-diameter="15px" ng-show="dailyIsLoading"></md-progress-circular>
+                        </div>
+                        <small class="text-muted text-uc " style="color: #a3a3a3"><center>EARNED TODAY</center></small>
+
                     </a>
-                  </div>
-                  <div class="col-sm-6 col-md-3 padder-v b-r b-light lt">
-                    <span class="fa-stack fa-2x pull-left m-r-sm">
-                      <i class="fa fa-circle fa-stack-2x text-warning"></i>
-                      <i class="fa fa-bug fa-stack-1x text-white"></i>
-                      <span class="easypiechart pos-abt" data-percent="100" data-line-width="4" data-track-Color="#fff" data-scale-Color="false" data-size="50" data-line-cap='butt' data-animate="2000" data-target="#bugs" data-update="3000"></span>
-                    </span>
-                    <a class="clear" href="#">
-                      <span class="h3 block m-t-xs"><strong id="bugs">468</strong></span>
-                      <small class="text-muted text-uc">Sessions</small>
-                    </a>
-                  </div>
-                  <div class="col-sm-6 col-md-3 padder-v b-r b-light">                     
-                    <span class="fa-stack fa-2x pull-left m-r-sm">
-                      <i class="fa fa-circle fa-stack-2x text-danger"></i>
-                      <i class="fa fa-fire-extinguisher fa-stack-1x text-white"></i>
-                      <span class="easypiechart pos-abt" data-percent="100" data-line-width="4" data-track-Color="#f5f5f5" data-scale-Color="false" data-size="50" data-line-cap='butt' data-animate="3000" data-target="#firers" data-update="5000"></span>
-                    </span>
-                    <a class="clear" href="#">
-                      <span class="h3 block m-t-xs"><strong id="firers">359</strong></span>
-                      <small class="text-muted text-uc">New Sessions</small>
-                    </a>
-                  </div>
-                  <div class="col-sm-6 col-md-3 padder-v b-r b-light lt">
-                    <span class="fa-stack fa-2x pull-left m-r-sm">
-                      <i class="fa fa-circle fa-stack-2x icon-muted"></i>
-                      <i class="fa fa-clock-o fa-stack-1x text-white"></i>
-                    </span>
-                    <a class="clear" href="#">
-                      <span class="h3 block m-t-xs"><strong>31:50</strong></span>
-                      <small class="text-muted text-uc">Estimated Traffic</small>
-                    </a>
-                  </div>
                 </div>
-              </section>
-              <div class="row">
-                <div class="col-md-8">
-                  <section class="panel panel-default">
-                    <header class="panel-heading font-bold">Traffic</header>
-                    <div class="panel-body">
-                         <div id="chart1" class="big-chart"></div>
-                    </div>
-                    <footer class="panel-footer bg-white no-padder">
-                      <div class="row text-center no-gutter">
-                        <div class="col-xs-3 b-r b-light">
-                          <span class="h4 font-bold m-t block">5,860</span>
-                          <small class="text-muted m-b block">Orders</small>
+                <div class="col-md-4 b-r">
+
+                    <a class="clear">
+                        <span class="h3 block m-t-xs sm1"><center><strong style="color: #bc49ff">{{monthly_earned| currency:"USD$"}}</strong></center></span>
+                        <div layout="row" layout-sm="column" layout-align="space-around">
+                            <md-progress-circular md-mode="indeterminate" class="md-hue-2" md-diameter="15px" ng-show="monthlyIsLoading"></md-progress-circular>
                         </div>
-                        <div class="col-xs-3 b-r b-light">
-                          <span class="h4 font-bold m-t block">10,450</span>
-                          <small class="text-muted m-b block">Sellings</small>
-                        </div>
-                        <div class="col-xs-3 b-r b-light">
-                          <span class="h4 font-bold m-t block">21,230</span>
-                          <small class="text-muted m-b block">Items</small>
-                        </div>
-                        <div class="col-xs-3">
-                          <span class="h4 font-bold m-t block">7,230</span>
-                          <small class="text-muted m-b block">Customers</small>                        
-                        </div>
-                      </div>
-                    </footer>
-                  </section>
+                        <small class="text-muted text-uc " style="color: #a3a3a3"><center>EARNED THIS MONTH</center></small>
+                    </a>
                 </div>
                 <div class="col-md-4">
-                  <section class="panel panel-default">
-                    <header class="panel-heading font-bold">User Traffic</header>
-                      <div class="panel-body">
-                                    <div class="table-container">
 
-                            <table class="table table-filter">
-                                <thead>
-                                    <th>Username</th>
-                                    <th><center>Traffic</center></th>                                    
-                                </thead>
-                                <tbody>
-                                </tbody>
-                                <tr data-status="pagado" ng-repeat="s in csessions | limitTo:'7'">
-                                    <td>
-                                            <div class="media">
-                                                <div class="media-body">
-                                                    <h4 class="title">
-                                                       {{s.Campaign}}
-                                                    </h4>
-
-                                                </div>
-                                            </div>
-                                        </td>
-
-                                <td>
-                                            <div class="media">
-                                                <div class="media-body">
-                                                    <h4 class="title">
-                                                        <span class="pull-right pagado">{{s.Session}}</span>
-                                                    </h4>
-
-                                                </div>
-                                            </div>
-                                        </td>
-                                </tr>
-                             
-                             </table>
-                          </div>
-                    </div>
-                  </section>
-                </div>
-                  
-                  
-                  
-              </div>
-                
-                
-                 <div class="col-md-4">            
-                 <section class="panel panel-default">
-                    <header class="panel-heading font-bold">Latest Articles</header>
-                     <div class="table-container">
-                            
-							<table class="table table-filter">
-            
-                                <thead>
-                                    <th></th>
-                                    <th>Articlename</th>
-                                    <th><center>Live</center></th>
-                                    
-                                </thead>
-								<tbody>
-									<tr data-status="pagado" ng-repeat="article in articles|limitTo:'5' ">
-										 
-										<td>
-											<div class="media">
-												<a href="#" class="pull-left">
-													<img src="{{article.photo_url}}" class="media-photo">
-												</a>	
-											</div>
-										</td>
-                                        <td>
-                                            <div class="media">
-                                                <div class="media-body">
-													<p>
-                                                        <b ng-bind-html="article.title"></b>
-													</p>
-													
-												</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                         <div class="col-md-6">
-                                             <md-switch class="md-primary" ng-model="article.status" aria-label="Switch"
-                                                        ng-change="">
-                                                 Status : {{ article.status }}
-                                             </md-switch>  
+                    <a class="clear">
+                        <span class="h3 m-t-xs sm1"><center><strong style="color: #6344ff"> {{sessions}} </strong></center></span>
+                        <div layout="row" layout-sm="column" layout-align="space-around">
+                            <md-progress-circular md-mode="indeterminate" class="md-hue-2" md-diameter="15px" ng-show="monthlyTrafficIsLoading"></md-progress-circular>
                         </div>
-                                        </td>
-                                    </tr>
-                                    
-                                    
-                                    
-                                    
-                                </tbody>
-                         </table>
-                     </div>
-                    </section>
+                        <small class="text-muted text-uc " style="color: #a3a3a3"><center>THIS MONTH'S TRAFFIC</center></small>
+                    </a>
                 </div>
-                <div class="col-md-8">            
-                 <section class="panel panel-default">
-                    <header class="panel-heading font-bold">Top Articles</header>
-                     <div class="table-container">
-                            
-							<table class="table table-filter">
-            
-                                <thead>
-                                    <th>SNo</th>
-                                    <th></th>
-                                    <th>Article name</th>
-                                    <th><center>Traffic</center></th>
-                                    <th><center>Stats</center></th>
-                                    <th><center>Date</center></th>
-                                    
-                                </thead>
-								<tbody>
-									<tr data-status="pagado" ng-repeat="ps in psessions |limitTo:'5'">
-										<td>
-											<div class="pagado">
-												<p>1</p>
-											</div>
-										</td>
-										 
-										<td>
-											<div class="media">
-												<a href="#" class="pull-left">
-													<img src="https://scontent.cdninstagram.com/t51.2885-19/s150x150/19424755_297321304063298_1411761672955101184_a.jpg" class="media-photo">
-												</a>	
-											</div>
-										</td>
-                                        <td>
-                                            <div class="media">
-                                                <div class="media-body">
-													<h4 class="title">
-														{{ps.Landing_Page_Path}}
-													</h4>
-													
-												</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="media">
-                                                <div class="media-body">
-													<h4 class="title">
-														<span class="pull-right pagado">{{ps.Session}}</span>
-													</h4>
-													
-												</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="media">
-                                                <div class="media-body">
-													
-													<h4 class="title">
-                                                        <span class="pull-right pagado">(1000 increase)</span>
-													</h4>
-													
-												</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="media">
-                                                <div class="media-body">
-													<span class="media-meta pull-right">September 19, 2017</span>
-													
-												</div>
-                                            </div>
-                                        </td>
-									</tr>
-                               
-                                    
-                               
-                                    
-                                </tbody>
-							</table>
-						</div>    
-                    </section>
-                </div>
-               
+            </div>
+        </section>
 
-              </section></section></section>
+        <div class="bar">
+            <ul class="nav nav-tabs" id="Tab">
+                <li class="active"><a class=" maintab " data-toggle="tab" ng-click="_category = 'premium'">Premium</a></li>
+                <li><a class="maintab" data-toggle="tab" ng-click="_category = 'non_premium'">Non Premium</a></li>
+            </ul>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-cat-collapse">
+                <i class="fa fa-bars"></i>
+            </button>
+            <section class="panel panel-default panmain">
+                <div style="margin-bottom: 20px"><p>TOP ARTICLES</p></div>
+
+                <nav class="navbar navbar-default navbar-collapse collapse" id="navbar-cat-collapse">
+
+
+                    <ul class="nav navbar-nav" style="display: inline;">
+                        <li ng-click='makeActive("Political")' ng-class="{ 'active': active=='Political'}"><a class="tabpad" ng-click="_sub_category = 'Political'">All</a></li>
+                        <li ng-click='makeActive("Entertainment")' ng-class="{ 'active': active=='Entertainment'}"><a class="tabpad" ng-click="_sub_category = 'Entertainment'">Entertainment</a></li>
+                        <li ng-click='makeActive("Sports")' ng-class="{ 'active': active=='Sports'}"><a class="tabpad" ng-click="_sub_category = 'Sports'">Sports</a></li>
+                        <li ng-click='makeActive("Health")' ng-class="{ 'active': active=='Health'}"><a class="tabpad" ng-click="_sub_category = 'Health'">Health & Food</a></li>
+                        <li ng-click='makeActive("Showbiz")' ng-class="{ 'active': active=='Showbiz'}"><a class="tabpad" ng-click="_sub_category = 'Showbiz'">Showbiz</a></li>
+                        <li ng-click='makeActive("Motivation")' ng-class="{ 'active': active=='Motivation'}"><a class="tabpad" ng-click="_sub_category = 'Motivation'">Motivation</a></li>
+                        <li ng-click='makeActive("Featured")' ng-class="{ 'active': active=='Featured'}"><a class="tabpad" ng-click="_sub_category = 'Featured'">Featured</a></li>
+
+                    </ul>
+                    <select class="tabpad dropdownCat text" style="font-style: oblique;
+    opacity: .5;" ng-model="selectedOrder" ng-options="o.value as o.label for o in order">
+                    </select>
+
+
+                </nav>
+
+
+
+                <div class="container-fluid">
+
+                    <div ng- class="col-md-12 col-sm-12">
+                        <div layout="row" layout-sm="column" layout-align="space-around">
+                            <md-progress-circular md-mode="indeterminate" ng-show="isLoading"></md-progress-circular>
+                        </div>
+                        <div class="col-md-4 col-sm-12" ng-repeat="article in articles | filter:{ sub_category: _sub_category, category: _category } | orderBy : selectedOrder : true">
+                            <div class="col-xs-12 col-md-12 col-sm-12 ok pan">
+                                <div id="articleImageDiv" class="col-md-12 col-sm-6" style="padding: 0px 0px 0px 0px;">
+
+                                    <img class="img-responsive" src={{article.photo_url}}>
+                                    <div class="overlay">
+                                        <div class="textt"><i class="fa fa-eye" aria-hidden="true"></i><p style="font-size: 10px;">VIEWS</p> <p style="color: deepskyblue">{{ article.views}}</p> </div>
+                                        <div class="txt"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><p style="font-size: 10px;">SHARES</p><p style="color: deepskyblue">{{article.shares}}</p></div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-12 col-sm-6 bottom">
+
+                                    <p style="font-size: 10px;float: left;padding-top:  5px">{{article.modified_date | date: "fullDate"}}</p><br>
+                                    <p class="pArt" style="text-align:left;" ng-bind-html="article.title"></p>
+
+                                    <hr class="h-line" style="margin-top: 1em">
+                                    <p class="copy">Article by:{{article.site_name }} </p>
+
+                                    <a class="btn" ng-click="openModal('custom-modal-2')"> <span class="fa fa-share-alt" aria-hidden="true"></span> </a>
+                                    <a class="btn" ng-click="insertCopied()"><span class="fa fa-link" aria-hidden="true"></span></a>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+    </div>
+
+
+<!-- this is modal-->
+<modal id="custom-modal-2">
+    <center>
+        <div class="modal" style="display: grid">
+            <div class="modal-body" style="width: 60%">
+                <div class="row">
+                    <span class="btn" style="color: red;" ng-click="closeModal('custom-modal-2');"><i class="fa fa-window-close" aria-hidden="true"></i></span>
+
+                    <h6>ADD MARKETING SOURCE</h6>
+                    
+
+                    <hr style="margin : 0px">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marketingSourceDiv" style="padding: 0px 0px 0px 0px;" ng-repeat="s in addedUms">
+                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                            <div id="imageDivMS" class="col-lg-4 col-md-6 col-sm-5 col-xs-6" style="padding: 2em 5px 1em 1em;">
+                                <img id="msimage" src={{s.picture.data.url}} height="100%" width="100%">
+                            </div>
+                            <div id="MSTitleDiv" class="col-lg-8 col-md-6 col-sm-7 col-xs-6">
+
+
+                                <center><h4 class="title2">{{s.name}}<br><span id="categoryby" class="text-muted">Category:{{s.category}}</span></h4></center>
+                            </div>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding: 2em 1em 1em 1em">
+
+                                <span class="h3 block m-t-xs">
+                                    <center>
+
+                                        <i class="fa fa-thumbs-o-up" aria-hidden="true" style="margin: 8px; color: #3dcaff;"></i>
+                                        <strong style="color: #3dcaff; font-size: 12pt;">
+
+                                            <br> {{s.fan_count}}
+                                        </strong>
+                                    </center>
+                                </span>
+
+                                <center>
+                                    <small class="text-muted text-uc" style="font-size: 7pt; margin : 12px 0px 0px 0px;">LIKES</small>
+                                </center>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding: 2em 1em 1em 1em">
+                                <span class="h3 block m-t-xs">
+                                    <center>
+
+                                        <i class="fa fa-rss" aria-hidden="true" style="margin: 8px; color: #bc49ff;"></i>
+                                        <strong style="color: #bc49ff; font-size: 12pt;">
+
+                                            <br> {{s.rating_count}}
+                                        </strong>
+                                    </center>
+                                </span>
+
+                                <center>
+                                    <small class="text-muted text-uc" style="font-size: 7pt; margin : 12px 0px 0px 0px;">Rating</small>
+                                </center>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding: 4em 4em 1em 1em">
+                                <span class="btn" style="color: #337ab7; float: left; margin-left: 5px;" ng-click="insertShared()"><i class="fa fa-plus-circle" aria-hidden="true" style="font-weight: 600;"> Share</i></span>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div layout="row" layout-sm="column" layout-align="space-around">
+                        <md-progress-circular md-mode="indeterminate" class="md-hue-2" md-diameter="100px" ng-show="umsLoading"></md-progress-circular>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </center>
+    <div class="modal-background"></div>
+</modal>

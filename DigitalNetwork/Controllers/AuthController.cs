@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using DigitalNetwork.Models;
+using DigitalNetwork.DataModel;
 
 namespace DigitalNetwork.Controllers
 {
@@ -18,6 +19,7 @@ namespace DigitalNetwork.Controllers
         {
             try
             {
+                int site_count = 0;
                 admin_site_list administrator = new admin_site_list();
                 int count = 0;
                 using (var data = new digimarketEntities1().admin_sign_in(admin.email))
@@ -26,11 +28,19 @@ namespace DigitalNetwork.Controllers
                 }
                 if (count == 0)
                 {
-                    new digimarketEntities1().admin_sign_up(admin.email, admin.adminname, admin.photo_url);
                     Authorization authfirst = new Authorization(admin.email);
                     try
                     {
-                        authfirst.service.Management.Accounts.List();
+                        site_count =  authfirst.service.Management.Profiles.List("~all", "~all").Execute().TotalResults.Value;
+                        if (site_count == 0 || site_count.Equals(null))
+                        {
+                            return null;
+                        }
+                        else
+                        {
+
+                            new digimarketEntities1().admin_sign_up(admin.email, admin.adminname, admin.photo_url);
+                        }
                     }
                     catch(Exception ex)
                     {
@@ -66,21 +76,61 @@ namespace DigitalNetwork.Controllers
         
 
         [HttpPost]
-        [Route("api/admin/addsite")]
-        public IEnumerable<get_site_Result> PostAdminSite([FromBody]Admin admin)
+        [Route("api/admin/avaiableSites")]
+        public List< get_all_site_Result> PostAdminSite([FromBody]Admin admin)
         {
-
+            List<get_all_site_Result> gSites = new List<get_all_site_Result>();
             Authorization auth = new Authorization(admin.email);
             var result = auth.service.Management.Profiles.List("~all","~all");
-            var site = result.Execute();
-            foreach(var item in site.Items)
+            var sites = result.Execute();
+            Dictionary<string,get_all_site_Result> dbSites = new Dictionary<string,get_all_site_Result>();
+            using (var data = new digimarketEntities1().get_all_site())
             {
-               db.add_site(item.WebsiteUrl, item.Name, item.Id, site.Username);
+                dbSites = data.ToDictionary(t => t.site_url, t => t);
             }
-            return db.get_site(site.Username);
+            foreach (var site in sites.Items)
+            {
+                if(!dbSites.ContainsKey(site.WebsiteUrl))
+                gSites.Add(new get_all_site_Result() { site_url = site.WebsiteUrl, site_name = site.Name, ga_id = site.Id, custom = false });
+
+            }
+
+
+            return gSites;
         }
 
 
+        [HttpPost]
+        [Route("api/admin/addSite")]
+        public List<get_site_Result> AddAdminSite([FromBody]siteInput site_Result)
+        {
+
+             new digimarketEntities1().add_site(site_Result.site_url, site_Result.site_name, site_Result.ga_id, site_Result.email, site_Result.custom);
+ 
+            List<get_site_Result> AdminSites = new List<get_site_Result>();
+            using (var data = new digimarketEntities1().get_site(site_Result.email))
+            {
+                AdminSites = data.ToList<get_site_Result>();
+            }
+            return AdminSites;
+
+        }
+
+        [HttpPost]
+        [Route("api/admin/deleteSite")]
+        public List<get_site_Result> DeleteAdminSite([FromBody]siteInput site_Result)
+        {
+
+            new digimarketEntities1().delete_site(site_Result.site_url,site_Result.email);
+
+            List<get_site_Result> AdminSites = new List<get_site_Result>();
+            using (var data = new digimarketEntities1().get_site(site_Result.email))
+            {
+                AdminSites = data.ToList<get_site_Result>();
+            }
+            return AdminSites;
+
+        }
 
 
 

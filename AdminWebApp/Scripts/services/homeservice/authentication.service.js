@@ -52,9 +52,11 @@
                             username: authdata.data.adminname,
                             email: authdata.data.email,
                             photo_url: authdata.data.photo_url,
-                            sites: authdata.data.sites
+                            sites: authdata.data.sites,
+                            currentSite: null
                         }
-                    };
+            };
+            
 
                     // set default auth header for http requests
                     $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata;

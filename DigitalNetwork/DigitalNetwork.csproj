@@ -246,6 +246,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DeletedArticle.cs">
+      <DependentUpon>digimarketEntities1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\digimarketEntities1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -277,6 +280,9 @@
       <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\get_all_articles_Result.cs">
+      <DependentUpon>digimarketEntities1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\get_all_site_Result.cs">
       <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\get_articles_Result.cs">
@@ -319,6 +325,9 @@
       <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Site.cs">
+      <DependentUpon>digimarketEntities1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Sites_Custom.cs">
       <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">

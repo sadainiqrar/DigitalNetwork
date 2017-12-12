@@ -17,7 +17,7 @@ angular.module('DigitalMarket')
         $scope.googleLogin = function () {
 
           
-           
+        
                 GoogleSignin.signIn().then(function (user) {
 
                     $scope.googleUser = GoogleSignin.getBasicProfile();

@@ -1,32 +1,37 @@
 var controllerId = 'articlesController';
 
 angular.module('DigitalMarket').controller(controllerId,
-    ['$scope','articleFactory', 'updateArticleFactory', articlesController]);
+    ['$scope', 'Facebook', 'clipboard', '$state', '$rootScope', '$cookies', 'articleFactory', 'umsFactory' ,'ModalService', 'sessionFactory', articlesController]);
 
-function articlesController($scope, articleFactory, updateArticleFactory) {
+function articlesController($scope, Facebook, clipboard, $state, $rootScope, $cookies, articleFactory, umsFactory, ModalService, sessionFactory) {
+    $rootScope.globals = $cookies.getObject('globals') || {};
+    $scope.userdata = $rootScope.globals.currentUser;
+    $scope.username = $scope.userdata.fullname;
+    $scope.id = $scope.userdata.username;
+    $scope.uid = $scope.userdata.uid;
     $scope.message = 'Articles Controller';
-    $scope.articles = [];
-    articleFactory.getArticles().then(
-        // callback function for successful http request
-        function success(response) {
-            $scope.articles = response.data;
-        },
-        // callback function for error in http request
-        function error(response) {
-            // log errors
-        }
-    );
+    $scope.shared_articles = [];
+    $scope.addedUms = [];
+    $scope.ums = [];
 
-    $scope.updateStatus = function () {
-        updateArticleFactory.updateArticle(this.article.serial_no).then(
-            // callback function for successful http request
-            function success(response) {
-                this.article.status = response.data;
-            },
-            // callback function for error in http request
-            function error(response) {
-                // log errors
-            }
-        );
+    $scope.trafficloading = true;
+    $scope.earnedloading = true;
+    $scope.umsloading = true;
+
+
+    $scope.order = [{ label: 'Recent', value: 'modified_date' }, { label: 'Top Articles', value: 'views' }];
+
+    $scope.selectedOrder = $scope.order[1].value;
+
+    $scope._category = 'premium';
+    $scope._sub_category = 'Political';
+
+    $scope.active = 'Political';
+    $scope.makeActive = function (item) {
+        $scope.active = item;
+    }
+    $scope.reroute = function ()
+    {
+        $state.go('dashboard.articlestats', { serial: this.article.serial_no });
     }
 }

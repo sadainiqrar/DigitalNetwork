@@ -1,54 +1,28 @@
-	// create the controller and inject Angular's $scope
-angular.module('DigitalMarket').controller('mainController', function ($scope, sessionFactory, articleFactory, $rootScope, $cookies) {
+
+var controllerId = 'mainController';
+
+angular.module('DigitalMarket').controller(controllerId,
+    ['$scope', '$rootScope', '$cookies', 'articleFactory', 'sessionFactory', 'umsFactory', 'ModalService', mainController]);
+
+function mainController($scope,  $rootScope, $cookies, articleFactory, sessionFactory, umsFactory, ModalService,) {
     $rootScope.globals = $cookies.getObject('globals') || {};
-		// create a message to display in our view
-    $scope.userdate = $rootScope.globals.currentUser;
-    $scope.email = $scope.userdate.email;
-    $scope.csession = [];
-    $scope.psession = [];
-    sessionFactory.getSession().then(
-        // callback function for successful http request
-        function success(response) {
-            $scope.sessions = response.data;
-        },
-        // callback function for error in http request
-        function error(response) {
-            // log errors
-        }
-    );
-    sessionFactory.getSession_campaign().then(
-        // callback function for successful http request
-        function success(response) {
-            $scope.csessions = response.data;
-        },
-        // callback function for error in http request
-        function error(response) {
-            // log errors
-        }
-    );
-    
-    sessionFactory.getSession_page().then(
-        // callback function for successful http request
-        function success(response) {
-            $scope.psessions = response.data;
-        },
-        // callback function for error in http request
-        function error(response) {
-            // log errors
-        }
-    );
+    $scope.userdata = $rootScope.globals.currentUser;
+    $scope.username = $scope.userdata.fullname;
+    $scope.id = $scope.userdata.username;
+    $scope.uid = $scope.userdata.uid;
+   
+    $scope.articles = [];
+    $scope._category = 'premium';
+    $scope._sub_category = 'Political';
 
-    
-        $scope.articles = [];
-        articleFactory.getArticles().then(
-            // callback function for successful http request
-            function success(response) {
-                $scope.articles = response.data;
+    $scope.order = [{ label: 'Recent', value: 'modified_date' }, { label: 'Featured', value:'views'}, { label: 'Most Shared', value: 'shares'}];
 
-            },
-            // callback function for error in http request
-            function error(response) {
-                // log errors
-            }
-        );
-	});
+    $scope.selectedOrder = $scope.order[0].value;
+
+  
+    $scope.active = 'Political';
+    $scope.makeActive = function (item) {
+        $scope.active = item;
+    }
+
+}
