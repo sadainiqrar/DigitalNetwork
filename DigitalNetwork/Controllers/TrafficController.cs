@@ -241,6 +241,58 @@ namespace DigitalNetwork.Controllers
 
 
         /* Admin Apis */
+
+        [HttpPost]
+        [Route("api/admin/sessions")]
+        public GraphStats PostAdminSession([FromBody]Analytics_Input analytics_Input)
+        {
+            Authorization auth = new Authorization(analytics_Input.extra);
+            GraphStats stats = new GraphStats() { dateTime = "", sessions = "0", earned = 0 };
+            var result = auth.service.Data.Ga.Get("ga:" + analytics_Input.ga_id, analytics_Input.from_date, analytics_Input.to_date, analytics_Input.session);
+            var result1 = auth.service.Data.Ga.Get("ga:" + analytics_Input.ga_id, analytics_Input.from_date, analytics_Input.to_date, analytics_Input.session);
+            result.Filters = "ga:medium=@digitalmarket";
+            result1.Filters = "ga:medium=@digitalmarket;ga:country=@Canada";
+            var session_result1 = result1.Execute();
+            var session_result = result.Execute();
+
+     
+            int count1 = (int)session_result1.TotalResults;
+            int count = (int)session_result.TotalResults;
+            if (count != 0)
+            {
+                var temp = session_result.Rows[0];
+                long total= long.Parse(temp[0]); long premium = 0;
+                if (count1 != 0)
+                {
+                    var temp2 = session_result1.Rows[0];
+                
+                    premium = long.Parse(temp2[0]);
+                }
+                long nonPremium = total - premium;
+                Double nonearned = ((Decimal.ToDouble(new RateController().GetRate("non-premium").FirstOrDefault().rate) * nonPremium) / 1000);
+                Double preearned = ((Decimal.ToDouble(new RateController().GetRate("premium").FirstOrDefault().rate) * premium) / 1000);
+
+                stats.earned = nonearned + preearned;
+                stats.sessions = (total).ToString();
+            }
+            return stats;
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         [HttpPost]
         [Route("api/sessions")]
         public string PostSession([FromBody]Analytics_Input analytics_Input)

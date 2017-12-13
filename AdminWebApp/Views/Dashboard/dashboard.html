@@ -196,13 +196,18 @@
                         <span class="text">OVERVIEW</span>
                     </a>
                 </li>
-                <li ng-click='makeActive("/articles")' ng-class="{ 'active-o': active=='/articles'}">
-                    <a ui-sref="dashboard.articles">
+                <li >
+                    <a data-toggle="collapse" data-target="#submenu1">
                         <i class="fa fa-pencil-square-o icon">
                             <b class="bg-success"></b>
                         </i>
                         <span class="text">SHARED ARTICLES</span>
+                        
                     </a>
+                    <ul class="nav collapse" id="submenu1" >
+                        <li ng-click='makeActive("/articles")'  ng-class="{ 'active-o': active=='/articles'}"><a href="#">Notification 1</a></li>
+                        <li ng-click='makeActive("/articles")' ng-class="{ 'active-o': active=='/articles'}"><a href="#">Notification 2</a></li>
+                    </ul>
                 </li>
                 <li ng-click='makeActive("/statistics")' ng-class="{ 'active-o': active=='/statistics'}">
                     <a ui-sref="dashboard.statistics">

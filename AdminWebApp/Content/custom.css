@@ -1240,12 +1240,12 @@ MSArt{
   padding-top: 3em;
     float: right;   
 }
-#mbtn{
+.mbtn{
 background: transparent;
     border: 0;
     font-size: 10pt;
 }
-#activebutton{
+.activebutton{
     background:#9539ca;
     font-size: 10pt;
     color: #fff;

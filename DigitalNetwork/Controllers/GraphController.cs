@@ -12,8 +12,60 @@ namespace DigitalNetwork.Controllers
     public class GraphController : ApiController
     {
         private digimarketEntities1 db = new digimarketEntities1();
-        
 
+
+        [HttpPost]
+        [Route("api/admin/graph/traffic")]
+        public List<GraphStats> trafficAdminGraph([FromBody] trafficInput input)
+        {
+
+            ArticleController use = new ArticleController();
+        
+            List<GraphStats> stats = new List<GraphStats>();
+        
+            Authorization auth = new Authorization(input.uid);
+            var result = auth.service.Data.Ga.Get(("ga:" + input.id), use.convertDate(input.fromDate), use.convertDate(input.toDate), "ga:sessions");
+            var result1 = auth.service.Data.Ga.Get(("ga:" + input.id), use.convertDate(input.fromDate), use.convertDate(input.toDate), "ga:sessions");
+            if (input.extra == "month" || input.extra == "week")
+            {
+                result.Dimensions = "ga:month,ga:day";
+                result1.Dimensions = "ga:month,ga:day";
+            }
+            else if (input.extra == "year")
+            {
+                result.Dimensions = "ga:year,ga:month";
+                result1.Dimensions = "ga:year,ga:month";
+            }
+
+            result.Filters = "ga:medium=@referral";
+            result1.Filters =  "ga:medium=@referral;ga:country=@Canada";
+            var final = result.Execute();
+            var final1 = result1.Execute();
+            int count = (int)final.TotalResults;
+            int count1 = (int)final1.TotalResults;
+            if (count != 0 && (count == count1))
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    var item1 = final.Rows[i];
+                    var item2 = final1.Rows[i];
+                    GraphStats temp2 = new GraphStats() { dateTime = item2[1] + "/" + item2[0], sessions = item2[2], earned = GetEarned(item2[2], "premium") };
+                    GraphStats temp = new GraphStats() { dateTime = item1[1] + "/" + item1[0], sessions = (Int32.Parse(item1[2]) - Int32.Parse(temp2.sessions)).ToString(), earned = GetEarned((Int32.Parse(item1[2]) - Int32.Parse(temp2.sessions)).ToString(), "non-premium") };
+                    stats.Add(new GraphStats() { dateTime = temp.dateTime, sessions = (Int32.Parse(temp.sessions) + Int32.Parse(temp2.sessions)).ToString(), earned = temp.earned + temp2.earned });
+                }
+            }
+            return stats;
+
+        }
+
+
+
+
+        /// <summary>
+        /// /////////////////////////////////user Api///////////////////////////////
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("api/user/graph/country")]
         public List<CountryStats> countryGraph([FromBody] trafficInput input)

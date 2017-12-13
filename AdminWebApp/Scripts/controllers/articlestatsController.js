@@ -287,30 +287,3 @@ function articlestatsController($scope, $rootScope, $cookies, $stateParams, grap
     }
 
 }
-angular.module('DigitalMarket')
-    .directive('myCustomChartControl', function () {
-        return {
-            restrict: 'E',
-            template: '',
-            controller: function ($scope, $element, $attrs) {
-                $scope.$on('success', function (event, msg) {
-                    $('<div id="'+ $attrs.id + '"></div>')
-                        .appendTo($element)
-                        .shieldChart($scope.chart[$attrs.id]);
-                });
-                $scope.$on('success1', function (event, msg) {
-                    var el = document.getElementById($attrs.id),
-                        ngEl = angular.element(el);
-                    ngEl.remove();
-
-
-                    $('<div id="' + $attrs.id + '"></div>')
-                        .appendTo($element)
-                        .shieldChart($scope.chart[$attrs.id]);
-                });
-                
-                
-                
-            }
-        };
-    });

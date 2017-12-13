@@ -5,7 +5,7 @@ angular.module('DigitalMarket').factory(serviceId,
 
 function sessionFactory($http) {
 
-    function getCurrentMonthSession(_uid , _username) {
+    function getCurrentMonthSession(_gid , _email) {
 
         var date = new Date(), y = date.getFullYear(), m = date.getMonth();
         var firstDay = new Date(y, m, 1);
@@ -17,11 +17,11 @@ function sessionFactory($http) {
         var toDate = lastDay.toISOString();
         var to = toDate.split('T');
         var t = to[0];
-        var data = { uid: _uid, from_date: f, to_date: t, extra: _username };
+        var data = { ga_id: _gid, from_date: f, to_date: t, extra: _email };
       
-        return $http.post('http://localhost:3208/api/user/sessions', data);
+        return $http.post('http://localhost:3208/api/admin/sessions', data);
     }
-    function getCurrentDaySession(_uid, _username) {
+    function getCurrentDaySession(_gid, _email) {
 
         var date = new Date(), y = date.getFullYear(), m = date.getMonth();
         var firstDay = new Date(y, m, 1);
@@ -29,60 +29,14 @@ function sessionFactory($http) {
         var fromYear = firstDay.toISOString();
         var from = fromYear.split('T');
         var f = from[0];
-
-        var data = { uid: _uid, from_date: f, to_date: f, extra: _username };
-
-        return $http.post('http://localhost:3208/api/user/sessions', data);
-    }
-
-
-
-
-    function Session(_from_date,_to_date) {
-
-        var fromYear = _from_date.toISOString();
-
-        var from = fromYear.split('T');
-        var f = from[0];
-        var toDate = _to_date.toISOString();
-        var to = toDate.split('T');
-
-        var t = to[0];
-        var data = { ga_id: 'ga:162220485', from_date: f, to_date: t, extra: null };
-
-        return $http.post('http://localhost:3208/api/sessions', data);
-    }
-    function getSession_campaign() {
-
-
-        var data = { ga_id: 'ga:162220485', from_date: '2017-10-01', to_date: '2017-10-16', extra: null };
-
-        return $http.post('http://localhost:3208/api/campaign/sessions', data);
-    }
-
-    function Session_campaign(_from_date, _to_date) {
-
-        var fromYear = _from_date.toISOString();
-
-        var from = fromYear.split('T');
-        var f = from[0];
-        var toDate = _to_date.toISOString();
-        var to = toDate.split('T');
-
-        var t = to[0];
-        var data = { ga_id: 'ga:162220485', from_date: f, to_date: t, extra: null };
         
+        var data = { ga_id: _gid, from_date: f, to_date: f, extra: _email };
 
-        return $http.post('http://localhost:3208/api/campaign/sessions', data);
+        return $http.post('http://localhost:3208/api/admin/sessions', data);
     }
 
-    function getSession_page() {
 
 
-        var data = { ga_id: 'ga:162220485', from_date: '2017-10-01', to_date: '2017-10-16', extra: null };
-
-        return $http.post('http://localhost:3208/api/pages/sessions', data);
-    }
 
 
     function getSessionRate(s, c) {
@@ -107,10 +61,6 @@ function sessionFactory($http) {
 
     var service = {
         getCurrentMonthSession: getCurrentMonthSession,
-        Session: Session,
-        getSession_campaign: getSession_campaign,
-        Session_campaign: Session_campaign,
-        getSession_page: getSession_page,
         getSessionRate: getSessionRate,
         getCurrentDaySession: getCurrentDaySession,
         getRate: getRate

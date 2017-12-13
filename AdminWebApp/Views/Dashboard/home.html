@@ -1,191 +1,237 @@
 
+
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 main-panel main-panel-margin">
-    <div class="col-md-12 widthpanel">
+
+
+    <div class="col-md-12 widthpanel" style="padding-bottom: 2em; ">
         <section class="panel panel-default panmain">
             <div class="row">
 
                 <div class="col-md-4 b-r">
                     <a class="clear">
-                        <span class="h3 block m-t-xs sm1"><center><strong style="color: #34c9ff">{{today_earned| currency:"USD$"}} </strong></center></span>
-                        <div layout="row" layout-sm="column" layout-align="space-around">
-                            <md-progress-circular md-mode="indeterminate" class="md-hue-2" md-diameter="15px" ng-show="dailyIsLoading"></md-progress-circular>
-                        </div>
-                        <small class="text-muted text-uc " style="color: #a3a3a3"><center>EARNED TODAY</center></small>
+                        <span class="h3 block m-t-xs sm1"><center><strong style="color: #34c9ff">{{MonthExpense | currency:"USD$"}}</strong></center></span>
+
+                        <small class="text-muted text-uc " style="color: #a3a3a3"><center>THIS MONTH'S EXPENSE</center></small>
 
                     </a>
                 </div>
                 <div class="col-md-4 b-r">
-
                     <a class="clear">
-                        <span class="h3 block m-t-xs sm1"><center><strong style="color: #bc49ff">{{monthly_earned| currency:"USD$"}}</strong></center></span>
-                        <div layout="row" layout-sm="column" layout-align="space-around">
-                            <md-progress-circular md-mode="indeterminate" class="md-hue-2" md-diameter="15px" ng-show="monthlyIsLoading"></md-progress-circular>
-                        </div>
-                        <small class="text-muted text-uc " style="color: #a3a3a3"><center>EARNED THIS MONTH</center></small>
+                        <span class="h3 block m-t-xs sm1"><center><strong style="color: #bc49ff">{{MonthTraffic}}</strong></center></span>
+
+                        <small class="text-muted text-uc " style="color: #a3a3a3"><center>THIS MONTH'S TRAFFIC</center></small>
                     </a>
                 </div>
                 <div class="col-md-4">
-
                     <a class="clear">
-                        <span class="h3 m-t-xs sm1"><center><strong style="color: #6344ff"> {{sessions}} </strong></center></span>
-                        <div layout="row" layout-sm="column" layout-align="space-around">
-                            <md-progress-circular md-mode="indeterminate" class="md-hue-2" md-diameter="15px" ng-show="monthlyTrafficIsLoading"></md-progress-circular>
-                        </div>
-                        <small class="text-muted text-uc " style="color: #a3a3a3"><center>THIS MONTH'S TRAFFIC</center></small>
+                        <span class="h3 m-t-xs sm1"><center><strong style="color: #6344ff"> {{TodayTraffic}} </strong></center></span>
+
+                        <small class="text-muted text-uc " style="color: #a3a3a3"><center>TODAY'S TRAFFIC</center></small>
                     </a>
                 </div>
             </div>
         </section>
 
         <div class="bar">
-            <ul class="nav nav-tabs" id="Tab">
-                <li class="active"><a class=" maintab " data-toggle="tab" ng-click="_category = 'premium'">Premium</a></li>
-                <li><a class="maintab" data-toggle="tab" ng-click="_category = 'non_premium'">Non Premium</a></li>
-            </ul>
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-cat-collapse">
-                <i class="fa fa-bars"></i>
-            </button>
-            <section class="panel panel-default panmain">
-                <div style="margin-bottom: 20px"><p>TOP ARTICLES</p></div>
+            <div class="row bar" style="margin-bottom: 1em;">
+                <section class="col-md-12 col-sm-12 col-xs-12 panmain">
 
-                <nav class="navbar navbar-default navbar-collapse collapse" id="navbar-cat-collapse">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="background-color: #fff;">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 adminOverviewSection">
+                            <div class="col-lg-8 col-md-8 col-sm-6 col-xs-7" style="padding: 3em 0em 1em 0em;">
+                                <p class="trafficNRev">Traffic Generated and Money Spent</p>
+                            </div>
 
-
-                    <ul class="nav navbar-nav" style="display: inline;">
-                        <li ng-click='makeActive("Political")' ng-class="{ 'active': active=='Political'}"><a class="tabpad" ng-click="_sub_category = 'Political'">All</a></li>
-                        <li ng-click='makeActive("Entertainment")' ng-class="{ 'active': active=='Entertainment'}"><a class="tabpad" ng-click="_sub_category = 'Entertainment'">Entertainment</a></li>
-                        <li ng-click='makeActive("Sports")' ng-class="{ 'active': active=='Sports'}"><a class="tabpad" ng-click="_sub_category = 'Sports'">Sports</a></li>
-                        <li ng-click='makeActive("Health")' ng-class="{ 'active': active=='Health'}"><a class="tabpad" ng-click="_sub_category = 'Health'">Health & Food</a></li>
-                        <li ng-click='makeActive("Showbiz")' ng-class="{ 'active': active=='Showbiz'}"><a class="tabpad" ng-click="_sub_category = 'Showbiz'">Showbiz</a></li>
-                        <li ng-click='makeActive("Motivation")' ng-class="{ 'active': active=='Motivation'}"><a class="tabpad" ng-click="_sub_category = 'Motivation'">Motivation</a></li>
-                        <li ng-click='makeActive("Featured")' ng-class="{ 'active': active=='Featured'}"><a class="tabpad" ng-click="_sub_category = 'Featured'">Featured</a></li>
-
-                    </ul>
-                    <select class="tabpad dropdownCat text" style="font-style: oblique;
-    opacity: .5;" ng-model="selectedOrder" ng-options="o.value as o.label for o in order">
-                    </select>
-
-
-                </nav>
-
-
-
-                <div class="container-fluid">
-
-                    <div ng- class="col-md-12 col-sm-12">
-                        <div layout="row" layout-sm="column" layout-align="space-around">
-                            <md-progress-circular md-mode="indeterminate" ng-show="isLoading"></md-progress-circular>
+                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-5" id="monthbutton">
+                                <button class="mbtn" type="button" ng-click='dateActive("month")' ng-class="{ 'activebutton': extra=='month'}">Month</button>
+                                <button class="mbtn" type="button" ng-click='dateActive("week")' ng-class="{ 'activebutton': extra=='week'}">Week</button>
+                                <button class="mbtn" type="button" ng-click='dateActive("year")' ng-class="{ 'activebutton': extra=='year'}">Year</button>
+                            </div>
                         </div>
-                        <div class="col-md-4 col-sm-12" ng-repeat="article in articles | filter:{ sub_category: _sub_category, category: _category } | orderBy : selectedOrder : true">
-                            <div class="col-xs-12 col-md-12 col-sm-12 ok pan">
-                                <div id="articleImageDiv" class="col-md-12 col-sm-6" style="padding: 0px 0px 0px 0px;">
+                        <div class="col-md-12 adminOverviewSection">
 
-                                    <img class="img-responsive" src={{article.photo_url}}>
-                                    <div class="overlay">
-                                        <div class="textt"><i class="fa fa-eye" aria-hidden="true"></i><p style="font-size: 10px;">VIEWS</p> <p style="color: deepskyblue">{{ article.views}}</p> </div>
-                                        <div class="txt"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><p style="font-size: 10px;">SHARES</p><p style="color: deepskyblue">{{article.shares}}</p></div>
+
+                            <my-custom-chart-control data-id="chart3">
+                            </my-custom-chart-control>
+
+                        </div>
+
+                    </div>
+
+
+
+                </section>
+            </div>
+            <div class="row bar" style="padding-bottom: 8em;">
+                <section class="panel panel-default panmain adminOverviewSection">
+                    <div style="margin: 20px 0px"><p>{{userdata.currentSite.site_name | uppercase}} ARTICLES</p></div>
+
+                    <nav class="navbar navbar-default navbar-collapse collapse" id="navbar-cat-collapse">
+
+
+                        <ul class="nav navbar-nav" style="display: inline;">
+                            <li ng-click='makeActive("Political")' ng-class="{ 'active': active=='Political'}"><a class="tabpad" ng-click="_sub_category = 'Political'">All</a></li>
+                            <li ng-click='makeActive("Entertainment")' ng-class="{ 'active': active=='Entertainment'}"><a class="tabpad" ng-click="_sub_category = 'Entertainment'">Entertainment</a></li>
+                            <li ng-click='makeActive("Sports")' ng-class="{ 'active': active=='Sports'}"><a class="tabpad" ng-click="_sub_category = 'Sports'">Sports</a></li>
+                            <li ng-click='makeActive("Health")' ng-class="{ 'active': active=='Health'}"><a class="tabpad" ng-click="_sub_category = 'Health'">Health & Food</a></li>
+                            <li ng-click='makeActive("Showbiz")' ng-class="{ 'active': active=='Showbiz'}"><a class="tabpad" ng-click="_sub_category = 'Showbiz'">Showbiz</a></li>
+                            <li ng-click='makeActive("Motivation")' ng-class="{ 'active': active=='Motivation'}"><a class="tabpad" ng-click="_sub_category = 'Motivation'">Motivation</a></li>
+                            <li ng-click='makeActive("Featured")' ng-class="{ 'active': active=='Featured'}"><a class="tabpad" ng-click="_sub_category = 'Featured'">Featured</a></li>
+
+                        </ul>
+                        <select class="tabpad dropdownCat text" style="font-style: oblique;
+    opacity: .5;" ng-model="selectedOrder" ng-options="o.value as o.label for o in order"></select>
+
+
+                    </nav>
+
+
+
+                    <div class="container-fluid welcomeimg" style="background-image: url(images/welcomefull.png);" ng-show="NoArticles">
+
+                        <div class="col-md-4 col-xs-2"></div>
+
+                        <div class="col-md-4 col-xs-8">
+
+                            <div class="row welcomeheading"> <h4>WELCOME!</h4> </div>
+
+                            <div class="row welcomeparadiv"> <p style="font-size: 10pt;">Get started by uploading your articles and gain traffic in no time!</p></div>
+
+                            <center><button type="button" class="customarticlebutton" ng-show="custom" ng-click="addArticle($event)">+ ADD CUSTOM ARTICLE</button></center>
+
+                        </div>
+
+                        <div class="col-md-4 col-xs-2"></div>
+
+
+                    </div>
+                    <div class="container-fluid" ng-hide="NoArticles">
+
+                        <div class="col-md-12 col-sm-12">
+
+
+                            <div class="col-md-4 col-sm-12" ng-show="custom">
+                                <div class="col-xs-12 col-md-12 col-sm-12 ok pan">
+                                    <div id="articleImageDiv" class="col-md-12 col-sm-6" style="padding: 5em 2.5em 0em 2.5em;">
+                                        <center><div><i class="fa fa-pencil-square-o icon" style="font-size: 28pt; color:#34c9ff; padding-bottom: 10px; "></i></div></center>
+                                        <p class="customArticleParagraph "> Want to add more Custom Articles?</p>
+
+
+                                    </div>
+                                    <div class="col-md-12 col-sm-6 bottom bdiv">
+                                        <center><button class="button addCustombtn" ng-click="addArticle($event)">+ Add</button></center>
+
                                     </div>
 
-                                </div>
-
-                                <div class="col-md-12 col-sm-6 bottom">
-
-                                    <p style="font-size: 10px;float: left;padding-top:  5px">{{article.modified_date | date: "fullDate"}}</p><br>
-                                    <p class="pArt" style="text-align:left;" ng-bind-html="article.title"></p>
-
-                                    <hr class="h-line" style="margin-top: 1em">
-                                    <p class="copy">Article by:{{article.site_name }} </p>
-
-                                    <a class="btn" ng-click="openModal('custom-modal-2')"> <span class="fa fa-share-alt" aria-hidden="true"></span> </a>
-                                    <a class="btn" ng-click="insertCopied()"><span class="fa fa-link" aria-hidden="true"></span></a>
 
                                 </div>
                             </div>
 
-                        </div>
+
+
+                            <div class="col-md-4 col-sm-12" ng-repeat="article in articles | filter:{ sub_category: _sub_category } | orderBy : selectedOrder : true">
+                                <div class="col-xs-12 col-md-12 col-sm-12 ok pan">
+                                    <div id="articleImageDiv" class="col-md-12 col-sm-6" style="padding: 0px 0px 0px 0px;">
+
+                                        <img class="img-responsive" src={{article.photo_url}}>
+
+                                    </div>
+
+                                    <div class="col-md-12 col-sm-6 bottom">
+
+                                        <p style="font-size: 10px;float: left;padding-top:  5px">{{article.modified_date | date: "fullDate"}}</p><br>
+                                        <p class="pArt" style="text-align:left;" ng-bind-html="article.title"></p>
+
+                                        <hr class="h-line" style="margin-top: 1em">
+                                        <p class="copy">Article by:{{article.site_name }} </p>
+
+                                        <a class="btn"> <span class="fa fa-share-alt" aria-hidden="true"></span> </a>
+                                        <a class="btn"><span class="fa fa-link" aria-hidden="true"></span></a>
 
 
 
-                    </div>
-                </div>
-            </section>
 
-        </div>
-    </div>
-    </div>
-
-
-<!-- this is modal-->
-<modal id="custom-modal-2">
-    <center>
-        <div class="modal" style="display: grid">
-            <div class="modal-body" style="width: 60%">
-                <div class="row">
-                    <span class="btn" style="color: red;" ng-click="closeModal('custom-modal-2');"><i class="fa fa-window-close" aria-hidden="true"></i></span>
-
-                    <h6>ADD MARKETING SOURCE</h6>
-                    
-
-                    <hr style="margin : 0px">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marketingSourceDiv" style="padding: 0px 0px 0px 0px;" ng-repeat="s in addedUms">
-                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
-                            <div id="imageDivMS" class="col-lg-4 col-md-6 col-sm-5 col-xs-6" style="padding: 2em 5px 1em 1em;">
-                                <img id="msimage" src={{s.picture.data.url}} height="100%" width="100%">
-                            </div>
-                            <div id="MSTitleDiv" class="col-lg-8 col-md-6 col-sm-7 col-xs-6">
-
-
-                                <center><h4 class="title2">{{s.name}}<br><span id="categoryby" class="text-muted">Category:{{s.category}}</span></h4></center>
-                            </div>
-                        </div>
-                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding: 2em 1em 1em 1em">
-
-                                <span class="h3 block m-t-xs">
-                                    <center>
-
-                                        <i class="fa fa-thumbs-o-up" aria-hidden="true" style="margin: 8px; color: #3dcaff;"></i>
-                                        <strong style="color: #3dcaff; font-size: 12pt;">
-
-                                            <br> {{s.fan_count}}
-                                        </strong>
-                                    </center>
-                                </span>
-
-                                <center>
-                                    <small class="text-muted text-uc" style="font-size: 7pt; margin : 12px 0px 0px 0px;">LIKES</small>
-                                </center>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding: 2em 1em 1em 1em">
-                                <span class="h3 block m-t-xs">
-                                    <center>
-
-                                        <i class="fa fa-rss" aria-hidden="true" style="margin: 8px; color: #bc49ff;"></i>
-                                        <strong style="color: #bc49ff; font-size: 12pt;">
-
-                                            <br> {{s.rating_count}}
-                                        </strong>
-                                    </center>
-                                </span>
-
-                                <center>
-                                    <small class="text-muted text-uc" style="font-size: 7pt; margin : 12px 0px 0px 0px;">Rating</small>
-                                </center>
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding: 4em 4em 1em 1em">
-                                <span class="btn" style="color: #337ab7; float: left; margin-left: 5px;" ng-click="insertShared()"><i class="fa fa-plus-circle" aria-hidden="true" style="font-weight: 600;"> Share</i></span>
-                            </div>
 
                         </div>
                     </div>
-                    <div layout="row" layout-sm="column" layout-align="space-around">
-                        <md-progress-circular md-mode="indeterminate" class="md-hue-2" md-diameter="100px" ng-show="umsLoading"></md-progress-circular>
-                    </div>
-                </div>
+                </section>
 
             </div>
+
+
+
         </div>
-    </center>
-    <div class="modal-background"></div>
-</modal>
+
+    </div>
+
+
+</div>
+
+
+
+
+
+
+<script type="text/ng-template" id="addArticle.tmpl.html">
+
+
+
+
+    <md-dialog aria-label="Connect Website" class="modal-dialog" style="width: 800px;">
+
+        <!-- Modal content-->
+
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: 0">
+                <button type="button" class="close" ng-click="cancel()">&times;</button>
+
+            </div>
+            <div class="modal-body" style="height: 35em">
+                <div class="col-md-12">
+                    <div class="col-lg-12 col-md-12 "><center><h5 class="modal-title">Add New Article</h5></center></div>
+
+                    <div class="col-lg-12 col-md-12" style="margin-top: 0.5em">
+                        <div class="col-md-2">
+                            <p style="font-size: 10pt;text-align: center;font-family: lato-regular;padding-bottom: 5px;margin-right: 1em;margin-top: .4em">Article link</p>
+                        </div>
+                        <div class="col-md-8" style="background-color: white">
+                            <input ng-model="url" ng-keyup="$event.keyCode == 13 && getMeta()"  required style="width: 100%;background-color: #f5f5f5;border-radius: 5px 0px 0px 5px;border: 0;height: 30px;margin-bottom: 0"></input>
+                            
+                        </div>
+
+                        <div class="col-md-2" style="background-color: white">
+                            <button type="button" ng-click="getMeta()" style="float:left; border: none; border-radius: 0px 8px 8px 0px; background-color: #34c9ff;color: #fff;  width: 8em;height: 31px;font-size: 8pt;margin-left: 0%">Get</button>
+
+                        </div>
+
+                    <div class="col-md-12" style="margin-top: 1em" ng-show="haveArticle">
+                        <div class="col-md-6">
+                            <img src={{article.image}} style="margin-top: 4em;margin-left: 5em">
+                        </div>
+                        <div class="col-md-6" style="padding:1em 1em 0em 1em ">
+                            <p style="font-size: 8pt;text-align: left;font-family: lato-regular;padding-bottom: 5px">Article Title</p>
+                            <label style="width: 100%;background-color: #f5f5f5;border-radius: 5px;border: 0;height: 30px">{{article.title}}</label>
+                            <br><br>
+                            <p style="font-size: 8pt;text-align: left;font-family: lato-regular;padding-bottom: 5px">Summary</p>
+                            <label style="width: 100%;background-color: #f5f5f5;border-radius: 5px;border: 0;height: 10em">{{article.description}}</label>
+
+                            <div style="padding-top: 2em">
+                                <button type="button" class=" btn-md btn-link" ng-click="cancel()" style="font-family: lato-regular;color:#34c9ff;margin-left: 12%;font-size: 8pt ">CANCEL</button>
+                                <button type="button" ng-disabled="!haveArticle" ng-click="addArticle()" style=" border: none; border-radius: 8px; background-color: #34c9ff;color: #fff;  width: 13em;height: 31px;font-size: 8pt;margin-left: 12%">DONE</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+    </md-dialog>
+</script>

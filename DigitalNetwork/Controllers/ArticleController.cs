@@ -18,10 +18,72 @@ namespace DigitalNetwork.Controllers
     public class ArticleController : ApiController
     {
         private digimarketEntities1 db = new digimarketEntities1();
-        
-        
 
 
+
+        [HttpPost]
+        [Route("api/admin/articles")]
+        public IEnumerable<get_Articles> PostAdminArticles([FromBody] AdminSite admin)
+        {
+            List<get_admin_articles_Result> articleList = new List<get_admin_articles_Result>();
+            List<get_Articles> finalArticleList = new List<get_Articles>();
+            using (var articles = db.get_admin_articles(admin.email,admin.site_url))
+            {
+
+                articleList = articles.ToList<get_admin_articles_Result>();
+            }
+            foreach (var item in articleList)
+            {
+                get_Articles post = new get_Articles();
+                post.serial_no = item.serial_no;
+                post.a_id = item.a_id;
+                post.title = item.title;
+                post.site_url = item.site_url;
+                post.site_name = getSiteName(post.site_url);
+
+                post.photo_url = item.photo_url;
+                post.modified_date = item.modified_date;
+                post.category = item.category;
+                post.url = item.url;
+                post.summary = item.summary;
+                post.custom = item.custom;
+                post.sub_category = item.sub_category;
+                try
+                {
+                    using (var count = db.get_shared_article_serial(item.serial_no))
+                    {
+                        post.shares = count.First<int?>();
+                    }
+
+                }
+
+                catch (Exception ex)
+                {
+                    post.shares = -1;
+                }
+                post.views = "0";
+                finalArticleList.Add(post);
+            }
+            return finalArticleList;
+        }
+
+
+        [HttpPut]
+        [Route("api/admin/add/article")]
+        public int Put_Article([FromBody] Article article)
+        {
+            Random r = new Random();
+            int n = r.Next();
+            return db.add_article(n, article.url,false, article.title, article.summary, article.photo_url,System.DateTime.Now, article.site_url, "Premium", "Political", true);
+        }
+
+
+
+        /// <summary>
+        /// //////////////////User APIS///////////////////////
+        /// </summary>
+        /// <param name="serial"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("api/user/article/{serial}")]
         public getArticleBySerialNumber GetSingleArticle(int serial)
@@ -160,14 +222,7 @@ namespace DigitalNetwork.Controllers
         }
 
 
-        [HttpPut]
-        [Route("api/admin/add/article")]
-        public int Put_Article([FromBody] Article article)
-        {
-
-            return db.add_article(article.a_id, article.url, article.status, article.title, article.summary, article.photo_url, article.modified_date, article.url, article.category, article.sub_category,article.custom);
-        }
-
+        
         
         [NonAction]
         public string admin_gid(string url, DateTime publishDate, string a_url)

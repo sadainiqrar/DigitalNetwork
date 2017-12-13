@@ -18,7 +18,7 @@ angular.module('DigitalMarket').controller('dashboardController', function ($sco
             $scope.selectedSite = $rootScope.globals.currentUser.currentSite.site_name;
         }
         catch (err) {
-            alert('Error: Raja ji site ki pasoo na.');
+            alert('Error');
         }
         //$scope.selectedSite = $rootScope.globals.currentUser.currentSite.site_name;
         $scope.switchSite = function ()

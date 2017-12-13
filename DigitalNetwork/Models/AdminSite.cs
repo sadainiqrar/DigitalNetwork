@@ -7,7 +7,7 @@ namespace DigitalNetwork.Models
 {
     public class AdminSite
     {
-        
+        public string site_url { get; set; }
         public string email { get; set; }
     }
     public partial class user_sign_up_Result

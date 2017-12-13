@@ -1,65 +1,45 @@
 ﻿var serviceId = 'articleFactory';
 
 angular.module('DigitalMarket').factory(serviceId,
-    ['$http',   articleFactory]);
+    ['$http', articleFactory]);
 
 function articleFactory($http) {
 
-    function getArticles(_uid,_category,_sub_category) {
-        var data = { uid: _uid, category: _category, sub_category: _sub_category};
-        return $http.post('http://localhost:3208/api/user/articles',data);
+    function getAdminArticles(_email, _url) {
+
+        var data = { email: _email, site_url: _url };
+        return $http.post('http://localhost:3208/api/admin/articles', data);
+    }
+    function getTrafficGraph(_email, _ga_id, _fromDate, _toDate, _extra) {
+        var data = { uid: _email, id: _ga_id,  fromDate: _fromDate, toDate: _toDate, extra: _extra };
+        return $http.post('http://localhost:3208/api/admin/graph/traffic', data);
     }
 
-    function insertSharedArticles(_uid,_serial) {
-        var data = { uid: _uid, serial_no:_serial, copied: false, shared: true };
-        return $http.put('http://localhost:3208/api/user/insert/shared_article', data);
-    }
-    function insertCopiedArticles(_uid,_serial) {
-        var data = { uid: _uid, serial_no: _serial, copied: true, shared: false };
-        return $http.put('http://localhost:3208/api/user/insert/shared_article', data);
+    function getArticleMeta(_url) {
+        return $http.get('http://api.linkpreview.net/?key=5a30d766bac917df2a3f0d266869c59413708e4acdb01&q=' + _url);
     }
 
-    function getSharedArticles(_uid, _category, _sub_category) {
-        var data = { uid: _uid, category: _category, sub_category: _sub_category };
-        return $http.post('http://localhost:3208/api/user/shared_articles', data);
+    function InsertArticle(_title, _url, _image, _summary, _site) {
+
+        var data = { url: _url, title: _title, summary: _summary, photo_url: _image, site_url: _site };
+        return $http.put('http://localhost:3208/api/admin/add/article', data);
     }
-    function updateSharedArticles(_uid, _serial, _copied) {
-        var data = { uid: _uid, serial_no: _serial, shared: true, copied: _copied };
-        return $http.put('http://localhost:3208/api/user/update/shared_article', data);
-    }
-    function updateCopiedArticles(_uid, _serial, _shared) {
-        var data = { uid: _uid, serial_no: _serial,shared:_shared, copied: true };
-        return $http.put('http://localhost:3208/api/user/update/shared_article', data);
-    }
-    function getViewShares( _url, _date,_article_url) {
-        var data = {site_url: _url, modified_date: _date, url: _article_url};
-    
-    
-        return $http.post('http://localhost:3208/api/user/views_shares', data);
-    }
-    function getUserViews(_url, _date, _article_url, _username) {
-        var data = { site_url: _url, modified_date: _date, url: _article_url, username: _username };
+
+    ///////////////////////////////////////USER////////////////////////////////////////////
 
 
-        return $http.post('http://localhost:3208/api/user/shared/views_shares', data);
-    }
-   
+
+
     var service = {
-        getArticles: getArticles,
-        insertCopiedArticles: insertCopiedArticles,
-        insertSharedArticles: insertSharedArticles,
-        getSharedArticles: getSharedArticles,
-        updateSharedArticles: updateSharedArticles,
-        updateCopiedArticles: updateCopiedArticles,
-        getViewShares: getViewShares,
-        getUserViews: getUserViews
+        getAdminArticles: getAdminArticles,
+        getArticleMeta: getArticleMeta,
+        InsertArticle: InsertArticle,
+
+        getTrafficGraph: getTrafficGraph
 
 
     };
 
     return service;
 }
-
-
-
 
