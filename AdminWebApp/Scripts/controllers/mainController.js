@@ -149,31 +149,134 @@ function mainController($scope, $rootScope, $cookies, articleFactory, sessionFac
             clickOutsideToClose: true
         })
             .then(function (answer) {
-                $scope.status = 'You said the information was "' + answer + '".';
+
+                if (answer === "Submited") {
+
+                    $mdDialog.show({
+                        locals: { data: "Your Article is Successfully Added" },
+                        controller: SuccessDialogController,
+                        templateUrl: 'successmessage.tmpl.html',
+                        parent: angular.element(document.body),
+                        targetEvent: ev,
+                        clickOutsideToClose: true
+                    });
+                    articleFactory.getAdminArticles($scope.id, $scope.site).then(
+                        // callback function for successful http request
+                        function success(response) {
+                            $scope.articles = response.data;
+                            if ($scope.articles.length === 0) {
+                                $scope.NoArticles = true;
+                            }
+                            else {
+                                $scope.NoArticles = false;
+                            }
+
+
+                        },
+                        // callback function for error in http request
+                        function error(response) {
+                            // log errors
+                        }
+
+                    );
+                }
             }, function () {
-                articleFactory.getAdminArticles($scope.id, $scope.site).then(
-                    // callback function for successful http request
-                    function success(response) {
-                        $scope.articles = response.data;
-                        if ($scope.articles.length === 0) {
-                            $scope.NoArticles = true;
-                        }
-                        else {
-                            $scope.NoArticles = false;
-                        }
-
-
-                    },
-                    // callback function for error in http request
-                    function error(response) {
-                        // log errors
-                    }
-
-                );
+                
             });
     }
 
+    $scope.publishArticles = function (ev) {
+        $scope.currentArticle = this.article;
+        $mdDialog.show({
+            locals: { data: $scope.currentArticle },
+            controller: publishArticleDialogController,
+            templateUrl: 'publishArticle.tmpl.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true
+        })
+            .then(function (answer) {
+                if (answer === "Submited")
+                {
+                    $mdDialog.show({
+                        locals: { data: "Your Article is Successfully Published" },
+                        controller: SuccessDialogController,
+                        templateUrl: 'successmessage.tmpl.html',
+                        parent: angular.element(document.body),
+                        targetEvent: ev,
+                        clickOutsideToClose: true
+                    });
+                    articleFactory.getAdminArticles($scope.id, $scope.site).then(
+                        // callback function for successful http request
+                        function success(response) {
+                            $scope.articles = response.data;
+                            if ($scope.articles.length === 0) {
+                                $scope.NoArticles = true;
+                            }
+                            else {
+                                $scope.NoArticles = false;
+                            }
 
+
+                        },
+                        // callback function for error in http request
+                        function error(response) {
+                            // log errors
+                        }
+
+                    );
+                }
+            }, function () {
+                
+            });
+    }
+
+    
+
+    $scope.deleteArticle = function (ev) {
+        $scope.currentArticle = this.article;
+        $mdDialog.show({
+            locals: { data: $scope.currentArticle },
+            controller: confirmDialogController,
+            templateUrl: 'confirmmessage.tmpl.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true
+        })
+            .then(function (answer) {
+                if (answer === "Submited") {
+                    $mdDialog.show({
+                        locals: { data: "Your Article is Successfully Deleted" },
+                        controller: SuccessDialogController,
+                        templateUrl: 'successmessage.tmpl.html',
+                        parent: angular.element(document.body),
+                        targetEvent: ev,
+                        clickOutsideToClose: true
+                    });
+                    articleFactory.getAdminArticles($scope.id, $scope.site).then(
+                        // callback function for successful http request
+                        function success(response) {
+                            $scope.articles = response.data;
+                            if ($scope.articles.length === 0) {
+                                $scope.NoArticles = true;
+                            }
+                            else {
+                                $scope.NoArticles = false;
+                            }
+
+
+                        },
+                        // callback function for error in http request
+                        function error(response) {
+                            // log errors
+                        }
+
+                    );
+                }
+            }, function () {
+
+            });
+    }
 
     $scope.dateActive = function (item) {
         $scope.extra = $scope.extra === item ? item : item;
@@ -300,7 +403,8 @@ function mainController($scope, $rootScope, $cookies, articleFactory, sessionFac
                     // callback function for successful http request
                     function success(response) {
                         $scope.article = { title: "", description: "", image: "", url: "", site_url: $rootScope.globals.currentUser.currentSite.site_url };
-                        $mdDialog.cancel();
+
+                        $mdDialog.hide("Submited");
                     },
                     // callback function for error in http request
                     function error(response) {
@@ -309,6 +413,95 @@ function mainController($scope, $rootScope, $cookies, articleFactory, sessionFac
                     }
                 );
         }
+        $scope.answer = function () {
+            $mdDialog.hide("Submited");
+        };
+        $scope.cancel = function () {
+            $mdDialog.cancel();
+        };
+
+    }
+
+
+
+
+    function publishArticleDialogController($scope, $rootScope, $cookies, $mdDialog, data, articleFactory) {
+
+        $scope.category = "premium";
+        $scope.success = false;
+        $scope.sub_category = [{ label: 'Political', value: 'Political' }, {label: 'News', value: 'News' }, { label: 'Entertainment', value: 'Entertainment' }
+            , { label: 'Sports', value: 'Sports' } , { label: 'Health', value: 'Health' }, { label: 'Showbiz', value: 'Showbiz' }
+            , { label: 'Motivation', value: 'Motivation' }];
+        $scope.selected_sub = $scope.sub_category[0].value;
+        $scope.publish = function () {
+            articleFactory.updateArticle(data.serial_no, !data.status, $scope.category, $scope.selected_sub).then(
+                // callback function for successful http request
+                function success(response) {
+                    if (response.data === -1)
+                    {
+
+                        $mdDialog.hide("Submited");
+                    }
+                    else {
+                        
+
+                        $mdDialog.cancel();
+                    }
+
+                },
+                // callback function for error in http request
+                function error(response) {
+                    // log errors
+                }
+            );
+
+        }
+        $scope.answer = function () {
+            $mdDialog.hide("Submited");
+        };
+        $scope.cancel = function () {
+            $mdDialog.cancel();
+        };
+
+    }
+
+
+    function confirmDialogController($scope, $rootScope, $cookies, $mdDialog, data, articleFactory) {
+        
+        $scope.delete = function () {
+            articleFactory.deleteArticle(data.serial_no).then(
+                // callback function for successful http request
+                function success(response) {
+                    if (response.data === -1) {
+
+                        $mdDialog.hide("Submited");
+                    }
+                    else {
+
+
+                        $mdDialog.cancel();
+                    }
+
+                },
+                // callback function for error in http request
+                function error(response) {
+                    // log errors
+                }
+            );
+
+        }
+        $scope.answer = function () {
+            $mdDialog.hide("Submited");
+        };
+        $scope.cancel = function () {
+            $mdDialog.cancel();
+        };
+
+    }
+
+    function SuccessDialogController($scope, $mdDialog, data) {
+
+        $scope.Response = data;
         $scope.cancel = function () {
             $mdDialog.cancel();
         };

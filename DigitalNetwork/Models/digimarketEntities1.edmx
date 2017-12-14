@@ -399,6 +399,8 @@
         <Function Name="update_articles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="status" Type="bit" Mode="In" />
           <Parameter Name="serial" Type="int" Mode="In" />
+          <Parameter Name="cat" Type="varchar" Mode="In" />
+          <Parameter Name="subcat" Type="varchar" Mode="In" />
         </Function>
         <Function Name="update_rates" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="category" Type="varchar" Mode="In" />
@@ -931,6 +933,8 @@
           <FunctionImport Name="update_articles">
             <Parameter Name="status" Mode="In" Type="Boolean" />
             <Parameter Name="serial" Mode="In" Type="Int32" />
+            <Parameter Name="cat" Mode="In" Type="String" />
+            <Parameter Name="subcat" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="update_rates">
             <Parameter Name="category" Mode="In" Type="String" />

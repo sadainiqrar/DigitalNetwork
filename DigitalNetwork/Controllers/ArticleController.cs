@@ -40,7 +40,7 @@ namespace DigitalNetwork.Controllers
                 post.title = item.title;
                 post.site_url = item.site_url;
                 post.site_name = getSiteName(post.site_url);
-
+                post.status = item.status;
                 post.photo_url = item.photo_url;
                 post.modified_date = item.modified_date;
                 post.category = item.category;
@@ -48,19 +48,9 @@ namespace DigitalNetwork.Controllers
                 post.summary = item.summary;
                 post.custom = item.custom;
                 post.sub_category = item.sub_category;
-                try
-                {
-                    using (var count = db.get_shared_article_serial(item.serial_no))
-                    {
-                        post.shares = count.First<int?>();
-                    }
 
-                }
-
-                catch (Exception ex)
-                {
-                    post.shares = -1;
-                }
+                post.shares = 0;
+                    
                 post.views = "0";
                 finalArticleList.Add(post);
             }
@@ -78,6 +68,19 @@ namespace DigitalNetwork.Controllers
         }
 
 
+        [HttpPost]
+        [Route("api/admin/articles/update")]
+        public int updateAdminArticles([FromBody] Article article)
+        {
+            return new digimarketEntities1().update_articles(article.status,article.serial_no,article.category,article.sub_category);
+        }
+
+        [HttpGet]
+        [Route("api/admin/articles/delete/{id}")]
+        public int deleteAdminArticles(int id)
+        {
+            return new digimarketEntities1().delete_article(id);
+        }
 
         /// <summary>
         /// //////////////////User APIS///////////////////////

@@ -51,7 +51,17 @@ angular.module('DigitalMarket').controller('dashboardController', function ($sco
                 clickOutsideToClose: true
             })
                 .then(function (answer) {
-                    $scope.status = 'You said the information was "' + answer + '".';
+                    if (answer === "Submitted")
+                        {
+                    $mdDialog.show({
+                        locals: { data: "Your Website is Successfully Connected" },
+                        controller: SuccessDialogController,
+                        templateUrl: 'successmessage.tmpl.html',
+                        parent: angular.element(document.body),
+                        targetEvent: ev,
+                        clickOutsideToClose: true
+                        });
+                    }
                 }, function () {
                     $scope.status = 'You cancelled the dialog.';
                 });
@@ -107,6 +117,16 @@ angular.module('DigitalMarket').controller('dashboardController', function ($sco
                 $mdDialog.cancel();
             };
             
+        }
+
+
+        function SuccessDialogController($scope, $mdDialog, data) {
+
+            $scope.Response = data;
+            $scope.cancel = function () {
+                $mdDialog.cancel();
+            };
+
         }
         
 }

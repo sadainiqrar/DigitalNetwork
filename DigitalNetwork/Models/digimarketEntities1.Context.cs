@@ -486,7 +486,7 @@ namespace DigitalNetwork.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("update_article_data", serial_noParameter, article_urlParameter, titleParameter, summaryParameter, photo_urlParameter, modified_dateParameter);
         }
     
-        public virtual int update_articles(Nullable<bool> status, Nullable<int> serial)
+        public virtual int update_articles(Nullable<bool> status, Nullable<int> serial, string cat, string subcat)
         {
             var statusParameter = status.HasValue ?
                 new ObjectParameter("status", status) :
@@ -496,7 +496,15 @@ namespace DigitalNetwork.Models
                 new ObjectParameter("serial", serial) :
                 new ObjectParameter("serial", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("update_articles", statusParameter, serialParameter);
+            var catParameter = cat != null ?
+                new ObjectParameter("cat", cat) :
+                new ObjectParameter("cat", typeof(string));
+    
+            var subcatParameter = subcat != null ?
+                new ObjectParameter("subcat", subcat) :
+                new ObjectParameter("subcat", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("update_articles", statusParameter, serialParameter, catParameter, subcatParameter);
         }
     
         public virtual int update_rates(string category, Nullable<decimal> rate, Nullable<System.DateTime> date)
