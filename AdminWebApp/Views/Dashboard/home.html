@@ -64,21 +64,10 @@
             </div>
             <div class="row bar" style="padding-bottom: 8em;">
                 <section class="panel panel-default panmain adminOverviewSection">
-                    <div style="margin: 20px 0px"><p>{{userdata.currentSite.site_name | uppercase}} ARTICLES</p></div>
+                    <div style="margin: 20px 0px 5px 0px"><p>{{userdata.currentSite.site_name | uppercase}} ARTICLES</p></div>
 
                     <nav class="navbar navbar-default navbar-collapse collapse" id="navbar-cat-collapse">
 
-
-                        <ul class="nav navbar-nav" style="display: inline;">
-                            <li ng-click='makeActive("Political")' ng-class="{ 'active': active=='Political'}"><a class="tabpad" ng-click="_sub_category = 'Political'">All</a></li>
-                            <li ng-click='makeActive("Entertainment")' ng-class="{ 'active': active=='Entertainment'}"><a class="tabpad" ng-click="_sub_category = 'Entertainment'">Entertainment</a></li>
-                            <li ng-click='makeActive("Sports")' ng-class="{ 'active': active=='Sports'}"><a class="tabpad" ng-click="_sub_category = 'Sports'">Sports</a></li>
-                            <li ng-click='makeActive("Health")' ng-class="{ 'active': active=='Health'}"><a class="tabpad" ng-click="_sub_category = 'Health'">Health & Food</a></li>
-                            <li ng-click='makeActive("Showbiz")' ng-class="{ 'active': active=='Showbiz'}"><a class="tabpad" ng-click="_sub_category = 'Showbiz'">Showbiz</a></li>
-                            <li ng-click='makeActive("Motivation")' ng-class="{ 'active': active=='Motivation'}"><a class="tabpad" ng-click="_sub_category = 'Motivation'">Motivation</a></li>
-                            <li ng-click='makeActive("News")' ng-class="{ 'active': active=='News'}"><a class="tabpad" ng-click="_sub_category = 'News'">News</a></li>
-
-                        </ul>
 
 
                     </nav>
@@ -210,7 +199,7 @@
 
                         <div class="col-md-12" style="margin-top: 1em" ng-show="haveArticle">
                             <div class="col-md-6">
-                                <img src={{article.image}} style="margin-top: 4em;margin-left: 5em">
+                                <img src={{article.image}} style="margin-top: 4em;margin-left: 5em; width:80%; height: 80%">
                             </div>
                             <div class="col-md-6" style="padding:1em 1em 0em 1em ">
                                 <p style="font-size: 8pt;text-align: left;font-family: lato-regular;padding-bottom: 5px">Article Title</p>

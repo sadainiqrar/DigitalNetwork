@@ -97,7 +97,7 @@ function mainController($scope, $rootScope, $cookies, articleFactory, sessionFac
             
             $scope.chart["chart3"] = {
                 theme: 'light',
-                backgroundColor: '#f8f8f8',
+                backgroundColor: 'transparent',
                 primaryHeader: {
                     text: 'Expense overview'
                 },
@@ -313,7 +313,7 @@ function mainController($scope, $rootScope, $cookies, articleFactory, sessionFac
 
                 $scope.chart["chart3"] = {
                     theme: 'light',
-                    backgroundColor: '#f8f8f8',
+                    backgroundColor: 'transparent',
                     primaryHeader: {
                         text: 'Expense overview'
                     },
@@ -357,10 +357,7 @@ function mainController($scope, $rootScope, $cookies, articleFactory, sessionFac
 
 
     }
-    $scope.active = 'Political';
-    $scope.makeActive = function (item) {
-        $scope.active = item;
-    }
+    
 
 
 
