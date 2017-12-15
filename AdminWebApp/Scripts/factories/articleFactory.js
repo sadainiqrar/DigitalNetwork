@@ -5,9 +5,9 @@ angular.module('DigitalMarket').factory(serviceId,
 
 function articleFactory($http) {
 
-    function getAdminArticles(_email, _url) {
+    function getAdminArticles(_email, _url,_status) {
 
-        var data = { email: _email, site_url: _url };
+        var data = { email: _email, site_url: _url, status: _status };
         return $http.post('http://localhost:3208/api/admin/articles', data);
     }
 

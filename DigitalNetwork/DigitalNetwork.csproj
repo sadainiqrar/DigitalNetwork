@@ -360,6 +360,7 @@
     <Content Include="Models\digimarketEntities1.edmx.diagram">
       <DependentUpon>digimarketEntities1.edmx</DependentUpon>
     </Content>
+    <Content Include="countrydata.json" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

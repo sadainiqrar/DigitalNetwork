@@ -161,4 +161,26 @@ namespace DigitalNetwork.DataModel
     {
         public string email { get; set; }
     }
+
+    public class countrieees
+    {
+        public string id { get; set; }
+        public string country { get; set; }
+    }
+
+    public class MapData
+    {
+        public string id { get; set; }
+        public string value { get; set; }
+    }
+
+    public class Map
+    {
+        public int max { get; set; }
+        public int min { get; set; }
+
+        public int avg { get; set; }
+
+        public List<MapData> mapData { get; set; }
+    }
 }

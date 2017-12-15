@@ -11,8 +11,12 @@ function trafficController($scope, $rootScope, $cookies, sessionFactory, statist
     $rootScope.globals = $cookies.getObject('globals') || {};
     $scope.userdata = $rootScope.globals.currentUser;
     $scope.username = $scope.userdata.fullname;
-    $scope.id = $scope.userdata.username;
-    $scope.uid = $scope.userdata.uid;
+
+    $scope.id = $scope.userdata.email;
+    $scope.custom = $scope.userdata.currentSite.custom;
+    $scope.site = $scope.userdata.currentSite.site_url;
+
+
     var d = new Date()
     $scope.to = new Date();
     d.setDate(d.getDate() - 7);
@@ -23,189 +27,62 @@ function trafficController($scope, $rootScope, $cookies, sessionFactory, statist
     $scope.dailyIsLoading = true;
     $scope.monthlyTrafficIsLoading = true;
 
-    statisticsFactory.get_statistics($scope.uid, $scope.from, $scope.to, $scope.id).then(
-        // callback function for successful http request
-        function success(response) {
-            $scope.userStat = response.data;
-       
-          
-            angular.forEach($scope.userStat, function (value, key) {
-                value.total_traffic = value.premium + value.non_premium;
-                value.day = dateParser(value.day);
-                sessionFactory.getRate("premium").then(
-                    // callback function for successful http request
-                    function success(response) {
-                        value.total_earning = value.total_earning + ((value.premium / 1000) * response.data[0].rate);
-
-
-                    },
-                    // callback function for error in http request
-                    function error(response) {
-                        // log errors
-                    }
-                );
-                sessionFactory.getRate("non-premium").then(
-                    // callback function for successful http request
-                    function success(response) {
-                        value.total_earning = value.total_earning + ((value.non_premium / 1000) * response.data[0].rate);
-                        $scope.isLoading = false;
-
-                    },
-                    // callback function for error in http request
-                    function error(response) {
-                        // log errors
-                        $scope.isLoading = false;
-                    }
-                );
-
-            });
-
-            $scope.isLoading = false;
+    var element = angular.element(document.getElementById('parha'));
+    $scope.width = element[0].clientWidth - 15;
+    $scope.MapSource = {
+        chart: {
+            animation: "0",
+            showbevel: "0",
+            usehovercolor: "1",
+            canvasbordercolor: "FFFFFF",
+            theme: "fint",
+            bordercolor: "000000",
+            showlegend: "1",
+            showshadow: "0",
+            caption: "Traffic for Last 30 Days",
+            connectorcolor: "000000",
+            fillalpha: "80",
+            showlabels: "0",
+            showborder: "1"
         },
-        // callback function for error in http request
-        function error(response) {
-            // log errors
-            $scope.isLoading = false;
-        }
-    );
-
-
-    sessionFactory.getCurrentMonthSession($scope.uid, $scope.id).then(
-        // callback function for successful http request
-        function success(response) {
-            $scope.sessions = response.data.premium + response.data.non_premium;
-            $scope.monthlyTrafficIsLoading = false;
-            $scope.monthly_earned = 0.0;
-            var premium = response.data.premium;
-            var non_premium = response.data.non_premium;
-            sessionFactory.getRate("premium").then(
-                // callback function for successful http request
-                function success(response) {
-                    $scope.monthly_earned = $scope.monthly_earned + ((premium / 1000) * response.data[0].rate);
-
-
+        colorrange: {
+            minvalue: "0",
+            startlabel: "Low",
+            endlabel: "High",
+            code: "e40000",
+            gradient: "0",
+            color: [
+                {
+                    maxvalue: "10",
+                    displayvalue: "Average",
+                    code: "0ad60e"
                 },
-                // callback function for error in http request
-                function error(response) {
-                    // log errors
+                {
+                    
+                    maxvalue: "50",
+                    code: "0700e4"
                 }
-            );
-            sessionFactory.getRate("non-premium").then(
-                // callback function for successful http request
-                function success(response) {
-                    $scope.monthly_earned = $scope.monthly_earned + ((non_premium / 1000) * response.data[0].rate);
-                   
-                    $scope.monthlyIsLoading = false;
-                },
-                // callback function for error in http request
-                function error(response) {
-                    // log errors
-                    $scope.monthlyIsLoading = false;
-                }
-            );
-
+            ],
+            maxvalue: 0
         },
-        // callback function for error in http request
-        function error(response) {
-            $scope.monthlyIsLoading = false;
-            $scope.monthlyTrafficIsLoading = false;
-            // log errors
-        }
-    );
-    sessionFactory.getCurrentDaySession($scope.uid, $scope.id).then(
-        // callback function for successful http request
-        function success(response) {
-            $scope.today_earned = 0.0;
-            var premium = response.data.premium;
-            var non_premium = response.data.non_premium;
-            sessionFactory.getRate("premium").then(
-                // callback function for successful http request
-                function success(response) {
-                    $scope.today_earned = $scope.today_earned + ((premium / 1000) * response.data[0].rate);
-
-
-                },
-                // callback function for error in http request
-                function error(response) {
-                    // log errors
-                }
-            );
-            sessionFactory.getRate("non-premium").then(
-                // callback function for successful http request
-                function success(response) {
-                    $scope.today_earned = $scope.today_earned + ((non_premium / 1000) * response.data[0].rate);
-
-                    $scope.dailyIsLoading = false;
-                },
-                // callback function for error in http request
-                function error(response) {
-                    // log errors
-                    $scope.dailyIsLoading = false;
-                }
-            );
-
-        },
-        // callback function for error in http request
-        function error(response) {
-            // log errors
-            $scope.dailyIsLoading = false;
-        }
-    );
-
-    $scope.stats = function ()
-    {
-        $scope.isLoading = true;
-        statisticsFactory.get_statistics($scope.uid, $scope.from, $scope.to, $scope.id).then(
-            // callback function for successful http request
-            function success(response) {
-                $scope.userStat = response.data;
-
-                angular.forEach($scope.userStat, function (value, key) {
-                    value.total_traffic = value.premium + value.non_premium;
-                    value.day = dateParser(value.day);
-
-                    sessionFactory.getRate("premium").then(
-                        // callback function for successful http request
-                        function success(response) {
-                            value.total_earning = value.total_earning + ((value.premium / 1000) * response.data[0].rate);
-
-
-                        },
-                        // callback function for error in http request
-                        function error(response) {
-                            // log errors
-                        }
-                    );
-                    sessionFactory.getRate("non-premium").then(
-                        // callback function for successful http request
-                        function success(response) {
-                            value.total_earning = value.total_earning + ((value.non_premium / 1000) * response.data[0].rate);
-                            $scope.isLoading = false;
-
-                        },
-                        // callback function for error in http request
-                        function error(response) {
-                            // log errors
-                            $scope.isLoading = false;
-                        }
-                    );
-
-                });
-
-                $scope.isLoading = false;
-            },
-            // callback function for error in http request
-            function error(response) {
-                $scope.isLoading = false;
-                // log errors
-            }
-        );
-
-
-
+        data: []
     }
 
+    statisticsFactory.get_map($scope.id, $scope.userdata.currentSite.ga_id).then(
+        // callback function for successful http request
+        function success(response) {
+            $scope.MapSource.data = response.data.mapData;
+            $scope.MapSource.colorrange.color[0].maxvalue = response.data.avg;
+            $scope.MapSource.colorrange.color[1].maxvalue = response.data.max;
+            $scope.MapSource.colorrange.minvalue = response.data.min
 
+        },
+        // callback function for error in http request
+        function error(response) {
+            // log errors
+        }
+
+    );
     function dateParser(str) {
     
         var day = str.slice(6, 8);

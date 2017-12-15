@@ -10,6 +10,10 @@ namespace DigitalNetwork.Models
         public string site_url { get; set; }
         public string email { get; set; }
     }
+    public class ArticleInput:AdminSite
+    {
+        public bool status { get; set; }
+    }
     public partial class user_sign_up_Result
     {
         public string uid { get; set; }

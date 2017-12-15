@@ -1,7 +1,7 @@
 
 // 'use strict'// create the module and name it scotchApp
 // var loginApp = angular.module('loginApp',['ui-router']);
-var scotchApp = angular.module('DigitalMarket', ['ui.router', 'ngRoute', 'ngCookies', 'ngSanitize', 'ngMaterial', 'google-signin']);
+var scotchApp = angular.module('DigitalMarket', ['ui.router', 'ngRoute', 'ngCookies', 'ngSanitize', 'ngMaterial', 'google-signin', "ng-fusioncharts"]);
 // configure our routes
 
 
@@ -36,9 +36,9 @@ scotchApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '
             controller: 'realtimeController'
         })
 
-        .state('dashboard.traffic', {
-            url: '/traffic',
-            templateUrl: 'Views/Dashboard/traffic.html',
+        .state('dashboard.statistics', {
+            url: '/statistics',
+            templateUrl: 'Views/Dashboard/statistics.html',
             controller: 'trafficController'
         })
         .state('dashboard.articles', {

@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.2.4.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.4.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -26,6 +27,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>2.3</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -253,6 +255,24 @@
     <Content Include="js\fullcalendar\fullcalendar.css" />
     <Content Include="js\fullcalendar\fullcalendar.min.js" />
     <Content Include="js\fullcalendar\theme.css" />
+    <Content Include="js\fusion\fusioncharts.js" />
+    <Content Include="js\fusion\angular-fusioncharts.min.js" />
+    <Content Include="js\fusion\fusioncharts.charts.js" />
+    <Content Include="js\fusion\fusioncharts.gantt.js" />
+    <Content Include="js\fusion\fusioncharts.maps.js" />
+    <Content Include="js\fusion\fusioncharts.powercharts.js" />
+    <Content Include="js\fusion\fusioncharts.ssgrid.js" />
+    <Content Include="js\fusion\fusioncharts.treemap.js" />
+    <Content Include="js\fusion\fusioncharts.widgets.js" />
+    <Content Include="js\fusion\fusioncharts.zoomscatter.js" />
+    <Content Include="js\fusion\index.html" />
+    <Content Include="js\fusion\fusioncharts.usa.js" />
+    <Content Include="js\fusion\fusioncharts.world.js" />
+    <Content Include="js\fusion\fusioncharts.theme.carbon.js" />
+    <Content Include="js\fusion\fusioncharts.theme.fint.js" />
+    <Content Include="js\fusion\fusioncharts.theme.ocean.js" />
+    <Content Include="js\fusion\fusioncharts.theme.zune.js" />
+    <Content Include="js\fusion\fusioncharts.worldwithcountries.js" />
     <Content Include="js\grid\gallery.css" />
     <Content Include="js\grid\gallery.js" />
     <Content Include="js\grid\jquery.grid-a-licious.min.js" />
@@ -1104,6 +1124,10 @@
     <Content Include="Scripts\i18n\angular-locale_zh.js" />
     <Content Include="Scripts\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\i18n\angular-locale_zu.js" />
+    <Content Include="js\fusion\.gitignore" />
+    <Content Include="js\fusion\bower.json" />
+    <Content Include="js\fusion\package.json" />
+    <Content Include="js\fusion\README.md" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -1128,6 +1152,7 @@
     <Content Include="Views\Dashboard\payment.html" />
     <Content Include="Views\Dashboard\profile.html" />
     <Content Include="Views\Dashboard\realtime.html" />
+    <Content Include="Views\Dashboard\statistics.html" />
     <Content Include="Views\Dashboard\traffic.html" />
     <Content Include="Views\Dashboard\userdata.html" />
     <Content Include="Views\Dashboard\userstats.html" />
@@ -1151,6 +1176,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="js\fusion\maps\" />
+    <Folder Include="js\fusion\themes\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
@@ -1188,11 +1215,15 @@
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\errors.json" />
   </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">

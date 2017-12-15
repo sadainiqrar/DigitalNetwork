@@ -42,7 +42,7 @@
           <Key>
             <PropertyRef Name="serial_no" />
           </Key>
-          <Property Name="serial_no" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="serial_no" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="a_id" Type="int" Nullable="false" />
           <Property Name="url" Type="varchar(max)" Nullable="false" />
           <Property Name="title" Type="varchar" MaxLength="50" Nullable="false" />
@@ -327,6 +327,7 @@
         <Function Name="get_admin_articles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="email" Type="varchar" Mode="In" />
           <Parameter Name="site" Type="varchar" Mode="In" />
+          <Parameter Name="status" Type="bit" Mode="In" />
         </Function>
         <Function Name="get_admin_gid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="site" Type="varchar" Mode="In" />
@@ -861,6 +862,7 @@
           <FunctionImport Name="get_admin_articles" ReturnType="Collection(digimarketModel.get_admin_articles_Result)">
             <Parameter Name="email" Mode="In" Type="String" />
             <Parameter Name="site" Mode="In" Type="String" />
+            <Parameter Name="status" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="get_admin_gid" ReturnType="Collection(digimarketModel.get_admin_gid_Result)">
           <Parameter Name="site" Mode="In" Type="String" />

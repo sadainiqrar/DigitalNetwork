@@ -19,11 +19,15 @@ namespace AdminWebApp
                 "~/Scripts/jquery.signalR-2.2.2.min.js",
                 "~/Scripts/jquery.signalR-2.2.2.js",
                 "~/Scripts/d3.min.js",
-                "~/Scripts/epoch.min.js",
-                "~/Scripts/ng-epoch.js"
-             
+                "~/js/fusion/fusioncharts.js",
+                "~/js/fusion/fusioncharts.maps.js",
+                "~/js/fusion/fusioncharts.theme.fint.js",
 
-            
+                "~/js/fusion/fusioncharts.world.js"
+
+
+
+
                         ));
 
 
@@ -62,7 +66,11 @@ namespace AdminWebApp
                 "~/Scripts/angular-messages.min.js",
                 "~/Scripts/angular-material.min.js",
                 "~/Scripts/material.indigo-pink.min.js",
-                "~/Scripts/angular-clipboard.js"
+                "~/Scripts/angular-clipboard.js",
+
+                "~/js/fusion/angular-fusioncharts.min.js"
+
+
 
                         ));
             bundles.Add(new ScriptBundle("~/bundles/adminScript").Include(

@@ -36,7 +36,7 @@ function mainController($scope, $rootScope, $cookies, articleFactory, sessionFac
 
     $scope.selectedOrder = $scope.order[0].value;
 
-    articleFactory.getAdminArticles($scope.id, $scope.site).then(
+    articleFactory.getAdminArticles($scope.id, $scope.site,false).then(
         // callback function for successful http request
         function success(response) {
             $scope.articles = response.data;
@@ -160,7 +160,7 @@ function mainController($scope, $rootScope, $cookies, articleFactory, sessionFac
                         targetEvent: ev,
                         clickOutsideToClose: true
                     });
-                    articleFactory.getAdminArticles($scope.id, $scope.site).then(
+                    articleFactory.getAdminArticles($scope.id, $scope.site,false).then(
                         // callback function for successful http request
                         function success(response) {
                             $scope.articles = response.data;
@@ -206,7 +206,7 @@ function mainController($scope, $rootScope, $cookies, articleFactory, sessionFac
                         targetEvent: ev,
                         clickOutsideToClose: true
                     });
-                    articleFactory.getAdminArticles($scope.id, $scope.site).then(
+                    articleFactory.getAdminArticles($scope.id, $scope.site,false).then(
                         // callback function for successful http request
                         function success(response) {
                             $scope.articles = response.data;
@@ -253,7 +253,7 @@ function mainController($scope, $rootScope, $cookies, articleFactory, sessionFac
                         targetEvent: ev,
                         clickOutsideToClose: true
                     });
-                    articleFactory.getAdminArticles($scope.id, $scope.site).then(
+                    articleFactory.getAdminArticles($scope.id, $scope.site,false).then(
                         // callback function for successful http request
                         function success(response) {
                             $scope.articles = response.data;

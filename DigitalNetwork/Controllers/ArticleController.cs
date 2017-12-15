@@ -23,11 +23,11 @@ namespace DigitalNetwork.Controllers
 
         [HttpPost]
         [Route("api/admin/articles")]
-        public IEnumerable<get_Articles> PostAdminArticles([FromBody] AdminSite admin)
+        public IEnumerable<get_Articles> PostAdminArticles([FromBody] ArticleInput admin)
         {
             List<get_admin_articles_Result> articleList = new List<get_admin_articles_Result>();
             List<get_Articles> finalArticleList = new List<get_Articles>();
-            using (var articles = db.get_admin_articles(admin.email,admin.site_url))
+            using (var articles = db.get_admin_articles(admin.email,admin.site_url,admin.status))
             {
 
                 articleList = articles.ToList<get_admin_articles_Result>();

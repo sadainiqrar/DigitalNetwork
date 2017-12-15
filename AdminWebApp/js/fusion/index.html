@@ -1,0 +1,75 @@
+<html>
+<head>
+    <title>A Data Driven Map</title>
+    <script type="text/javascript" src="fusioncharts.js"></script>
+    <script type="text/javascript" src="themes/fusioncharts.theme.fint.js"></script>
+<script>
+FusionCharts.ready(function() {
+    var salesMap = new FusionCharts({
+        type: 'maps/world',
+        renderAt: 'chart-container',
+        width: '600',
+        height: '400',
+        dataFormat: 'json',
+        dataSource: {
+            "chart": {
+                "caption": "Traffic from all over the world",
+                "theme": "fint",
+                "showLabels": "1",
+                "formatNumberScale": "0"
+            },
+            "colorrange": {
+                "minvalue": "0",
+                "startlabel": "Minimum",
+                "endlabel": "Maximum",
+                "code": "#c70039",
+                "gradient": "1",
+                "color": [{
+                    "maxvalue": "50000",
+                    "code": "#ecb939",
+                    "displayValue": "Median"
+                }, {
+                    "maxvalue": "100000",
+                    "code": "#017500"
+                }]
+            },
+            "data": [{
+                "id": "NA",
+                "value": "100000",
+                "showLabel": "1",
+                "displayValue": "High"
+            }, {
+                "id": "SA",
+                "value": "50000",
+                "showLabel": "1",
+                "displayValue": "Moderate"
+            }, {
+                "id": "AS",
+                "value": "95568",
+                "showLabel": "1",
+                "displayValue": "High"
+            }, {
+                "id": "EU",
+                "value": "52000",
+                "showLabel": "1",
+                "displayValue": "Moderate"
+            }, {
+                "id": "AF",
+                "value": "3300",
+                "showLabel": "1",
+                "displayValue": "low"
+            }, {
+                "id": "AU",
+                "value": "3.2",
+                "showLabel": "1",
+                "displayValue": "Low"
+            }]
+        }
+    }).render();
+});
+</script>
+</head>
+<body>
+    <div id="chart-container">A world map will load here!</div>
+</body>
+</html>

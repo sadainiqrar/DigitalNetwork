@@ -18,6 +18,14 @@ function statisticsFactory($http) {
         return $http.post('http://localhost:3208/api/user/statistics', data);
     }
 
+    function get_map(_email, _ga_id) {
+
+        var data = { ga_id: _ga_id, extra: _email };
+        return $http.post('http://localhost:3208/api/admin/mapdata', data);
+    }
+
+
+
     function get_top() {
         return $http.get('http://localhost:3208/api/user/topusers');
     }
@@ -25,6 +33,7 @@ function statisticsFactory($http) {
 
     var service = {
         get_statistics: get_statistics,
+        get_map: get_map,
         get_top: get_top
     };
 

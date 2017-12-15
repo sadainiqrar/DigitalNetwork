@@ -9,6 +9,8 @@ using Newtonsoft.Json.Linq;
 using System.Web.Helpers;
 using Newtonsoft.Json;
 using DigitalNetwork.Models;
+using System.IO;
+using System.Globalization;
 
 namespace DigitalNetwork.Controllers
 {
@@ -17,6 +19,15 @@ namespace DigitalNetwork.Controllers
         private digimarketEntities1 db = new digimarketEntities1();
         /* User Apis */
 
+        
+
+
+
+
+        /// <summary>
+        /// //////////////////////////////////USER APIS///////////////////////////////////////
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("api/user/topusers")]
         public List<KeyValuePair<string, long>> TopUsers()
@@ -242,6 +253,88 @@ namespace DigitalNetwork.Controllers
 
         /* Admin Apis */
 
+        
+        [HttpPost]
+        [Route("api/admin/mapdata")]
+        public Map  getMapData([FromBody] Analytics_Input input)
+        {
+            Map res = new Map() { max = 0, min = 0,avg=0, mapData = new List<MapData>() };
+            Dictionary<string, countrieees> countries = CountriesList();
+
+            ArticleController a = new ArticleController();
+
+            var to = System.DateTime.Now;
+            var from = new DateTime(to.Year, to.Month - 1, to.Day);
+            //List < List < UserStats >> total_stats = new List<List<UserStats>>();
+
+            List<MapData> map = new List<MapData>();
+
+
+            Authorization auth = new Authorization(input.extra);
+            var result = auth.service.Data.Ga.Get("ga:" + input.ga_id, a.convertDate(from), a.convertDate(to), input.session);
+            result.Dimensions = "ga:countryIsoCode";
+            
+            var session_result = result.Execute();
+
+            
+            int count = (int)session_result.TotalResults;
+            int total = 0;
+            if (count != 0)
+            {
+                foreach (var item in session_result.Rows)
+                {
+                    total++;
+                    if (countries.ContainsKey(item[0]))
+                    map.Add(new MapData() { id = countries[item[0]].id, value = item[1] });
+                    if (res.max == 0)
+                    {
+                        res.min = Int32.Parse(item[1]);
+                    }
+                    if (res.max==0)
+                    {
+                        res.max = Int32.Parse(item[1]);
+                    }
+                    if (res.avg == 0)
+                    {
+                        res.max = Int32.Parse(item[1]);
+                    }
+                    if (Int32.Parse(item[1]) <= res.min)
+                    {
+                        res.min = Int32.Parse(item[1]);
+                    }
+                    if (Int32.Parse(item[1]) >= res.max)
+                    {
+                        res.max = Int32.Parse(item[1]);
+                    }
+                    res.avg = res.avg + Int32.Parse(item[1]);
+                }
+                
+            }
+            res.avg = res.avg / total;
+            res.mapData = map;
+            return res;
+        }
+
+
+        [NonAction]
+        public Dictionary<string, countrieees> CountriesList()
+        {
+            Dictionary<string, countrieees> countries = new Dictionary<string, countrieees>();
+            List<countrieees> items = new List<countrieees>();
+
+            using (WebClient wc = new WebClient())
+            {
+                var json = wc.DownloadString("https://raw.githubusercontent.com/sadainiqrar/sadainiqrar/master/countrydata.json");
+                items = JsonConvert.DeserializeObject<List<countrieees>>(json);
+            }
+            foreach (var item in items)
+            {
+                countries.Add(item.country, item);
+            }
+            return countries;
+        }
+
+
         [HttpPost]
         [Route("api/admin/sessions")]
         public GraphStats PostAdminSession([FromBody]Analytics_Input analytics_Input)
@@ -279,7 +372,7 @@ namespace DigitalNetwork.Controllers
 
         }
 
-
+        
 
 
 

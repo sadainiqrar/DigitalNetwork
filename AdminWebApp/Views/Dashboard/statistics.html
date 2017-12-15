@@ -1,15 +1,15 @@
 ﻿
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 main-panel main-panel-margin">
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 main-panel main-panel-margin" style="overflow-x: hidden; overflow-y: scroll;padding-bottom: 6em;">
+
+
     <div class="col-md-12 widthpanel">
         <section class="panel panel-default panmain">
             <div class="row">
 
                 <div class="col-md-4 b-r">
                     <a class="clear">
-                        <span class="h3 block m-t-xs sm1"><center><strong style="color: #34c9ff">{{today_earned| currency:"USD$"}} </strong></center></span>
-                        <div layout="row" layout-sm="column" layout-align="space-around">
-                            <md-progress-circular md-mode="indeterminate" class="md-hue-2" md-diameter="15px" ng-show="dailyIsLoading"></md-progress-circular>
-                        </div>
+                        <span class="h3 block m-t-xs sm1"><center><strong style="color: #34c9ff">200$ </strong></center></span>
+
                         <small class="text-muted text-uc " style="color: #a3a3a3"><center>EARNED TODAY</center></small>
 
                     </a>
@@ -17,20 +17,16 @@
                 <div class="col-md-4 b-r">
 
                     <a class="clear">
-                        <span class="h3 block m-t-xs sm1"><center><strong style="color: #bc49ff">{{monthly_earned| currency:"USD$"}}</strong></center></span>
-                        <div layout="row" layout-sm="column" layout-align="space-around">
-                            <md-progress-circular md-mode="indeterminate" class="md-hue-2" md-diameter="15px" ng-show="monthlyIsLoading"></md-progress-circular>
-                        </div>
+                        <span class="h3 block m-t-xs sm1"><center><strong style="color: #bc49ff">705$</strong></center></span>
+
                         <small class="text-muted text-uc " style="color: #a3a3a3"><center>EARNED THIS MONTH</center></small>
                     </a>
                 </div>
                 <div class="col-md-4">
 
                     <a class="clear">
-                        <span class="h3 m-t-xs sm1"><center><strong style="color: #6344ff">{{sessions}}</strong></center></span>
-                        <div layout="row" layout-sm="column" layout-align="space-around">
-                            <md-progress-circular md-mode="indeterminate" class="md-hue-2" md-diameter="15px" ng-show="dailyIsLoading"></md-progress-circular>
-                        </div>
+                        <span class="h3 m-t-xs sm1"><center><strong style="color: #6344ff"> 600K </strong></center></span>
+
                         <small class="text-muted text-uc " style="color: #a3a3a3"><center>THIS MONTH'S TRAFFIC</center></small>
                     </a>
                 </div>
@@ -42,29 +38,96 @@
         <div class="bar">
 
             <center><h6 style="color:#878787;">Statistics</h6></center>
-            <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div class="row col-xs-12 col-sm-6 col-md-6 col-lg-6">
 
-                    <div flex-gt-xs>
-                        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" style="vertical-align:auto" id="fromDiv"><b>From</b></div>
 
-                        <div id="datetimepicker" class=" input-append date col-xs-3 col-sm-3 col-md-3 col-lg-4">
-                            <md-datepicker style="background: transparent;" ng-model="from" md-placeholder="From Date" ng-change="stats()"></md-datepicker>
+            <div class="row">
+                <link rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/light/all.min.css" />
+                <script type="text/javascript" src="BarChart/barScript.js"></script>
+                <div id="mapuse" class="col-lg-6 col-md-6 sol-sm-12 col-xs-12 map">
+                    <div id="parha" class="panel panel-default" style="padding: 0;padding-left: 1em; margin-left: 1em;">
+                        <div class="panel-body">
+                            <div id="chart1" style="    padding-top: 1em;"></div>
+                        </div>
+                        <div class="panel-body">
+                            <p style="margin: 0;color:deepskyblue">$150,0000</p>
+                            <p style="font-size: 7pt"><i class="fa fa-caret-up" aria-hidden="true" style="color: lightgreen"></i>1020 <i class="fa fa-caret-down" aria-hidden="true" style="color: red;"></i>1020</p>
                         </div>
                     </div>
                 </div>
-                <div class="row col-xs-12 col-sm-6 col-md-6 col-lg-6">
-
-                    <div flex-gt-xs>
-                        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" style="vertical-align:auto" id="toDiv"><b>To</b></div>
-
-                        <div id="datetimepicker" class=" input-append date col-xs-3 col-sm-3 col-md-3 col-lg-4">
-                            <md-datepicker style="background: transparent;" ng-model="to" md-placeholder="To Date" ng-change="stats()"></md-datepicker>
+                <div class="col-lg-6 col-md-6 sol-sm-12 col-xs-12 map">
+                    <div id="mapparha"  class="panel panel-default" style="padding: 1.3em;padding-left: 1em; margin-left: 1em;">
+                        <div fusioncharts
+                             width={{width}}
+                             height="343"
+                             type = "worldwithcountries"
+                             dataSource="{{MapSource}}" class="panel-body" style="padding: 0px;" >
                         </div>
                     </div>
+
+                    <script type="text/javascript">
+
+                        $("#chart1").shieldChart({
+                            theme: "light",
+                            backgroundColor:'#fff',
+                            primaryHeader: {
+                                text: "PROGRESS"
+                            },
+                            exportOptions: {
+                                image: false,
+                                print: false
+                            },
+                            axisY:{
+                                plotStripColor: '',
+                            },
+                            axisX: {
+                                minorPlotStripColor: 'grey',
+                                minorPlotStripWidth: 1,
+                                minorTicksRepeat: '1',
+                            },
+                            tooltipSettings: {
+                                chartBound: true,
+                                axisMarkers: {
+                                    enabled: true,
+                                    mode: 'x'
+                                }
+                            },
+                            scrolling: true,
+                            height: 270,
+                            dataSeries: [{
+                                seriesType: 'line',
+                                backgroundColor: '#fff',
+                                color: '#4587d9',
+                                collectionAlias: "Traffic from Country",
+                                data: [3000, 4000, 0, 1234, 5553]
+                            }]
+                        });
+
+                    </script>
                 </div>
 
-            </div>
+
+                <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="row col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" id="fromDiv"><b>From</b></div>
+                        <div id="datetimepicker" class=" input-append date col-xs-3 col-sm-3 col-md-3 col-lg-4">
+
+                            <input type="text" id="datepickerFrom" style="height: 20px; width:10em;">
+                            <span class="add-on" style="height: 25px;">
+                                <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" id="toDiv"><b>To</b></div>
+                        <div id="datetimepicker" class=" input-append date col-xs-3 col-sm-3 col-md-3 col-lg-4">
+                            <input type="text" id="datepickerTo" style="height: 20px; width:10em;">
+                            <span class="add-on" style="height: 25px;">
+                                <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
 
 
 
@@ -72,42 +135,57 @@
 
 
 
-            <div class="col-md-12 col-sm-12 col-xs-12" style="padding: 1em 0em 1em 0em">
-                <section class="panel panel-default table-responsive panmain" id="tablesm">
-                    <div class="container-fluid" style="padding: 0px 0px 0px 0px">
-                        <table class="table tableResp">
-                            <thead>
-                                <tr>
-                                    <th id="tsp1" class="asd"><b>DATE</b></th>
-                                    <th id="tsp2" class="asd"><b>TRAFFIC</b></th>
-                                    <th id="tsp3" class="asd"><b>EARNINGS</b></th>
-                                    <th class="asd"> </th>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 1em 0em 1em 0em">
+                    <section class="panel panel-default panmain table-responsive " id="tablesm" style="height: 25em; overflow-y: scroll;">
+                        <div class="container-fluid" style="padding: 0px 0px 0px 0px;">
+                            <div>
+                                <table class="table tableResp">
+                                    <thead>
+                                        <tr>
+                                            <th id="tsp1" class="asd"><b>DATE</b></th>
+                                            <th id="tsp2" class="asd"><b>TRAFFIC</b></th>
+                                            <th id="tsp3" class="asd"><b>EARNINGS</b></th>
+                                            <th class="asd"> </th>
 
-                                </tr>
-                            </thead>
-                            <tbody ng-repeat="s in userStat |orderBy:day:true">
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="yeclass" style="font-size: 8pt">
+                                        <tr>
+                                            <td id="tsp1">10/10/2017</td>
+                                            <td id="tsp2">2378</td>
+                                            <td id="tsp3">128$</td>
+                                            <td>
 
-                                <tr>
-                                    <td class="yeclass" style="font-size: 8pt"></td>
-                                    <td id="tsp1">{{s.day}}</td>
-                                    <td id="tsp2">{{s.total_traffic}}</td>
-                                    <td id="tsp3">{{s.total_earning}}</td>
-
-                                    <td>
-
-                                        <button type="button" class=" btn-md btn-link" ng-init="clickedh=false" ng-click="clickedh=!clickedh">View Details</button>
-                                    </td>
-                                </tr>
-                                <tr>
+                                                <button type="button" class=" btn-md btn-link" ng-init="clickedh=false" ng-click="clickedh=!clickedh">View Details</button>
+                                            </td>
+                                        </tr>
+                                        </td>
                                     <td ng-show="clickedh" colspan="8">
                                         <div>
                                             <section class="panel-default subPanel" style=" height: 120px; overflow: auto;">
                                                 <table class="tableSub table">
                                                     <tbody>
-                                                        <tr style="font-size: 8pt" ng-repeat="c in s.country_stats">
-                                                            <td><left>{{c.country}}</left></td>
-                                                            <td><right>SESSIONS: <span style="color: deepskyblue">{{c.sessions}}</span></right></td>
-                                                            <td><right>NEW SESSIONS: <span style="color: red">{{c.newSessions}}</span></right></td>
+                                                        <tr style="font-size: 8pt">
+                                                            <td><left>UNITED KINGDOM</left></td>
+                                                            <td><right>SESSIONS: <span style="color: deepskyblue">2198</span></right></td>
+                                                            <td><right>NEW SESSIONS: <span style="color: red">2198</span></right></td>
+                                                        </tr>
+                                                        <tr style="font-size: 8pt">
+                                                            <td><left>UNITED STATES</left></td>
+                                                            <td><right>SESSIONS: <span style="color: red">598</span></right></td>
+                                                            <td><right>NEW SESSIONS: <span style="color: deepskyblue">598</span></right></td>
+                                                        </tr>
+                                                        <tr style="font-size: 8pt">
+                                                            <td><left>UNITED STATES</left></td>
+                                                            <td><right>SESSIONS: <span style="color: red">598</span></right></td>
+                                                            <td><right>NEW SESSIONS: <span style="color: deepskyblue">598</span></right></td>
+                                                        </tr>
+                                                        <tr style="font-size: 8pt">
+                                                            <td><left>UNITED STATES</left></td>
+                                                            <td><right>SESSIONS: <span style="color: red">598</span></right></td>
+                                                            <td><right>NEW SESSIONS: <span style="color: deepskyblue">598</span></right></td>
                                                         </tr>
 
                                                     </tbody>
@@ -116,17 +194,52 @@
                                             </section>
                                         </div>
                                     </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div layout="row" layout-sm="column" layout-align="space-around">
-                            <md-progress-circular md-mode="indeterminate" ng-show="isLoading"></md-progress-circular>
+                                    </tr>
+
+
+
+
+
+                                    <tr style="font-size: 8pt">
+                                        <td id="tsp1">10/10/2017</td>
+                                        <td id="tsp2">2378</td>
+                                        <td id="tsp3">128$</td>
+                                        <td>
+
+                                            <button type="button" class=" btn-md btn-link" ng-init="clickedh=false" ng-click="clickedh=!clickedh">View Details</button>
+                                        </td>
+                                    </tr>
+
+                                    <tr style="font-size: 8pt">
+                                        <td id="tsp1">10/10/2017</td>
+                                        <td id="tsp2">2378</td>
+                                        <td id="tsp3">128$</td>
+                                        <td>
+
+                                            <button type="button" class=" btn-md btn-link" ng-init="clickedh=false" ng-click="clickedh=!clickedh">View Details</button>
+                                        </td>
+                                    </tr>
+                                    <tr style="font-size: 8pt">
+                                        <td id="tsp1">10/10/2017</td>
+                                        <td id="tsp2">2378</td>
+                                        <td id="tsp3">128$</td>
+                                        <td>
+
+                                            <button type="button" class=" btn-md btn-link" ng-init="clickedh=false" ng-click="clickedh=!clickedh">View Details</button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
-                </section>
+                    </section>
+                </div>
+
+
+
+
+
             </div>
-
-
 
 
 
@@ -136,7 +249,6 @@
 
     </div>
 
-    </div>
 
 
-
+</div>

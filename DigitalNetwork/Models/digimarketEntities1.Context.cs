@@ -252,7 +252,7 @@ namespace DigitalNetwork.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("delete_ums", ums_idParameter);
         }
     
-        public virtual ObjectResult<get_admin_articles_Result> get_admin_articles(string email, string site)
+        public virtual ObjectResult<get_admin_articles_Result> get_admin_articles(string email, string site, Nullable<bool> status)
         {
             var emailParameter = email != null ?
                 new ObjectParameter("email", email) :
@@ -262,7 +262,11 @@ namespace DigitalNetwork.Models
                 new ObjectParameter("site", site) :
                 new ObjectParameter("site", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_admin_articles_Result>("get_admin_articles", emailParameter, siteParameter);
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_admin_articles_Result>("get_admin_articles", emailParameter, siteParameter, statusParameter);
         }
     
         public virtual ObjectResult<get_admin_gid_Result> get_admin_gid(string site)
