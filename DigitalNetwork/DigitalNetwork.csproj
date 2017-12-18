@@ -288,6 +288,9 @@
     <Compile Include="Models\get_articles_Result.cs">
       <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\get_deleted_articles_Result.cs">
+      <DependentUpon>digimarketEntities1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\get_joining_date_Result.cs">
       <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>

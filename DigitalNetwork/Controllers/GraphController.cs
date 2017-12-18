@@ -60,6 +60,59 @@ namespace DigitalNetwork.Controllers
 
 
 
+        [HttpPost]
+        [Route("api/admin/stats/traffic")]
+        public AdminGraph statAdminGraph([FromBody] Analytics_Input input)
+        {
+
+          
+            ArticleController a = new ArticleController();
+            List<GraphStats> stats = new List<GraphStats>() ;
+            AdminGraph data = new AdminGraph() { amount = 0.0, graph=stats };
+            var to = System.DateTime.Now;
+            var from = new DateTime(to.Year, to.Month - 1, to.Day);
+            //List < List < UserStats >> total_stats = new List<List<UserStats>>();
+
+            List<GraphStats> list = new List<GraphStats>();
+
+
+            Authorization auth = new Authorization(input.extra);
+            var result = auth.service.Data.Ga.Get("ga:" + input.ga_id, a.convertDate(from), a.convertDate(to), input.session);
+          
+         
+            var result1 = auth.service.Data.Ga.Get("ga:" + input.ga_id, a.convertDate(from), a.convertDate(to), input.session);
+
+            result.Dimensions = "ga:year,ga:month,ga:day";
+            result1.Dimensions = "ga:year,ga:month,ga:day";
+
+            result.Filters = "ga:medium=@referral";
+            result1.Filters = "ga:medium=@referral;ga:country=@Canada";
+            var final = result.Execute();
+            var final1 = result1.Execute();
+            int count = (int)final.TotalResults;
+            int count1 = (int)final1.TotalResults;
+            if (count != 0 && (count == count1))
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    var item1 = final.Rows[i];
+                    var item2 = final1.Rows[i];
+                    double pEarned = GetEarned(item2[3], "premium") ;
+                    double nEarned = GetEarned((Int32.Parse(item1[3]) - Int32.Parse(item2[3])).ToString(), "non-premium");
+                    data.amount += pEarned + nEarned;
+
+                  
+                    GraphStats temp = new GraphStats() { dateTime = item2[2] + "/"+ item1[1] + "/" + item1[0], sessions = (Int32.Parse(item1[3]) ).ToString() , earned = GetEarned((Int32.Parse(item1[3]) - Int32.Parse(item2[3])).ToString(), "non-premium")+ GetEarned(item2[3], "premium") };
+                    stats.Add(new GraphStats() { dateTime = temp.dateTime, sessions = temp.sessions, earned = temp.earned });
+                }
+                data.graph = stats;
+            }
+            return data;
+
+        }
+
+
+
 
         /// <summary>
         /// /////////////////////////////////user Api///////////////////////////////

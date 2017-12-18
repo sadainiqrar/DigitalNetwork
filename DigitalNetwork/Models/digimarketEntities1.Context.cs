@@ -608,5 +608,18 @@ namespace DigitalNetwork.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("user_update", uidParameter, statusParameter);
         }
+    
+        public virtual ObjectResult<get_deleted_articles_Result> get_deleted_articles(string email, string site)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var siteParameter = site != null ?
+                new ObjectParameter("site", site) :
+                new ObjectParameter("site", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_deleted_articles_Result>("get_deleted_articles", emailParameter, siteParameter);
+        }
     }
 }

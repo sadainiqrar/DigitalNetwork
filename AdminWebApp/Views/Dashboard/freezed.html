@@ -1,0 +1,109 @@
+﻿
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 main-panel main-panel-margin">
+
+
+    <div class="col-md-12 widthpanel">
+
+        <div class="bar">
+
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-cat-collapse">
+                <i class="fa fa-bars"></i>
+            </button>
+            <section class="panel panel-default panmain">
+                <div style="margin-bottom: 20px"><p>FREEZED ARTICLES</p></div>
+
+                <nav class="navbar navbar-default navbar-collapse collapse statusbar" id="navbar-cat-collapse" style="margin-left: 7em;margin-right: 9.5em">
+
+
+                    <ul class="nav navbar-nav" style="display: inline;">
+                        <li ng-click='makeActive("Political")' ng-class="{ 'active': active=='Political'}"><a class="tabpad" ng-click="_sub_category = 'Political'">All</a></li>
+                        <li ng-click='makeActive("Entertainment")' ng-class="{ 'active': active=='Entertainment'}"><a class="tabpad" ng-click="_sub_category = 'Entertainment'">Entertainment</a></li>
+                        <li ng-click='makeActive("Sports")' ng-class="{ 'active': active=='Sports'}"><a class="tabpad" ng-click="_sub_category = 'Sports'">Sports</a></li>
+                        <li ng-click='makeActive("Health")' ng-class="{ 'active': active=='Health'}"><a class="tabpad" ng-click="_sub_category = 'Health'">Health & Food</a></li>
+                        <li ng-click='makeActive("Showbiz")' ng-class="{ 'active': active=='Showbiz'}"><a class="tabpad" ng-click="_sub_category = 'Showbiz'">Showbiz</a></li>
+                        <li ng-click='makeActive("Motivation")' ng-class="{ 'active': active=='Motivation'}"><a class="tabpad" ng-click="_sub_category = 'Motivation'">Motivation</a></li>
+                        <li ng-click='makeActive("Featured")' ng-class="{ 'active': active=='Featured'}"><a class="tabpad" ng-click="_sub_category = 'Featured'">Featured</a></li>
+
+                    </ul>
+
+
+                </nav>
+
+
+
+                <div class="container-fluid">
+
+                    <div class="col-md-12 col-sm-12" style="cursor: pointer">
+                        <div ng-repeat="article in freezed_articles | filter: (_sub_category==='Political' ? undefined : { sub_category: _sub_category }) | orderBy : selectedOrder : true">
+                            <!-- shared Articles body -->
+                            <div class="row" id="freezedrow" style="">
+                                <a href="" style="color:#66615b;">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sharedArticleDiv" style="padding: 0px 0px 0px 0px;">
+                                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                                            <div id="TitleDiv" class="col-lg-8 col-md-6 col-sm-7 col-xs-12">
+
+                                                <h4 class="Freezedtitle" ng-bind-html="article.title"></h4>
+
+
+                                            </div>
+                                            <div id="ArticlebyDiv" class="col-lg-4 col-md-6 col-sm-5 col-xs-12">
+                                                <p class="p1">Article by: {{article.site_name}} </p>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+
+                                                <span class="h3 block m-t-xs">
+                                                    <center>
+
+                                                        <strong style="color: #85ddff; font-size: 12pt;">
+
+                                                            <br> {{article.shares | currency:"USD$"}}
+                                                        </strong>
+                                                    </center>
+                                                </span>
+
+                                                <center>
+                                                    <small class="text-muted text-uc" style="font-size: 7pt; margin : 12px 0px 0px 0px;">SPENT</small>
+                                                </center>
+                                            </div>
+
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                <span class="h3 block m-t-xs">
+                                                    <center>
+
+                                                        <strong style="color: #846cff; font-size: 12pt;">
+
+                                                            <br> {{article.views}}
+                                                        </strong>
+                                                    </center>
+                                                </span>
+
+                                                <center>
+                                                    <small class="text-muted text-uc" style="font-size: 7pt; margin : 12px 0px 0px 0px;">TRAFFIC GENERATED</small>
+                                                </center>
+                                            </div>
+
+
+
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <hr class="freezedhrline">
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+
+
+</div>
+
+

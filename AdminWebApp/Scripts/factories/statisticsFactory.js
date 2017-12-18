@@ -5,7 +5,7 @@ angular.module('DigitalMarket').factory(serviceId,
 
 function statisticsFactory($http) {
 
-    function get_statistics(_uid,_from,_to,_extra) {
+    function get_statistics(_ga_id,_from,_to,_email) {
         var fromYear = _from.toISOString();
 
         var from = fromYear.split('T');
@@ -14,8 +14,8 @@ function statisticsFactory($http) {
         var to = toDate.split('T');
 
         var t = to[0];
-        var data = { uid: _uid, from_date: f, to_date: t, extra: _extra };
-        return $http.post('http://localhost:3208/api/user/statistics', data);
+        var data = { ga_id: _ga_id, from_date: f, to_date: t, extra: _email };
+        return $http.post('http://localhost:3208/api/admin/statistics', data);
     }
 
     function get_map(_email, _ga_id) {
@@ -24,17 +24,19 @@ function statisticsFactory($http) {
         return $http.post('http://localhost:3208/api/admin/mapdata', data);
     }
 
-
-
-    function get_top() {
-        return $http.get('http://localhost:3208/api/user/topusers');
+    function get_graph_statistics(_ga_id, _email) {
+     
+        var data = { ga_id: _ga_id, extra: _email };
+        return $http.post('http://localhost:3208/api/admin/stats/traffic', data);
     }
 
+    
 
     var service = {
         get_statistics: get_statistics,
         get_map: get_map,
-        get_top: get_top
+        get_graph_statistics: get_graph_statistics
+       
     };
 
     return service;

@@ -205,8 +205,8 @@
                         
                     </a>
                     <ul class="nav collapse" id="submenu1" >
-                        <li ng-click='makeActive("/articles")'  ng-class="{ 'active-o': active=='/articles'}"><a href="#">Notification 1</a></li>
-                        <li ng-click='makeActive("/articles")' ng-class="{ 'active-o': active=='/articles'}"><a href="#">Notification 2</a></li>
+                        <li ng-click='makeActive("/published")'  ng-class="{ 'active-o': active=='/published'}"><a ui-sref="dashboard.published">published Articles</a></li>
+                        <li ng-click='makeActive("/freezed")' ng-class="{ 'active-o': active=='/freezed'}"><a ui-sref="dashboard.freezed">Freezed Articles</a></li>
                     </ul>
                 </li>
                 <li ng-click='makeActive("/statistics")' ng-class="{ 'active-o': active=='/statistics'}">

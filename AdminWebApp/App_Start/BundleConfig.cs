@@ -77,6 +77,7 @@ namespace AdminWebApp
                  "~/Scripts/script.js",
                         "~/Scripts/controllers/mainController.js",
                         "~/Scripts/controllers/articlesController.js",
+                        "~/Scripts/controllers/freezedController.js",
                         "~/Scripts/controllers/articlestatsController.js",
                         "~/Scripts/controllers/invoicesController.js",
                         "~/Scripts/controllers/paymentController.js",

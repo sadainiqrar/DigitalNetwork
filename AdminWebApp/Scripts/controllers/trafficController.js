@@ -21,7 +21,13 @@ function trafficController($scope, $rootScope, $cookies, sessionFactory, statist
     $scope.to = new Date();
     d.setDate(d.getDate() - 7);
     $scope.from = d;
-    $scope.userStat = [];
+    $scope.adminStats = [];
+    $scope.MonthTraffic = '0';
+    $scope.TodayTraffic = '0';
+    $scope.MonthExpense = 0;
+
+    $scope.trafficData = [];
+    $scope.trafficDate = [];
     $scope.isLoading = true;
     $scope.monthlyIsLoading = true;
     $scope.dailyIsLoading = true;
@@ -29,6 +35,9 @@ function trafficController($scope, $rootScope, $cookies, sessionFactory, statist
 
     var element = angular.element(document.getElementById('parha'));
     $scope.width = element[0].clientWidth - 15;
+    $scope.graph;
+    $scope.chart = {};
+  
     $scope.MapSource = {
         chart: {
             animation: "0",
@@ -68,6 +77,106 @@ function trafficController($scope, $rootScope, $cookies, sessionFactory, statist
         data: []
     }
 
+
+    sessionFactory.getCurrentMonthSession($scope.userdata.currentSite.ga_id, $scope.id).then(
+        // callback function for successful http request
+        function success(response) {
+            $scope.MonthTraffic = response.data.sessions;
+            $scope.MonthExpense = response.data.earned;
+        },
+        // callback function for error in http request
+        function error(response) {
+            // log errors
+        }
+    );
+    sessionFactory.getCurrentDaySession($scope.userdata.currentSite.ga_id, $scope.id).then(
+        // callback function for successful http request
+        function success(response) {
+
+            $scope.TodayTraffic = response.data.sessions;
+
+
+        },
+        // callback function for error in http request
+        function error(response) {
+            // log errors
+        }
+    );
+
+
+    statisticsFactory.get_graph_statistics($scope.userdata.currentSite.ga_id, $scope.id).then(
+        // callback function for successful http request
+        function success(response) {
+            $scope.graph = response.data;
+            angular.forEach(response.data.graph, function (value, key) {
+                $scope.trafficDate.push(value.dateTime);
+                $scope.trafficData.push(parseInt(value.sessions));
+            });
+            $scope.chart["chart3"] = {
+                theme: 'light',
+                backgroundColor: 'transparent',
+                primaryHeader: {
+                    text: 'Traffic overview'
+                },
+                exportOptions: {
+                    image: false,
+                    print: false
+                },
+
+                axisX: {
+                    axisTickText: {
+                        step: 5
+                    },
+                    categoricalValues: $scope.trafficDate
+                },
+                tooltipSettings: {
+                    chartBound: true,
+                    axisMarkers: {
+                        enabled: true,
+                        mode: 'xy'
+                    }
+                },
+                dataSeries: [{
+                    seriesType: 'line',
+                    collectionAlias: 'Traffic generated',
+                    data: $scope.trafficData
+                }]
+            }
+
+
+            $scope.$broadcast('success');
+        },
+        // callback function for error in http request
+        function error(response) {
+            // log errors
+        }
+
+    );
+
+
+
+
+    statisticsFactory.get_statistics($scope.userdata.currentSite.ga_id, $scope.from, $scope.to , $scope.id).then(
+        // callback function for successful http request
+        function success(response) {
+            $scope.adminStats = response.data;
+  
+         
+
+
+        },
+        // callback function for error in http request
+        function error(response) {
+            // log errors
+        }
+
+    );
+
+
+
+
+
+
     statisticsFactory.get_map($scope.id, $scope.userdata.currentSite.ga_id).then(
         // callback function for successful http request
         function success(response) {
@@ -91,6 +200,24 @@ function trafficController($scope, $rootScope, $cookies, sessionFactory, statist
         return new Date(year + '/' + month + '/' + day).toDateString();
      
     }
+    $scope.getStats = function()
+    {
+        statisticsFactory.get_statistics($scope.userdata.currentSite.ga_id, $scope.from, $scope.to, $scope.id).then(
+            // callback function for successful http request
+            function success(response) {
+                $scope.adminStats = response.data;
 
+
+
+
+            },
+            // callback function for error in http request
+            function error(response) {
+                // log errors
+            }
+
+        );
+    }
 
 }
+

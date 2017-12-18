@@ -48,10 +48,50 @@ namespace DigitalNetwork.Controllers
                 post.summary = item.summary;
                 post.custom = item.custom;
                 post.sub_category = item.sub_category;
+               
+
+                    post.shares = 0;
+
+                    post.views = "0";
+              
+                finalArticleList.Add(post);
+            }
+            return finalArticleList;
+        }
+
+        [HttpPost]
+        [Route("api/admin/articles/freezed")]
+        public IEnumerable<get_Articles> PostFreezedArticles([FromBody] ArticleInput admin)
+        {
+            List<get_deleted_articles_Result> articleList = new List<get_deleted_articles_Result>();
+            List<get_Articles> finalArticleList = new List<get_Articles>();
+            using (var articles = db.get_deleted_articles(admin.email, admin.site_url))
+            {
+
+                articleList = articles.ToList<get_deleted_articles_Result>();
+            }
+            foreach (var item in articleList)
+            {
+                get_Articles post = new get_Articles();
+                post.serial_no = item.serial_no;
+                post.a_id = item.a_id;
+                post.title = item.title;
+                post.site_url = item.site_url;
+                post.site_name = getSiteName(post.site_url);
+                post.status = false;
+                post.photo_url = "";
+                post.modified_date = item.modified_date;
+                post.category = item.category;
+                post.url = item.url;
+                post.summary = item.summary;
+                post.custom = item.custom;
+                post.sub_category = item.sub_category;
+
 
                 post.shares = 0;
-                    
+
                 post.views = "0";
+
                 finalArticleList.Add(post);
             }
             return finalArticleList;
@@ -81,6 +121,17 @@ namespace DigitalNetwork.Controllers
         {
             return new digimarketEntities1().delete_article(id);
         }
+
+
+        [HttpPost]
+        [Route("api/admin/traffic_earned")]
+        public GraphStats views_Shares_user([FromBody] Admin_Article_Input article)
+        {
+            return admin_traffic(article.site_url, article.modified_date, article.url, article.email, article.ga_id);
+
+        }
+
+
 
         /// <summary>
         /// //////////////////User APIS///////////////////////
@@ -320,6 +371,42 @@ namespace DigitalNetwork.Controllers
 
             earned.premium = (Decimal.ToDouble(rate.GetRate("premium").FirstOrDefault<get_rate_Result>().rate) * traffic.premium)/1000;
             earned.non_premium = (Decimal.ToDouble(rate.GetRate("non-premium").FirstOrDefault<get_rate_Result>().rate) * traffic.non_premium)/1000;
+            return new GraphStats() { dateTime = "", sessions = (traffic.premium + traffic.non_premium).ToString(), earned = earned.premium + earned.non_premium };
+        }
+
+
+
+        [NonAction]
+        public GraphStats admin_traffic(string url, DateTime publishDate, string a_url, string email,string ga_id)
+        {
+            RateController rate = new RateController();
+            user_earned earned = new user_earned() { premium = 0, non_premium = 0 };
+            user_traffic traffic = new user_traffic() { premium = 0, non_premium = 0 };
+            
+            Authorization auth = new Authorization(email);
+            var result = auth.service.Data.Ga.Get(("ga:" + ga_id), convertDate(publishDate), convertDate(System.DateTime.Now), "ga:sessions");
+            result.Filters = "ga:medium=@referral;ga:landingPagePath=@" + convertUrl(a_url, url);
+            var result1 = auth.service.Data.Ga.Get(("ga:" + ga_id), convertDate(publishDate), convertDate(System.DateTime.Now), "ga:sessions");
+            result1.Filters = "ga:medium=@referral;ga:landingPagePath=@" + convertUrl(a_url, url) + ";ga:country=@Canada";
+
+            var final1 = result1.Execute();
+            var final = result.Execute();
+            int count = (int)final.TotalResults;
+            int count1 = (int)final1.TotalResults;
+            if (count1 != 0)
+            {
+                IList<string> l = final1.Rows[0];
+                traffic.premium += long.Parse(l[0]);
+            }
+            if (count != 0)
+            {
+                IList<string> l = final.Rows[0];
+                traffic.non_premium += long.Parse(l[0]);
+            }
+            traffic.non_premium = traffic.non_premium - traffic.premium;
+
+            earned.premium = (Decimal.ToDouble(rate.GetRate("premium").FirstOrDefault<get_rate_Result>().rate) * traffic.premium) / 1000;
+            earned.non_premium = (Decimal.ToDouble(rate.GetRate("non-premium").FirstOrDefault<get_rate_Result>().rate) * traffic.non_premium) / 1000;
             return new GraphStats() { dateTime = "", sessions = (traffic.premium + traffic.non_premium).ToString(), earned = earned.premium + earned.non_premium };
         }
 

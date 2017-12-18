@@ -11,6 +11,13 @@ function articleFactory($http) {
         return $http.post('http://localhost:3208/api/admin/articles', data);
     }
 
+
+    function getDeadArticles(_email, _url) {
+
+        var data = { email: _email, site_url: _url};
+        return $http.post('http://localhost:3208/api/admin/articles/freezed', data);
+    }
+
     function updateArticle(_serial, _status,_cat,_subcat) {
 
         var data = { status: _status, serial_no: _serial, category: _cat, sub_category: _subcat };
@@ -39,6 +46,12 @@ function articleFactory($http) {
         return $http.put('http://localhost:3208/api/admin/add/article', data);
     }
 
+    function Article_Traffic(_site, _date, _url, _email, _gid) {
+
+        var data = { site_url: _site, modified_date: _date, url: _url, email: _email, ga_id: _gid };
+        return $http.post('http://localhost:3208/api/admin/traffic_earned', data);
+    }
+
     ///////////////////////////////////////USER////////////////////////////////////////////
 
 
@@ -47,10 +60,12 @@ function articleFactory($http) {
     var service = {
         getAdminArticles: getAdminArticles,
         getArticleMeta: getArticleMeta,
+        getDeadArticles: getDeadArticles,
         InsertArticle: InsertArticle,
         updateArticle: updateArticle,
         deleteArticle: deleteArticle,
-        getTrafficGraph: getTrafficGraph
+        getTrafficGraph: getTrafficGraph,
+        Article_Traffic: Article_Traffic
 
 
     };

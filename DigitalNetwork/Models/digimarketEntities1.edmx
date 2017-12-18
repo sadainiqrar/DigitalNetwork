@@ -346,6 +346,10 @@
           <Parameter Name="cat" Type="varchar" Mode="In" />
           <Parameter Name="subcat" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="get_deleted_articles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="site" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="get_joining_date" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="uid" Type="varchar" Mode="In" />
         </Function>
@@ -967,6 +971,10 @@
             <Parameter Name="uid" Mode="In" Type="String" />
             <Parameter Name="status" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="get_deleted_articles" ReturnType="Collection(digimarketModel.get_deleted_articles_Result)">
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="site" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="admin_sign_in_Result">
           <Property Type="String" Name="email" Nullable="false" MaxLength="30" />
@@ -1131,6 +1139,18 @@
           <Property Type="String" Name="username" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="photourl" Nullable="true" />
           <Property Type="String" Name="fullname" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="get_deleted_articles_Result">
+          <Property Type="Int32" Name="serial_no" Nullable="false" />
+          <Property Type="Int32" Name="a_id" Nullable="false" />
+          <Property Type="String" Name="url" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="summary" Nullable="false" />
+          <Property Type="DateTime" Name="modified_date" Nullable="false" />
+          <Property Type="String" Name="site_url" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="category" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="sub_category" Nullable="false" MaxLength="50" />
+          <Property Type="Boolean" Name="custom" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1536,6 +1556,22 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="user_sign_up" FunctionName="digimarketModel.Store.user_sign_up" />
           <FunctionImportMapping FunctionImportName="user_update" FunctionName="digimarketModel.Store.user_update" />
+          <FunctionImportMapping FunctionImportName="get_deleted_articles" FunctionName="digimarketModel.Store.get_deleted_articles">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="digimarketModel.get_deleted_articles_Result">
+                <ScalarProperty Name="serial_no" ColumnName="serial_no" />
+                <ScalarProperty Name="a_id" ColumnName="a_id" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="summary" ColumnName="summary" />
+                <ScalarProperty Name="modified_date" ColumnName="modified_date" />
+                <ScalarProperty Name="site_url" ColumnName="site_url" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="sub_category" ColumnName="sub_category" />
+                <ScalarProperty Name="custom" ColumnName="custom" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

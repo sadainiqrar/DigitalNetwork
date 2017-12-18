@@ -1358,10 +1358,8 @@ background: transparent;
     background: #f7f7f7;
     
 }
-#togglebtn{
-    position: absolute;
-    left: 0;
-    margin: 2em;
+#publishedToggleButton {
+    margin-left: 20%;
 }
 .btn-toggle.btn-xs > .handle {
     position: absolute;
@@ -1405,14 +1403,14 @@ background: transparent;
 
 
 #TitleDiv{
-    padding-top: 2em;
+    
     padding-left: 3em;
     margin: 0;
 }
 @media(max-width:767px){#TitleDiv{padding:0;}}
 
 #ArticlebyDiv{
-    padding: 4.5em 2em;
+    padding: 1.6em 2em;
 }
 @media(max-width:767px){#ArticlebyDiv{padding:1em 0 0 0;}}
 
@@ -1426,7 +1424,7 @@ background: transparent;
 @media(max-width:767px){#freezedhrline{margin: 1em 0em 0em 0em}}
 
 .Freezedtitle{
-    height: 75px;
+    height: 23px;
     font-family: lato-regular;
     overflow: hidden;
     font-size: 12pt;

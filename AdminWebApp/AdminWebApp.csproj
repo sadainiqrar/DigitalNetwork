@@ -365,6 +365,7 @@
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\controllers\freezedController.js" />
     <Content Include="Scripts\controllers\articlesController.js" />
     <Content Include="Scripts\controllers\articlestatsController.js" />
     <Content Include="Scripts\controllers\dashboardController.js" />
@@ -1144,7 +1145,8 @@
     <Content Include="Scripts\services\homeservice\flash.service.js" />
     <Content Include="Scripts\services\homeservice\user.service.js" />
     <Content Include="Scripts\services\homeservice\user.service.local-storage.js" />
-    <Content Include="Views\Dashboard\articles.html" />
+    <Content Include="Views\Dashboard\freezed.html" />
+    <Content Include="Views\Dashboard\published.html" />
     <Content Include="Views\Dashboard\articlestats.html" />
     <Content Include="Views\Dashboard\dashboard.html" />
     <Content Include="Views\Dashboard\home.html" />

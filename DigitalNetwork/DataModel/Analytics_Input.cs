@@ -6,6 +6,12 @@ using DigitalNetwork.Models;
 
 namespace DigitalNetwork.DataModel
 {
+
+    public class Admin_Article_Input : Article
+    {
+        public string email { get; set; }
+        public string ga_id { get; set; }
+    }
     public class Analytics_Input
     {
         public Analytics_Input()
@@ -117,6 +123,11 @@ namespace DigitalNetwork.DataModel
 
         public List<CountryStats> country_stats { get; set; }
     }
+    public class AdminStats:UserStats
+    {
+        public DateTime date { set; get; }
+        public double earning { get; set; }
+    }
 
     public class CountryStats
     {
@@ -183,4 +194,11 @@ namespace DigitalNetwork.DataModel
 
         public List<MapData> mapData { get; set; }
     }
+
+    public class AdminGraph
+    {
+        public double amount { get; set; }
+        public List<GraphStats> graph { get; set; }
+    }
+
 }

@@ -30,10 +30,10 @@ scotchApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '
 
 
         // route for the about page
-        .state('dashboard.realtime', {
-            url: '/realtime',
-            templateUrl: 'Views/Dashboard/realtime.html',
-            controller: 'realtimeController'
+        .state('dashboard.freezed', {
+            url: '/freezed',
+            templateUrl: 'Views/Dashboard/freezed.html',
+            controller: 'freezedController'
         })
 
         .state('dashboard.statistics', {
@@ -41,10 +41,10 @@ scotchApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '
             templateUrl: 'Views/Dashboard/statistics.html',
             controller: 'trafficController'
         })
-        .state('dashboard.articles', {
-            url: '/articles',
-            templateUrl: 'Views/Dashboard/articles.html',
-            controller: 'articlesController'
+        .state('dashboard.published', {
+            url: '/published',
+            templateUrl: 'Views/Dashboard/published.html',
+            controller: 'publishedController'
         })
         .state('dashboard.userdata', {
             url: '/userdata',
