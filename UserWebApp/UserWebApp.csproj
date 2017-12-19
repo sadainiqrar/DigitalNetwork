@@ -164,6 +164,7 @@
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\font.css" />
     <Content Include="Content\landing.css" />
+    <Content Include="Content\login.css" />
     <Content Include="Content\material.indigo-pink.min.css" />
     <Content Include="Content\modal.css" />
     <Content Include="Content\paper-dashboard.css" />
@@ -180,6 +181,8 @@
     <Content Include="images\avatar.jpg" />
     <Content Include="images\avatar_default.jpg" />
     <Content Include="images\avatar_default_female.jpg" />
+    <Content Include="images\Background.png" />
+    <Content Include="images\facebook.png" />
     <Content Include="images\logo.png" />
     <Content Include="images\main.png" />
     <Content Include="images\phone-1.png" />

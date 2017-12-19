@@ -26,56 +26,7 @@ function paymentController($scope,$state,$rootScope,$cookies, paymentFactory) {
         $state.go('dashboard.statistics');
     }
 
-    paymentFactory.get_payment_details($scope.uid,$scope.id).then(
-        // callback function for successful http request
-        function success(response) {
-            $scope.totalTraffic = response.data.total_traffic;
-            $scope.totalEarned = response.data.total_earned;
-            $scope.lastPayment = response.data.last_paid;
-            $scope.availablePayment = response.data.available;
-
-            $scope.unpaidTraffic = response.data.unpaid_traffic;
-       
-        },
-        // callback function for error in http request
-        function error(response) {
-            // log errors
-        }
-    );
-    paymentFactory.payment_history($scope.uid).then(
-        // callback function for successful http request
-        function success(response) {
-            $scope.history = response.data;
-          
-
-        },
-        // callback function for error in http request
-        function error(response) {
-            // log errors
-        }
-    );
-    $scope.makePayment = function () {
-        if ($scope.availablePayment > 4) {
-            paymentFactory.make_payment($scope.uid, $scope.unpaidTraffic, $scope.availablePayment).then(
-                // callback function for successful http request
-                function success(response) {
-
-
-
-                },
-                // callback function for error in http request
-                function error(response) {
-                    // log errors
-                }
-            );
-        }
-        else
-        {
-            alert("Error!:you can withdraw earned amount only greater than 5$.")
-        }
-    }
-
-  
+   
 
 
 }

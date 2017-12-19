@@ -364,11 +364,13 @@ function mainController($scope, $rootScope, $cookies, articleFactory, sessionFac
     function AddArticleDialogController($scope, $rootScope, $cookies, $mdDialog, articleFactory) {
 
         $scope.haveArticle = false;
-
+        $scope.searchingarticle = false;
         $scope.url = "";
         $scope.article = { title: "", description: "", image: "", url: "", site_url: $rootScope.globals.currentUser.currentSite.site_url };
         $scope.getMeta = function ()
         {
+
+            $scope.searchingarticle = true;
             articleFactory.getArticleMeta($scope.url).then(
                 // callback function for successful http request
                 function success(response) {
@@ -379,16 +381,20 @@ function mainController($scope, $rootScope, $cookies, articleFactory, sessionFac
                     if ($scope.article.url.indexOf($scope.article.site_url) !== -1)
                     {
                         $scope.haveArticle = true;
+
+                        $scope.searchingarticle = false;
                     }
                     else {
                         
                         $scope.haveArticle = false;
+                        $scope.searchingarticle = false;
                         alert("Errorrrr");
                     }
 
                 },
                 // callback function for error in http request
                 function error(response) {
+                    $scope.searchingarticle = false;
                     // log errors
                 }
             );

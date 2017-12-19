@@ -32,7 +32,9 @@ namespace UserWebApp
                  "~/Content/animate.css",
                  "~/Content/angular-material.min.css",
                    "~/Content/paper-dashboard.css",
-                 "~/Content/custom.css"
+                 "~/Content/custom.css",
+
+                 "~/Content/login.css"
 
 
 

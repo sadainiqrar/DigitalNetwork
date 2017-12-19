@@ -1,0 +1,111 @@
+/*Login CSS*/
+.loginmaindiv {
+    padding: 0;
+    background-size: cover;
+    background-image: url(Background.png);
+    background-repeat: no-repeat;
+    width: 100%;
+    background-position: center;
+}
+
+@media(min-width:300px) {
+    .loginmaindiv {
+        background-size: cover;
+        width: 100%;
+        background-position: center;
+    }
+}
+
+@media(max-width:300px) {
+    .loginmaindiv {
+        background-size: cover;
+        width: 100%;
+        background-position: center;
+    }
+}
+
+@media(min-width:400px) {
+    .loginmaindiv {
+        background-size: cover;
+        width: 100%;
+        background-position: center;
+    }
+}
+
+@media(min-width:700px) {
+    .loginmaindiv {
+        background-size: cover;
+        width: 100%;
+        background-position: center;
+    }
+}
+
+@media(min-width:992px) {
+    .loginmaindiv {
+        background-size: cover;
+        width: 100%;
+        background-position: center;
+    }
+}
+
+@media(min-width:1300px) {
+    .loginmaindiv {
+        background-size: cover;
+        width: 100%;
+        background-position: center;
+    }
+}
+
+.loginsection {
+    border: 1px solid white;
+    margin: 12em 0em;
+    box-shadow: 0px 0px 5px white;
+    background-color: white;
+}
+
+.loginpara {
+    margin: 0;
+    font-size: 16pt;
+    font-weight: 500;
+    letter-spacing: 4px;
+}
+
+.loginsubpara {
+    font-size: 8pt;
+    letter-spacing: 1px;
+    margin-bottom: 0;
+}
+
+#fbbutton {
+    background-color: #3b5998;
+    color: #fff;
+    border: 0;
+    width: 70%;
+    height: 4em;
+    border-radius: 5px;
+    margin: 3em 0em;
+}
+
+#fbicon {
+    font-size: 16pt;
+    opacity: 0.8;
+    background-image: url(../images/facebook.png);
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100px
+}
+
+    #fbicon:hover {
+        opacity: 1
+    }
+
+    #fbicon:focus {
+        -webkit-filter: drop-shadow(0px 0px 2px #3b5998);
+        filter: drop-shadow(0px 0px 2px #3b5998);
+        outline: none;
+    }
+
+#termspara {
+    font-size: 6pt;
+}

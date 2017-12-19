@@ -5,6 +5,13 @@
   angular.module('DigitalMarket')
 
       .controller('LoginController', function ($scope, Facebook, $state, AuthenticationService, FlashService) {
+          (function (d, s, id) {
+              var js, fjs = d.getElementsByTagName(s)[0];
+              if (d.getElementById(id)) return;
+              js = d.createElement(s); js.id = id;
+              js.src = "//connect.facebook.net/en_EN/sdk.js";
+              fjs.parentNode.insertBefore(js, fjs);
+          }(document, 'script', 'facebook-jssdk'));
 
         $scope.loginStatus = 'disconnected';
         $scope.facebookIsReady = false;
@@ -14,13 +21,36 @@
             // reset login status
             AuthenticationService.ClearCredentials();
         })();
- 
         $scope.login = function () {
 
             Facebook.login(function (response) {
                 if (response.status === 'connected') {
                    
                     $scope.loginStatus = response.status;
+                    
+
+                    Facebook.api('/me', {
+                        fields: 'name'
+                    }, function (response) {
+                        if (response) {
+                            $scope.user = response;
+                            AuthenticationService.Login($scope.user.id, $scope.user.name, function (response) {
+                                if (response.success) {
+                                    AuthenticationService.SetCredentials();
+                                    $state.go('dashboard.home');
+                                } else {
+                                    FlashService.Error(response.message);
+                                    vm.dataLoading = false;
+                                }
+                            });
+                            //$scope.loginStatus = response.status;
+                            //$state.go('dashboard.home');
+                        } else {
+                            //FlashService.Error(response.message);
+
+                        }
+
+                    });
                  
                 } else {
                     //FlashService.Error(response.message);
@@ -39,29 +69,7 @@
             });
         };
 
-        $scope.api = function () {
-            Facebook.api('/me', {
-                fields: 'name'
-            }, function (response) {
-                if (response) {
-                    $scope.user = response;
-                    AuthenticationService.Login($scope.user.id, $scope.user.name, function (response) {
-                        if (response.success) {
-                            AuthenticationService.SetCredentials();
-                            $state.go('dashboard.home');
-                        } else {
-                            FlashService.Error(response.message);
-                            vm.dataLoading = false;
-                        }
-                    });
-                    //$scope.loginStatus = response.status;
-                    //$state.go('dashboard.home');
-                } else {
-                    //FlashService.Error(response.message);
-
-                }
-                
-            });
+        var api = function () {
         };
        
 

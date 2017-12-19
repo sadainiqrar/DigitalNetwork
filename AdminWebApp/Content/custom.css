@@ -2,9 +2,42 @@
 .raphael-group-37-creditgroup{
     font-size: 0;
 }
+
+
+.subMenu {
+    font-size: 8pt;
+    list-style: none;
+    margin-left: 3em;
+    margin-top: 0px !important;
+    border-left: 1px solid #90dbf7;
+    font-family: 'lato-regular';
+}
+
+.subMenu > li.active-o {
+    cursor: auto;
+    background-color: #34c9ff;
+    opacity: 0.5;
+}
+    .subMenu > li.active-o > a{
+        color: #fff !important;
+    }
+
+    .subMenuChild {
+    padding: 5px 0px;
+
+}
+.subMenuChild > a {
+    color: #000000 !important;
+}
+
+.md-calendar-scroll-mask {
+    width: auto !important;
+}
 #iconn {
     position: relative;
 }
+
+
 
     #iconn i {
         margin-right: 35%;
@@ -424,14 +457,24 @@ p{
 }
 .adminOverviewSection
 {
-    padding: 0em 10em;
+    padding: 0em 1em;
 }
-@media(max-width:700px)
+@media(min-width:700px)
 {
     .adminOverviewSection
 {
-    padding: 0em 1em;
+    padding: 0em 10em;
 }
+}
+@media(min-width:992px) {
+    .adminOverviewSection {
+        padding: 0em 0em;
+    }
+}
+@media(min-width:1200px) {
+    .adminOverviewSection {
+        padding: 0em 10em;
+    }
 }
 .addCustombtn{
     width: 50%;
@@ -607,16 +650,35 @@ p{
 
 }
 .img-responsive{
-    height: 100%;
+    height: 100% !important;
 }
-@media (max-width: 375px) {.img-responsive{ width: 100%}
+@media (max-width: 375px) {
+    .img-responsive {
+        width: 100%;
+        height: 100% !important
+    }
 }
-@media (max-width: 992px) {.img-responsive{ width: 100%; padding-right: 1em}
+@media (max-width: 992px) {
+    .img-responsive {
+        width: 100%;
+        padding-right: 1em;
+        height: 100% !important
+    }
 }
 
-@media (max-width: 768px) {.img-responsive{ width: 100%; padding-right: 0em}
+@media (max-width: 768px) {
+    .img-responsive {
+        width: 100%;
+        padding-right: 0em;
+        height: 100% !important
+    }
 }
-@media (min-width: 992px) {.img-responsive{ width: 100%; padding-right: 0em}
+@media (min-width: 992px) {
+    .img-responsive {
+        width: 100%;
+        padding-right: 0em;
+        height: 100% !important
+    }
 }
 
 

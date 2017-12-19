@@ -18,9 +18,8 @@
                 <ul class="nav navbar-nav pull-right userbtn">
                     <li class="dropdown">
                         <a href="" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="ti-bell" style="color:white"></i>
+                            <i class="fa fa-bell-o icon" style="color:white"></i>
 
-                            <b class="caret" style="color:white"></b>
                         </a>
                         <ul class="dropdown-menu" style=" background-color: white;left: -8em;">
                             <li><a href="#">Notification 1</a></li>
@@ -80,7 +79,7 @@
 
                             <li>
                                 <a ng-click="googleLogout()">
-                                    <i class="fa fa-search ">
+                                    <i class="fa fa-sign-out ">
                                         <b class="bg-success"></b>
                                     </i>
                                     <span class="text">Sign Out</span>
@@ -116,6 +115,26 @@
                     </a>
                 </li>
                 <hr style="margin: 0px; border-color: white">
+
+                <li>
+                    <a data-toggle="collapse" data-target="#submenu2">
+                        <i class="fa fa-globe icon">
+                            <b class="bg-success"></b>
+                        </i>
+                        <span class="text">SITES</span>
+
+                    </a>
+                    <ul class="nav subMenu collapse" id="submenu2">
+                        <li ng-repeat="s in globals.currentUser.sites">
+                            <a ng-click="switchSite()">
+                                <span class="text">{{s.site_name | uppercase}}</span>
+                                <button type="button" class="invisible" ng-class="{ 'switchbutton': selectedSite==s.site_name}">Selected</button>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <hr style="margin: 0px; border-color: white">
                 <li ng-click='makeActive("/dashboard")' ng-class="{ 'active-o': active=='/dashboard'}">
                     <a ui-sref="dashboard.home">
                         <i class="fa fa-search aria-hidden=" true"">
@@ -124,13 +143,18 @@
                         <span class="text">OVERVIEW</span>
                     </a>
                 </li>
-                <li ng-click='makeActive("/articles")' ng-class="{ 'active-o': active=='/articles'}">
-                    <a ui-sref="dashboard.articles">
+                <li>
+                    <a data-toggle="collapse" data-target="#submenu1">
                         <i class="fa fa-pencil-square-o icon">
                             <b class="bg-success"></b>
                         </i>
-                        <span class="text">SHARED ARTICLES</span>
+                        <span class="text">ARTICLES</span>
+
                     </a>
+                    <ul class="nav collapse subMenu" id="submenu1" >
+                        <li class="subMenuChild" ng-click='makeActive("/published")' ng-class="{ 'active-o': active=='/published'}"><a ui-sref="dashboard.published">PUBLISHED ARTICLES</a></li>
+                        <li class="subMenuChild" ng-click='makeActive("/freezed")' ng-class="{ 'active-o': active=='/freezed'}"><a ui-sref="dashboard.freezed">FREEZED ARTICLES</a></li>
+                    </ul>
                 </li>
                 <li ng-click='makeActive("/statistics")' ng-class="{ 'active-o': active=='/statistics'}">
                     <a ui-sref="dashboard.statistics">
@@ -140,22 +164,8 @@
                         <span class="text">STATISTICS</span>
                     </a>
                 </li>
-                <li ng-click='makeActive("/realtime")' ng-class="{ 'active-o': active=='/realtime'}">
-                    <a ui-sref="dashboard.realtime">
-                        <i class="fa fa-pie-chart icon">
-                            <b class="bg-success"></b>
-                        </i>
-                        <span class="text">REALTIME</span>
-                    </a>
-                </li>
-                <li ng-click='makeActive("/marketingsources")' ng-class="{ 'active-o': active=='/marketingsources'}">
-                    <a ui-sref="dashboard.marketingsources">
-                        <i class="fa fa-rocket icon">
-                            <b class="bg-success"></b>
-                        </i>
-                        <span class="text">MARKETING SOURCES</span>
-                    </a>
-                </li>
+               
+                
                 <li ng-click='makeActive("/payment")' ng-class="{ 'active-o': active=='/payment'}">
                     <a ui-sref="dashboard.payment">
                         <i class="fa fa-briefcase">
@@ -165,12 +175,12 @@
                     </a>
                 </li>
                 <hr style="margin: 0px; border-color: white">
-                <li ng-click='makeActive("/logout")' ng-class="{ 'active-o': active=='/logout'}">
-                    <a ng-click="logout()">
-                        <i class="fa fa-briefcase">
+                <li>
+                    <a ng-click="googleLogout()">
+                        <i class="fa fa-sign-out ">
                             <b class="bg-success"></b>
                         </i>
-                        <span  class="text">Logout</span>
+                        <span class="text">Sign Out</span>
                     </a>
                 </li>
             </ul>
@@ -197,16 +207,16 @@
                     </a>
                 </li>
                 <li >
-                    <a data-toggle="collapse" data-target="#submenu1">
+                    <a data-toggle="collapse" data-target="#submenu3">
                         <i class="fa fa-pencil-square-o icon">
                             <b class="bg-success"></b>
                         </i>
-                        <span class="text">SHARED ARTICLES</span>
+                        <span class="text">ARTICLES</span>
                         
                     </a>
-                    <ul class="nav collapse" id="submenu1" >
-                        <li ng-click='makeActive("/published")'  ng-class="{ 'active-o': active=='/published'}"><a ui-sref="dashboard.published">published Articles</a></li>
-                        <li ng-click='makeActive("/freezed")' ng-class="{ 'active-o': active=='/freezed'}"><a ui-sref="dashboard.freezed">Freezed Articles</a></li>
+                    <ul class="nav collapse subMenu" id="submenu3" >
+                        <li class="subMenuChild" ng-click='makeActive("/published")'  ng-class="{ 'active-o': active=='/published'}"><a ui-sref="dashboard.published">PUBLISHED ARTICLES</a></li>
+                        <li class="subMenuChild" ng-click='makeActive("/freezed")' ng-class="{ 'active-o': active=='/freezed'}"><a ui-sref="dashboard.freezed">FREEZED ARTICLES</a></li>
                     </ul>
                 </li>
                 <li ng-click='makeActive("/statistics")' ng-class="{ 'active-o': active=='/statistics'}">
@@ -217,22 +227,8 @@
                         <span class="text">STATISTICS</span>
                     </a>
                 </li>
-                <li ng-click='makeActive("/realtime")' ng-class="{ 'active-o': active=='/realtime'}">
-                    <a ui-sref="dashboard.realtime">
-                        <i class="fa fa-pie-chart icon">
-                            <b class="bg-success"></b>
-                        </i>
-                        <span class="text">REALTIME</span>
-                    </a>
-                </li>
-                <li ng-click='makeActive("/marketingsources")' ng-class="{ 'active-o': active=='/marketingsources'}">
-                    <a ui-sref="dashboard.marketingsources">
-                        <i class="fa fa-rocket icon">
-                            <b class="bg-success"></b>
-                        </i>
-                        <span class="text">MARKETING SOURCES</span>
-                    </a>
-                </li>
+                
+                
                 <li ng-click='makeActive("/payment")' ng-class="{ 'active-o': active=='/payment'}">
                     <a ui-sref="dashboard.payment">
                         <i class="fa fa-briefcase">
