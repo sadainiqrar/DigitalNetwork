@@ -2,13 +2,14 @@
 /**
  * google-signin module
  */
-angular.module("google-signin", []).provider("GoogleSignin", [ function() {
+angular.module("google-signin", []).provider("GoogleSignin", [function ($rootScope) {
     /**
      * Options object available for module
      * options/services definition.
      * @type {Object}
      */
     var a = {};
+    var status = false;
     /**
      * Sets the client id.
      * @param {string} clientId the client id
@@ -161,9 +162,10 @@ angular.module("google-signin", []).provider("GoogleSignin", [ function() {
        * See {@link https://developers.google.com/identity/sign-in/web/reference#googleauthissignedinget Google Reference} for more details.
        * @returns {boolean}
        */
-        e.prototype.isSignedIn = function() {
+        e.prototype.isSignedIn = function () {
             return d.isSignedIn.get();
         };
+        
         /**
        * Gets the current user.
        * See {@link https://developers.google.com/identity/sign-in/web/reference#googleauthcurrentuserget Google Reference} for more details.
@@ -214,11 +216,22 @@ angular.module("google-signin", []).provider("GoogleSignin", [ function() {
             d.currentUser.listen(function(a) {
                 b.$broadcast("ng-google-signin:currentUser", a);
                 b.$apply();
+                var user = a.Zi;
+
+                if (!user) {
+                    b.$broadcast("signedout");
+                }
+                else
+                {
+                    b.$broadcast("signedin", a.w3.U3);
+                }
             });
             d.isSignedIn.listen(function(a) {
                 b.$broadcast("ng-google-signin:isSignedIn", a);
                 b.$apply();
             });
+
+            
         }
         /**
        * Wraps a googleThenable into an Angular promise

@@ -1,10 +1,11 @@
 	// create the controller and inject Angular's $scope
-angular.module('DigitalMarket').controller('dashboardController', function ($scope, $rootScope, $cookies, $state, $mdDialog, AuthenticationService, sitesFactory,$location, GoogleSignin) {
+angular.module('DigitalMarket').controller('dashboardController', function ($scope, GoogleSignin, $rootScope, $cookies, $state, $mdDialog, AuthenticationService, sitesFactory,$location) {
     $rootScope.globals = $cookies.getObject('globals') || {};
 
         $scope.admin_data = $rootScope.globals.currentUser;
         $scope.adminname = $scope.admin_data.username;
-
+        
+        
        
         if ($rootScope.globals.currentUser.currentSite === null)
         {
@@ -34,8 +35,7 @@ angular.module('DigitalMarket').controller('dashboardController', function ($sco
         $scope.googleLogout = function () {
 
             $scope.auth = GoogleSignin.isSignedIn();
-            if ($scope.auth) {
-                GoogleSignin.signOut();
+            if (!$scope.auth) {
                 AuthenticationService.ClearCredentials();
                 $state.go("home.login");
             }

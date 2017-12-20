@@ -87,19 +87,31 @@ scotchApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '
 
 scotchApp.run(run);
 
-run.$inject = ['$rootScope', '$location', '$state', '$cookies', '$http'];
-function run($rootScope, $location, $state, $cookies, $http) {
+run.$inject = ['$rootScope', '$location', '$state', '$cookies', '$http', 'GoogleSignin','AuthenticationService'];
+function run($rootScope, $location, $state, $cookies, $http, GoogleSignin, AuthenticationService) {
 
     // keep user logged in after page refresh
     $rootScope.globals = $cookies.getObject('globals') || {};
     if ($rootScope.globals.currentUser) {
         $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata;
     }
+    
 
     $rootScope.$on('$locationChangeStart', function (event, next, current) {
         // redirect to login page if not logged in and trying to access a restricted page
         var restrictedPage = $.inArray($location.path(), ['/']) === -1;
         var loggedIn = $rootScope.globals.currentUser;
+        $rootScope.$on('signedout', function () {
+            AuthenticationService.ClearCredentials();
+            $state.go("home.login");
+        });
+        $rootScope.$on('signedin', function (message, user) {
+            if ($rootScope.globals.currentUser.email !== user) {
+                AuthenticationService.ClearCredentials();
+                $state.go("home.login");
+            }
+        });
+
         if (restrictedPage && !loggedIn) {
             $location.path('/');
         }
@@ -107,6 +119,7 @@ function run($rootScope, $location, $state, $cookies, $http) {
 
             $location.path("/dashboard");
         }
+        
 
 
     });

@@ -17,7 +17,7 @@
                 <p class="loginpara">LOGIN TO</p>
                 <p class="loginsubpara">ORLOZ NETWORK</p>
                     <div  class="row text-center" style="margin:0em 1em">
-                        <div id="fbicon" ng-click="googleLogin()">
+                        <div id="fbicon" ng-click="googleLogin($event)">
                         </div>
                     </div>
                 <p id="termspara">By logging in, you agree with our Terms of Service, Privacy <br>Policy and Community Guidelines.</p>
@@ -31,3 +31,34 @@
 
 
 </div>
+
+
+
+
+<script type="text/ng-template" id="successmessage.tmpl.html">
+
+
+
+
+    <md-dialog aria-label="Success Message" class="modal-dialog" style="width: 800px;">
+
+        <!-- Modal content-->
+        <!-- Modal content-->
+        <div class="modal-content" style="height: 15em;border-radius: 0;">
+            <div class="modal-header" style="border-bottom: 0">
+                <button type="button" class="close" data-dismiss="modal" ng-click="cancel()">&times;</button>
+
+            </div>
+            <div class="modal-body" style="padding: 2em 0em;">
+                <center><i class="fa fa-times-circle-o " aria-hidden="true" style="color:#ff0000;font-size: 30pt "></i></center>
+                <p style="color: #ff0000;font-size: 14pt"> Cannot Sign In </p>
+                <center>
+                    <p style="font-size: 10pt;font-family: lato-regular;word-spacing: 2px;margin-top: 1em;">{{Response}}</p>
+                </center>
+
+            </div>
+
+        </div>
+    </md-dialog>
+
+</script>

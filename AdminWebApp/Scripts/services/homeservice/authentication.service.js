@@ -24,7 +24,7 @@
                 var response;
                 UserService.GetUser(email, name, photo)
                     .then(function (user) {
-                        if (user !== null) {
+                        if (user !== null && user.data !== null) {
 
                             authdata = user;
                             response = { success: true };

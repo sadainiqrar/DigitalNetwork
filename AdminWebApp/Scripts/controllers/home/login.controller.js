@@ -4,7 +4,7 @@
 
 angular.module('DigitalMarket')
 
-    .controller('LoginController', function ($scope, GoogleSignin, $state, AuthenticationService, FlashService) {
+    .controller('LoginController', function ($scope, GoogleSignin, $state, AuthenticationService, FlashService, $mdDialog) {
 
         $scope.auth = false;
         $scope.googleUser = null;
@@ -14,7 +14,7 @@ angular.module('DigitalMarket')
             AuthenticationService.ClearCredentials();
         })();
 
-        $scope.googleLogin = function () {
+        $scope.googleLogin = function (ev) {
 
           
         
@@ -27,8 +27,14 @@ angular.module('DigitalMarket')
                             AuthenticationService.SetCredentials();
                             $state.go('dashboard.home');
                         } else {
-                            FlashService.Error(response.message);
-                            vm.dataLoading = false;
+                            $mdDialog.show({
+                                locals: { data: "Sign Up With Google Analytics and Add a Site to Continue" },
+                                controller: SuccessDialogController,
+                                templateUrl: 'successmessage.tmpl.html',
+                                parent: angular.element(document.body),
+                                targetEvent: ev,
+                                clickOutsideToClose: true
+                            });
                         }
                     });
                 }, function (err) {
@@ -41,7 +47,14 @@ angular.module('DigitalMarket')
         };
 
 
-       
+        function SuccessDialogController($scope, $mdDialog, data) {
+
+            $scope.Response = data;
+            $scope.cancel = function () {
+                $mdDialog.cancel();
+            };
+
+        }
 
 
         //$scope.api = function () {
