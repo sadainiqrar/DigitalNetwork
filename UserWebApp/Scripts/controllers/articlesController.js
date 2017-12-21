@@ -1,9 +1,9 @@
 var controllerId = 'articlesController';
 
 angular.module('DigitalMarket').controller(controllerId,
-    ['$scope', 'Facebook', 'clipboard', '$state', '$rootScope', '$cookies', 'articleFactory', 'umsFactory' ,'ModalService', 'sessionFactory', articlesController]);
+    ['$scope', 'Facebook', 'clipboard', '$state', '$rootScope', '$cookies', 'articleFactory', 'umsFactory', 'ModalService', 'sessionFactory', '$mdToast','$mdDialog', articlesController]);
 
-function articlesController($scope, Facebook, clipboard, $state, $rootScope, $cookies, articleFactory, umsFactory, ModalService, sessionFactory) {
+function articlesController($scope, Facebook, clipboard, $state, $rootScope, $cookies, articleFactory, umsFactory, ModalService, sessionFactory, $mdToast, $mdDialog) {
     $rootScope.globals = $cookies.getObject('globals') || {};
     $scope.userdata = $rootScope.globals.currentUser;
     $scope.username = $scope.userdata.fullname;
@@ -13,6 +13,8 @@ function articlesController($scope, Facebook, clipboard, $state, $rootScope, $co
     $scope.shared_articles = [];
     $scope.addedUms = [];
     $scope.ums = [];
+
+    $scope.sharing = false;
 
     $scope.trafficloading = true;
     $scope.earnedloading = true;
@@ -44,7 +46,7 @@ function articlesController($scope, Facebook, clipboard, $state, $rootScope, $co
 
             $scope.loginStatus = response.status;
             Facebook.api('/me/accounts', {
-                fields: 'id,name,category,picture.type(large),fan_count,rating_count,access_token'
+                fields: 'id,name,category,picture.type(large),fan_count,overall_star_rating,access_token'
             }, function (response) {
                 if (response) {
                     $scope.ums = response.data;
@@ -71,7 +73,7 @@ function articlesController($scope, Facebook, clipboard, $state, $rootScope, $co
 
                     $scope.loginStatus = response.status;
                     Facebook.api('/me/accounts', {
-                        fields: 'id,name,category,picture.type(large),fan_count,rating_count,access_token'
+                        fields: 'id,name,category,picture.type(large),fan_count,overall_star_rating,access_token'
                     }, function (response) {
                         if (response) {
                             $scope.ums = response.data;
@@ -102,7 +104,7 @@ function articlesController($scope, Facebook, clipboard, $state, $rootScope, $co
     }
     );
 
-    articleFactory.getSharedArticles($scope.uid, $scope._category, null).then(
+    articleFactory.getSharedArticles($scope.uid, null, null).then(
         // callback function for successful http request
         function success(response) {
             $scope.shared_articles = response.data;
@@ -145,13 +147,13 @@ function articlesController($scope, Facebook, clipboard, $state, $rootScope, $co
         ModalService.Close(id);
     }
 
-    $scope.updateStatusCopied = function ($event) {
+    $scope.updateStatusCopied = function (ev) {
         $scope.current = this.article;
         this.article.copied = true;
 
         var url = $scope.current.url;
 
-        $event.stopPropagation();
+        ev.stopPropagation();
 
         umsFactory.urlShortner($scope.current.url, $scope.id).then(
             // callback function for successful http request
@@ -161,6 +163,31 @@ function articlesController($scope, Facebook, clipboard, $state, $rootScope, $co
                 articleFactory.updateCopiedArticles($scope.uid, $scope.current.serial_no, $scope.current.shared).then(
                     // callback function for successful http request
                     function success(response) {
+                        $mdDialog.show({
+                            locals: { data: url},
+                            controller: copyArticleDialogController,
+                            templateUrl: 'copyArticle.tmpl.html',
+                            parent: angular.element(document.body),
+                            targetEvent: ev,
+                            clickOutsideToClose: true
+                        }).then(function (answer) {
+
+                            if (answer === "Submited") {
+
+                                $mdToast.show(
+                                    $mdToast.simple()
+                                        .textContent('Article Link Copied')
+                                        .action('CLOSE')
+                                        .position('bottom left')
+                                        .theme('success-toast')
+                                        .hideDelay(3000)
+                                );
+                               
+                            }
+                        }, function () {
+
+                        });
+
                     },
                     // callback function for error in http request
                     function error(response) {
@@ -175,13 +202,39 @@ function articlesController($scope, Facebook, clipboard, $state, $rootScope, $co
             }
         );
 
-        clipboard.copyText(url);
 
     }
+
+
+    function copyArticleDialogController($scope, $rootScope, $cookies, $mdDialog, data, clipboard) {
+
+
+        $scope.url = data;
+
+        $scope.copy =  function()
+        {
+
+            clipboard.copyText($scope.url);
+            $mdDialog.hide("Submited");
+        }
+
+        $scope.answer = function () {
+            $mdDialog.hide("Submited");
+        };
+        $scope.cancel = function () {
+            $mdDialog.cancel();
+        };
+
+    }
+
+
+
+
     $scope.updateStatusShared = function () {
         var page = this.s;
         var url = $scope.current.url;
 
+        $scope.sharing = true;
         umsFactory.urlShortner($scope.current.url, $scope.id).then(
             // callback function for successful http request
             function success(response) {
@@ -196,10 +249,18 @@ function articlesController($scope, Facebook, clipboard, $state, $rootScope, $co
             }, function (response) {
             if (response) {
                 $scope.current.shared = true;
+                $scope.sharing = false;
                 articleFactory.updateSharedArticles($scope.uid, $scope.current.serial_no, $scope.current.copied).then(
                     // callback function for successful http request
                     function success(response) {
-                        $scope.closeModal('custom-modal-2');
+                        $mdToast.show(
+                            $mdToast.simple()
+                                .textContent('Article Shared')
+                                .action('CLOSE')
+                                .position('bottom left')
+                                .theme('success-toast')
+                                .hideDelay(3000)
+                        );
                     },
                     // callback function for error in http request
                     function error(response) {

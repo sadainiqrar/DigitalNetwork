@@ -2,9 +2,9 @@
 var controllerId = 'sourcesController';
 
 angular.module('DigitalMarket').controller(controllerId,
-    ['$scope', 'Facebook', '$rootScope', '$cookies', 'umsFactory', 'ModalService', 'AuthenticationService','$mdDialog', sourcesController]);
+    ['$scope', 'Facebook', '$rootScope', '$cookies', 'umsFactory', 'ModalService', 'AuthenticationService', '$mdDialog','$mdToast', sourcesController]);
 
-function sourcesController($scope, Facebook, $rootScope, $cookies, umsFactory, ModalService, AuthenticationService,$mdDialog) {
+function sourcesController($scope, Facebook, $rootScope, $cookies, umsFactory, ModalService, AuthenticationService, $mdDialog, $mdToast) {
     $rootScope.globals = $cookies.getObject('globals') || {};
     $scope.userdata = $rootScope.globals.currentUser;
     $scope.username = $scope.userdata.fullname;
@@ -76,7 +76,7 @@ function sourcesController($scope, Facebook, $rootScope, $cookies, umsFactory, M
 
             $scope.loginStatus = response.status;
             Facebook.api('/me/accounts', {
-                fields: 'id,name,category,picture.type(large),fan_count,rating_count'
+                fields: 'id,name,category,picture.type(large),fan_count,overall_star_rating'
             }, function (response) {
                 if (response) {
                     $scope.ums = response.data;
@@ -102,7 +102,7 @@ function sourcesController($scope, Facebook, $rootScope, $cookies, umsFactory, M
 
                     $scope.loginStatus = response.status;
                     Facebook.api('/me/accounts', {
-                        fields: 'id,name,category,picture.type(large),fan_count,rating_count'
+                        fields: 'id,name,category,picture.type(large),fan_count,overall_star_rating'
                     }, function (response) {
                         if (response) {
                             $scope.ums = response.data;
@@ -154,6 +154,15 @@ function sourcesController($scope, Facebook, $rootScope, $cookies, umsFactory, M
                 $scope.addedUms.push(obj);
                 var index = $scope.fbUms.indexOf(obj);
                 $scope.fbUms.splice(index, 1);
+                $mdToast.show(
+                    $mdToast.simple()
+                        .textContent('Marketing Source Added')
+                        .action('CLOSE')
+                        .position('bottom left')
+                        .theme('success-toast')
+                        .hideDelay(3000)
+                );
+                
             },
             // callback function for error in http request
             function error(response) {
@@ -170,9 +179,25 @@ function sourcesController($scope, Facebook, $rootScope, $cookies, umsFactory, M
                     $scope.fbUms.push(obj);
                     var index = $scope.addedUms.indexOf(obj);
                     $scope.addedUms.splice(index, 1);
+                    $mdToast.show(
+                        $mdToast.simple()
+                            .textContent('Marketing Source Removed')
+                            .action('CLOSE')
+                            .position('bottom left')
+                            .theme('success-toast')
+                            .hideDelay(3000)
+                    );
                 }
                 else {
-                    alert('error');
+
+                    $mdToast.show(
+                        $mdToast.simple()
+                            .textContent('Cannot Delete Only Marketing Source')
+                            .action('CLOSE')
+                            .position('bottom left')
+                            .theme('error-toast')
+                            .hideDelay(3000)
+                    );
 
                 }
 

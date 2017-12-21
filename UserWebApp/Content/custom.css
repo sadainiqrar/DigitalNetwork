@@ -1,4 +1,18 @@
 /* Let's get this party started */
+
+
+md-toast.md-success-toast-theme .md-toast-content, md-toast .md-toast-content {
+    background-color: rgba(54, 129, 201, 0.9909803921568627) !important;
+    z-index: 9000 !important;
+}
+md-toast.md-error-toast-theme .md-toast-content, md-toast .md-toast-content {
+    background-color: rgba(255, 0, 0, 0.65) !important;
+    z-index: 9000 !important;
+}
+
+
+
+
 .main-panel::-webkit-scrollbar {
     width: 0px;
 }
@@ -441,20 +455,20 @@ p{
     }
 }
 @media(min-width: 767px){
-    .title1{
-        margin: 1em 0px 3em 0px;
+    .title1 {
+        margin: 2.3em 0px 2em 0px;
         height: 75px;
     }
 }
 .atributeicon{ 
-    padding: 1.3em 0em 0em 0em;
+    padding: 2.3em 0em 0em 0em;
 }@media(max-width: 767px){
         .atributeicon{  
             padding:1em;
         }
 }
 .padsharecopy{
-    padding-top: 3em;
+    padding-top: 2em;
 }
 #articleSeparator{
     margin: 0px;
@@ -707,20 +721,33 @@ tr > td.yeclass
 
 .detailsArticleImage
 {
-    padding-left: 6em;
+    text-align: center;
 }
-@media(max-width:424px){
-    .detailsArticleImage
-        {
-            padding-left: 2em;
-        }
+.detailsArticletrafic {
+    padding-left: 0em !important;
+}
+@media(max-width:992px) {
+    .detailsArticletrafic {
+        padding-left: 5em !important;
+    }
+}
+@media(max-width:768px) {
+    .detailsArticletrafic {
+        padding-left: 5em !important;
+    }
+}
+
+@media(max-width:570px) {
+    .detailsArticletrafic {
+        padding-left: 0em !important;
+    }
 }
 .decron{
-    padding: 1em 0em 1em 3em
+    padding: 1em 0em 1em 0em
 }
 @media(max-width:424px){
     .decron{
-    padding: 1em 0em 1em 3em
+    padding: 1em 0em 1em 0em
 }
 }
 .articleDetailsec{

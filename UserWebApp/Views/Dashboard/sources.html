@@ -46,7 +46,7 @@
                                                 <i class="fa fa-thumbs-o-up" aria-hidden="true" style="margin: 8px; color: #3dcaff;"></i>
                                                 <strong style="color: #3dcaff; font-size: 12pt;">
 
-                                                    <br> {{source.fan_count}}
+                                                    <br> {{$parent.abbreviate(source.fan_count)}}
                                                 </strong>
                                             </center>
                                         </span>
@@ -62,7 +62,7 @@
                                                 <i class="fa fa-rss" aria-hidden="true" style="margin: 8px; color: #bc49ff;"></i>
                                                 <strong style="color: #bc49ff; font-size: 12pt;">
 
-                                                    <br> {{source.rating_count}}
+                                                    <br> {{source.overall_star_rating || "0"}}
                                                 </strong>
                                             </center>
                                         </span>
@@ -123,7 +123,7 @@
                                             <i class="fa fa-thumbs-o-up" aria-hidden="true" style="margin: 8px; color: #3dcaff;"></i>
                                             <strong style="color: #3dcaff; font-size: 12pt;">
 
-                                                <br> {{s.fan_count}}
+                                                <br> {{$parent.abbreviate(s.fan_count)}}
                                             </strong>
                                         </center>
                                     </span>
@@ -139,7 +139,7 @@
                                             <i class="fa fa-rss" aria-hidden="true" style="margin: 8px; color: #bc49ff;"></i>
                                             <strong style="color: #bc49ff; font-size: 12pt;">
 
-                                                <br> {{s.rating_count}}
+                                                <br> {{s.overall_star_rating || "0"}}
                                             </strong>
                                         </center>
                                     </span>

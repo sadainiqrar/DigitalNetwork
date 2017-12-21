@@ -1,9 +1,9 @@
 var controllerId = 'paymentController';
 
 angular.module('DigitalMarket').controller(controllerId,
-    ['$scope','$state', '$rootScope', '$cookies', 'paymentFactory', paymentController]);
+    ['$scope', '$state', '$rootScope', '$cookies', 'paymentFactory','$mdToast', paymentController]);
 
-function paymentController($scope,$state,$rootScope,$cookies, paymentFactory) {
+function paymentController($scope, $state, $rootScope, $cookies, paymentFactory, $mdToast) {
     $rootScope.globals = $cookies.getObject('globals') || {};
     $scope.userdata = $rootScope.globals.currentUser;
     $scope.username = $scope.userdata.fullname;
@@ -55,7 +55,7 @@ function paymentController($scope,$state,$rootScope,$cookies, paymentFactory) {
         }
     );
     $scope.makePayment = function () {
-        if ($scope.availablePayment > 4) {
+        if ($scope.availablePayment >= 10) {
             paymentFactory.make_payment($scope.uid, $scope.unpaidTraffic, $scope.availablePayment).then(
                 // callback function for successful http request
                 function success(response) {
@@ -71,10 +71,27 @@ function paymentController($scope,$state,$rootScope,$cookies, paymentFactory) {
         }
         else
         {
-            alert("Error!:you can withdraw earned amount only greater than 5$.")
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent('Withdrawal Must be atleast $10')
+                    .action('CLOSE')
+                    .position('bottom left')
+                    .theme('error-toast')
+                    .hideDelay(3000)
+            );
         }
     }
-
+    $scope.abbreviate = function (n) {
+        n =  parseInt(n);
+        n = n * 541231587;
+        var base = Math.floor(Math.log(Math.abs(n)) / Math.log(1000));
+        var suffix = 'KMBT'[base - 1];
+        return suffix ? roundWithPrecision(n / Math.pow(1000, base), 2) + suffix : '' + n;
+    }
+    function roundWithPrecision(n, precision) {
+        var prec = Math.pow(10, precision);
+        return Math.round(n * prec) / prec;
+    }
   
 
 

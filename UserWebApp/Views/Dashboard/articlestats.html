@@ -20,21 +20,21 @@
                                     <img src={{article.photo_url}} style="width: 7em;height: 5em;">
                                 </div>
 
-                                <div class="col-md-6" style="padding: 1.5em 0em 1em 2em">
-                                    <h5 style="margin: 0;font-size: 12pt;font-family:sans-serif">{{article.title}}<br><span id="categoryby" class="text-muted">Article by: {{article.site_name}}</span></h5>
+                                <div class="col-md-6" style="padding: 0em 0em 0em 2em">
+                                    <h5 style="margin: 0;font-size: 12pt;font-family:sans-serif"><h5 style=" margin: 0;height: 50px;overflow: hidden;font-size: 12pt; font-family:Lato">{{article.title}}</h5><span id="categoryby" class="text-muted">Article by: {{article.site_name}}</span></h5>
                                 </div>
 
                             </div>
 
-                            <div class="col-lg-6 col-md-5 col-sm-12 col-xs-12">
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 decron">
+                            <div class="col-lg-6 col-md-5 col-sm-12 col-xs-12 detailsArticletrafic">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 decron ">
                                     <span class="h3 block m-t-xs">
                                         <center>
 
                                             <i class="fa fa-money" aria-hidden="true" style="margin: 8px; color: #58d1ff;"></i>
                                             <strong style="color: #58d1ff; font-size: 12pt;">
 
-                                                <br> {{totalEarned}}$
+                                                <br> {{totalEarned |currency :"USD$"}}
                                             </strong>
                                         </center>
                                     </span>
@@ -51,7 +51,7 @@
                                             <i class="fa fa-line-chart" aria-hidden="true" style="margin: 8px; color: #6a52e9;"></i>
                                             <strong style="color: #6a52e9; font-size: 12pt;">
 
-                                                <br> {{totalTraffic}}
+                                                <br> {{$parent.abbreviate(totalTraffic)}}
                                             </strong>
                                         </center>
                                     </span>

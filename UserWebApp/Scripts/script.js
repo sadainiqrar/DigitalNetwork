@@ -5,16 +5,13 @@ var scotchApp = angular.module('DigitalMarket', ['ui.router', 'ngRoute', 'ng.epo
 	// configure our routes
 
 
-scotchApp.config(['$stateProvider', 'FacebookProvider', '$urlRouterProvider', '$locationProvider', function ($stateProvider, FacebookProvider, $urlRouterProvider, $locationProvider) {
+scotchApp.config(['$stateProvider', 'FacebookProvider', '$urlRouterProvider', '$locationProvider', '$mdThemingProvider', function ($stateProvider, FacebookProvider, $urlRouterProvider, $locationProvider, $mdThemingProvider) {
   
         FacebookProvider.init('141614143143756');
-    
-    
-
-
-
-    $stateProvider
-
+      
+        $mdThemingProvider.theme('error-toast');
+        $mdThemingProvider.theme('success-toast');
+        $stateProvider
         // route for the home page
         .state('dashboard', {
             abstract: true,
