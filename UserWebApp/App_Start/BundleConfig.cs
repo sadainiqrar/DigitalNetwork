@@ -60,8 +60,9 @@ namespace UserWebApp
                 "~/Scripts/angular-aria.min.js",
                 "~/Scripts/angular-messages.min.js",
                 "~/Scripts/angular-material.min.js",
-                "~/Scripts/material.indigo-pink.min.js",
-                "~/Scripts/angular-clipboard.js"
+                "~/Scripts/material.indigo-pink.min.js", 
+                "~/Scripts/angular-clipboard.js",
+                "~/Scripts/angular-avatar.min.js"
 
                         ));
             bundles.Add(new ScriptBundle("~/bundles/adminScript").Include(

@@ -116,7 +116,12 @@ function trafficController($scope, $rootScope, $cookies, sessionFactory, statist
                 theme: 'light',
                 backgroundColor: 'transparent',
                 primaryHeader: {
-                    text: 'Traffic overview'
+                    text: 'Traffic for Last 30 Days',
+                    style: {
+                        fontSize: '14px',
+                        color: '#333333',
+                        fontWeight: '700'
+                    }
                 },
                 exportOptions: {
                     image: false,

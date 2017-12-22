@@ -8,6 +8,8 @@ using DigitalNetwork.Controllers;
 using System.Net;
 using System.IO;
 using Newtonsoft.Json.Linq;
+using System.Net.NetworkInformation;
+using System.Text;
 
 namespace DigitalNetwork.Scheduler
 {
@@ -21,8 +23,10 @@ namespace DigitalNetwork.Scheduler
 
         public void Execute(IJobExecutionContext context)
         {
+            if(PingNetwork())
+            { 
             get_all_site_Result[] siteResult;
-            using (var sites = db.get_all_site())
+            using (var sites = new digimarketEntities1().get_all_site())
             {
                siteResult  = sites.ToArray<get_all_site_Result>();
             }
@@ -32,6 +36,7 @@ namespace DigitalNetwork.Scheduler
                 deleteExtra(site.site_url);
                 insertNew(site.site_url);
                 DateTime date2 = DateTime.Now;
+            }
             }
         }
 
@@ -43,7 +48,7 @@ namespace DigitalNetwork.Scheduler
             {
                 try
                 {
-                    db.add_article(post.aId, post.aUrl, false, post.title, post.excerpt, post.featuredImage,post.modifiedDate, url, "Premium","Political",false);
+                    new digimarketEntities1().add_article(post.aId, post.aUrl, false, post.title, post.excerpt, post.featuredImage,post.modifiedDate, url, "Premium","Political",false);
                     count++;
                 }
                 catch (Exception e)
@@ -66,7 +71,7 @@ namespace DigitalNetwork.Scheduler
                     if (dblistItem.custom == false)
                     {
                         try { 
-                        db.delete_article(dblistItem.serial_no);
+                        new digimarketEntities1().delete_article(dblistItem.serial_no);
                         }
                         catch(Exception ex)
                         { }
@@ -77,7 +82,7 @@ namespace DigitalNetwork.Scheduler
                     ArticleModel post = checkElement(dblistItem.a_id, dblistItem.site_url, siteList);
                     try
                     {
-                        db.update_article_data(dblistItem.serial_no, post.aUrl, post.title, post.excerpt, post.featuredImage, post.modifiedDate);
+                        new digimarketEntities1().update_article_data(dblistItem.serial_no, post.aUrl, post.title, post.excerpt, post.featuredImage, post.modifiedDate);
                     }
                     catch(Exception ex)
                     {
@@ -110,7 +115,7 @@ namespace DigitalNetwork.Scheduler
         private IEnumerable<get_all_articles_Result> getDBArticles(string url)
         {
 
-            return db.get_all_articles(url);
+            return new digimarketEntities1().get_all_articles(url);
         }
         private List<ArticleModel> makeArticleList(string url)
         {
@@ -225,6 +230,31 @@ namespace DigitalNetwork.Scheduler
             {
                 return null;
             }
+        }
+
+
+        private bool PingNetwork()
+        {
+            bool pingStatus = false;
+
+            using (Ping p = new Ping())
+            {
+                string data = "check";
+                byte[] buffer = Encoding.ASCII.GetBytes(data);
+                int timeout = 1200;
+
+                try
+                {
+                    PingReply reply = p.Send("google.com", timeout, buffer);
+                    pingStatus = (reply.Status == IPStatus.Success);
+                }
+                catch (Exception)
+                {
+                    pingStatus = false;
+                }
+            }
+
+            return pingStatus;
         }
     }
 }

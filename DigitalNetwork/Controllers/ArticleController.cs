@@ -12,6 +12,8 @@ using DigitalNetwork.DataModel;
 using System.Web.Helpers;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
+using System.Net.NetworkInformation;
+using System.Text;
 
 namespace DigitalNetwork.Controllers
 {
@@ -20,6 +22,35 @@ namespace DigitalNetwork.Controllers
         private digimarketEntities1 db = new digimarketEntities1();
 
 
+
+        [HttpGet]
+        [Route("api/status")]
+        public bool PostAdminArticles()
+        {
+            bool pingStatus = false;
+
+            using (Ping p = new Ping())
+            {
+                string data = "check";
+                byte[] buffer = Encoding.ASCII.GetBytes(data);
+                int timeout = 300;
+
+                try
+                {
+                    PingReply reply = p.Send("google.com", timeout, buffer);
+                    pingStatus = (reply.Status == IPStatus.Success);
+                }
+                catch (Exception)
+                {
+                    pingStatus = false;
+                }
+            }
+
+            return pingStatus;
+
+
+
+        }
 
         [HttpPost]
         [Route("api/admin/articles")]

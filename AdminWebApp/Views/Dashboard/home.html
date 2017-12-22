@@ -17,14 +17,14 @@
                 </div>
                 <div class="col-md-4 b-r">
                     <a class="clear">
-                        <span class="h3 block m-t-xs sm1"><center><strong style="color: #bc49ff">{{MonthTraffic}}</strong></center></span>
+                        <span class="h3 block m-t-xs sm1"><center><strong style="color: #bc49ff">{{$parent.abbreviate(MonthTraffic)}}</strong></center></span>
 
                         <small class="text-muted text-uc " style="color: #a3a3a3"><center>THIS MONTH'S TRAFFIC</center></small>
                     </a>
                 </div>
                 <div class="col-md-4">
                     <a class="clear">
-                        <span class="h3 m-t-xs sm1"><center><strong style="color: #6344ff"> {{TodayTraffic}} </strong></center></span>
+                        <span class="h3 m-t-xs sm1"><center><strong style="color: #6344ff"> {{$parent.abbreviate(TodayTraffic)}} </strong></center></span>
 
                         <small class="text-muted text-uc " style="color: #a3a3a3"><center>TODAY'S TRAFFIC</center></small>
                     </a>

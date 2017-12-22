@@ -16,13 +16,13 @@
 
 
                     <ul class="nav navbar-nav" style="display: inline;">
-                        <li ng-click='makeActive("Political")' ng-class="{ 'active': active=='Political'}"><a class="tabpad" ng-click="_sub_category = 'Political'">All</a></li>
-                        <li ng-click='makeActive("Entertainment")' ng-class="{ 'active': active=='Entertainment'}"><a class="tabpad" ng-click="_sub_category = 'Entertainment'">Entertainment</a></li>
-                        <li ng-click='makeActive("Sports")' ng-class="{ 'active': active=='Sports'}"><a class="tabpad" ng-click="_sub_category = 'Sports'">Sports</a></li>
-                        <li ng-click='makeActive("Health")' ng-class="{ 'active': active=='Health'}"><a class="tabpad" ng-click="_sub_category = 'Health'">Health & Food</a></li>
-                        <li ng-click='makeActive("Showbiz")' ng-class="{ 'active': active=='Showbiz'}"><a class="tabpad" ng-click="_sub_category = 'Showbiz'">Showbiz</a></li>
-                        <li ng-click='makeActive("Motivation")' ng-class="{ 'active': active=='Motivation'}"><a class="tabpad" ng-click="_sub_category = 'Motivation'">Motivation</a></li>
-                        <li ng-click='makeActive("Featured")' ng-class="{ 'active': active=='Featured'}"><a class="tabpad" ng-click="_sub_category = 'Featured'">Featured</a></li>
+                        <li class="outline" ng-click='makeActive("Political")' ng-class="{ 'active': active=='Political'}"><a class="tabpad" ng-click="_sub_category = 'Political'">All</a></li>
+                        <li class="outline" ng-click='makeActive("Entertainment")' ng-class="{ 'active': active=='Entertainment'}"><a class="tabpad" ng-click="_sub_category = 'Entertainment'">Entertainment</a></li>
+                        <li class="outline" ng-click='makeActive("Sports")' ng-class="{ 'active': active=='Sports'}"><a class="tabpad" ng-click="_sub_category = 'Sports'">Sports</a></li>
+                        <li class="outline" ng-click='makeActive("Health")' ng-class="{ 'active': active=='Health'}"><a class="tabpad" ng-click="_sub_category = 'Health'">Health & Food</a></li>
+                        <li class="outline" ng-click='makeActive("Showbiz")' ng-class="{ 'active': active=='Showbiz'}"><a class="tabpad" ng-click="_sub_category = 'Showbiz'">Showbiz</a></li>
+                        <li class="outline" ng-click='makeActive("Motivation")' ng-class="{ 'active': active=='Motivation'}"><a class="tabpad" ng-click="_sub_category = 'Motivation'">Motivation</a></li>
+                        <li class="outline" ng-click='makeActive("News")' ng-class="{ 'active': active=='News'}"><a class="tabpad" ng-click="_sub_category = 'News'">News</a></li>
 
                     </ul>
 
@@ -75,7 +75,7 @@
 
                                                         <strong style="color: #846cff; font-size: 12pt;">
 
-                                                            <br> {{article.views}}
+                                                            <br> {{$parent.abbreviate(article.views)}}
                                                         </strong>
                                                     </center>
                                                 </span>

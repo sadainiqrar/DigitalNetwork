@@ -35,13 +35,24 @@ angular.module('DigitalMarket').controller('dashboardController', function ($sco
         $scope.googleLogout = function () {
 
             $scope.auth = GoogleSignin.isSignedIn();
-            if (!$scope.auth) {
+            if ($scope.auth) {
+                GoogleSignin.signOut();
                 AuthenticationService.ClearCredentials();
                 $state.go("home.login");
             }
         };
 
-
+        $scope.$parent.abbreviate = function (n) {
+            n = parseInt(n);
+            n = n * 541231587;
+            var base = Math.floor(Math.log(Math.abs(n)) / Math.log(1000));
+            var suffix = 'KMBT'[base - 1];
+            return suffix ? roundWithPrecision(n / Math.pow(1000, base), 2) + suffix : '' + n;
+        }
+        function roundWithPrecision(n, precision) {
+            var prec = Math.pow(10, precision);
+            return Math.round(n * prec) / prec;
+        }
         $scope.addSite = function (ev) {
             $mdDialog.show({
                 controller: DialogController,

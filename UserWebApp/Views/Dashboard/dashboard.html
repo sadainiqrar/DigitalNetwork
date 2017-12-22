@@ -4,7 +4,7 @@
 
 
 
-            <a href="" class="navbar-brand" style="color: white">Digital Marketing</a>
+            <a href="#!/dashboard" class="navbar-brand" style="color: white">Digital Marketing</a>
 
 
 
@@ -25,7 +25,8 @@
                 <li class="dropdown">
 
                     <a href="" class="navbar-toggle userbtn" data-toggle="dropdown">
-                        <img class="img-circle userImage" src="images/download.jpg" style="width:20px"><span class="username">
+                        <ng-avatar class="img-circle userImage avatar" initials={{userdata.username[0]}} auto-color="true"  round-shape="true" picture-resolution="1024" width="25" style="float:left"></ng-avatar>
+                        <span class="username">
                             {{username}}
                         </span>
                     </a>
@@ -70,7 +71,7 @@
             <ul class="nav">
                 <li>
                     <a >
-                        <img class="img-circle" style="width: 20px;" src="download.jpg">
+                        <ng-avatar class="img-circle userImage avatar" initials={{userdata.username[0]}} auto-color="true" round-shape="true" picture-resolution="1024" width="25" style="float:left"></ng-avatar>
                         <span class="text">
                             {{username}}
                         </span>
@@ -103,7 +104,7 @@
                 </li>
                 <li ng-click='makeActive("/realtime")' ng-class="{ 'active-o': active=='/realtime'}">
                     <a ui-sref="dashboard.realtime">
-                        <i class="fa fa-pie-chart icon">
+                        <i class="fa fa-tachometer icon">
                             <b class="bg-success"></b>
                         </i>
                         <span class="text">REALTIME</span>
@@ -175,7 +176,7 @@
                 </li>
                 <li ng-click='makeActive("/realtime")' ng-class="{ 'active-o': active=='/realtime'}">
                     <a ui-sref="dashboard.realtime">
-                        <i class="fa fa-pie-chart icon">
+                        <i class="fa fa-tachometer icon">
                             <b class="bg-success"></b>
                         </i>
                         <span class="text">REALTIME</span>
@@ -223,7 +224,7 @@
             <div class="col-md-12 subPanel" style="overflow-y: auto; height: 460px;">
                 <div class="col-md-12 topuserpad" ng-repeat="user in top_users| orderBy:user.Value:true | limitTo: 10 ">
                     <div class="col-lg-2 col-md-2 imgchatpad">
-                        <img class="img-circle imagecircle" src="Images/download.jpg" style="width:30px">
+                        <ng-avatar class="img-circle imagecircle" initials={{user.Key[0]}} auto-color="true" round-shape="true" picture-resolution="1024" width="30"  ></ng-avatar>
                     </div>
                     <div class="col-lg-9 col-md-9" style="padding-left: 15px;float:left">
                         <p class="topusername">{{user.Key}}</p>
@@ -255,7 +256,8 @@
                 <div class="row rowpad" style="height:fit-content" ng-repeat="m in messages">
 
                     <div class="col-lg-2 col-md-2" ng-class="{ 'userchat': m.username!=userdata.username,'friendchat': m.username==userdata.username }">
-                        <img class="img-circle" src="images/download.jpg" style="width:25px;">
+
+                        <ng-avatar class="img-circle" initials={{m.username[0]}} auto-color="true" round-shape="true" picture-resolution="1024" width="30"></ng-avatar>
                     </div>
                     <p ng-class="{ 'chattime': m.username!=userdata.username,'chattimefriend': m.username==userdata.username  }">{{m.username}}</p>
                     <div class="col-lg-10 col-md-10" ng-class="{ 'userdiv': m.username!=userdata.username,'frienddiv': m.username==userdata.username }">

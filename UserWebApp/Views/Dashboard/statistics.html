@@ -106,8 +106,8 @@
                                                     <tbody>
                                                         <tr style="font-size: 8pt" ng-repeat="c in s.country_stats">
                                                             <td><left>{{c.country}}</left></td>
-                                                            <td><right>SESSIONS: <span style="color: deepskyblue">{{c.sessions}}</span></right></td>
-                                                            <td><right>NEW SESSIONS: <span style="color: red">{{c.newSessions}}</span></right></td>
+                                                            <td><right>SESSIONS: <span style="color: deepskyblue">{{$parent.abbreviate(c.sessions)}}</span></right></td>
+                                                            <td><right>NEW SESSIONS: <span style="color: red">{{$parent.abbreviate(c.newSessions)}}</span></right></td>
                                                         </tr>
 
                                                     </tbody>

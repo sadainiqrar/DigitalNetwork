@@ -16,14 +16,14 @@
                 </div>
                 <div class="col-md-4 b-r">
                     <a class="clear">
-                        <span class="h3 block m-t-xs sm1"><center><strong style="color: #bc49ff">{{MonthTraffic}}</strong></center></span>
+                        <span class="h3 block m-t-xs sm1"><center><strong style="color: #bc49ff">{{$parent.abbreviate(MonthTraffic)}}</strong></center></span>
 
                         <small class="text-muted text-uc " style="color: #a3a3a3"><center>THIS MONTH'S TRAFFIC</center></small>
                     </a>
                 </div>
                 <div class="col-md-4">
                     <a class="clear">
-                        <span class="h3 m-t-xs sm1"><center><strong style="color: #6344ff"> {{TodayTraffic}} </strong></center></span>
+                        <span class="h3 m-t-xs sm1"><center><strong style="color: #6344ff"> {{$parent.abbreviate(TodayTraffic)}} </strong></center></span>
 
                         <small class="text-muted text-uc " style="color: #a3a3a3"><center>TODAY'S TRAFFIC</center></small>
                     </a>
@@ -113,8 +113,8 @@
                                     <tr>
                                         <td class="yeclass" style="font-size: 8pt"></td>
                                         <td id="tsp1">{{s.date | date: "fullDate"}}</td>
-                                        <td id="tsp2">{{s.total_traffic}}</td>
-                                        <td id="tsp3">{{s.earning | currency:"USD$"}}</td>
+                                        <td id="tsp2">{{$parent.abbreviate(s.total_traffic)}}</td>
+                                        <td id="tsp3">{{s.earning | currency:"$"}}</td>
 
                                         <td>
 
@@ -129,8 +129,8 @@
                                                         <tbody>
                                                             <tr style="font-size: 8pt" ng-repeat="c in s.country_stats">
                                                                 <td><left>{{c.country}}</left></td>
-                                                                <td><right>SESSIONS: <span style="color: deepskyblue">{{c.sessions}}</span></right></td>
-                                                                <td><right>NEW SESSIONS: <span style="color: red">{{c.newSessions}}</span></right></td>
+                                                                <td><right>SESSIONS: <span style="color: deepskyblue">{{$parent.abbreviate(c.sessions)}}</span></right></td>
+                                                                <td><right>NEW SESSIONS: <span style="color: red">{{$parent.abbreviate(c.newSessions)}}</span></right></td>
                                                             </tr>
 
                                                         </tbody>

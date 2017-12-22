@@ -3,9 +3,14 @@
     font-size: 0;
 }
 
+.outline {
+    outline: none !important;
+    cursor: pointer !important;
+}
 
 .subMenu {
     font-size: 8pt;
+    cursor: pointer;
     list-style: none;
     margin-left: 3em;
     margin-top: 0px !important;
@@ -14,7 +19,7 @@
 }
 
 .subMenu > li.active-o {
-    cursor: auto;
+    cursor: pointer;
     background-color: #34c9ff;
     opacity: 0.5;
 }
@@ -22,9 +27,9 @@
         color: #fff !important;
     }
 
-    .subMenuChild {
+.subMenuChild {
+    cursor: pointer;
     padding: 5px 0px;
-
 }
 .subMenuChild > a {
     color: #000000 !important;
@@ -236,11 +241,11 @@ color: white;
     letter-spacing: 2px;
 }
 .nav>li:not(.active)>a:hover.tabpad{
-    cursor:auto;
+    cursor:pointer;
     color: #34c9ff; 
 }
 .nav>li.active>a:hover.tabpad{
-    cursor:auto;
+    cursor:pointer;
     background-color:#34c9ff;
     color: #fff;
 }

@@ -432,7 +432,7 @@ function mainController($scope, $rootScope, $cookies, articleFactory, sessionFac
 
         $scope.category = "premium";
         $scope.success = false;
-        $scope.sub_category = [{ label: 'Political', value: 'Political' }, {label: 'News', value: 'News' }, { label: 'Entertainment', value: 'Entertainment' }
+        $scope.sub_category = [{label: 'News', value: 'News' }, { label: 'Entertainment', value: 'Entertainment' }
             , { label: 'Sports', value: 'Sports' } , { label: 'Health', value: 'Health' }, { label: 'Showbiz', value: 'Showbiz' }
             , { label: 'Motivation', value: 'Motivation' }];
         $scope.selected_sub = $scope.sub_category[0].value;

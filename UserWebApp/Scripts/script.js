@@ -1,7 +1,7 @@
 
    // 'use strict'// create the module and name it scotchApp
    // var loginApp = angular.module('loginApp',['ui-router']);
-var scotchApp = angular.module('DigitalMarket', ['ui.router', 'ngRoute', 'ng.epoch', 'ngCookies', 'ngSanitize', 'ngMaterial', 'facebook', 'angular-clipboard']);
+var scotchApp = angular.module('DigitalMarket', ['ui.router', 'ngRoute', 'ng.epoch', 'ngCookies', 'ngSanitize', 'ngMaterial', 'facebook', 'angular-clipboard','ngAvatar']);
 	// configure our routes
 
 

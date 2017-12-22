@@ -19,13 +19,13 @@
 
 
                     <ul class="nav navbar-nav" style="display: inline;">
-                        <li ng-click='makeActive("Political")' ng-class="{ 'active': active=='Political'}"><a class="tabpad" ng-click="_sub_category = 'Political'">All</a></li>
-                        <li ng-click='makeActive("Entertainment")' ng-class="{ 'active': active=='Entertainment'}"><a class="tabpad" ng-click="_sub_category = 'Entertainment'">Entertainment</a></li>
-                        <li ng-click='makeActive("Sports")' ng-class="{ 'active': active=='Sports'}"><a class="tabpad" ng-click="_sub_category = 'Sports'">Sports</a></li>
-                        <li ng-click='makeActive("Health")' ng-class="{ 'active': active=='Health'}"><a class="tabpad" ng-click="_sub_category = 'Health'">Health & Food</a></li>
-                        <li ng-click='makeActive("Showbiz")' ng-class="{ 'active': active=='Showbiz'}"><a class="tabpad" ng-click="_sub_category = 'Showbiz'">Showbiz</a></li>
-                        <li ng-click='makeActive("Motivation")' ng-class="{ 'active': active=='Motivation'}"><a class="tabpad" ng-click="_sub_category = 'Motivation'">Motivation</a></li>
-                        <li ng-click='makeActive("Featured")' ng-class="{ 'active': active=='Featured'}"><a class="tabpad" ng-click="_sub_category = 'Featured'">Featured</a></li>
+                        <li class="outline" ng-click='makeActive("Political")' ng-class="{ 'active': active=='Political'}"><a class="tabpad" ng-click="_sub_category = 'Political'">All</a></li>
+                        <li class="outline"  ng-click='makeActive("Entertainment")' ng-class="{ 'active': active=='Entertainment'}"><a class="tabpad" ng-click="_sub_category = 'Entertainment'">Entertainment</a></li>
+                        <li class="outline"  ng-click='makeActive("Sports")' ng-class="{ 'active': active=='Sports'}"><a class="tabpad" ng-click="_sub_category = 'Sports'">Sports</a></li>
+                        <li class="outline"  ng-click='makeActive("Health")' ng-class="{ 'active': active=='Health'}"><a class="tabpad" ng-click="_sub_category = 'Health'">Health & Food</a></li>
+                        <li class="outline"  ng-click='makeActive("Showbiz")' ng-class="{ 'active': active=='Showbiz'}"><a class="tabpad" ng-click="_sub_category = 'Showbiz'">Showbiz</a></li>
+                        <li class="outline"  ng-click='makeActive("Motivation")' ng-class="{ 'active': active=='Motivation'}"><a class="tabpad" ng-click="_sub_category = 'Motivation'">Motivation</a></li>
+                        <li class="outline"  ng-click='makeActive("News")' ng-class="{ 'active': active=='News'}"><a class="tabpad" ng-click="_sub_category = 'News'">News</a></li>
 
                     </ul>
 
@@ -153,9 +153,9 @@
 
                     <hr style="margin : 0px">
                     <md-progress-linear md-mode="indeterminate" ng-hide="!sharing"></md-progress-linear>
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marketingSourceDiv" style="padding: 0px 0px 0px 0px;" ng-repeat="s in addedUms">
-                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
-                            <div id="imageDivMS" class="col-lg-4 col-md-6 col-sm-5 col-xs-6" style="padding: 2em 5px 1em 1em;">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marketingSourceDiv" ng-repeat="s in addedUms">
+                        <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
+                            <div id="imageDivMS" class="col-lg-4 col-md-6 col-sm-5 col-xs-6">
                                 <img id="msimage" src={{s.picture.data.url}} height="100%" width="100%">
                             </div>
                             <div id="MSTitleDiv" class="col-lg-8 col-md-6 col-sm-7 col-xs-6">
@@ -164,8 +164,8 @@
                                 <center><h4 class="title2">{{s.name}}<br><span id="categoryby" class="text-muted">Category:{{s.category}}</span></h4></center>
                             </div>
                         </div>
-                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding: 2em 1em 1em 1em">
+                        <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding: 15px 1em">
 
                                 <span class="h3 block m-t-xs">
                                     <center>
@@ -182,12 +182,12 @@
                                     <small class="text-muted text-uc" style="font-size: 7pt; margin : 12px 0px 0px 0px;">LIKES</small>
                                 </center>
                             </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding: 2em 1em 1em 1em">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding:15px 1em">
                                 <span class="h3 block m-t-xs">
                                     <center>
 
-                                        <i class="fa fa-rss" aria-hidden="true" style="margin: 8px; color: #bc49ff;"></i>
-                                        <strong style="color: #bc49ff; font-size: 12pt;">
+                                        <i class="fa fa-star" aria-hidden="true" style="margin: 8px; color: #ffb400;"></i>
+                                        <strong style="color: #ffb400; font-size: 12pt;">
 
                                             <br> {{s.overall_star_rating || "0"}}
                                         </strong>
@@ -199,8 +199,10 @@
                                 </center>
                             </div>
 
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding: 4em 4em 1em 1em">
-                                <span ng-hide="sharing" class="btn" style="color: #337ab7; float: left; margin-left: 5px;" ng-click="updateStatusShared()"><i class="fa fa-plus-circle" aria-hidden="true" style="font-weight: 600;"> Share</i></span>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding: 3em 4em 2.5em 1em">
+                                <div ng-hide="sharing" ng-click="updateStatusShared()" class="sharebtn">
+
+                                </div>
                             </div>
 
                         </div>

@@ -4,7 +4,7 @@
 
 
 
-            <a href="#" class="navbar-brand" style="color: white">Digital Marketing</a>
+            <a href="#!/dashboard" class="navbar-brand" style="color: white">Digital Marketing</a>
 
 
         </div>
@@ -41,13 +41,13 @@
 
                             <h5 class="dropdownheadings">WEBSITE</h5>
                             <hr style="margin: 0px; border-color: #eaeaea">
-                            <li ng-repeat="s in globals.currentUser.sites">
+                            <li ng-repeat="s in globals.currentUser.sites" style="cursor:pointer">
                                 <a ng-click="switchSite()">
                                     <span class="text">{{s.site_name}}</span>
                                     <button type="button" class="invisible" ng-class="{ 'switchbutton': selectedSite==s.site_name}">Selected</button>
                                 </a>
                             </li>
-                            <li>
+                            <li style="cursor:pointer">
                                 <a ng-click="addSite($event)">
                                     <button type="button" class="text addwebsitebutton" >+ ADD NEW WEBSITE</button>
                                 </a>
@@ -69,14 +69,14 @@
 
                             <h5 class="dropdownheadings">SETTINGS</h5>
                             <hr style="margin: 0px; border-color: #eaeaea">
-                            <li>
+                            <li >
                                 <a href="Overview.html">
                                     <span class="text">ACCOUNT</span>
                                     <p class="text" style="text-align: left;">Control your Account Settings</p>
                                 </a>
                             </li>
 
-                            <li>
+                            <li style="cursor:pointer">
                                 <a ng-click="googleLogout()">
                                     <i class="fa fa-sign-out ">
                                         <b class="bg-success"></b>
@@ -115,7 +115,7 @@
                 </li>
                 <hr style="margin: 0px; border-color: white">
 
-                <li>
+                <li style="cursor:pointer">
                     <a data-toggle="collapse" data-target="#submenu2">
                         <i class="fa fa-globe icon">
                             <b class="bg-success"></b>
@@ -124,10 +124,15 @@
 
                     </a>
                     <ul class="nav subMenu collapse" id="submenu2">
-                        <li ng-repeat="s in globals.currentUser.sites">
+                        <li ng-repeat="s in globals.currentUser.sites" style="cursor:pointer">
                             <a ng-click="switchSite()">
                                 <span class="text">{{s.site_name | uppercase}}</span>
                                 <button type="button" class="invisible" ng-class="{ 'switchbutton': selectedSite==s.site_name}">Selected</button>
+                            </a>
+                        </li>
+                        <li style="cursor:pointer">
+                            <a ng-click="addSite($event)">
+                                <button type="button" class="text addwebsitebutton">+ ADD NEW WEBSITE</button>
                             </a>
                         </li>
                     </ul>
@@ -142,7 +147,7 @@
                         <span class="text">OVERVIEW</span>
                     </a>
                 </li>
-                <li>
+                <li style="cursor:pointer">
                     <a data-toggle="collapse" data-target="#submenu1">
                         <i class="fa fa-pencil-square-o icon">
                             <b class="bg-success"></b>
@@ -174,7 +179,7 @@
                     </a>
                 </li>
                 <hr style="margin: 0px; border-color: white">
-                <li>
+                <li style="cursor:pointer">
                     <a ng-click="googleLogout()">
                         <i class="fa fa-sign-out ">
                             <b class="bg-success"></b>
@@ -205,7 +210,7 @@
                         <span class="text">OVERVIEW</span>
                     </a>
                 </li>
-                <li >
+                <li style="cursor:pointer">
                     <a data-toggle="collapse" data-target="#submenu3">
                         <i class="fa fa-pencil-square-o icon">
                             <b class="bg-success"></b>
