@@ -1,5 +1,5 @@
-﻿angular.module('DigitalMarket').factory('socket', ['$rootScope', function ($rootScope) {
-    var socket = io.connect("http://localhost:3000");
+﻿angular.module('DigitalMarket').factory('socket', ['$rootScope', 'chatUrl', function ($rootScope, chatUrl) {
+    var socket = io.connect(chatUrl);
 
     return {
         on: function (eventName, callback) {

@@ -13,16 +13,18 @@ namespace AdminWebApp
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+           
+            //routes.MapRoute(
+            //    name: "Default",
+            //    url: "",
+            //    defaults: new { controller = "Dashboard", action = "Index", id = UrlParameter.Optional }
+            //);
             routes.MapRoute(
-           name: "Admin",
-           url: "admin/{controller}/{action}/{id}",
-           defaults: new { controller = "Dashboard", action = "Index", id = UrlParameter.Optional }
-         );
-            routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { action = "Index", id = UrlParameter.Optional }
-            );
+        name: "Default",
+        url: "{*url}",
+        defaults: new { controller = "Dashboard", action = "Index" }
+    );
+
 
 
 

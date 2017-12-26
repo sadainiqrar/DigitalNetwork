@@ -1,9 +1,9 @@
 ﻿var serviceId = 'sessionFactory';
 
 angular.module('DigitalMarket').factory(serviceId,
-    ['$http',  sessionFactory]);
+    ['$http','apiUrl',  sessionFactory]);
 
-function sessionFactory($http) {
+function sessionFactory($http, apiUrl) {
 
     function getCurrentMonthSession(_uid , _username) {
 
@@ -19,7 +19,7 @@ function sessionFactory($http) {
         var t = to[0];
         var data = { uid: _uid, from_date: f, to_date: t, extra: _username };
       
-        return $http.post('http://localhost:3208/api/user/sessions', data);
+        return $http.post(apiUrl + 'api/user/sessions', data);
     }
     function getCurrentDaySession(_uid, _username) {
 
@@ -32,7 +32,7 @@ function sessionFactory($http) {
 
         var data = { uid: _uid, from_date: f, to_date: f, extra: _username };
 
-        return $http.post('http://localhost:3208/api/user/sessions', data);
+        return $http.post(apiUrl + 'api/user/sessions', data);
     }
 
 
@@ -50,14 +50,14 @@ function sessionFactory($http) {
         var t = to[0];
         var data = { ga_id: 'ga:162220485', from_date: f, to_date: t, extra: null };
 
-        return $http.post('http://localhost:3208/api/sessions', data);
+        return $http.post(apiUrl + 'api/sessions', data);
     }
     function getSession_campaign() {
 
 
         var data = { ga_id: 'ga:162220485', from_date: '2017-10-01', to_date: '2017-10-16', extra: null };
 
-        return $http.post('http://localhost:3208/api/campaign/sessions', data);
+        return $http.post(apiUrl + 'api/campaign/sessions', data);
     }
 
     function Session_campaign(_from_date, _to_date) {
@@ -73,7 +73,7 @@ function sessionFactory($http) {
         var data = { ga_id: 'ga:162220485', from_date: f, to_date: t, extra: null };
         
 
-        return $http.post('http://localhost:3208/api/campaign/sessions', data);
+        return $http.post(apiUrl + 'api/campaign/sessions', data);
     }
 
     function getSession_page() {
@@ -81,7 +81,7 @@ function sessionFactory($http) {
 
         var data = { ga_id: 'ga:162220485', from_date: '2017-10-01', to_date: '2017-10-16', extra: null };
 
-        return $http.post('http://localhost:3208/api/pages/sessions', data);
+        return $http.post(apiUrl + 'api/pages/sessions', data);
     }
 
 
@@ -101,7 +101,7 @@ function sessionFactory($http) {
     }
     function getRate(category) {
 
-        return $http.get('http://localhost:3208/api/rate/' + category);
+        return $http.get(apiUrl + 'api/rate/' + category);
 
     }
 

@@ -5,8 +5,8 @@
         .module('DigitalMarket')
         .factory('UserService', UserService);
 
-    UserService.$inject = ['$http'];
-    function UserService($http) {
+    UserService.$inject = ['$http', 'apiUrl'];
+    function UserService($http, apiUrl) {
         var service = {};
 
         service.GetAll = GetAll;
@@ -29,7 +29,7 @@
         function GetUser(_uid, _fullname) {
         
             var data = { uid: _uid, fullname:_fullname };
-            return $http.post('http://localhost:3208/api/user/login',data).then(handleSuccess, handleError('Error getting user by username'));
+            return $http.post(apiUrl + 'api/user/login',data).then(handleSuccess, handleError('Error getting user by username'));
         }
 
         function Create(user) {

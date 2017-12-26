@@ -310,7 +310,7 @@ namespace DigitalNetwork.Controllers
                 }
 
             }
-            res.avg = res.avg / total;
+            res.avg = total == 0 ? res.avg : res.avg / total;
             res.mapData = map;
             return res;
         }

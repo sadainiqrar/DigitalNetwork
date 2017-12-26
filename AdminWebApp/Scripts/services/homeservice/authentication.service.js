@@ -27,7 +27,7 @@
                         if (user !== null && user.data !== null) {
 
                             authdata = user;
-                            response = { success: true };
+                            response = { success: true, user: authdata };
                         } else {
                             authdata = {};
                             response = { success: false, message: 'Cannot Sign In' };
@@ -53,7 +53,7 @@
                             email: authdata.data.email,
                             photo_url: authdata.data.photo_url,
                             sites: authdata.data.sites,
-                            currentSite: null
+                            currentSite: authdata.data.sites[0]
                         }
             };
             

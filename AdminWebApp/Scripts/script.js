@@ -83,10 +83,12 @@ scotchApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '
         });
 
 
+    $locationProvider.html5Mode(true).hashPrefix('#!/');
 }]);
 
 scotchApp.run(run);
 
+scotchApp.constant('apiUrl', 'http://localhost:3208/');
 run.$inject = ['$rootScope', '$location', '$state', '$cookies', '$http', 'GoogleSignin','AuthenticationService'];
 function run($rootScope, $location, $state, $cookies, $http, GoogleSignin, AuthenticationService) {
 
@@ -101,17 +103,19 @@ function run($rootScope, $location, $state, $cookies, $http, GoogleSignin, Authe
         // redirect to login page if not logged in and trying to access a restricted page
         var restrictedPage = $.inArray($location.path(), ['/']) === -1;
         var loggedIn = $rootScope.globals.currentUser;
+        
         $rootScope.$on('signedout', function () {
             AuthenticationService.ClearCredentials();
             $state.go("home.login");
         });
         $rootScope.$on('signedin', function (message, user) {
-            if ($rootScope.globals.currentUser.email !== user) {
-                AuthenticationService.ClearCredentials();
-                $state.go("home.login");
+            if ($rootScope.globals.currentUser) {
+                if ($rootScope.globals.currentUser.email !== user) {
+                    AuthenticationService.ClearCredentials();
+                    $state.go("home.login");
+                }
             }
         });
-
         if (restrictedPage && !loggedIn) {
             $location.path('/');
         }

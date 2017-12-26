@@ -62,7 +62,7 @@ angular.module('DigitalMarket').controller('dashboardController', function ($sco
                 clickOutsideToClose: true
             })
                 .then(function (answer) {
-                    if (answer === "Submitted")
+                    if (answer === "Submited")
                         {
                     $mdDialog.show({
                         locals: { data: "Your Website is Successfully Connected" },
@@ -110,11 +110,13 @@ angular.module('DigitalMarket').controller('dashboardController', function ($sco
                 sitesFactory.addSite($scope.selectedSite.site_url, $scope.selectedSite.site_name, $scope.selectedSite.ga_id, $scope.ischecked, $rootScope.globals.currentUser.email).then(
                     // callback function for successful http request
                     function success(response) {
+
+                        $mdDialog.hide("Submited");
                         $rootScope.globals.currentUser.sites = response.data;
                         var cookieExp = new Date();
                         cookieExp.setDate(cookieExp.getDate() + 7);
                         $cookies.putObject('globals', $rootScope.globals, { expires: cookieExp });
-
+                        
                     },
                     // callback function for error in http request
                     function error(response) {
@@ -122,7 +124,9 @@ angular.module('DigitalMarket').controller('dashboardController', function ($sco
                     }
                     );
                 }
-                $scope.cancel();
+                else{
+                    $scope.cancel();
+                }
             }
             $scope.cancel = function () {
                 $mdDialog.cancel();

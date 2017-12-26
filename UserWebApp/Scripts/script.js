@@ -77,11 +77,16 @@ scotchApp.config(['$stateProvider', 'FacebookProvider', '$urlRouterProvider', '$
             templateUrl: 'Views/Dashboard/Home/register.view.html',
             controller: 'RegisterController',
             controllerAs: 'vm'
-        });
+            });
+
+        $locationProvider.html5Mode(true).hashPrefix('#!/');
+    
         
 
 	}]);
 
+scotchApp.constant('apiUrl', 'http://localhost:3208/');
+scotchApp.constant('chatUrl', 'http://localhost:3000');
     scotchApp.run(run);
 
     run.$inject = ['$rootScope', 'Facebook', 'realtimeHubProxy', 'AuthenticationService', '$location', '$state', '$cookies', '$http'];

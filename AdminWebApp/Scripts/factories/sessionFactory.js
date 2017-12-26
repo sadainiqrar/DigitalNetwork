@@ -1,9 +1,9 @@
 ﻿var serviceId = 'sessionFactory';
 
 angular.module('DigitalMarket').factory(serviceId,
-    ['$http',  sessionFactory]);
+    ['$http','apiUrl',  sessionFactory]);
 
-function sessionFactory($http) {
+function sessionFactory($http, apiUrl) {
 
     function getCurrentMonthSession(_gid , _email) {
 
@@ -19,7 +19,7 @@ function sessionFactory($http) {
         var t = to[0];
         var data = { ga_id: _gid, from_date: f, to_date: t, extra: _email };
       
-        return $http.post('http://localhost:3208/api/admin/sessions', data);
+        return $http.post(apiUrl + 'api/admin/sessions', data);
     }
     function getCurrentDaySession(_gid, _email) {
 
@@ -32,7 +32,7 @@ function sessionFactory($http) {
         
         var data = { ga_id: _gid, from_date: f, to_date: f, extra: _email };
 
-        return $http.post('http://localhost:3208/api/admin/sessions', data);
+        return $http.post(apiUrl + 'api/admin/sessions', data);
     }
 
 
@@ -55,7 +55,7 @@ function sessionFactory($http) {
     }
     function getRate(category) {
 
-        return $http.get('http://localhost:3208/api/rate/' + category);
+        return $http.get(apiUrl + 'api/rate/' + category);
 
     }
 

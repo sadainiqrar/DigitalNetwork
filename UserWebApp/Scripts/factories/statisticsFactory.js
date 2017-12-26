@@ -1,9 +1,9 @@
 ﻿var serviceId = 'statisticsFactory';
 
 angular.module('DigitalMarket').factory(serviceId,
-    ['$http', statisticsFactory]);
+    ['$http','apiUrl', statisticsFactory]);
 
-function statisticsFactory($http) {
+function statisticsFactory($http, apiUrl) {
 
     function get_statistics(_uid,_from,_to,_extra) {
         var fromYear = _from.toISOString();
@@ -15,11 +15,11 @@ function statisticsFactory($http) {
 
         var t = to[0];
         var data = { uid: _uid, from_date: f, to_date: t, extra: _extra };
-        return $http.post('http://localhost:3208/api/user/statistics', data);
+        return $http.post(apiUrl + 'api/user/statistics', data);
     }
 
     function get_top() {
-        return $http.get('http://localhost:3208/api/user/topusers');
+        return $http.get(apiUrl + 'api/user/topusers');
     }
 
 

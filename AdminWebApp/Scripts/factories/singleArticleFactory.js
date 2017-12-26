@@ -1,12 +1,12 @@
 ﻿var serviceId = 'singleArticleFactory';
 
 angular.module('DigitalMarket').factory(serviceId,
-    ['$http', singleArticleFactory]);
+    ['$http','apiUrl', singleArticleFactory]);
 
-function singleArticleFactory($http) {
+function singleArticleFactory($http, apiUrl) {
 
     function getArticle(_serial) {
-        return $http.get('http://localhost:3208/api/user/article/' + _serial);
+        return $http.get(apiUrl + 'api/user/article/' + _serial);
     }
     
 
