@@ -19,6 +19,7 @@ namespace DigitalNetwork.Models
         public int traffic { get; set; }
         public decimal amount { get; set; }
         public System.DateTime payment_date { get; set; }
+        public string status { get; set; }
     
         public virtual User User { get; set; }
     }

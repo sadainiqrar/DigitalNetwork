@@ -4,26 +4,28 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f73b293aafa24bf485be4503d0948af8" Name="Diagram1">
-        <EntityTypeShape EntityType="digimarketModel.Admin" Width="1.5" PointX="1.5" PointY="18.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="digimarketModel.Article" Width="1.5" PointX="6.5" PointY="13.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="digimarketModel.DeletedArticle" Width="1.5" PointX="3.75" PointY="19.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="digimarketModel.Payment" Width="1.5" PointX="3" PointY="2.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="digimarketModel.Rate" Width="1.5" PointX="5.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="digimarketModel.Rates_History" Width="1.5" PointX="8" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="digimarketModel.Site" Width="1.5" PointX="1.5" PointY="15.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="digimarketModel.Sites_Custom" Width="1.5" PointX="2.5" PointY="23.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="digimarketModel.User" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="digimarketModel.User_Articles" Width="1.5" PointX="6" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="digimarketModel.User_Date" Width="1.5" PointX="3" PointY="8.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="digimarketModel.User_Marketing_Sources" Width="1.5" PointX="3" PointY="11.125" IsExpanded="true" />
-        <AssociationConnector Association="digimarketModel.FK__User_Arti__seria__02084FDA" ManuallyRouted="false" />
+      <Diagram DiagramId="931d403c659f44098bdcda0d74726a5e" Name="Diagram1">
+        <EntityTypeShape EntityType="digimarketModel.Admin" Width="1.5" PointX="1.5" PointY="20.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="digimarketModel.Article" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="digimarketModel.DeletedArticle" Width="1.5" PointX="3.75" PointY="20.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="digimarketModel.Notification" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="digimarketModel.Payment" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="digimarketModel.Rate" Width="1.5" PointX="5.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="digimarketModel.Rates_History" Width="1.5" PointX="8" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="digimarketModel.Site" Width="1.5" PointX="1.5" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="digimarketModel.Sites_Custom" Width="1.5" PointX="3.75" PointY="24.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="digimarketModel.User" Width="1.5" PointX="0.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="digimarketModel.User_Articles" Width="1.5" PointX="6" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="digimarketModel.User_Date" Width="1.5" PointX="3" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="digimarketModel.User_Marketing_Sources" Width="1.5" PointX="3" PointY="17" IsExpanded="true" />
+        <AssociationConnector Association="digimarketModel.FK__User_Arti__seria__1A9EF37A" ManuallyRouted="false" />
         <AssociationConnector Association="digimarketModel.FK_Articles_Sites" ManuallyRouted="false" />
         <AssociationConnector Association="digimarketModel.FK_DeletedArticles_Sites" ManuallyRouted="false" />
+        <AssociationConnector Association="digimarketModel.FK_Notification_User" ManuallyRouted="false" />
         <AssociationConnector Association="digimarketModel.FK_Payment_User" ManuallyRouted="false" />
         <AssociationConnector Association="digimarketModel.FK_Rates_History_Rate" ManuallyRouted="false" />
         <AssociationConnector Association="digimarketModel.FK_Sites_Custom_Sites" ManuallyRouted="false" />
-        <AssociationConnector Association="digimarketModel.FK__User_Articl__uid__01142BA1" ManuallyRouted="false" />
+        <AssociationConnector Association="digimarketModel.FK__User_Articl__uid__1B9317B3" ManuallyRouted="false" />
         <AssociationConnector Association="digimarketModel.FK_User_Date_User" ManuallyRouted="false" />
         <AssociationConnector Association="digimarketModel.FK_User_Marketing_Sources_User" ManuallyRouted="false" />
         <AssociationConnector Association="digimarketModel.AdminSite" ManuallyRouted="false" />

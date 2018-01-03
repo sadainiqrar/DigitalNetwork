@@ -11,13 +11,10 @@ namespace DigitalNetwork.Models
 {
     using System;
     
-    public partial class get_payment_Result
+    public partial class get_user_sources_Result
     {
-        public int invoice_id { get; set; }
+        public string ums_id { get; set; }
         public string uid { get; set; }
-        public int traffic { get; set; }
-        public decimal amount { get; set; }
-        public System.DateTime payment_date { get; set; }
-        public string status { get; set; }
+        public string url { get; set; }
     }
 }

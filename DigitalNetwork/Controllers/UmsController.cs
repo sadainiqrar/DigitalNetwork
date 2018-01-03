@@ -28,7 +28,7 @@ namespace DigitalNetwork.Controllers
         [Route("api/ums/add")]
         public int PutUms([FromBody]User_Marketing_Sources ums)
         {
-            return db.add_ums(ums.ums_id, ums.uid);
+            return db.add_ums(ums.ums_id, ums.uid,ums.url);
         }
 
 

@@ -1,5 +1,5 @@
 	// create the controller and inject Angular's $scope
-angular.module('DigitalMarket').controller('dashboardController', function ($scope, socket, Facebook, AuthenticationService, $rootScope, $state, $cookies, $location, statisticsFactory) {
+angular.module('DigitalMarket').controller('dashboardController', function ($scope,$document, $anchorScroll, socket, Facebook, AuthenticationService, $rootScope, $state, $cookies, $location, statisticsFactory) {
     $rootScope.globals = $cookies.getObject('globals') || {};
 
    $scope.userdata = $rootScope.globals.currentUser;
@@ -33,6 +33,10 @@ angular.module('DigitalMarket').controller('dashboardController', function ($sco
            // log errors
        }
    );
+
+   $scope.anchor = function () {
+       $anchorScroll('bottom');
+   }
 
    $scope.hidechat = function ()
    {
@@ -93,6 +97,7 @@ angular.module('DigitalMarket').controller('dashboardController', function ($sco
         socket.on("message", function (data) {
 
             $scope.messages.push({ username: data.username, message: data.message });
+            $scope.anchor();
         });
 
         socket.on("unjoin", function (data) {

@@ -116,10 +116,11 @@ namespace DigitalNetwork.DataModel
     public class UserStats
     {
         public string day { get; set; }
+        public DateTime date { get; set; }
         public long premium { get; set; }
         public long non_premium { get; set; }
         public long total_traffic { get; set; }
-        public long total_earning { get; set; }
+        public double total_earning { get; set; }
 
         public List<CountryStats> country_stats { get; set; }
     }
@@ -152,6 +153,15 @@ namespace DigitalNetwork.DataModel
         public long non_premium { get; set; }
 
     }
+    public class user_traffic_earning
+    {
+        public long todayTraffic { get; set; }
+        public long monthlyTraffic { get; set; }
+        public Double monthlyEarned { get; set; }
+        public Double todayEarned { get; set; }
+
+    }
+
     public class user_earned
     {
         public double premium { get; set; }

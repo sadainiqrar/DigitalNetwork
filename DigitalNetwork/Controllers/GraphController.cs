@@ -70,7 +70,15 @@ namespace DigitalNetwork.Controllers
             List<GraphStats> stats = new List<GraphStats>() ;
             AdminGraph data = new AdminGraph() { amount = 0.0, graph=stats };
             var to = System.DateTime.Now;
-            var from = new DateTime(to.Year, to.Month - 1, to.Day);
+            var from = System.DateTime.Now;
+            if (to.Month == 1)
+            {
+                from = new DateTime(to.Year - 1, 12, to.Day);
+            }
+            else
+            {
+                from = new DateTime(to.Year, to.Month - 1, to.Day);
+            }
             //List < List < UserStats >> total_stats = new List<List<UserStats>>();
 
             List<GraphStats> list = new List<GraphStats>();

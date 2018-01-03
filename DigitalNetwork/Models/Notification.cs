@@ -10,14 +10,17 @@
 namespace DigitalNetwork.Models
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class get_payment_Result
+    public partial class Notification
     {
-        public int invoice_id { get; set; }
+        public int n_id { get; set; }
+        public string message { get; set; }
+        public string category { get; set; }
         public string uid { get; set; }
-        public int traffic { get; set; }
-        public decimal amount { get; set; }
-        public System.DateTime payment_date { get; set; }
-        public string status { get; set; }
+        public bool status { get; set; }
+        public System.DateTime date { get; set; }
+    
+        public virtual User User { get; set; }
     }
 }

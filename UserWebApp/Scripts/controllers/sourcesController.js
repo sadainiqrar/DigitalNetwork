@@ -76,7 +76,7 @@ function sourcesController($scope, Facebook, $rootScope, $cookies, umsFactory, M
 
             $scope.loginStatus = response.status;
             Facebook.api('/me/accounts', {
-                fields: 'id,name,category,picture.type(large),fan_count,overall_star_rating'
+                fields: 'id,name,category,picture.type(large),fan_count,overall_star_rating,link'
             }, function (response) {
                 if (response) {
                     $scope.ums = response.data;
@@ -102,7 +102,7 @@ function sourcesController($scope, Facebook, $rootScope, $cookies, umsFactory, M
 
                     $scope.loginStatus = response.status;
                     Facebook.api('/me/accounts', {
-                        fields: 'id,name,category,picture.type(large),fan_count,overall_star_rating'
+                        fields: 'id,name,category,picture.type(large),fan_count,overall_star_rating,link'
                     }, function (response) {
                         if (response) {
                             $scope.ums = response.data;
@@ -148,7 +148,7 @@ function sourcesController($scope, Facebook, $rootScope, $cookies, umsFactory, M
 
     $scope.addPage = function () {
         var obj = this.s;
-        umsFactory.addUms(obj.id, $scope.uid).then(
+        umsFactory.addUms(obj.id, obj.link, $scope.uid).then(
             // callback function for successful http request
             function success(response) {
                 $scope.addedUms.push(obj);

@@ -270,10 +270,16 @@
     <Compile Include="Models\getArticleBySerial_Result.cs">
       <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\get_adminPayments_Result.cs">
+      <DependentUpon>digimarketEntities1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\get_admin_articles_Result.cs">
       <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\get_admin_gid_Result.cs">
+      <DependentUpon>digimarketEntities1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\get_admin_payments_Result.cs">
       <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\get_admin_single_article_Result.cs">
@@ -294,7 +300,13 @@
     <Compile Include="Models\get_joining_date_Result.cs">
       <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\get_notification_Result.cs">
+      <DependentUpon>digimarketEntities1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\get_payment_Result.cs">
+      <DependentUpon>digimarketEntities1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\get_pending_user_Result.cs">
       <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\get_rate_Result.cs">
@@ -312,7 +324,13 @@
     <Compile Include="Models\get_user_single_article_Result.cs">
       <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\get_user_sources_Result.cs">
+      <DependentUpon>digimarketEntities1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\get_user_traffic_Result.cs">
+      <DependentUpon>digimarketEntities1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Notification.cs">
       <DependentUpon>digimarketEntities1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Payment.cs">
@@ -356,6 +374,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="countrydata.json" />
     <EntityDeploy Include="Models\digimarketEntities1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>digimarketEntities1.Designer.cs</LastGenOutput>
@@ -363,7 +382,6 @@
     <Content Include="Models\digimarketEntities1.edmx.diagram">
       <DependentUpon>digimarketEntities1.edmx</DependentUpon>
     </Content>
-    <Content Include="countrydata.json" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

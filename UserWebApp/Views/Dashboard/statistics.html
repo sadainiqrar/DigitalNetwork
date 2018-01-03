@@ -89,7 +89,7 @@
 
                                 <tr>
                                     <td class="yeclass" style="font-size: 8pt"></td>
-                                    <td id="tsp1">{{s.day}}</td>
+                                    <td id="tsp1">{{s.date | date:"fullDate"}}</td>
                                     <td id="tsp2">{{$parent.abbreviate(s.total_traffic)}}</td>
                                     <td id="tsp3">{{s.total_earning | currency :"$"}}</td>
 

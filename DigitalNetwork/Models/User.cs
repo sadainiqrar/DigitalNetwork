@@ -17,6 +17,7 @@ namespace DigitalNetwork.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
+            this.Notifications = new HashSet<Notification>();
             this.Payments = new HashSet<Payment>();
             this.User_Articles = new HashSet<User_Articles>();
             this.User_Marketing_Sources = new HashSet<User_Marketing_Sources>();
@@ -27,6 +28,8 @@ namespace DigitalNetwork.Models
         public string photourl { get; set; }
         public string fullname { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Notification> Notifications { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Payment> Payments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

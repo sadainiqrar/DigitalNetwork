@@ -251,9 +251,10 @@
 
             <hr class="chatline" style="margin: 0;margin-left: 5px">
 
-            <div class="col-md-12 subPanel" style="overflow-y: auto;overflow-x: hidden; height: 400px;">
 
-                <div class="row rowpad" style="height:fit-content" ng-repeat="m in messages">
+            <div id="abc" class="col-md-12 subPanel" style="overflow-y: auto;overflow-x: hidden; height: 400px;">
+
+                <div class="row rowpad" style="height:fit-content" ng-repeat="m in messages | orderBy:'':false">
 
                     <div class="col-lg-2 col-md-2" ng-class="{ 'userchat': m.username!=userdata.username,'friendchat': m.username==userdata.username }">
 
@@ -265,13 +266,15 @@
                     </div>
 
                 </div>
+                {{ anchor()}}
+                <a id="bottom" ng-init=""></a>
+
 
 
 
 
 
             </div>
-
 
             <div class="col-md-12">
 

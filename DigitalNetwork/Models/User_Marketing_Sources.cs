@@ -16,6 +16,7 @@ namespace DigitalNetwork.Models
     {
         public string ums_id { get; set; }
         public string uid { get; set; }
+        public string url { get; set; }
     
         public virtual User User { get; set; }
     }

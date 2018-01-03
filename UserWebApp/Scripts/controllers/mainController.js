@@ -26,6 +26,9 @@ function mainController($scope, Facebook, $rootScope, clipboard, $cookies, artic
     $scope.dailyIsLoading = true;
     $scope.monthlyTrafficIsLoading = true;
     $scope.umsLoading = true;
+    $scope.sessions = 0;
+    $scope.monthly_earned = 0;
+    $scope.today_earned = 0;
     umsFactory.getUms($scope.uid).then(
         // callback function for successful http request
         function success(response) {
@@ -136,90 +139,28 @@ function mainController($scope, Facebook, $rootScope, clipboard, $cookies, artic
 
 
 
-    sessionFactory.getCurrentMonthSession($scope.uid, $scope.id).then(
+    sessionFactory.getSession($scope.uid, $scope.id).then(
         // callback function for successful http request
         function success(response) {
-            $scope.sessions = response.data.premium + response.data.non_premium;
+            $scope.sessions =response.data.monthlyTraffic ;
+            $scope.monthly_earned = response.data.monthlyEarned;
+            $scope.today_earned = response.data.todayEarned;
+            $scope.monthlyIsLoading = false;
+            $scope.dailyIsLoading = false;
             $scope.monthlyTrafficIsLoading = false;
-            $scope.monthly_earned = 0.0;
-            var premium = response.data.premium;
-            var non_premium = response.data.non_premium;
-            sessionFactory.getRate("premium").then(
-                // callback function for successful http request
-                function success(response) {
-                    $scope.monthly_earned = $scope.monthly_earned + ((premium/1000) * response.data[0].rate);
-                    
-
-                },
-                // callback function for error in http request
-                function error(response) {
-                    // log errors
-                    $scope.monthlyIsLoading = false;
-                    $scope.monthlyTrafficIsLoading = false;
-                }
-            );
-            sessionFactory.getRate("non-premium").then(
-                // callback function for successful http request
-                function success(response) {
-                    $scope.monthly_earned = $scope.monthly_earned + ((non_premium/1000) * response.data[0].rate);
-                    $scope.monthlyIsLoading = false;
-
-                },
-                // callback function for error in http request
-                function error(response) {
-
-                    $scope.monthlyIsLoading = false;
-                    $scope.monthlyTrafficIsLoading = false;
-                    // log errors
-                }
-            );
+          
+           
 
         },
         // callback function for error in http request
         function error(response) {
             // log errors
+            $scope.monthlyIsLoading = false;
+            $scope.dailyIsLoading = false;
+            $scope.monthlyTrafficIsLoading = false;
         }
     );
-    sessionFactory.getCurrentDaySession($scope.uid, $scope.id).then(
-        // callback function for successful http request
-        function success(response) {
-            $scope.today_earned = 0.0;
-            var premium = response.data.premium;
-            var non_premium = response.data.non_premium;
-            sessionFactory.getRate("premium").then(
-                // callback function for successful http request
-                function success(response) {
-                    $scope.today_earned = $scope.today_earned + ((premium/1000) * response.data[0].rate);
-                   
-
-                },
-                // callback function for error in http request
-                function error(response) {
-                    $scope.dailyIsLoading = false;
-                    // log errors
-                }
-            );
-            sessionFactory.getRate("non-premium").then(
-                // callback function for successful http request
-                function success(response) {
-                    $scope.today_earned = $scope.today_earned + ((non_premium/1000) * response.data[0].rate);
-                    $scope.dailyIsLoading = false;
-
-                },
-                // callback function for error in http request
-                function error(response) {
-                    // log errors
-
-                    $scope.dailyIsLoading = false;
-                }
-            );
-
-        },
-        // callback function for error in http request
-        function error(response) {
-            // log errors
-        }
-    );
+  
 
 
     $scope.openModal = function (id) {
